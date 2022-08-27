@@ -12,6 +12,15 @@ namespace GDO\KassiererCard\tpl\page;
 
 <p>This is were <a href="https://kassierercard.org">Kassierercard</a> steps in. Our bonus program is focused to aid the people who keep the business running, for a minimum wage.</p>
 
-<p>If you wanna help your local cashier, simply register and give him credit, where credit is due!</p>
+<p>If you wanna help your local employees, register and give them credit, where credit is due!</p>
+
+<br/>
+
+<hr/>
+
+<br/>
+
+<p>Please note that this project is at the very beginning.</p>
+<p>We are looking for partners!</p>
 
 <em>&copy; 2022 - KassiererCard.org</em>
