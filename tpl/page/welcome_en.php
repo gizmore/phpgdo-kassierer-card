@@ -1,5 +1,6 @@
 <?php
 namespace GDO\KassiererCard\tpl\page;
+use GDO\UI\GDT_Link;
 ?>
 <h2>Welcome to <?=sitename()?></h2>
 
@@ -10,9 +11,9 @@ namespace GDO\KassiererCard\tpl\page;
 <p>So, what do these systems have in common?</p>
 <p>Right, they are about the customer. No one ever thinks of the workers, the cashiers, the drivers, the cleaning personal, and maybe even some managers.</p>
 
-<p>This is were <a href="https://kassierercard.org">Kassierercard</a> steps in. Our bonus program is focused to aid the people who keep the business running, for a minimum wage.</p>
+<p>This is were <a href="https://kassierercard.org">Kassierercard</a> steps in. Our bonus program is focused to aid the people who keep the business running, often for the minimum wage.</p>
 
-<p>If you wanna help your local employees, register and give them credit, where credit is due!</p>
+<p>If you wanna help your local employees, <?=GDT_Link::anchor(href('Register','Form'), 'register')?> and give them credit, where credit is due.</p>
 
 <br/>
 

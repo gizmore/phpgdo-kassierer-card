@@ -6,6 +6,7 @@ use GDO\UI\GDT_Badge;
 use GDO\UI\GDT_Page;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_User;
+use GDO\UI\GDT_Card;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -27,7 +28,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Register', 'Recovery', 'Maps', 'Category',
 			'PM', 'Contact', 'Avatar', 'Licenses',
 			'ActivationAlert', 'Invite', 'Birthday',
-			'FontAwesome', 'Markdown',
+			'FontAwesome', 'Markdown', 'News',
 		];
 	}
 	
@@ -36,6 +37,7 @@ final class Module_KassiererCard extends GDO_Module
 		return [
 			KC_Business::class,
 			KC_Working::class,
+			KC_Coupon::class,
 		];
 	}
 	
@@ -63,11 +65,12 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function getUserSettings() : array
 	{
-		return [];
+		return [
+		];
 	}
 	
 	############
-	### Hook ###
+	### Init ###
 	############
 	public function onLoadLanguage() : void
 	{
@@ -83,7 +86,7 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		$page = GDT_Page::instance();
 		$page->leftBar()->addFields(
-			GDT_Link::make('link_kk_home')->href($this->href('Welcome')),
+			GDT_Link::make('link_kk_home')->icon('cc')->href($this->href('Welcome')),
 			GDT_Link::make('link_kk_businesses')->href($this->href('Businesses')),
 			GDT_Link::make('link_kk_employees')->href($this->href('Empolyees')),
 			GDT_Link::make('link_kk_help')->href($this->href('Help')),
@@ -103,5 +106,16 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Link::make('link_kk_partners')->href($this->href('Partners')),
 		);
 	}
+	
+	############
+	### Hook ###
+	############
+	public function hookCreateCardUserProfile(GDT_Card $card)
+	{
+		$user = $card->gdo->getUser();
+		$linkPM = GDT_Link::make()->href($this->href('SendCoupons', '&user='.$user->renderUserName()))->label('btn_send_coupons');
+		$card->actions()->addField($linkPM);
+	}
+	
 	
 }

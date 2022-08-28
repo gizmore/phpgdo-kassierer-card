@@ -13,10 +13,11 @@ use GDO\Core\GDT_EditedBy;
 use GDO\Core\GDT_DeletedAt;
 use GDO\Core\GDT_DeletedBy;
 use GDO\Core\GDT_String;
-use GDO\Date\GDT_DateTime;
 use GDO\Date\GDT_Timestamp;
 use GDO\Table\GDT_ListItem;
 use GDO\Address\GDO_Address;
+use GDO\UI\GDT_Button;
+use GDO\User\GDO_User;
 
 /**
  * A business in the crude world.
@@ -45,14 +46,59 @@ final class KC_Business extends GDO
 	}
 	
 	public function getAddress() : GDO_Address { return $this->gdoValue('biz_address'); }
-
-	public function renderList() : string
+	
+	public function isWorkingHere(GDO_User $user) : bool
+	{
+		return KC_Working::isWorkingThere($user, $this);
+	}
+	
+	public function getListItem() : GDT_ListItem
 	{
 		$addr = $this->getAddress();
 		$li = GDT_ListItem::make();
 		$li->titleRaw($addr->gdoVar('address_company'));
 		$li->subtitle(GDT_String::make()->var($addr->getAddressLine()));
-		return $li->render();
+		
+		$user = GDO_User::current();
+		if ($this->isWorkingHere($user))
+		{
+			$li->actions()->addFields(
+				GDT_Button::make('btn_stopped_there')->href(href('KassiererCard', 'WorkingThere', "&not_anmyore=1&biz={$this->getID()}"))->icon('error'),
+			);
+		}
+		else
+		{
+			$li->actions()->addFields(
+				GDT_Button::make('btn_working_there')->href(href('KassiererCard', 'WorkingThere', "&biz={$this->getID()}"))->icon('construction'),
+			);
+		}
+		return $li;
+	}
+
+	public function renderName() : string
+	{
+		return $this->renderAddressLine();
+	}
+	
+	public function renderList() : string
+	{
+		return $this->getListItem()->render();
+	}
+	
+	public function renderOption() : string
+	{
+		return $this->renderAddressLine();
+	}
+	
+	public function renderAddressLine() : string
+	{
+		$a = $this->getAddress();
+		$line = $a->getCompany() . ', ' . $a->getStreet() . ', ' . $a->getCity();
+		if (!($line = trim($line, ', ')))
+		{
+			return t('business', [$this->getID()]);
+		}
+		return $line;
 	}
 	
 }
