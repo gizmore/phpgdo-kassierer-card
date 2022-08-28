@@ -5,6 +5,7 @@ use GDO\Core\GDO_Module;
 use GDO\UI\GDT_Badge;
 use GDO\UI\GDT_Page;
 use GDO\UI\GDT_Link;
+use GDO\User\GDO_User;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -14,7 +15,7 @@ use GDO\UI\GDT_Link;
  */
 final class Module_KassiererCard extends GDO_Module
 {
-	public int $priority = 100;
+	public int $priority = 25;
 	
 	public function getTheme() : ?string { return 'kkorg'; }
 	
@@ -26,6 +27,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Register', 'Recovery', 'Maps', 'Category',
 			'PM', 'Contact', 'Avatar', 'Licenses',
 			'ActivationAlert', 'Invite', 'Birthday',
+			'FontAwesome', 'Markdown',
 		];
 	}
 	
@@ -53,9 +55,9 @@ final class Module_KassiererCard extends GDO_Module
 	public function getUserConfig() : array
 	{
 		return [
-			GDT_Badge::make('coupon_kind')->initial('0'),
-			GDT_Badge::make('coupon_fast')->initial('0'),
-			GDT_Badge::make('coupon_help')->initial('0'),
+			GDT_Badge::make('coupon_kind')->tooltip('tt_coupon_kind')->icon('user'),
+			GDT_Badge::make('coupon_fast')->tooltip('tt_coupon_fast')->icon('user'),
+			GDT_Badge::make('coupon_help')->tooltip('tt_coupon_help')->icon('user'),
 		];
 	}
 	
@@ -85,7 +87,20 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Link::make('link_kk_businesses')->href($this->href('Businesses')),
 			GDT_Link::make('link_kk_employees')->href($this->href('Empolyees')),
 			GDT_Link::make('link_kk_help')->href($this->href('Help')),
-			
+		);
+		
+		$user = GDO_User::current();
+		if ($user->isUser())
+		{
+			$page->rightBar()->addFields(
+				GDT_Badge::make()->icon('user')->tooltip('tt_coupon_kind')->label('coupon_kind')->var($user->settingVar('KassiererCard', 'coupon_kind')),
+				GDT_Badge::make()->icon('user')->tooltip('tt_coupon_fast')->label('coupon_fast')->var($user->settingVar('KassiererCard', 'coupon_fast')),
+				GDT_Badge::make()->icon('user')->tooltip('tt_coupon_help')->label('coupon_help')->var($user->settingVar('KassiererCard', 'coupon_help')),
+			);
+		}
+		
+		$page->bottomBar()->addFields(
+			GDT_Link::make('link_kk_partners')->href($this->href('Partners')),
 		);
 	}
 	
