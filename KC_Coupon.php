@@ -19,6 +19,7 @@ final class KC_Coupon extends GDO
 		return [
 			GDT_AutoInc::make('coup_id'),
 			GDT_CouponType::make('coup_type'),
+			GDT_CouponStars::make('coup_stars'),
 			GDT_CreatedBy::make('coup_creator'),
 			GDT_CreatedAt::make('coup_created'),
 		];
