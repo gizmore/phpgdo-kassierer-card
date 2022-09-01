@@ -12,7 +12,6 @@ use GDO\Core\GDT_EditedAt;
 use GDO\Core\GDT_EditedBy;
 use GDO\Core\GDT_DeletedAt;
 use GDO\Core\GDT_DeletedBy;
-use GDO\Core\GDT_String;
 use GDO\Date\GDT_Timestamp;
 use GDO\Table\GDT_ListItem;
 use GDO\Address\GDO_Address;
@@ -57,7 +56,7 @@ final class KC_Business extends GDO
 		$addr = $this->getAddress();
 		$li = GDT_ListItem::make();
 		$li->titleRaw($addr->gdoVar('address_company'));
-		$li->subtitle(GDT_String::make()->var($addr->getAddressLine()));
+		$li->subtitleRaw($addr->getAddressLine());
 		
 		$user = GDO_User::current();
 		if ($this->isWorkingHere($user))

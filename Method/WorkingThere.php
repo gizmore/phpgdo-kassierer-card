@@ -37,7 +37,7 @@ final class WorkingThere extends MethodForm
 		);
 		$form->actions()->addFields(
 			GDT_Submit::make('btn_working_there')->disabled($working)->icon('construction')->onclick([$this, 'onStartedWork']),
-			GDT_Submit::make('btn_stopped_there')->disabled(!$working)->icon('error')->onclick([$this, 'onStoppedWork']),
+			GDT_Submit::make('btn_stopped_there')->enabled($working)->icon('error')->onclick([$this, 'onStoppedWork']),
 		);
 	}
 	
