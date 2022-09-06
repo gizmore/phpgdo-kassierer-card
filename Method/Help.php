@@ -10,5 +10,14 @@ use GDO\UI\MethodPage;
  */
 final class Help extends MethodPage
 {
+	public function getMethodTitle() : string
+	{
+		return t('mt_faq');
+	}
+	
+	public function getMethodDescription() : string
+	{
+		return t('md_faq');
+	}
 	
 }

@@ -14,13 +14,13 @@ final class KCTest extends TestCase
 	{
 		# These get installed on install.
 		$cats = GDO_Category::table()->countWhere();
-		assertGreaterThanOrEqual(5, $cats, 'Test if categories were created.');
+		assertGreaterThanOrEqual(5, $cats, 'Test if kk categories were created.');
 		
 		$bizs = KC_Business::table()->countWhere();
-		assertGreaterThanOrEqual(2, $bizs, 'Test if businesses were created.');
+		assertGreaterThanOrEqual(2, $bizs, 'Test if kk businesses were created.');
 
 		$addr = GDO_Address::table()->countWhere();
-		assertGreaterThanOrEqual($bizs, $addr, 'Test if addresses were created.');
+		assertGreaterThanOrEqual($bizs, $addr, 'Test if kk addresses were created.');
 	}
 	
 }
