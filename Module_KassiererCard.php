@@ -29,6 +29,7 @@ final class Module_KassiererCard extends GDO_Module
 			'PM', 'Contact', 'Avatar', 'Licenses',
 			'ActivationAlert', 'Invite', 'Birthday',
 			'FontAwesome', 'Markdown', 'News',
+			'Category', 'Maps',
 		];
 	}
 	
