@@ -28,7 +28,7 @@ return [
 	
 	'lbl_choose_account_type' => 'Please choose your account type.',
 	
-	
+	'num_biz' => 'Stores',
 	'business' => 'Business',
 	
 	### Signup

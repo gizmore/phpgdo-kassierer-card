@@ -28,7 +28,8 @@ return [
 
     'kk_faq_t7' => 'Can i transfer points?',
     'kk_faq_b7' => 'No, you can only get goods or discounts and turn your points into coal or hard coal',
-    'kk_faq_t8' => 'Can i transfer points?',
+    
+	'kk_faq_t8' => 'Can i transfer points?',
     'kk_faq_b8' => 'No, you can only get goods or discounts and turn your points into coal or hard coal'
 ];
 

@@ -19,6 +19,7 @@ use GDO\UI\GDT_Button;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Link;
 use GDO\UI\GDT_Card;
+use GDO\User\GDT_User;
 
 /**
  * A business in the crude world.
@@ -37,6 +38,7 @@ final class KC_Business extends GDO
 			GDT_Category::make('biz_category'),
 			GDT_Timestamp::make('biz_participating'),
 			GDT_Timestamp::make('biz_declining'),
+			GDT_User::make('biz_owner'),
 			GDT_CreatedAt::make('biz_created'),
 			GDT_CreatedBy::make('biz_creator'),
 			GDT_DeletedAt::make('biz_deleted'),

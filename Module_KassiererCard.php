@@ -12,6 +12,7 @@ use GDO\Register\GDO_UserActivation;
 use GDO\User\GDO_UserPermission;
 use GDO\UI\GDT_Bar;
 use GDO\Core\GDT_UInt;
+use GDO\Core\GDT_Virtual;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -35,7 +36,7 @@ final class Module_KassiererCard extends GDO_Module
 			'FontAtkinson', 'FontAwesome',
 			'Invite', 'IP2Country',
 			'Javascript', 'JQueryAutocomplete',
-			'Licenses', 'Login',
+			'Licenses', 'Links', 'Login',
 			'Maps', 'Mail', 'Maps', 'Markdown',
 			'News', 'PM', 'QRCode', 'Recovery', 'Register',
 		];
@@ -68,6 +69,7 @@ final class Module_KassiererCard extends GDO_Module
 	public function getUserConfig() : array
 	{
 		return [
+			GDT_UInt::make('num_biz')->tooltip('tt_num_biz')->icon('business'),
 			GDT_Badge::make('coupon_kind')->tooltip('tt_coupon_kind')->icon('sun'),
 			GDT_Badge::make('coupon_fast')->tooltip('tt_coupon_fast')->icon('star'),
 			GDT_Badge::make('coupon_help')->tooltip('tt_coupon_help')->icon('bee'),
@@ -109,7 +111,7 @@ final class Module_KassiererCard extends GDO_Module
 		$user = GDO_User::current();
 		if ($user->isUser())
 		{
-			if ($user->settingVar('Kassierercard', 'kk_type') === GDT_AccountType::CUSTOMER)
+			if ($this->isCustomer($user))
 			{
 				$page->rightBar()->addFields(
 					GDT_Link::make('printed_coupons')->href($this->href('PrintedCoupons')),
@@ -117,24 +119,54 @@ final class Module_KassiererCard extends GDO_Module
 				
 			}
 			
-			if ($user->settingVar('Kassierercard', 'kk_type') === GDT_AccountType::CASHIER)
+			if ($this->isCashier($user))
 			{
 				$page->rightBar()->addFields(
 					GDT_Link::make('enter_coupon')->href($this->href('EnterCoupon')),
 					);
+				$page->rightBar()->addFields(
+					GDT_Badge::make()->icon('sun')->tooltip('tt_coupon_kind')->label('coupon_kind')->var($user->settingVar('KassiererCard', 'coupon_kind')),
+					GDT_Badge::make()->icon('star')->tooltip('tt_coupon_fast')->label('coupon_fast')->var($user->settingVar('KassiererCard', 'coupon_fast')),
+					GDT_Badge::make()->icon('bee')->tooltip('tt_coupon_help')->label('coupon_help')->var($user->settingVar('KassiererCard', 'coupon_help')),
+					);
 				
 			}
 			
-			$page->rightBar()->addFields(
-				GDT_Badge::make()->icon('sun')->tooltip('tt_coupon_kind')->label('coupon_kind')->var($user->settingVar('KassiererCard', 'coupon_kind')),
-				GDT_Badge::make()->icon('star')->tooltip('tt_coupon_fast')->label('coupon_fast')->var($user->settingVar('KassiererCard', 'coupon_fast')),
-				GDT_Badge::make()->icon('bee')->tooltip('tt_coupon_help')->label('coupon_help')->var($user->settingVar('KassiererCard', 'coupon_help')),
-			);
+			if ($this->isCompany($user))
+			{
+				$page->rightBar()->addFields(
+					GDT_Link::make('businesses')->href($this->href('CompanyBusinesses')),
+				);
+				
+			}
+			
 		}
 		
 		$page->bottomBar()->addFields(
 			GDT_Link::make('link_kk_partners')->href($this->href('Partners')),
 		);
+	}
+	
+	### User type ###
+	#################
+	public function isCashier(GDO_User $user) : bool
+	{
+		return $this->isType($user, GDT_AccountType::CASHIER);
+	}
+	
+	public function isCompany(GDO_User $user) : bool
+	{
+		return $this->isType($user, GDT_AccountType::COMPANY);
+	}
+	
+	public function isCustomer(GDO_User $user) : bool
+	{
+		return $this->isType($user, GDT_AccountType::CUSTOMER);
+	}
+	
+	public function isType(GDO_User $user, string $type) : bool
+	{
+		return $user->settingVar('Kassierercard', 'kk_type') === $type;
 	}
 	
 	############
@@ -143,7 +175,8 @@ final class Module_KassiererCard extends GDO_Module
 	public function hookCreateCardUserProfile(GDT_Card $card)
 	{
 		$user = $card->gdo->getUser();
-		$linkPM = GDT_Link::make()->href($this->href('SendCoupons', '&user='.$user->renderUserName()))->label('btn_send_coupons');
+		$disabled = !$this->isCustomer($user);
+		$linkPM = GDT_Link::make()->href($this->href('SendCoupons', '&user='.$user->renderUserName()))->label('btn_send_coupons')->disabled($disabled);
 		$card->actions()->addField($linkPM);
 	}
 	
@@ -199,6 +232,15 @@ final class Module_KassiererCard extends GDO_Module
 			);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
-	
+
+	public function addCompanyBar() : void
+	{
+		$bar = GDT_Bar::make()->horizontal();
+		$bar->addFields(
+			GDT_Link::make('create_card')->href($this->href('CompanyCreateCard')),
+			GDT_Link::make('edit_business')->href($this->href('CompanyEditBusiness')),
+			);
+		GDT_Page::instance()->topResponse()->addField($bar);
+	}
 	
 }

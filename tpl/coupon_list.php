@@ -29,7 +29,7 @@ $li->content($content);
 
 $li->actions()->addField(GDT_Button::make('btn_print')->icon('print')
 		->label('btn_print')
-		->href(href('KassiererCard', 'Print', '&token='.$gdo->getToken())));
+		->href(href('KassiererCard', 'PrintCoupon', '&token='.$gdo->getToken())));
 
 
 echo $li->render();
