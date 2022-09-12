@@ -17,6 +17,8 @@ use GDO\Table\GDT_ListItem;
 use GDO\Address\GDO_Address;
 use GDO\UI\GDT_Button;
 use GDO\User\GDO_User;
+use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Card;
 
 /**
  * A business in the crude world.
@@ -44,7 +46,27 @@ final class KC_Business extends GDO
 		];
 	}
 	
+	public function getNumEmployees()
+	{
+		return KC_Working::getNumEmployees($this);
+	}
+	
+	public function getCompanyName() : string
+	{
+		return $this->getAddress()->getCompany();
+	}
+	
 	public function getAddress() : GDO_Address { return $this->gdoValue('biz_address'); }
+	
+	public function getEmployeeHREF() : string
+	{
+		return href('KassiererCard', 'Employees', "&business={$this->getID()}");
+	}
+	
+	public function getAddressLink() : string
+	{
+		return GDT_Link::make('link_biz')->href($this->getEmployeeHREF())->labelRaw($this->getCompanyName())->render();
+	}
 	
 	public function isWorkingHere(GDO_User $user) : bool
 	{
@@ -59,19 +81,36 @@ final class KC_Business extends GDO
 		$li->subtitleRaw($addr->getAddressLine());
 		
 		$user = GDO_User::current();
-		if ($this->isWorkingHere($user))
+		
+		if ($user->hasPermission('kk_cashier'))
 		{
-			$li->actions()->addFields(
-				GDT_Button::make('btn_stopped_there')->href(href('KassiererCard', 'WorkingThere', "&not_anmyore=1&biz={$this->getID()}"))->icon('error'),
-			);
+			if ($this->isWorkingHere($user))
+			{
+				$li->actions()->addFields(
+					GDT_Button::make('btn_stopped_there')->href(href('KassiererCard', 'WorkingThere', "&not_anmyore=1&biz={$this->getID()}"))->icon('error'),
+				);
+			}
+			else
+			{
+				$li->actions()->addFields(
+					GDT_Button::make('btn_working_there')->href(href('KassiererCard', 'WorkingThere', "&biz={$this->getID()}"))->icon('construction'),
+				);
+			}
 		}
-		else
-		{
-			$li->actions()->addFields(
-				GDT_Button::make('btn_working_there')->href(href('KassiererCard', 'WorkingThere', "&biz={$this->getID()}"))->icon('construction'),
-			);
-		}
+		
+		$li->actions()->addFields(
+			GDT_Link::make('link_employees')->href($this->getEmployeeHREF())->label('btn_biz_emplyoees', [$this->getNumEmployees()]),
+		);
+		
 		return $li;
+	}
+	
+	public function getCard() : GDT_Card
+	{
+		$card = GDT_Card::make()->gdo($this);
+		$card->title('ct_business');
+		$card->subtitle('ct_business_sub');
+		return $card;
 	}
 
 	public function renderName() : string

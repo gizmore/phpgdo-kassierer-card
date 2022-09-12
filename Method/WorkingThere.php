@@ -19,6 +19,8 @@ use GDO\Date\Time;
  */
 final class WorkingThere extends MethodForm
 {
+	public function getPermission() : ?string { return 'kk_cashier'; }
+	
 	public function gdoParameters() : array
 	{
 		return [

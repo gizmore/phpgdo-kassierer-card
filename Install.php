@@ -4,14 +4,25 @@ namespace GDO\KassiererCard;
 use GDO\Category\GDO_Category;
 use GDO\Address\GDO_Address;
 use GDO\Country\GDO_Country;
+use GDO\User\GDO_Permission;
 
 final class Install
 {
 	public static function install(Module_KassiererCard $module) : bool
 	{
 		return
+			self::installPermissions() &&
 			self::installCategories($module) &&
 			self::installBusinesses($module);
+	}
+	
+	private static function installPermissions() : bool
+	{
+		# Perms
+		GDO_Permission::create('kk_cashier', 100);
+		GDO_Permission::create('kk_company', 200);
+		GDO_Permission::create('kk_customer', 300);
+		return true;
 	}
 
 	private static function installCategories(Module_KassiererCard $module) : bool

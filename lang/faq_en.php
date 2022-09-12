@@ -1,37 +1,34 @@
 <?php
 namespace GDO\KassiererCard\lang;
+
 return [
-	'mt_faq' => 'Help / FAQ',
-	'md_faq' => 'Frequently asked questions and webservice helpfiles for kassierercard.org',
-	'kk_faq' => [
-		[
-			'title' => 'What is it about?',
-			'infos' => '%s is a service to honor the workers in the real economies. It is similiar to a tip or a thank you.',
-		],
-		[
-			'title' => 'What do the employees get?',
-			'infos' => 'The employees shall be able to get free food and drinks in their working locagtions, in exchange for our bonus points.',
-		],
-		[
-			'title' => 'How do i collect bonus points?',
-			'infos' => 'Make your customers print Kassierercard Coupons and hand them to you.',
-		],
-		[
-			'title' => 'How does this project get funded?',
-			'infos' => 'It currently does not. We are looking for partners!',
-		],
-		[
-			'title' => 'How do you detect abuse?',
-			'infos' => 'We are using cookies and IP checks to detect double accounts. In the end it is just about some cake and coffee?',
-		],
-		[
-			'title' => 'The idea is horrible. How come?',
-			'infos' => 'I always liked the idea and it\'s a test case for my programming project.',
-		],
-		[
-			'title' => 'The idea is great! How come?',
-			'infos' => 'Thank you!',
-		],
-		
-	],
+    'mt_faq' => 'Help / FAQ',
+    'md_faq' => 'Frequently asked questions and webservice helpfiles for kassierercard.org',
+
+    'kk_faq_t1' => 'What is it about?',
+    'kk_faq_b1' => '%s is a service to honor the cashiers in the real economy. It is similiar to a tip or a thank you. We have a delicate point system to make it fun earning points',
+    
+    'kk_faq_t2' => 'How do i earn points?',
+    'kk_faq_b2' => 'NONO',
+
+    'kk_faq_t2' => 'How can i participate best?',
+    'kk_faq_b2' => 'As a customer, print coupons and hand them to your cashier.<br/>As a cashier, hand your customers an invitation.<br/>As a company, help us with goods for your workers and customers.',
+
+    'kk_faq_t3' => 'How do i profit?',
+    'kk_faq_b3' => 'TBA',
+
+    'kk_faq_t4' => 'Is it only for cashiers?',
+    'kk_faq_b4' => 'For now, it is for the cashiers, customers and companies.',
+
+    'kk_faq_t5' => 'How does it work?',
+    'kk_faq_b5' => 'Customers generate tokens and hand them to their cashiers. The cashiers can get food, drinks, and other goods from the participating shops.',
+
+    'kk_faq_t6' => 'What do i get for the points?',
+    'kk_faq_b6' => 'As a customer you get into the lottery. As a cashier you get food. As a company you get merchandise.',
+
+    'kk_faq_t7' => 'Can i transfer points?',
+    'kk_faq_b7' => 'No, you can only get goods or discounts and turn your points into coal or hard coal',
+    'kk_faq_t8' => 'Can i transfer points?',
+    'kk_faq_b8' => 'No, you can only get goods or discounts and turn your points into coal or hard coal'
 ];
+

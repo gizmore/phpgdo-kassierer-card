@@ -8,6 +8,7 @@ use GDO\Core\GDT_Object;
 use GDO\Core\GDT_AutoInc;
 use GDO\Date\Time;
 use GDO\Date\GDT_Timestamp;
+use GDO\Table\GDT_ListItem;
 
 /**
  * Relation table. User working at Business.
@@ -30,7 +31,34 @@ final class KC_Working extends GDO
 			GDT_Timestamp::make('work_until'),
 		];
 	}
-
+	
+	public function getWorkFrom() : string { return $this->gdoVar('work_from'); }
+	public function getUser() : GDO_User { return $this->gdoValue('work_user'); }
+	public function getBusiness() : KC_Business { return $this->gdoValue('work_business'); }
+	
+	##############
+	### Render ###
+	##############
+	public function renderList() : string
+	{
+		$user = $this->getUser();
+		$biz = $this->getBusiness();
+// 		$addr = $biz->getAddress();
+		$li = GDT_ListItem::make();
+		$li->avatarUser($user);
+		$li->title('li_kk_working', [
+			$user->renderUserName(),
+			$biz->getAddressLink(),
+			tt($this->getWorkFrom()),
+		]);
+		$li->subtitle('li_kk_working_sub', [
+			KC_Util::getBees($user),
+			KC_Util::getSuns($user),
+			KC_Util::getStars($user),
+		]);
+		return $li->render();
+	}
+	
 	##############
 	### Static ###
 	##############
@@ -65,8 +93,18 @@ final class KC_Working extends GDO
 		return self::table()->select('1')->
 			where("work_user={$user->getID()} AND work_business={$business->getID()}")->
 			where("work_from < '$today'")->
-			where("work_until > '$today'")->
+			where("(work_until > '$today' OR work_until IS NULL)")->
 			exec()->fetchValue() === '1';
+	}
+	
+	public static function getNumEmployees(KC_Business $business) : int
+	{
+		$today = Time::getDate();
+		return self::table()->select('COUNT(*)')->
+			where("work_business={$business->getID()}")->
+			where("work_from < '$today'")->
+			where("(work_until > '$today' OR work_until IS NULL)")->
+			exec()->fetchValue();
 	}
 	
 }
