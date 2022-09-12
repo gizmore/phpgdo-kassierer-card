@@ -23,6 +23,7 @@ return [
 	'perm_kk_customer' => 'Customer',
 	
 	'coup_type' => 'Coupon Type',
+	'coup_token' => 'Code',
 	'tt_coup_type' => 'Choose your kashiercard coupon type<br/>.This',
 	
 	'lbl_choose_account_type' => 'Please choose your account type.',
@@ -61,6 +62,7 @@ return [
 	'msg_kk_started_work' => 'You started to work at %s on %s.',
 	'msg_kk_stopped_work' => 'You stopped to work at %s.',
 
+	# Enter
 	'enter_coupon' => 'Enter Coupon',
 	
 	# Print

@@ -27,5 +27,9 @@ $content->addField($gdo->gdoColumn('coup_type'));
 $content->addField($gdo->gdoColumn('coup_token'));
 $li->content($content);
 
+$li->actions()->addField(GDT_Button::make('btn_print')->icon('print')
+		->label('btn_print')
+		->href(href('KassiererCard', 'Print', '&token='.$gdo->getToken())));
+
 
 echo $li->render();

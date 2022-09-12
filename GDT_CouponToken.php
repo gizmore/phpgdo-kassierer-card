@@ -37,4 +37,13 @@ final class GDT_CouponToken extends GDT_Char
 		return !!KC_Coupon::getBy('coup_token', $key);
 	}
 	
+	##############
+	### Render ###
+	##############
+	public function displayVar(string $var=null) : string
+	{
+		$chunks = str_split($this->getVar(), 2);
+		return implode('-', $chunks);
+	}
+	
 }

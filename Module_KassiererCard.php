@@ -28,34 +28,16 @@ final class Module_KassiererCard extends GDO_Module
 	public function getDependencies() : array
 	{
 		return [
-			'Account',
-			'Address',
-			'Admin',
-			'Birthday',
-			'Category',
-			'Classic',
-			'CountryRestrictions',
-			'CSS',
-			'FontAwesome',
-			'Javascript',
-			'JQueryAutocomplete',
-			'Licenses',
-			'Login',
-			'Maps',
-			'PM',
-			'QRCode',
-			'Recovery',
-			'Register',
-			'Category',
-			'Contact',
-			'Avatar',
-			'Mail',
-			'ActivationAlert',
-			'Invite',
-			'Markdown',
-			'News',
-			'Maps',
-		    'IP2Country',
+			'Account', 'ActivationAlert', 'Address', 'Admin', 'Avatar',
+			'Birthday', 'Category', 'Contact', 'Classic',
+			'CountryRestrictions', 'CSS',
+			'DoubleAccounts',
+			'FontAtkinson', 'FontAwesome',
+			'Invite', 'IP2Country',
+			'Javascript', 'JQueryAutocomplete',
+			'Licenses', 'Login',
+			'Maps', 'Mail', 'Maps', 'Markdown',
+			'News', 'PM', 'QRCode', 'Recovery', 'Register',
 		];
 	}
 	
@@ -86,9 +68,9 @@ final class Module_KassiererCard extends GDO_Module
 	public function getUserConfig() : array
 	{
 		return [
-			GDT_Badge::make('coupon_kind')->tooltip('tt_coupon_kind')->icon('user'),
-			GDT_Badge::make('coupon_fast')->tooltip('tt_coupon_fast')->icon('user'),
-			GDT_Badge::make('coupon_help')->tooltip('tt_coupon_help')->icon('user'),
+			GDT_Badge::make('coupon_kind')->tooltip('tt_coupon_kind')->icon('sun'),
+			GDT_Badge::make('coupon_fast')->tooltip('tt_coupon_fast')->icon('star'),
+			GDT_Badge::make('coupon_help')->tooltip('tt_coupon_help')->icon('bee'),
 		    GDT_AccountType::make('kk_type')->notNull()->initial(GDT_AccountType::CUSTOMER),
 			GDT_UInt::make('bonus_stars')->initial('0'),
 		];
@@ -144,9 +126,9 @@ final class Module_KassiererCard extends GDO_Module
 			}
 			
 			$page->rightBar()->addFields(
-				GDT_Badge::make()->icon('user')->tooltip('tt_coupon_kind')->label('coupon_kind')->var($user->settingVar('KassiererCard', 'coupon_kind')),
-				GDT_Badge::make()->icon('user')->tooltip('tt_coupon_fast')->label('coupon_fast')->var($user->settingVar('KassiererCard', 'coupon_fast')),
-				GDT_Badge::make()->icon('user')->tooltip('tt_coupon_help')->label('coupon_help')->var($user->settingVar('KassiererCard', 'coupon_help')),
+				GDT_Badge::make()->icon('sun')->tooltip('tt_coupon_kind')->label('coupon_kind')->var($user->settingVar('KassiererCard', 'coupon_kind')),
+				GDT_Badge::make()->icon('star')->tooltip('tt_coupon_fast')->label('coupon_fast')->var($user->settingVar('KassiererCard', 'coupon_fast')),
+				GDT_Badge::make()->icon('bee')->tooltip('tt_coupon_help')->label('coupon_help')->var($user->settingVar('KassiererCard', 'coupon_help')),
 			);
 		}
 		
