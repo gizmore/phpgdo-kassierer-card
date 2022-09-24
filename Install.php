@@ -8,6 +8,9 @@ use GDO\User\GDO_Permission;
 use GDO\Language\Module_Language;
 use GDO\Core\Module_Core;
 use GDO\CountryRestrictions\Module_CountryRestrictions;
+use GDO\User\GDO_User;
+use GDO\User\GDO_UserPermission;
+use GDO\Crypto\BCrypt;
 
 final class Install
 {
@@ -18,8 +21,38 @@ final class Install
 			self::installSlogans() &&
 			self::installPermissions() &&
 			self::installCategories($module) &&
+			self::installUsers() &&
 			self::installBusinesses($module) &&
 			self::installPartners();
+	}
+
+	private static function installUsers() : bool
+	{
+		$accounts = require 'accounts.php';
+		foreach ($accounts as $data)
+		{
+			self::installUser(...$data);
+		}
+		return true;
+	}
+	
+	private static function installUser(int $id, string $nickname, string $password, string $perms) : bool
+	{
+		if (!($user = GDO_User::getById($id)))
+		{
+			$user = GDO_User::blank([
+				'user_id' => $id,
+				'user_type' => 'member',
+				'user_name' => $nickname,
+				'user_password' => BCrypt::create($password)->__toString(),
+			])->insert();
+		}
+		foreach (explode(',', $perms) as $perm)
+		{
+			GDO_UserPermission::grant($user, $perm);
+		}
+		$user->changedPermissions();
+		return true;
 	}
 	
 	private static function installConfig() : bool
@@ -154,11 +187,12 @@ final class Install
 
 	private static function installPartners() : bool
 	{
-		self::partner(1, 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40');
+		$descr = 'Der beste Döner in Peine, knusprig und preiswert.<br/>Das Original - Nur bei Saray Ali!';
+		self::partner(1, 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40', $descr);
 		return true;
 	}
 	
-	private static function partner(int $id, int $cat, string $name, string $street, string $zip, string $city, string $country, string $phone) : void
+	private static function partner(int $id, int $cat, string $name, string $street, string $zip, string $city, string $country, string $phone, string $descr) : void
 	{
 		if (!($addr = GDO_Address::getById($id+200000)))
 		{
@@ -199,6 +233,7 @@ final class Install
 				'p_id' => $id,
 				'p_address' => $addr->getID(),
 				'p_category' => $cat,
+				'p_description' => $descr,
 			])->insert();
 		}
 		else
@@ -206,6 +241,7 @@ final class Install
 			$p->saveVars([
 				'p_address' => $addr->getID(),
 				'p_category' => $cat,
+				'p_description' => $descr,
 			]);
 		}
 	}

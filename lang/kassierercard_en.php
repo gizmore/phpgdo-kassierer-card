@@ -3,8 +3,9 @@ namespace GDO\KassiererCard\lang;
 return [
 	### Nav
 	'link_kk_home' => 'KassiererCard.org',
-	'link_kk_offers' => 'Offers',
+	'link_kk_offers' => 'Cashier Offers',
 	'link_kk_businesses' => 'Participating Stores',
+	'link_kk_employees' => 'Store Employees',
 	'link_kk_help' => 'Help / FaQ',
 	'link_kk_partners' => 'Partners',
 	
@@ -43,7 +44,7 @@ return [
 	'business' => 'Business',
 	
 	### Signup
-	'kk_info_register' => 'We very welcome you on kassierercard.org. Please tell us if you a customer, a cashier, or a company.',
+	'kk_info_register' => 'We very welcome you on KassiererCard.org. Please tell us if you a customer, a cashier, or a company. Companies are our merchandize partners. Cashiers are the workers, Customers are... customers and can print coupons.',
 	'lbl_choose_account_type' => 'Choos account type',
 	'enum_customer' => 'Customer',
 	'enum_cashier' => 'Cashier',

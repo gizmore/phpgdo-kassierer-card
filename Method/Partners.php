@@ -2,13 +2,13 @@
 namespace GDO\KassiererCard\Method;
 
 use GDO\Table\MethodQueryList;
-use GDO\KassiererCard\KC_Offer;
+use GDO\KassiererCard\KC_Partner;
 
 final class Partners extends MethodQueryList
 {
 	public function gdoTable()
 	{
-		return KC_Offer::table();
+		return KC_Partner::table();
 	}
 
 

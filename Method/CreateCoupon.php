@@ -15,6 +15,8 @@ use GDO\User\GDO_User;
 
 final class CreateCoupon extends MethodForm
 {
+	public function getPermission() : ?string { return 'kk_customer,kk_company'; }
+	
 	public function beforeExecute() : void
 	{
 		Module_KassiererCard::instance()->addCustomerBar();
