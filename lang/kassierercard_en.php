@@ -3,14 +3,25 @@ namespace GDO\KassiererCard\lang;
 return [
 	### Nav
 	'link_kk_home' => 'KassiererCard.org',
+	'link_kk_offers' => 'Offers',
 	'link_kk_businesses' => 'Participating Stores',
 	'link_kk_help' => 'Help / FaQ',
-	'link_kk_partners' => 'Partner',
+	'link_kk_partners' => 'Partners',
 	
 	### Buttons
 	'btn_send_coupons' => 'Send Coupons',
 	'btn_stopped_there' => 'I quit there!',
 	'btn_working_there' => 'I am working there!',
+	
+	### Config
+	'cfg_free_stars_period' => 'Free Stars per period.',
+	
+	### Admin
+	'generate_signup_code' => 'Create Signup-Code',
+	'signup_codes' => 'Signup-Codes',
+	'mt_kassierercard_admincreatesignupcode' => 'Create Signup-Code',
+	'list_kassierercard_adminsignupcodes' => '%s Signup-Codes',
+	'msg_signup_code_created' => 'A signup code has been created.',
 	
 	### Types
 	'kk_type' => 'Account Type',
@@ -37,6 +48,9 @@ return [
 	'enum_customer' => 'Customer',
 	'enum_cashier' => 'Cashier',
 	'enum_partner' => 'Company',
+	'lbl_kk_register_code' => 'Signup Code',
+	'tt_kk_register_code' => 'A valid signup code is required if you signup as a Cashier or Company.',
+	'err_kk_signup_code' => 'As a cashier, or company, you need a valid signup code.',
 	
 	'coupon_kind' => 'Kindness',
 	'coupon_fast' => 'Quickness',
@@ -62,8 +76,18 @@ return [
 	'msg_kk_started_work' => 'You started to work at %s on %s.',
 	'msg_kk_stopped_work' => 'You stopped to work at %s.',
 
+	# Partners
+	'list_kassierercard_partners' => '%s Partners',
+	
 	# Enter
 	'enter_coupon' => 'Enter Coupon',
+	
+	# Offer 
+	'create_offer' => 'Create Offer',
+	'md_kassierercard_offers' => 'Show all available and historical coupon offers on KassiererCard.org.',
+	'info_create_offer' => 'Create a new coupon type / offer.',
+	'list_kassierercard_offers' => '%s Coupon Types',
+	'err_kk_offer_timeout' => 'This offer did expire on %s.',
 	
 	# Print
 	'mt_kassierercard_createcoupon' => 'Create Coupon',
@@ -87,5 +111,10 @@ return [
 
 	# Biz
 	'btn_biz_emplyoees' => '%s Employees',
+	
+	# Coupons
+	'err_kk_offer_timeout' => 'This coupon\'s offer is expired and cannot be redeemed anymore.',
+	'err_kk_offer_no_more_for_you' => 'You have redeemed %s of %s items for this offer. No more!',
+	'kk_offer_status' => 'In total, %s of %s items have been redeemed. You may redeem this offer %s time(s).',
 	
 ];

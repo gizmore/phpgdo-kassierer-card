@@ -7,13 +7,13 @@ use GDO\Util\Random;
 final class GDT_CouponToken extends GDT_Char
 {
 	const LENGTH = 10;
-	const CHARSET = '0123456789ACDEFGHKMNPQRSTUVWXY';
+	const CHARSET = '23456789ACDEFGHKMNPQRSTUVWXY';
 	
 	protected function __construct()
 	{
 		parent::__construct();
 		$this->length(self::LENGTH);
-		$this->ascii()->caseS();
+		$this->ascii()->caseI();
 		$this->pattern('/['.self::CHARSET.']{'.self::LENGTH.'}/iD');
 	}
 	

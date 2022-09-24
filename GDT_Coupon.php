@@ -2,7 +2,6 @@
 namespace GDO\KassiererCard;
 
 use GDO\Core\GDT_Object;
-use GDO\Core\GDT;
 
 final class GDT_Coupon extends GDT_Object
 {

@@ -1,7 +1,6 @@
 <?php
 namespace GDO\KassiererCard\tpl\page;
 use GDO\UI\GDT_Accordeon;
-use GDO\UI\GDT_Pre;
 use GDO\UI\GDT_Paragraph;
 ?>
 <h2><?=sitename()?></h2>

@@ -19,6 +19,11 @@ final class EnterCoupon extends MethodForm
 {
 	public function getPermission() : ?string { return 'kk_cashier'; }
 	
+	public function getMethodTitle() : string
+	{
+		return t('enter_coupon');
+	}
+	
 	public function beforeExecute() : void
 	{
 		Module_KassiererCard::instance()->addCashierBar();
