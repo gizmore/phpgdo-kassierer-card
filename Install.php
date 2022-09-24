@@ -66,7 +66,16 @@ final class Install
 	
 	private static function installSlogans() : bool
 	{
-		self::installSlogan(1, 'Es wurde auch Zeit');
+		$data = [
+			'Es wurde auch Zeit',
+			'Alles geht, nix muss',
+			'Denkt mal drüber nach',
+		];
+		$i = 0;
+		foreach ($data as $slogan)
+		{
+			self::installSlogan(++$i, $slogan);
+		}
 		return true;
 	}
 	

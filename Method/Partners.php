@@ -11,6 +11,4 @@ final class Partners extends MethodQueryList
 		return KC_Partner::table();
 	}
 
-
-	
 }

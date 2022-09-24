@@ -27,11 +27,6 @@ final class KC_CouponEntered extends GDO
 		];
 	}
 	
-// 	public  function getOffer() : KC_Offer
-// 	{
-// 		return $this->gdoValue('ce_offer');
-// 	}
-	
 	##############
 	### Static ###
 	##############

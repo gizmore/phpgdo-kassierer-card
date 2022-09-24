@@ -13,6 +13,7 @@ use GDO\UI\GDT_Message;
 use GDO\User\GDO_User;
 use GDO\Address\GDO_Address;
 use GDO\UI\GDT_Label;
+use GDO\UI\GDT_HTML;
 
 final class KC_Partner extends GDO
 {
@@ -29,14 +30,24 @@ final class KC_Partner extends GDO
 		];
 	}
 	
+	public function getUser() : ?GDO_User
+	{
+		return $this->gdoValue('p_user');
+	}
+
 	public function getAddress() : GDO_Address
 	{
 		return $this->gdoValue('p_address');
 	}
 	
-	public function getUser() : ?GDO_User
+	public function getDescriptionHTML() : string
 	{
-		return $this->gdoValue('p_user');
+		return $this->gdoVar('p_description_output');
+	}
+	
+	public function getOfferCount() : int
+	{
+		return KC_CouponEntered::queryNumOffers($this);
 	}
 	
 	##############
@@ -50,11 +61,21 @@ final class KC_Partner extends GDO
 		$subt = $addr->getStreet() . ', ' . $addr->getZIP() . ' ';
 		$subt .= $addr->getCity() . ', ' . $addr->getCountry()->render();
 		$li->subtitleRaw($subt);
-		$li->content($this->gdoColumn('p_description'));
+		$li->content(GDT_HTML::make()->var($this->getDescriptionHTML()));
+		
+		$footer = GDT_HTML::make();
+		$html = '';
 		if ($user = $this->getUser())
 		{
-			$li->footer(GDT_Label::make()->label('footer_partner', [$user->renderProfileLink(true, true, false)]));
+			$purl = $user->renderProfileLink(true, true, false);
+			$html = t('footer_partner', [$purl]);
+			$html .= ' - ';
 		}
+		
+		$amt = $this->getOfferCount();
+		$html .= t('footer_partner_offers', [$amt]);
+		$li->footer($footer->var($html));
+
 		return $li->render();
 	}
 	
