@@ -27,4 +27,10 @@ For example you are not allowed to harass or spam people, etc.
 It may be that there are not enough offers to satisfy your coupon budget.
 In this case, you have bad luck.
 We reserve the right to have no offers at all.
+
+4) Legal Age
+
+The users of your account have to be at least 21 years old.
+It is <b>not allowed</b> to use this site under this age.
+
 </pre>

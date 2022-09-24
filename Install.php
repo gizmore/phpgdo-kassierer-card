@@ -14,6 +14,11 @@ use GDO\Crypto\BCrypt;
 use GDO\News\GDO_News;
 use GDO\Avatar\Module_Avatar;
 
+/**
+ * Initial seed for rapid dev.
+ * 
+ * @author gizmore
+ */
 final class Install
 {
 	public static function install(Module_KassiererCard $module) : bool
@@ -22,13 +27,17 @@ final class Install
 			self::installConfig() &&
 			self::installSlogans() &&
 			self::installPermissions() &&
-			self::installCategories($module) &&
+			self::installCategories() &&
 			self::installUsers() &&
-			self::installBusinesses($module) &&
+			self::installBusinesses() &&
 			self::installPartners() &&
-			self::installNews();
+			self::installNews() &&
+			self::installOffers();
 	}
 
+	##############
+	### Config ###
+	##############
 	private static function installConfig() : bool
 	{
 		Module_Avatar::instance()->saveConfigVar('hook_sidebar', '0');
@@ -39,6 +48,9 @@ final class Install
 		return true;
 	}
 	
+	###############
+	### Slogans ###
+	###############
 	private static function installSlogans() : bool
 	{
 		$data = [
@@ -66,6 +78,9 @@ final class Install
 		$slogan->save();
 	}
 	
+	#############
+	### Perms ###
+	#############
 	private static function installPermissions() : bool
 	{
 		# Perms
@@ -78,7 +93,7 @@ final class Install
 	##################
 	### Categories ###
 	##################
-	private static function installCategories(Module_KassiererCard $module) : bool
+	private static function installCategories() : bool
 	{
 		self::cat(1, 'Businesses', null);
 		self::cat(2, 'Supermarket', 1);
@@ -86,9 +101,12 @@ final class Install
 		self::cat(4, 'Slaughter', 1);
 		self::cat(5, 'Office', 1);
 		self::cat(6, 'Restaurant', 1);
+		self::cat(7, 'Hairstyler', 1);
+		self::cat(8, 'Pub', 1);
 		
 		self::cat(101, 'News', null);
-		self::cat(102, 'KassiererNews', 101);
+		self::cat(102, 'Peiner-News', 101);
+		self::cat(103, 'Kassierer-News', 101);
 		
 		GDO_Category::table()->rebuildFullTree();
 		return true;
@@ -110,6 +128,9 @@ final class Install
 		]);
 	}
 	
+	#############
+	### Users ###
+	#############
 	private static function installUsers() : bool
 	{
 		$accounts = require 'accounts.php';
@@ -131,6 +152,14 @@ final class Install
 				'user_password' => BCrypt::create($password)->__toString(),
 			])->insert();
 		}
+		else
+		{
+			$user->saveVars([
+				'user_type' => 'member',
+				'user_name' => $nickname,
+				'user_password' => BCrypt::create($password)->__toString(),
+			]);
+		}
 		foreach (explode(',', $perms) as $perm)
 		{
 			GDO_UserPermission::grant($user, $perm);
@@ -142,7 +171,7 @@ final class Install
 	###########
 	### Biz ###
 	###########
-	private static function installBusinesses(Module_KassiererCard $module) : bool
+	private static function installBusinesses() : bool
 	{
 		$i = 1;
 		self::biz($i++, 'REWE Markt Peine',   2, 'Schäferstraße 12',         '31224', 'Peine', 52.32101586390254, 10.24893384967010, '+49 5171 58 315 87');
@@ -219,11 +248,15 @@ final class Install
 	private static function installPartners() : bool
 	{
 		$descr = 'Der beste Döner in Peine, knusprig und preiswert.<br/>Das Original - Nur bei Saray Ali!';
-		self::partner(1, 5, 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40', $descr);
+		self::partner(1, 7, 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40', $descr);
+		$descr = 'Der Frisör bei dem einen der Hut hochgeht?<br/>Schauen Sie mal vorbei!';
+		self::partner(2, 8, 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', '+49 5171 / 711 71', $descr);
+		$descr = 'Peiner Rock/Pank Szenekneipe.<br/>Ab und an auch mal Live Musik.<br/>Angenehme Atmosphäre.';
+		self::partner(3, 9, 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', null, $descr);
 		return true;
 	}
 	
-	private static function partner(int $id, int $userId, int $cat, string $name, string $street, string $zip, string $city, string $country, string $phone, string $descr) : void
+	private static function partner(int $id, int $userId, int $cat, string $name, string $street, string $zip, string $city, string $country, ?string $phone, string $descr) : void
 	{
 		if (!($addr = GDO_Address::getById($id+200000)))
 		{
@@ -279,6 +312,9 @@ final class Install
 		}
 	}
 	
+	############
+	### News ###
+	############
 	private static function installNews() : bool
 	{
 		$titleEn = 'First Card printed!';
@@ -289,6 +325,8 @@ Hi am Happy to announce!<br/>
 KassiererCard.org has reached phase 1.<br/>
 <br/>
 In this phase, we test the service with only a few customers, empolyees, workers and partners.<br/>
+After this phase, the whole site will be reset and you have to register again.<br/>
+Phase two is scheduled for 11/9/2022.<br/>
 <br/>
 We currently have no real partner who is aiding us financially, but we are looking.<br/>
 First offers are on our cap.<br/>
@@ -299,6 +337,8 @@ EOT;
 Voller Stolz presentiere ich die erste KassiererCard<br/>
 <br/>
 KassiererCard.org hat Phase 1 erreicht.<br/>
+Nach dieser Phase wird noch einmal Reset gedrückt, und Sie müssen sich neu registrieren.<br/>
+Phase 2 beginnt vorraussichtlich am 2.10.2022.<br/>
 <br/>
 In dieser Phase testen wir den Service mit nur wenigen Kunde, Angestellten, Arbeitern und Werbepartnern.<br/>
 <br/>
@@ -344,16 +384,84 @@ EOT;
 		{
 			$text->saveVars([
 				'newstext_title' => $title,
-				'newstext_message' => $message,
+				'newstext_message_input' => $message,
 				'newstext_creator' => $uid,
 			]);
 		}
 		else
 		{
-		
-			$text->insert();
+			$text->setVars([
+				'newstext_title' => $title,
+				'newstext_message_input' => $message,
+				'newstext_creator' => $uid,
+			])->insert();
 		}
 		return true;
+	}
+
+	##############
+	### Offers ###
+	##############
+	private static function installOffers() : bool
+	{
+		self::offer(1, 1, 50, 2, 1, '2022-09-25 13:37:42', '2022-11-09',
+			'ALIBABA!', 'Dönertaschtig!',
+			'Ein leckerer Döner mit Schafskäse und Fleisch nach Wahl, von Ihrem Saray.');
+
+		self::offer(2, 1, 25, 1, 1, '2022-09-25 13:37:42', '2022-11-09',
+			'ALIBABA!', 'Erquickend!',
+			'Ein Gutschein für eine Soft-Getränk. Besser als garnix.');
+		
+		self::offer(3, 2, 20, 10, 1, '2022-09-25 13:37:42', '2022-11-09',
+			'CUT!!!', 'Aerodynamisch!',
+			'Ein 5€ Gutschein für einen Haarschnitt bei Frisör Walid.');
+		
+		self::offer(4, 3, 20, 2, 1, '2022-09-25 13:37:42', '2022-11-09',
+			'PROST!!!', 'Gesellig!',
+			'Ein Gutschein über ein Härke-Bier, dem ehemaligen Getränk der Stadt?');
+		
+		return true;
+	}
+	
+	/**
+	 * Create an offer
+	 */
+	private static function offer(int $id, int $partnerId,
+		int $coupons, int $cost, int $cashierAmt,
+		string $created, string $expire,
+		string $passphrase, string $title, string $text) : void
+	{
+		if ($offer = KC_Offer::getById($id))
+		{
+			$offer->saveVars([
+				'o_partner' => $partnerId,
+				'o_passphrase' => $passphrase,
+				'o_title' => $title,
+				'o_text' => $text,
+				'o_required_amt' => $cost,
+				'o_cashier_amt' => $cashierAmt,
+				'o_total_amt' => $coupons,
+				'o_valid_until' => $expire,
+				'o_created' => $created,
+				'o_creator' => '2',
+			]);
+		}
+		else
+		{
+			KC_Offer::blank([
+				'o_id' => $id,
+				'o_partner' => $partnerId,
+				'o_passphrase' => $passphrase,
+				'o_title' => $title,
+				'o_text' => $text,
+				'o_required_amt' => $cost,
+				'o_cashier_amt' => $cashierAmt,
+				'o_total_amt' => $coupons,
+				'o_valid_until' => $expire,
+				'o_created' => $created,
+				'o_creator' => '2',
+			])->insert();
+		}
 	}
 
 }

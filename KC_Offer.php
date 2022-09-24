@@ -12,6 +12,7 @@ use GDO\Date\Time;
 use GDO\UI\GDT_Message;
 use GDO\Table\GDT_ListItem;
 use GDO\User\GDO_User;
+use GDO\UI\GDT_Title;
 
 /**
  * An offer for a cashier.
@@ -29,6 +30,7 @@ final class KC_Offer extends GDO
 			GDT_AutoInc::make('o_id'),
 			GDT_Partner::make('o_partner')->notNull()->label('partner'),
 			GDT_String::make('o_passphrase')->notNull()->label('passphrase'),
+			GDT_Title::make('o_title')->notNull(),
 			GDT_Message::make('o_text')->notNull()->label('description'),
 			GDT_UInt::make('o_required_amt')->notNull()->bytes(1)->min(1)->initial('1')->label('required_amt'),
 			GDT_UInt::make('o_cashier_amt')->notNull()->bytes(1)->min(1)->initial('1')->label('cashier_amt'),
@@ -38,6 +40,12 @@ final class KC_Offer extends GDO
 			GDT_CreatedBy::make('o_creator'),
 		];
 	}
+
+	##############
+	### Getter ###
+	##############
+	
+	public function getTitle() : string { return $this->gdoVar('o_title'); }
 
 	/**
 	 * How many coupons make one offer item?
@@ -62,7 +70,7 @@ final class KC_Offer extends GDO
 	public function isOfferValid() : bool
 	{
 		$until = $this->gdoValue('o_valid_until');
-		$now = new \DateTime(strtotime('today'));
+		$now = \DateTime::createFromFormat('U', strtotime('today'));
 		return $until >= $now;
 	}
 	
@@ -120,8 +128,9 @@ final class KC_Offer extends GDO
 	
 	public function renderList() : string
 	{
-		$li = GDT_ListItem::make();
+		$li = GDT_ListItem::make()->gdo($this);
 		$li->creatorHeader();
+		$li->titleRaw($this->getTitle());
 		$li->content($this->gdoColumn('o_text'));
 		$li->footer(GDT_OfferStatus::make()->offer($this));
 		return $li->render();

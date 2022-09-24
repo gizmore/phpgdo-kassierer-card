@@ -8,6 +8,8 @@ use GDO\Core\GDT_Template;
 use GDO\User\GDO_User;
 use GDO\Date\Time;
 use GDO\Core\GDT_Index;
+use GDO\Date\GDT_Timestamp;
+use GDO\User\GDT_User;
 
 /**
  * A printed coupon to give to an employee.
@@ -25,6 +27,8 @@ class KC_Coupon extends GDO
 			GDT_CouponStars::make('coup_stars'),
 			GDT_CreatedBy::make('coup_creator'),
 			GDT_CreatedAt::make('coup_created'),
+			GDT_Timestamp::make('coup_redeemed'),
+			GDT_User::make('coup_redeemer'),
 			GDT_Index::make('index_offers')->indexColumns('coup_offer'),
 		];
 	}

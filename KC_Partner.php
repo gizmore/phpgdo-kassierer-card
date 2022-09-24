@@ -13,6 +13,7 @@ use GDO\UI\GDT_Message;
 use GDO\User\GDO_User;
 use GDO\Address\GDO_Address;
 use GDO\UI\GDT_HTML;
+use GDO\Net\GDT_Url;
 
 final class KC_Partner extends GDO
 {
@@ -22,6 +23,7 @@ final class KC_Partner extends GDO
 			GDT_AutoInc::make('p_id'),
 			GDT_User::make('p_user'),
 			GDT_Address::make('p_address')->notNull(),
+			GDT_Url::make('p_url')->allowExternal()->label('website'),
 			GDT_Category::make('p_category')->notNull(),
 			GDT_Message::make('p_description')->label('information'),
 			GDT_CreatedAt::make('p_created'),

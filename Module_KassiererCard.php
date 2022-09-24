@@ -57,6 +57,7 @@ final class Module_KassiererCard extends GDO_Module
 			KC_Business::class,
 			KC_Working::class,
 			KC_Coupon::class,
+			KC_CouponEntered::class,
 			KC_Partner::class,
 			KC_Offer::class,
 			KC_SignupCode::class,
