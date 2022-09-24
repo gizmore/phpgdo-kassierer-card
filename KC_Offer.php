@@ -66,8 +66,12 @@ final class KC_Offer extends GDO
 		return $until >= $now;
 	}
 	
-	###
-	
+	###############
+	### Private ###
+	###############
+	/**
+	 * Get the date for next friday.
+	 */
 	private function nextFriday() : string
 	{
 		return Time::getDateWithoutTime(strtotime('next friday'));
@@ -98,6 +102,11 @@ final class KC_Offer extends GDO
 	public function queryNumRedeemedTotal() : int
 	{
 		return KC_CouponEntered::queryNumRedeemedTotal($this);
+	}
+	
+	public function queryNumOffers(KC_Partner $partner) : int
+	{
+		return self::countWhere("o_partner={$partner->getID()}");
 	}
 	
 	##############

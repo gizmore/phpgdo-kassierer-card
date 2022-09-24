@@ -12,7 +12,6 @@ use GDO\Core\GDT_CreatedBy;
 use GDO\UI\GDT_Message;
 use GDO\User\GDO_User;
 use GDO\Address\GDO_Address;
-use GDO\UI\GDT_Label;
 use GDO\UI\GDT_HTML;
 
 final class KC_Partner extends GDO
@@ -47,7 +46,7 @@ final class KC_Partner extends GDO
 	
 	public function getOfferCount() : int
 	{
-		return KC_CouponEntered::queryNumOffers($this);
+		return KC_Offer::table()->queryNumOffers($this);
 	}
 	
 	##############
@@ -62,7 +61,6 @@ final class KC_Partner extends GDO
 		$subt .= $addr->getCity() . ', ' . $addr->getCountry()->render();
 		$li->subtitleRaw($subt);
 		$li->content(GDT_HTML::make()->var($this->getDescriptionHTML()));
-		
 		$footer = GDT_HTML::make();
 		$html = '';
 		if ($user = $this->getUser())
@@ -71,11 +69,10 @@ final class KC_Partner extends GDO
 			$html = t('footer_partner', [$purl]);
 			$html .= ' - ';
 		}
-		
+		$href = Module_KassiererCard::instance()->href('Offers', "&f[o_partner]={$this->getID()}");
 		$amt = $this->getOfferCount();
-		$html .= t('footer_partner_offers', [$amt]);
+		$html .= t('footer_partner_offers', [$href, $amt]);
 		$li->footer($footer->var($html));
-
 		return $li->render();
 	}
 	

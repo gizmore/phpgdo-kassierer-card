@@ -79,6 +79,8 @@ return [
 
 	# Partners
 	'list_kassierercard_partners' => '%s Partners',
+	'footer_partner' => 'You can contact this partner via %s.',
+	'footer_partner_offers' => 'This partner has <a href="%s">%s offers</a>.',
 	
 	# Enter
 	'enter_coupon' => 'Enter Coupon',

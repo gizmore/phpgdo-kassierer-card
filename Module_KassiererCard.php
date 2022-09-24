@@ -16,6 +16,7 @@ use GDO\Core\GDT_String;
 use GDO\Form\GDT_Validator;
 use GDO\Core\GDT;
 use GDO\Core\Website;
+use GDO\Net\GDT_Url;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -25,7 +26,7 @@ use GDO\Core\Website;
  */
 final class Module_KassiererCard extends GDO_Module
 {
-	public int $priority = 25;
+	public int $priority = 125;
 	
 	public function getTheme() : ?string { return 'kkorg'; }
 	
@@ -69,11 +70,10 @@ final class Module_KassiererCard extends GDO_Module
 	public function getConfig() : array
 	{
 		return [
-			GDT_UInt::make('free_stars_period')->min(0)->max(100)->initial('1'),
+			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('1'),
 		];
 	}
-	public function cfgFreeStars() : int { return $this->getConfigValue('free_stars_period'); }
-	
+	public function cfgFreeStarsPerPeriod() : int { return $this->getConfigValue('free_stars_per_period'); }
 	
 	################
 	### Settings ###
@@ -81,12 +81,11 @@ final class Module_KassiererCard extends GDO_Module
 	public function getUserConfig() : array
 	{
 		return [
-			GDT_UInt::make('num_biz')->tooltip('tt_num_biz')->icon('business'),
-			GDT_Badge::make('coupons')->tooltip('tt_coupons')->icon('star'),
-// 			GDT_Badge::make('coupon_fast')->tooltip('tt_coupon_fast')->icon('star'),
-// 			GDT_Badge::make('coupon_help')->tooltip('tt_coupon_help')->icon('bee'),
-		    GDT_AccountType::make('kk_type')->notNull()->initial(GDT_AccountType::CUSTOMER),
-			GDT_UInt::make('bonus_stars')->initial('0'),
+			GDT_Badge::make('coupons_created')->tooltip('tt_coupons_created')->icon('bee'),
+			GDT_Badge::make('coupons_entered')->tooltip('tt_coupons_entered')->icon('sun'),
+			GDT_Badge::make('coupons_available')->tooltip('coupons_available')->icon('sun'),
+			GDT_Badge::make('coupons_redeemed')->tooltip('tt_coupons_redeemed')->icon('star'),
+			GDT_Badge::make('offers_taken')->tooltip('tt_offers_taken')->icon('star')->iconColor('yellow'),
 		];
 	}
 	
@@ -94,6 +93,11 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			GDT_String::make('profession')->initial('Kassierer'),
+			GDT_Url::make('personal_website')->allowExternal(),
+			GDT_Url::make('favorite_website')->allowExternal(),
+			GDT_String::make('favorite_meal'),
+			GDT_String::make('favorite_song'),
+			GDT_String::make('favorite_movie'),
 		];
 	}
 	
@@ -130,8 +134,8 @@ final class Module_KassiererCard extends GDO_Module
 			if ($this->isCustomer($user))
 			{
 				$page->rightBar()->addFields(
-					GDT_Link::make('printed_coupons')->href($this->href('PrintedCoupons')),
 					GDT_Link::make('create_coupon')->href($this->href('CreateCoupon')),
+					GDT_Link::make('printed_coupons')->href($this->href('PrintedCoupons')),
 				);
 			}
 			
@@ -141,9 +145,7 @@ final class Module_KassiererCard extends GDO_Module
 					GDT_Link::make('enter_coupon')->href($this->href('EnterCoupon')),
 				);
 				$page->rightBar()->addFields(
-					GDT_Badge::make()->icon('sun')->tooltip('tt_coupon_kind')->label('coupon_kind')->var($user->settingVar('KassiererCard', 'coupons')),
-// 					GDT_Badge::make()->icon('star')->tooltip('tt_coupon_fast')->label('coupon_fast')->var($user->settingVar('KassiererCard', 'coupon_fast')),
-// 					GDT_Badge::make()->icon('bee')->tooltip('tt_coupon_help')->label('coupon_help')->var($user->settingVar('KassiererCard', 'coupon_help')),
+					GDT_Badge::make()->icon('sun')->tooltip('tt_coupons_available')->label('coupons_available')->var($user->settingVar('KassiererCard', 'coupons_available')),
 				);
 			}
 			
@@ -161,7 +163,7 @@ final class Module_KassiererCard extends GDO_Module
 		);
 	}
 	
-	public function onInit() : void
+	public function onModuleInit() : void
 	{
 		Website::addLink([
 			'rel' => 'icon',
@@ -238,14 +240,16 @@ final class Module_KassiererCard extends GDO_Module
 		$activation->setValue('ua_data', $data);
 	}
 	
-	public function hookUserActivated(GDO_User $user, GDO_UserActivation $activation = null)
+	/**
+	 * Upon activation, grant usertype permission and delete the signup-code.
+	 */
+	public function hookUserActivated(GDO_User $user, GDO_UserActivation $activation = null) : void
 	{
 		if ($activation)
 		{
 			$data = $activation->gdoValue('ua_data');
 			if (@$data['kk_type'])
 			{
-				$this->saveUserSetting($user, 'kk_type', $data['kk_type']);
 				GDO_UserPermission::grant($user, $data['kk_type']);
 			}
 			if (@$data['kk_token'])
@@ -255,16 +259,16 @@ final class Module_KassiererCard extends GDO_Module
 		}
 	}
 	
-	############
-	### Bars ###
-	############
+	################
+	### Top Bars ###
+	################
 	public function addAdminBar() : void
 	{
 		$bar = GDT_Bar::make()->horizontal();
 		$bar->addFields(
 			GDT_Link::make('generate_signup_code')->href($this->href('AdminCreateSignupCode')),
 			GDT_Link::make('signup_codes')->href($this->href('AdminSignupCodes')),
-			);
+		);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
 	
@@ -285,7 +289,7 @@ final class Module_KassiererCard extends GDO_Module
 		$bar->addFields(
 			GDT_Link::make('enter_coupon')->href($this->href('EnterCoupon')),
 			GDT_Link::make('granted_coupons')->href($this->href('GrantedCoupons')),
-			);
+		);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
 
@@ -295,7 +299,7 @@ final class Module_KassiererCard extends GDO_Module
 		$bar->addFields(
 			GDT_Link::make('create_card')->href($this->href('CompanyCreateCard')),
 			GDT_Link::make('edit_business')->href($this->href('CompanyEditBusiness')),
-			);
+		);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
 	

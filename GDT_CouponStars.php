@@ -2,7 +2,6 @@
 namespace GDO\KassiererCard;
 
 use GDO\Core\GDT_UInt;
-use GDO\Core\GDT;
 
 /**
  * Amount of coupon stars.
