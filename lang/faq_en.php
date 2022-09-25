@@ -1,35 +1,63 @@
 <?php
 namespace GDO\KassiererCard\lang;
-
 return [
     'mt_faq' => 'Help / FAQ',
-    'md_faq' => 'Frequently asked questions and webservice helpfiles for kassierercard.org',
+    'md_faq' => 'Frequently asked questions and webservice helpfiles for KassiererCard.org',
 
-    'kk_faq_t1' => 'What is it about?',
-    'kk_faq_b1' => '%s is a service to honor the cashiers in the real economy. It is similiar to a tip or a thank you. We have a delicate point system to make it fun earning points',
+    'kk_faq_t1' => 'What is this site about?',
+    'kk_faq_b1' => '%s is a service, and art project, to honor the cashiers and workers in the real economy.<br/>
+It is similiar to a tip or a thank you.<br/>
+Also it is the baptism of fire for my programming work.<br/>
+KassiererCard.org has a flexible point system and we hope it is fun to earn Coupons and redeem some of them into,<br/>
+like getting a beer, a haircut, a kebab or a coffee.<br/>
+In crazy times, maybe a thank you and a smile is more required than ever.<br/>',
     
-    'kk_faq_t2' => 'How do i earn points?',
-    'kk_faq_b2' => 'NONO',
+    'kk_faq_t2' => 'How do we earn points?',
+    'kk_faq_b2' => 'There are three types of accounts.<br/>
+Customer, Cashier and Company.
+Let\'s call them the three C\'s; CEO, Christian and Charlette.<br/>
+Customers can print (and write down) Coupons.<br/>
+The Cashiers and workers can trade them for Offers.<br/>
+The Companies Offer goods for the trade Coupons, which might be a snack, some money off or a merchandize article, Anything is possible.',
 
-    'kk_faq_t2' => 'How can i participate best?',
-    'kk_faq_b2' => 'As a customer, print coupons and hand them to your cashier.<br/>As a cashier, hand your customers an invitation.<br/>As a company, help us with goods for your workers and customers.',
+    'kk_faq_t3' => 'The Customer 1x1',
+    'kk_faq_b3' => 'As a customer;
+Print Coupons and hand them to the Cashiers and workers you like.<br/>
+You can print 1 Coupon every 2 days, meaning the periods are Mo/Tu, We/Th, Fr/Sa.<br/>
+You can either print a Coupon, write the code down, or use your mobile phone to transfer your codes to the Cashiers,<br/>
+Currently you get a customer coupon for every 5th Coupon your friends reedem.<br/>
+It is not 100% clear yet what Customer Coupons will do.<br/>
+Maybe a lottery, quite doubtful, or you will simply get the same Offers as a Cashier.<br/>
+We are open to suggestions and feedback, but let\'s not forget it\'s for them, not for you!',
 
-    'kk_faq_t3' => 'How do i profit?',
-    'kk_faq_b3' => 'TBA',
+    'kk_faq_t4' => 'The Cashier Crisis',
+    'kk_faq_b4' => 'Let\'s not forget we do this for you, dear workers.<br/>
+Currently only admins can invite Cashiers individually.<br/>
+We try to cover Peine and maybe one or two other cities in the first run.<br/>
+If you like the idea, send invitations to your Customers. - Customers do not need a signup code.<br/>
+You will get handed Coupons from your Customers that you can trade for goods from the Companies.<br/>
+This can be done via exchanging a Coupon-Code, or scanning a QR-Code.<br/>
+We hope you enjoy this a little!',
 
-    'kk_faq_t4' => 'Is it only for cashiers?',
-    'kk_faq_b4' => 'For now, it is for the cashiers, customers and companies.',
+    'kk_faq_t5' => 'The Company Cookbook',
+    'kk_faq_b5' => 'Last but not least, there are Compenies.<br/>
+Your job is to give your workers a bit money and products.<br/>
+In exchange you will get 100% off the backside of every printed KassiererCard,<br/>
+a merchandize platform that is not poisoned with bloated metrics.<br/>',
 
-    'kk_faq_t5' => 'How does it work?',
-    'kk_faq_b5' => 'Customers generate tokens and hand them to their cashiers. The cashiers can get food, drinks, and other goods from the participating shops.',
+    'kk_faq_t6' => 'Pizza and Cola is lame, i want better stuff for my Coupons!',
+    'kk_faq_b6' => 'For every Coupon redeemed, your userlevel will advance by one point.<br/>
+With your userlevel you can do forum posts, add links to this site, and do other stuff too.<br/>',
 
-    'kk_faq_t6' => 'What do i get for the points?',
-    'kk_faq_b6' => 'As a customer you get into the lottery. As a cashier you get food. As a company you get merchandise.',
-
-    'kk_faq_t7' => 'Can i transfer points?',
-    'kk_faq_b7' => 'No, you can only get goods or discounts and turn your points into coal or hard coal',
+    'kk_faq_t7' => 'Can i transfer points to other users?',
+    'kk_faq_b7' => 'No, you can only get goods or discounts.',
     
-	'kk_faq_t8' => 'Can i transfer points?',
-    'kk_faq_b8' => 'No, you can only get goods or discounts and turn your points into coal or hard coal'
+	'kk_faq_t8' => 'They site is ugly and looks like it\'s 1999!',
+	'kk_faq_b8' => 'I put a lot effort into the design of this system.<br/>
+The current theme might be ugly, but there will be more beautiful in future.',
+	
+	'kk_faq_t9' => 'You have dozens of spelling errors, it\'s a pain to use the site.',
+	'kk_faq_b9' => '%s',
+	
 ];
 

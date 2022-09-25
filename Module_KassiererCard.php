@@ -48,7 +48,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Category', 'Contact', 'Classic',
 			'CountryRestrictions', 'CSS',
 			'DoubleAccounts',
-			'FontAtkinson', 'FontAwesome',
+			'FontAtkinson', 'FontAwesome', 'Forum',
 			'Invite', 'IP2Country',
 			'Javascript', 'JQueryAutocomplete',
 			'Licenses', 'Links', 'Login',

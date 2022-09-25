@@ -141,7 +141,7 @@ final class Install
 		return true;
 	}
 	
-	private static function installUser(string $id, string $nickname, string $password, string $perms) : bool
+	private static function installUser(string $id, string $nickname, ?string $email, string $password, string $perms) : bool
 	{
 		if (!($user = GDO_User::getById($id)))
 		{
@@ -160,11 +160,17 @@ final class Install
 				'user_password' => BCrypt::create($password)->__toString(),
 			]);
 		}
+		
+		# Email
+		$user->saveSettingVar('Mail', 'email', $email);
+
+		# Perms
 		foreach (explode(',', $perms) as $perm)
 		{
 			GDO_UserPermission::grant($user, $perm);
 		}
 		$user->changedPermissions();
+		
 		return true;
 	}
 	
