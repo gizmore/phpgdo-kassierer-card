@@ -7,7 +7,6 @@ use GDO\KassiererCard\GDT_Business;
 use GDO\DB\Query;
 use GDO\KassiererCard\KC_Business;
 use GDO\Core\GDT_Tuple;
-use GDO\UI\GDT_HTML;
 
 final class Employees extends MethodQueryList
 {

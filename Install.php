@@ -248,15 +248,15 @@ final class Install
 	private static function installPartners() : bool
 	{
 		$descr = 'Der beste Döner in Peine, knusprig und preiswert.<br/>Das Original - Nur bei Saray Ali!';
-		self::partner(1, 7, 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40', $descr);
+		self::partner(1, 7, 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40', $descr, 'https://saray.busch-peine.de/');
 		$descr = 'Der Frisör bei dem einen der Hut hochgeht?<br/>Schauen Sie mal vorbei!';
-		self::partner(2, 8, 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', '+49 5171 / 711 71', $descr);
+		self::partner(2, 8, 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/');
 		$descr = 'Peiner Rock/Pank Szenekneipe.<br/>Ab und an auch mal Live Musik.<br/>Angenehme Atmosphäre.';
-		self::partner(3, 9, 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', null, $descr);
+		self::partner(3, 9, 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', null, $descr, 'https://garage-peine.de');
 		return true;
 	}
 	
-	private static function partner(int $id, int $userId, int $cat, string $name, string $street, string $zip, string $city, string $country, ?string $phone, string $descr) : void
+	private static function partner(int $id, int $userId, int $cat, string $name, string $street, string $zip, string $city, string $country, ?string $phone, string $descr, string $url) : void
 	{
 		if (!($addr = GDO_Address::getById($id+200000)))
 		{
@@ -295,6 +295,7 @@ final class Install
 		{
 			$p = KC_Partner::blank([
 				'p_id' => $id,
+				'p_url' => $url,
 				'p_user' => $userId,
 				'p_address' => $addr->getID(),
 				'p_category' => $cat,
@@ -304,6 +305,7 @@ final class Install
 		else
 		{
 			$p->saveVars([
+				'p_url' => $url,
 				'p_user' => $userId,
 				'p_address' => $addr->getID(),
 				'p_category' => $cat,
@@ -404,7 +406,7 @@ EOT;
 	##############
 	private static function installOffers() : bool
 	{
-		self::offer(1, 1, 50, 2, 1, '2022-09-25 13:37:42', '2022-11-09',
+		self::offer(1, 1, 50, 3, 1, '2022-09-25 13:37:42', '2022-11-09',
 			'ALIBABA!', 'Dönertaschtig!',
 			'Ein leckerer Döner mit Schafskäse und Fleisch nach Wahl, von Ihrem Saray.');
 
@@ -412,7 +414,7 @@ EOT;
 			'ALIBABA!', 'Erquickend!',
 			'Ein Gutschein für eine Soft-Getränk. Besser als garnix.');
 		
-		self::offer(3, 2, 20, 10, 1, '2022-09-25 13:37:42', '2022-11-09',
+		self::offer(3, 2, 20, 4, 1, '2022-09-25 13:37:42', '2022-11-09',
 			'CUT!!!', 'Aerodynamisch!',
 			'Ein 5€ Gutschein für einen Haarschnitt bei Frisör Walid.');
 		

@@ -39,7 +39,8 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			'Account', 'ActivationAlert', 'Address', 'Admin', 'Avatar',
-			'Backup', 'Birthday', 'Category', 'Contact', 'Classic',
+			'Backup', 'Birthday', 'Bootstrap5Theme',
+			'Category', 'Contact', 'Classic',
 			'CountryRestrictions', 'CSS',
 			'DoubleAccounts',
 			'FontAtkinson', 'FontAwesome',
@@ -159,9 +160,9 @@ final class Module_KassiererCard extends GDO_Module
 			}
 		}
 		
-		$page->bottomBar()->addFields(
-			GDT_Link::make('link_kk_partners')->href($this->href('Partners')),
-		);
+// 		$page->bottomBar()->addFields(
+// 			GDT_Link::make('link_kk_partners')->href($this->href('Partners')),
+// 		);
 	}
 	
 	public function onModuleInit() : void

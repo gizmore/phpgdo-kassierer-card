@@ -1,3 +1,6 @@
+<?php
+namespace GDO\KassiererCard\thm\kkorg\Core\tpl\page;
+?>
 <h2>KassiererCard.org</h2>
 
 <h3>Privacy implications</h3>

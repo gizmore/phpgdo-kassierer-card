@@ -2,6 +2,7 @@
 namespace GDO\KassiererCard\lang;
 return [
 	### Nav
+	'sitename' => 'KassiererCard.org',
 	'link_kk_home' => 'KassiererCard.org',
 	'link_kk_offers' => 'Cashier Offers',
 	'link_kk_businesses' => 'Participating Stores',
@@ -34,14 +35,24 @@ return [
 	'perm_kk_company' => 'Company',
 	'perm_kk_customer' => 'Customer',
 	
-	'coup_type' => 'Coupon Type',
-	'coup_token' => 'Code',
-	'tt_coup_type' => 'Choose your kashiercard coupon type<br/>.This',
-	
 	'lbl_choose_account_type' => 'Please choose your account type.',
 	
-	'num_biz' => 'Stores',
 	'business' => 'Business',
+	'coup_token' => 'Code',
+	'coupons_available' => 'Coupons available',
+	'coupons_created' => 'Coupons created',
+	'coupons_entered' => 'Coupons entered',
+	'coupons_redeemed' => 'Coupons redeemed',
+	'favorite_meal' => 'Favorite Meal',
+	'favorite_movie' => 'Favorite Movie',
+	'favorite_song' => 'Favorite Song',
+	'favorite_website' => 'Favorite Website',
+	'num_biz' => 'Stores',
+	'offers_taken' => 'Offers taken',
+	'profession' => 'Profession',
+	'personal_website' => 'Own Website',
+	'tt_coupons_created' => 'Only customers can create coupons.',
+	'tt_coupons_available' => 'You can spend these coupons on offers.',
 	
 	### Signup
 	'kk_info_register' => 'We very welcome you on KassiererCard.org. Please tell us if you a customer, a cashier, or a company. Companies are our merchandize partners. Cashiers are the workers, Customers are... customers and can print coupons.',
@@ -79,18 +90,22 @@ return [
 
 	# Partners
 	'list_kassierercard_partners' => '%s Partners',
+	'kk_info_partners_table' => 'Merchandize partners offer their goods in exchange for coupons.',
 	'footer_partner' => 'You can contact this partner via %s.',
 	'footer_partner_offers' => 'This partner has <a href="%s">%s offers</a>.',
 	
 	# Enter
 	'enter_coupon' => 'Enter Coupon',
 	
-	# Offer 
+	# Offer
+	'kk_info_offers' => 'Here you can find the available offers in your area.<br/>Offers are created by our partners, customers print the coupons and employees redeem them.<br/>For every 5 redeemed coupons, the customer gets a coupon as well.',
 	'create_offer' => 'Create Offer',
 	'md_kassierercard_offers' => 'Show all available and historical coupon offers on KassiererCard.org.',
 	'info_create_offer' => 'Create a new coupon type / offer.',
 	'list_kassierercard_offers' => '%s Coupon Types',
-	'err_kk_offer_timeout' => 'This offer did expire on %s.',
+	'err_kk_offer_timeout' => 'This coupon\'s offer expired on %s and cannot be redeemed anymore.',
+	'err_kk_offer_no_more_for_you' => 'You have redeemed %s of %s items for this offer. No more available for you.',
+	'kk_offer_status' => 'In total, %s of %s items have been redeemed. You may redeem this offer %s time(s) until %s. This offer cost %s coupon stars.',
 	
 	# Print
 	'mt_kassierercard_createcoupon' => 'Create Coupon',
@@ -116,8 +131,5 @@ return [
 	'btn_biz_emplyoees' => '%s Employees',
 	
 	# Coupons
-	'err_kk_offer_timeout' => 'This coupon\'s offer is expired and cannot be redeemed anymore.',
-	'err_kk_offer_no_more_for_you' => 'You have redeemed %s of %s items for this offer. No more!',
-	'kk_offer_status' => 'In total, %s of %s items have been redeemed. You may redeem this offer %s time(s).',
 	
 ];

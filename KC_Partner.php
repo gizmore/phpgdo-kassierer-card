@@ -14,6 +14,8 @@ use GDO\User\GDO_User;
 use GDO\Address\GDO_Address;
 use GDO\UI\GDT_HTML;
 use GDO\Net\GDT_Url;
+use GDO\Maps\Module_Maps;
+use GDO\UI\GDT_Link;
 
 final class KC_Partner extends GDO
 {
@@ -21,10 +23,10 @@ final class KC_Partner extends GDO
 	{
 		return [
 			GDT_AutoInc::make('p_id'),
-			GDT_User::make('p_user'),
+			GDT_Category::make('p_category')->notNull(),
+			GDT_User::make('p_user')->notNull(),
 			GDT_Address::make('p_address')->notNull(),
 			GDT_Url::make('p_url')->allowExternal()->label('website'),
-			GDT_Category::make('p_category')->notNull(),
 			GDT_Message::make('p_description')->label('information'),
 			GDT_CreatedAt::make('p_created'),
 			GDT_CreatedBy::make('p_creator'),
@@ -51,16 +53,34 @@ final class KC_Partner extends GDO
 		return KC_Offer::table()->queryNumOffers($this);
 	}
 	
+	public function getRedeemCount() : int
+	{
+		return (int) $this->getUser()->settingVar('kassierercard', 'personal_website');
+	}
+	
+	public function getURL() : ?string
+	{
+		return $this->gdoVar('p_url');
+	}
+	
 	##############
 	### Render ###
 	##############
 	public function renderList() : string
 	{
 		$addr = $this->getAddress();
+		$country = $addr->getCountry();
 		$li = GDT_ListItem::make("partner_{$this->getID()}")->gdo($this);
 		$li->titleRaw($addr->getCompany());
 		$subt = $addr->getStreet() . ', ' . $addr->getZIP() . ' ';
-		$subt .= $addr->getCity() . ', ' . $addr->getCountry()->render();
+		$subt .= $addr->getCity();
+		$href = Module_Maps::instance()->getMapsURL($subt . ', ' . $country->getName());
+		$subt .= ', ' . $country->render();
+		if ($href = $this->getURL())
+		{
+			$link = GDT_Link::make()->href($href)->labelNone()->icon('url')->tooltip('link_visit_partner');
+			$subt .= ', ' . $link->render();
+		}
 		$li->subtitleRaw($subt);
 		$li->content(GDT_HTML::make()->var($this->getDescriptionHTML()));
 		$footer = GDT_HTML::make();
@@ -73,7 +93,8 @@ final class KC_Partner extends GDO
 		}
 		$href = Module_KassiererCard::instance()->href('Offers', "&f[o_partner]={$this->getID()}");
 		$amt = $this->getOfferCount();
-		$html .= t('footer_partner_offers', [$href, $amt]);
+		$amt2 = $this->getRedeemCount();
+		$html .= t('footer_partner_offers', [$href, $amt, $amt2]);
 		$li->footer($footer->var($html));
 		return $li->render();
 	}

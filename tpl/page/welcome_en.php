@@ -11,9 +11,20 @@ use GDO\UI\GDT_Link;
 <p>So, what do these systems have in common?</p>
 <p>Right, they are about the customer. No one ever thinks of the workers, the cashiers, the drivers, the cleaning personal, and maybe even some managers.</p>
 
-<p>This is were <a href="https://kassierercard.org">Kassierercard</a> steps in. Our bonus program is focused to aid the people who keep the business running, often for the minimum wage.</p>
+<p>This is were <a href="https://kassierercard.org">KassiererCard.org</a> steps in.
+Our bonus program is focused to aid the people who keep the business running,
+often for the minimum wage.</p>
 
-<p>If you wanna help your local employees, <?=GDT_Link::anchor(href('Register','Form'), 'register')?> and give them credit, where credit is due.</p>
+<p>If you wanna help your local employees, 
+<?=GDT_Link::anchor(href('Register','Form'), 'register')?>
+and give them credit, where credit is due.</p>
+
+<p>On the left sidebar you find public resources,
+to the right are private.<br/>
+To register as a cashier or a companym you need a special Signup-Code.<br/>
+If you register as customer you can print 1 coupon all 2 days,
+and hand them to your cashiers.
+</p>
 
 <br/>
 
@@ -24,4 +35,4 @@ use GDO\UI\GDT_Link;
 <p>Please note that this project is at the very beginning.</p>
 <p>We are looking for partners!</p>
 
-<em>&copy; 2022 - KassiererCard.org</em>
+<em>&copy;2022-23 - KassiererCard.org</em>
