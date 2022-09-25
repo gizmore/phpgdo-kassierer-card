@@ -30,6 +30,11 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function getTheme() : ?string { return 'kkorg'; }
 	
+	public function isSiteModule(): bool
+	{
+		return true;
+	}
+	
 	public function href_administrate_module() : ?string
 	{
 		return $this->href('Admin');

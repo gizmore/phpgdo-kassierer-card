@@ -133,7 +133,7 @@ final class Install
 	#############
 	private static function installUsers() : bool
 	{
-		$accounts = require 'accounts.php';
+		$accounts = require 'account_seeds.php';
 		foreach ($accounts as $data)
 		{
 			self::installUser(...$data);

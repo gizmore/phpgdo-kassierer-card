@@ -17,12 +17,12 @@ text {
 	font-size: 200px;
 }
 .fineprint {
-	font-size: 20px;
+	font-size: 34px;
 }
 </style>
 <rect x="0" y="0" width="256" height="256" style="fill:#Fff;" />
 <rect rx="10" ry="10" x="20" y="20" width="216" height="216" style="fill:#F94600;" />
 <text x="12" y="195" fill="#ffffff" stroke="#ffffff" class="txt">K</text>  
 <text x="120" y="195" fill="#ffffff" stroke="#ffffff" class="txt">C</text>
-<text x="12" y="248" fill="#ffffff" stroke="#ffffff" class="fineprint">KassiererCard</text>
+<text x="23" y="227" fill="#ffffff" stroke="#ffffff" class="fineprint">KassiererCard</text>
 </svg>
