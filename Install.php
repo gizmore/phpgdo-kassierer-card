@@ -13,6 +13,7 @@ use GDO\User\GDO_UserPermission;
 use GDO\Crypto\BCrypt;
 use GDO\News\GDO_News;
 use GDO\Avatar\Module_Avatar;
+use SlevomatCodingStandard\Sniffs\Commenting\DeprecatedAnnotationDeclarationSniff;
 
 /**
  * Initial seed for rapid dev.
@@ -54,10 +55,34 @@ final class Install
 	private static function installSlogans() : bool
 	{
 		$data = [
+			'Diesmal anders herum',
+			'Gewöhne Dich daran',
 			'Es wurde auch Zeit',
 			'Alles geht, nix muss',
 			'Denkt mal drüber nach',
+			'Willkommen im Club',
+			'Willkommen im 22 Jahrhundert',
+			'Besser spät als nie',
+			'Wenn nicht jetzt wann dann',
+			'Nie mehr ohne',
+			'Ich mache mit',
+			'Wir stehen hinter euch',
+			'Es wird Zeit',
+			'Das warten hat ein Ende',
+			'Wir haben die Wahl',
+			'Nicht ohne euch',
+			'Es passt',
+			'Zusammen mehr erreichen',
+			'Es wird auch Zeit',
+			'Darauf haben wir gewartet',
+			'Wir sind noch da',
+			'Daslohnt sich',
+			'Jetzt erst recht',
+			'Besser als gefragt',
+			'Kreativ und beliebt',
+			'Für euch',
 		];
+		
 		$i = 0;
 		foreach ($data as $slogan)
 		{
