@@ -59,5 +59,7 @@ The current theme might be ugly, but there will be more beautiful in future.',
 	'kk_faq_t9' => 'You have dozens of spelling errors, it\'s a pain to use the site.',
 	'kk_faq_b9' => '%s',
 	
+	'kk_faq_t10' => 'Ich habe keinen Kundenkontakt?',
+	
 ];
 
