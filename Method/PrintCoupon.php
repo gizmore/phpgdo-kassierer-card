@@ -10,12 +10,12 @@ use GDO\Form\GDT_Validator;
 
 final class PrintCoupon extends MethodForm
 {
-	public function gdoParameters() : array
-	{
-		return [
-			,
-		];
-	}
+// 	public function gdoParameters() : array
+// 	{
+// 		return [
+// 			,
+// 		];
+// 	}
 	
 	public function createForm(GDT_Form $form): void
 	{

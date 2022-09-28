@@ -10,6 +10,7 @@ final class GDT_Coupon extends GDT_Object
 	{
 		parent::__construct();
 		$this->table(KC_Coupon::table());
+// 		$this->completionHref($completionHref);
 	}
 	
 	################
