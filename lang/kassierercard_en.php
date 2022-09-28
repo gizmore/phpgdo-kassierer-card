@@ -38,7 +38,8 @@ return [
 	'lbl_choose_account_type' => 'Please choose your account type.',
 	
 	'business' => 'Business',
-	'coup_token' => 'Code',
+	'kc_token' => 'Code',
+	'kc_offer' => 'Coupon Offer',
 	'coupons_available' => 'Coupons available',
 	'coupons_created' => 'Coupons created',
 	'coupons_entered' => 'Coupons entered',
@@ -107,9 +108,14 @@ return [
 	'err_kk_offer_no_more_for_you' => 'You have redeemed %s of %s items for this offer. No more available for you.',
 	'kk_offer_status' => 'In total, %s of %s items have been redeemed. You may redeem this offer %s time(s) until %s. This offer cost %s coupon stars.',
 	
+	# Create Coupon
+	'create_coupon' => 'Create Coupon',
+	'sel_coupon_offer' => 'Select Offer',
+	'tt_create_offer' => 'Create a Coupon for this Offer to share with your local workers.',
+	
 	# Print
-	'mt_kassierercard_createcoupon' => 'Create Coupon',
-	'kk_info_create_coupon' => 'In total you have created %s coupons with %s stars. In this period, you can print %s/%s more stars on coupons.',
+	'mt_kassierercard_printcoupon' => 'Print Coupon',
+	'kk_info_create_coupon' => 'Select your Offer and the number of stars for your coupon.<br/>In total you have created %s coupons with %s stars. In this period, you can print %s/%s more stars on coupons.',
 	'generate_coupons' => 'Generate Coupons',
 	'msg_coupon_created' => 'Your cashiercard coupon has been created.',
 	'err_kk_create_stars' => 'You want to create %s stars, but you could only add %s more stars this period. You already created %s stars this period.',

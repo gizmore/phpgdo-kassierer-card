@@ -43,7 +43,7 @@ final class KC_Util
 	public static function maxStarsCreatedInPeriod(GDO_User $user, int $time) : int
 	{
 		$mod = Module_KassiererCard::instance();
-		$min = $mod->cfgFreeStars();
+		$min = $mod->cfgFreeStarsPerPeriod();
 		return $min;
 	}
 	
@@ -64,7 +64,7 @@ final class KC_Util
 	
 	public static function numCouponsCreated($user) : int
 	{
-		return 0;
+		return KC_Coupon::table()->numCouponsCreated($user);
 	}
 	
 	public static function numStarsCreated($user) : int

@@ -43,7 +43,7 @@ final class EnterCoupon extends MethodForm
 	{
 		$token = trim(strtoupper($value));
 		$token = preg_replace('/[^A-Z0-9]/iD', '', $token);
-		if (!($coupon = KC_Coupon::getBy('coup_token', $token)))
+		if (!($coupon = KC_Coupon::getBy('kc_token', $token)))
 		{
 			return $field->error('err_kk_coupon_unknown');
 		}

@@ -4,6 +4,8 @@ namespace GDO\KassiererCard\Method;
 use GDO\Table\MethodQueryList;
 use GDO\KassiererCard\KC_Offer;
 use GDO\Table\GDT_Table;
+use GDO\DB\Query;
+use GDO\Date\Time;
 
 final class Offers extends MethodQueryList
 {
@@ -11,6 +13,13 @@ final class Offers extends MethodQueryList
 	{
 		return KC_Offer::table();
 	}
+	
+	public function getQuery() : Query
+	{
+		$now = Time::getDateWithoutTime();
+		return parent::getQuery()->orWhere("o_valid_until >= '$now'");
+	}
+	
 	
 	protected function setupCollection(GDT_Table $table) : void
 	{

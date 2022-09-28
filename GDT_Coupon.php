@@ -12,5 +12,14 @@ final class GDT_Coupon extends GDT_Object
 		$this->table(KC_Coupon::table());
 	}
 	
+	################
+	### Only Own ###
+	################
+	public bool $onlyOwnCreated = false;
+	public function onlyOwnCreated(bool $bool=true) : self
+	{
+		$this->onlyOwnCreated = $bool;
+		return $this;
+	}
 	
 }

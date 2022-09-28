@@ -33,10 +33,10 @@ final class CreateCoupon extends MethodForm
 			KC_Util::canStarsCreatedInPeriod($user, $time),
 			KC_Util::maxStarsCreatedInPeriod($user, $time),
 		]);
-		$stars = $table->gdoColumn('coup_stars');
+		$stars = $table->gdoColumn('kc_stars');
 		$form->addField($stars);
 		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateStars']));
-		$form->addField($table->gdoColumn('coup_type'));
+		$form->addField($table->gdoColumn('kc_offer'));
 		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addField(GDT_Submit::make());
 	}

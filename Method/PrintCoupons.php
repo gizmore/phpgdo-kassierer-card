@@ -18,8 +18,8 @@ final class PrintCoupons extends MethodForm
 	public function createForm(GDT_Form $form): void
 	{
 		$table = KC_Coupon::table();
-		$form->addField($table->gdoColumn('coup_stars'));
-		$form->addField($table->gdoColumn('coup_type'));
+		$form->addField($table->gdoColumn('kc_stars'));
+		$form->addField($table->gdoColumn('kc_type'));
 		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addField(GDT_Submit::make());
 	}

@@ -13,6 +13,7 @@ use GDO\UI\GDT_Message;
 use GDO\Table\GDT_ListItem;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Title;
+use GDO\UI\GDT_Button;
 
 /**
  * An offer for a cashier.
@@ -132,9 +133,21 @@ final class KC_Offer extends GDO
 		$li->creatorHeader();
 		$li->titleRaw($this->getTitle());
 		$li->content($this->gdoColumn('o_text'));
+		$li->actions()->addFields(
+			GDT_Button::make('create_coupon')
+				->tooltip('tt_create_offer')
+				->href(href('KassiererCard', 'CreateCoupon', "&kc_offer={$this->getID()}")));
 		$li->footer(GDT_OfferStatus::make()->offer($this));
 		return $li->render();
 	}
 	
-	
+	public function renderOption() : string
+	{
+		return '#'.$this->getID().'-'.$this->gdoDisplay('o_title');
+	}
+
+	public function renderName() : string
+	{
+		return $this->renderOption();
+	}
 }

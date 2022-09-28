@@ -22,9 +22,9 @@ else
 }
 
 $content = GDT_Container::make()->vertical();
-$content->addField($gdo->gdoColumn('coup_stars'));
-$content->addField($gdo->gdoColumn('coup_type'));
-$content->addField($gdo->gdoColumn('coup_token'));
+$content->addField($gdo->gdoColumn('kc_stars'));
+$content->addField($gdo->gdoColumn('kc_offer'));
+$content->addField($gdo->gdoColumn('kc_token'));
 $li->content($content);
 
 $li->actions()->addField(GDT_Button::make('btn_print')->icon('print')

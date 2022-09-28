@@ -26,7 +26,11 @@ final class GDT_CouponToken extends GDT_Char
 	{
 		do
 		{
-			$key = Random::randomKey(self::LENGTH, self::CHARSET);
+			$key = '';
+			for ($i = 0; $i < self::LENGTH; $i++)
+			{
+				$key .= Random::randomKey(1, self::CHARSET);
+			}
 		}
 		while (self::keyExists($key));
 		return $key;
@@ -34,7 +38,7 @@ final class GDT_CouponToken extends GDT_Char
 	
 	private static function keyExists(string $key) : bool
 	{
-		return !!KC_Coupon::getBy('coup_token', $key);
+		return !!KC_Coupon::getBy('kc_token', $key);
 	}
 	
 	##############

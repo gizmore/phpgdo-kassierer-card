@@ -36,7 +36,7 @@ final class PrintedCoupons extends MethodQueryList
 	public function getQuery() : Query
 	{
 		$uid = GDO_User::current()->getID();
-		return parent::getQuery()->where('coup_creator='.$uid);
+		return parent::getQuery()->where('kc_creator='.$uid);
 	}
 
 // 	public function execute()
