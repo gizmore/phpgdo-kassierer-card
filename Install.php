@@ -81,6 +81,8 @@ final class Install
 			'Besser als gefragt',
 			'Kreativ und beliebt',
 			'Für euch',
+			'Änderung',
+			'Verbesserung',
 		];
 		
 		$i = 0;
