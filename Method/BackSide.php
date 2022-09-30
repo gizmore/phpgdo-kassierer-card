@@ -5,6 +5,7 @@ use GDO\Core\Method;
 use GDO\Core\GDT_Template;
 use GDO\KassiererCard\GDT_Coupon;
 use GDO\KassiererCard\KC_Coupon;
+use GDO\File\Method\GetFile;
 
 /**
  * 
@@ -29,11 +30,18 @@ final class BackSide extends Method
 	
 	public function execute()
 	{
+		$coupon = $this->getCoupon();
+		$offer = $coupon->getOffer();
+		if ($backImage = $offer->getBacksideImage())
+		{
+			return GetFile::make()->executeWithFile($backImage);
+		}
 		header('Content-Type: image/svg+xml');
 		$tVars = [
-			'coupon' => $this->getCoupon(),
+			'coupon' => $coupon,
+			'offer' => $offer,
 		];
-		return GDT_Template::make()->template('Kassierercard', 'svg/card_front.php', $tVars);
+		return GDT_Template::make()->template('Kassierercard', 'svg/card_back.php', $tVars);
 	}
 	
 }

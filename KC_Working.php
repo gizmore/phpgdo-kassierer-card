@@ -52,9 +52,8 @@ final class KC_Working extends GDO
 			tt($this->getWorkFrom()),
 		]);
 		$li->subtitle('li_kk_working_sub', [
-			KC_Util::getBees($user),
-			KC_Util::getSuns($user),
 			KC_Util::getStars($user),
+			KC_Util::numOffersRedeemed($user),
 		]);
 		return $li->render();
 	}

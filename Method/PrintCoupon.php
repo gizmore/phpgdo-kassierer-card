@@ -71,14 +71,9 @@ final class PrintCoupon extends MethodForm
 	public function qrcode()
 	{
 		$coupon = $this->getCoupon();
-		return GDT_QRCode::make()->qrcodeSize($this->qrcodeSize())->var($coupon->urlEnter());
+		return $coupon->getQRCode();
 	}
 	
-	private function qrcodeSize()
-	{
-		return Module_KassiererCard::instance()->cfgQRCodeSize();
-	}
-
 	public function print()
 	{
 		$cont = GDT_Container::make('images')->horizontal();
@@ -96,7 +91,7 @@ final class PrintCoupon extends MethodForm
 	private function printBack()
 	{
 		$coupon = $this->getCoupon();
-		$href = $coupon->hrefSVGFront();
+		$href = $coupon->hrefSVGBack();
 		return GDT_Image::make('back')->src($href);
 	}
 

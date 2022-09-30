@@ -2,6 +2,7 @@
 namespace GDO\KassiererCard;
 
 use GDO\Core\GDT_Enum;
+use GDO\Core\GDT;
 
 final class GDT_AccountType extends GDT_Enum
 {
@@ -12,13 +13,13 @@ final class GDT_AccountType extends GDT_Enum
     protected function __construct()
     {
         parent::__construct();
-        $this->enumValues(self::CASHIER, self::CUSTOMER, self::COMPANY);
+        $this->enumValues(self::CASHIER, self::COMPANY, self::CUSTOMER);
         $this->notNull();
         $this->emptyLabel('lbl_choose_account_type');
     }
     
     public function displayVar(string $var=null) : string
     {
-    	return $var === null ? '' : t($var);
+    	return $var === null ? GDT::EMPTY_STRING : t($var);
     }
 }

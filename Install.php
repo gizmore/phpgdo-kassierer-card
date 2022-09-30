@@ -13,7 +13,6 @@ use GDO\User\GDO_UserPermission;
 use GDO\Crypto\BCrypt;
 use GDO\News\GDO_News;
 use GDO\Avatar\Module_Avatar;
-use SlevomatCodingStandard\Sniffs\Commenting\DeprecatedAnnotationDeclarationSniff;
 
 /**
  * Initial seed for rapid dev.

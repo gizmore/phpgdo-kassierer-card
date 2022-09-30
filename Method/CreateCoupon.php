@@ -68,16 +68,33 @@ final class CreateCoupon extends MethodForm
 	public function formValidated(GDT_Form $form)
 	{
 		$vars = $form->getFormVars();
+		$stars = $vars['kc_stars'];
 		KC_Coupon::blank($vars)->insert();
 		$by = Module_KassiererCard::instance()->cfgLevelPerPrintedCoupon();
-		$by *= $vars['kc_stars'];
+		$by *= $stars;
 		$user = GDO_User::current();
 		$user->increase('user_level', $by);
+		$starsBefore = $user->settingVar('KassiererCard', 'stars_created');
+		$coupsBefore = KC_Util::numCustomerCouponsForStars($starsBefore);
+		$starsAfter = $starsBefore + $stars;
+		$coupsAfter = KC_Util::numCustomerCouponsForStars($starsAfter);
+		$coupsEarned = $coupsAfter - $coupsBefore;
+		
+		$user->increaseSetting('KassiererCard', 'stars_created', $stars);
+		
 		$args = [
 			$by,
 			$user->getLevel(),
 		];
-		return $this->redirectMessage('msg_coupon_created', $args, href('KassiererCard', 'PrintedCoupons'));
+		$this->redirectMessage('msg_coupon_created', $args, href('KassiererCard', 'PrintedCoupons'));
+
+		if ($coupsEarned > 0)
+		{
+			$user->increaseSetting('KassiererCard', 'stars_entered', $coupsEarned);
+			$user->increaseSetting('KassiererCard', 'stars_avaiable', $coupsEarned);
+			$nowAvailable = $user->settingVar('KassiererCard', 'stars_avaiable');
+			$this->message('msg_kk_earned_customer_star', [$coupsEarned, $nowAvailable]);
+		}
 	}
 	
 }

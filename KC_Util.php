@@ -6,6 +6,7 @@ use GDO\User\GDO_User;
 
 /**
  * Various KC utility.
+ * 
  * @author gizmore
  *
  */
@@ -47,19 +48,27 @@ final class KC_Util
 		return $min;
 	}
 	
-	public static function getBees(GDO_User $user) : int
-	{
-		return (int) $user->settingVar('KassiererCard', 'coupon_help');
-	}
-	
-	public static function getSuns(GDO_User $user) : int
-	{
-		return (int) $user->settingVar('KassiererCard', 'coupon_kind');
-	}
-	
 	public static function getStars(GDO_User $user) : int
 	{
-		return (int) $user->settingVar('KassiererCard', 'coupon_fast');
+		return
+			self::numStarsCreated($user) +
+			self::numStarsEntered($user);
+			
+	}
+	
+	public static function numOffersRedeemed(GDO_User $user) : int
+	{
+		return $user->settingVar('KassiererCard', 'offers_redeemed');
+	}
+	
+	public static function numStarsEntered(GDO_User $user) : int
+	{
+		return $user->settingVar('KassiererCard', 'stars_entered');
+	}
+	
+	public static function numCouponsEntered(GDO_User $user) : int
+	{
+		return $user->settingVar('KassiererCard', 'coupons_entered');
 	}
 	
 	public static function numCouponsCreated($user) : int
@@ -71,5 +80,24 @@ final class KC_Util
 	{
 		return KC_Coupon::table()->numCouponsCreated($user);
 	}
+	
+	public static function numStarsAvaliable($user) : int
+	{
+		
+		return 1;
+	}
+	
+	public static function numCouponsAvailable($user) : int
+	{
+		return 2;
+		
+	}
+	
+	public static function numCustomerCouponsForStars(int $stars) : int
+	{
+		$coupMod = Module_KassiererCard::instance()->cfgCustomerCouponModulus();
+		return floor($stars / $coupMod);
+	}
+	
 	
 }

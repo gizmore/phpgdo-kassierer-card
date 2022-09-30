@@ -145,7 +145,7 @@ return [
 	# Employees
 	'list_kassierercard_employees' => '%s Employees',
 	'li_kk_working' => '%s is working at %s since %s.',
-	'li_kk_working_sub' => 'They has collected %s bees, %s suns and %s stars.',
+	'li_kk_working_sub' => 'They has collected %s stars and redeemed %s offers.',
 
 	# Biz
 	'btn_biz_emplyoees' => '%s Employees',

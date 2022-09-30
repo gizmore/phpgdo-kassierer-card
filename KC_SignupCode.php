@@ -11,16 +11,25 @@ final class KC_SignupCode extends GDO
 	{
 		return [
 			GDT_AutoInc::make('sc_id'),
-			GDT_Token::make('sc_token')->initialNull()->notNull(),
+			GDT_AccountType::make('sc_type')->notNull(),
+			GDT_Token::make('sc_token')->initialNull()->notNull()->unique(),
 		];
 	}
 
-	public static function validateCode($token) : bool
+	public static function validateCode(string $token, string $type) : bool
 	{
-		return !!self::table()->getBy('sc_token', $token);
+		if (!($code = self::table()->getBy('sc_token', $token)))
+		{
+			return false;
+		}
+		if ($code->getType() !== $type)
+		{
+			return false;
+		}
+		return true;
 	}
 	
-	public static function clearCode($token) : bool
+	public static function clearCode(string $token) : bool
 	{
 		return self::table()->deleteWhere('sc_token='.quote($token)) === 1;
 	}

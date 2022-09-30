@@ -11,6 +11,7 @@ use GDO\Core\GDT_Index;
 use GDO\Date\GDT_Timestamp;
 use GDO\User\GDT_User;
 use GDO\Net\GDT_Url;
+use GDO\QRCode\GDT_QRCode;
 
 /**
  * A printed coupon to give to an employee.
@@ -25,6 +26,7 @@ class KC_Coupon extends GDO
 		return [
 			GDT_CouponToken::make('kc_token')->primary(),
 			GDT_Offer::make('kc_offer')->notNull()->emptyLabel('sel_coupon_offer'),
+			GDT_CouponType::make('kc_type'),
 			GDT_CouponStars::make('kc_stars'),
 			GDT_CreatedBy::make('kc_creator'),
 			GDT_CreatedAt::make('kc_created'),
@@ -47,7 +49,25 @@ class KC_Coupon extends GDO
 	
 	public function isEntered() : bool
 	{
-		return $this->gdoVar('kc_granted') !== null;
+		return $this->gdoVar('kc_entered') !== null;
+	}
+	
+	public function getSlogan() : string
+	{
+		return KC_Slogan::randomSloganText();
+	}
+	
+	###############
+	### QR-Code ###
+	###############
+	public function getQRCode() : GDT_QRCode
+	{
+		return GDT_QRCode::make()->qrcodeSize($this->qrcodeSize())->var($this->urlEnter());
+	}
+	
+	private function qrcodeSize()
+	{
+		return Module_KassiererCard::instance()->cfgQRCodeSize();
 	}
 	
 	############

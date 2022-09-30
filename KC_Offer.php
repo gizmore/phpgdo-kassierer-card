@@ -16,6 +16,7 @@ use GDO\UI\GDT_Title;
 use GDO\UI\GDT_Button;
 use GDO\UI\GDT_Container;
 use GDO\File\GDT_ImageFile;
+use GDO\File\GDO_File;
 
 /**
  * An offer for a cashier.
@@ -53,6 +54,8 @@ final class KC_Offer extends GDO
 	
 	public function getPartner() : KC_Partner { return $this->gdoValue('o_partner'); }
 
+	public function getBacksideImage() : ?GDO_File { return $this->gdoValue('o_image'); }
+	
 	/**
 	 * How many coupons make one offer item?
 	 */
