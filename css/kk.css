@@ -1,0 +1,8 @@
+
+/** Print **/
+.kk-print-card-row img,
+.kk-print-card-row object {
+	width: 527px;
+	border: 2px dashed #333;
+}
+

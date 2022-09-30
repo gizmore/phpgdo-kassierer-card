@@ -11,8 +11,10 @@ use GDO\KassiererCard\KC_Coupon;
  * @author gizmore
  *
  */
-final class FrontSide extends Method
+class FrontSide extends Method
 {
+	protected function getSVGTemplateName() : string { return 'svg/card_front.php'; }
+	
 	public function isAjax() : bool { return true; }
 	
 	public function gdoParameters() : array
@@ -30,10 +32,9 @@ final class FrontSide extends Method
 	public function execute()
 	{
 		header('Content-Type: image/svg+xml');
-		$tVars = [
-			'coupon' => $this->getCoupon(),
-		];
-		return GDT_Template::make()->template('Kassierercard', 'svg/card_front.php', $tVars);
+		$tpl = $this->getSVGTemplateName();
+		$tVars = ['coupon' => $this->getCoupon()];
+		return GDT_Template::make()->template('Kassierercard', $tpl, $tVars);
 	}
 	
 }

@@ -68,6 +68,7 @@ final class CreateCoupon extends MethodForm
 	public function formValidated(GDT_Form $form)
 	{
 		$vars = $form->getFormVars();
+		$vars['kc_type'] = 'kk_coupon';
 		$stars = $vars['kc_stars'];
 		KC_Coupon::blank($vars)->insert();
 		$by = Module_KassiererCard::instance()->cfgLevelPerPrintedCoupon();

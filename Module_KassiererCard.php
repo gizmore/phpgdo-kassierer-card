@@ -66,13 +66,13 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			KC_Business::class,
-			KC_Working::class,
 			KC_Coupon::class,
 			KC_Partner::class,
 			KC_Offer::class,
 			KC_CouponRedeemed::class,
 			KC_SignupCode::class,
 			KC_Slogan::class,
+			KC_Working::class,
 		];
 	}
 	
@@ -129,12 +129,12 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			GDT_Divider::make('div_kk'),
-			GDT_String::make('profession')->initial('Kassierer'),
+			GDT_String::make('profession')->initial('Kassierer')->icon('work'),
 			GDT_Url::make('personal_website')->allowExternal(),
-			GDT_Url::make('favorite_website')->allowExternal(),
-			GDT_String::make('favorite_meal'),
-			GDT_String::make('favorite_song'),
-			GDT_String::make('favorite_movie'),
+			GDT_Url::make('favorite_website')->allowExternal()->icon('trophy'),
+			GDT_String::make('favorite_meal')->icon('trophy'),
+			GDT_String::make('favorite_song')->icon('trophy'),
+			GDT_String::make('favorite_movie')->icon('trophy'),
 			GDT_Divider::make('div_ui'),
 			GDT_Length::make('qrcode_size')->initial('320')->noacl(),
 		];
@@ -164,13 +164,18 @@ final class Module_KassiererCard extends GDO_Module
 		$page = GDT_Page::instance();
 		$user = GDO_User::current();
 		
-		$page->leftBar()->addFields(
+		$page->leftBar()->addFieldFirst(
 			GDT_Link::make('link_kk_home')->icon('cc')->href($this->href('Welcome')),
-			GDT_Link::make('link_kk_offers')->href($this->href('Offers')),
-			GDT_Link::make('link_kk_businesses')->href($this->href('Businesses')),
+		);
+
+		$numOffers = KC_Offer::queryNumActive();
+		
+		$page->leftBar()->addFields(
+			GDT_Link::make()->href($this->href('Offers'))->text('link_kk_offers', [$numOffers])->icon('star'),
+			GDT_Link::make('link_kk_businesses')->href($this->href('Businesses'))->textArgs(KC_Business::numTotal())->icon('house'),
 			GDT_Link::make('link_kk_partners')->href($this->href('Partners')),
-			GDT_Link::make('link_kk_employees')->href($this->href('Employees')),
-			GDT_Link::make('link_kk_help')->href($this->href('Help')),
+			GDT_Link::make('link_kk_employees')->href($this->href('Employees'))->textArgs(KC_Working::numEmployeesTotal()),
+			GDT_Link::make('link_kk_help')->href($this->href('Help'))->icon('help'),
 		);
 		
 		if ($user->isUser())
@@ -191,9 +196,9 @@ final class Module_KassiererCard extends GDO_Module
 					GDT_Link::make('entered_coupons')->href($this->href('EnteredCoupons'))->icon('star'),
 				);
 				$page->rightBar()->addFields(
-					GDT_Badge::make()->icon('sun')->tooltip('tt_coupons_available')->text('stars_vailable')->var(KC_Util::numStarsAvaliable($user)),
+					GDT_Badge::make()->icon('sun')->tooltip('tt_stars_available')->text('stars_available')->var(KC_Util::numStarsAvaliable($user)),
 					GDT_Badge::make()->icon('sun')->tooltip('tt_coupons_available')->text('coupons_available')->var(KC_Util::numCouponsAvailable($user)),
-					);
+				);
 			}
 			
 			if ($this->isCompany($user))
@@ -201,6 +206,13 @@ final class Module_KassiererCard extends GDO_Module
 				$page->rightBar()->addFields(
 					GDT_Link::make('businesses')->href($this->href('CompanyBusinesses')),
 					GDT_Link::make('create_offer')->href($this->href('CreateOffer')),
+				);
+			}
+			
+			if ($user->isStaff())
+			{
+				$page->rightBar()->addFields(
+					GDT_Link::make('kk_admin')->href($this->href('Admin')),
 				);
 			}
 		}
@@ -218,9 +230,11 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function onIncludeScripts() : void
 	{
+		$this->addJS('js/kk.js');
+		$this->addCSS('css/kk.css');
 		if ($this->cfgPreAlpha())
 		{
-			$script_html = 'alert("Dies ist eine fiktivie Vorabversion. Sobald diese Nachricht verschwindet geht es los!");';
+			$script_html = 'alert("Dies ist eine fiktivie Vorabversion. Sobald diese Nachricht nicht mehr erscheint startet Phase 1.");';
 			Javascript::addJSPostInline($script_html);
 		}
 	}
@@ -318,8 +332,8 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		$bar = GDT_Bar::make()->horizontal();
 		$bar->addFields(
-			GDT_Link::make('generate_signup_code')->href($this->href('AdminCreateSignupCode')),
-			GDT_Link::make('signup_codes')->href($this->href('AdminSignupCodes')),
+			GDT_Link::make('generate_signup_code')->href($this->href('AdminCreateSignupCode'))->icon('create'),
+			GDT_Link::make('signup_codes')->href($this->href('AdminSignupCodes'))->icon('list'),
 		);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}

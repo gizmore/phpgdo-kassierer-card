@@ -4,11 +4,12 @@ return [
 	### Nav
 	'sitename' => 'KassiererCard.org',
 	'link_kk_home' => 'KassiererCard.org',
-	'link_kk_offers' => 'Offers',
+	'link_kk_offers' => '%s Offers',
 	'link_kk_businesses' => 'Employers',
 	'link_kk_employees' => 'Employees',
 	'link_kk_help' => 'Help / FaQ',
 	'link_kk_partners' => 'Companies',
+	'kk_admin' => 'KC-Staff',
 	
 	### Buttons
 	'btn_send_coupons' => 'Send Coupons',
@@ -18,16 +19,19 @@ return [
 	### Config
 	'cfg_free_stars_period' => 'Free Stars per period.',
 	
-	### Admin
+	### Admin Signup Codes
 	'generate_signup_code' => 'Create Signup-Code',
 	'signup_codes' => 'Signup-Codes',
 	'mt_kassierercard_admincreatesignupcode' => 'Create Signup-Code',
 	'list_kassierercard_adminsignupcodes' => '%s Signup-Codes',
-	'msg_signup_code_created' => 'A signup code has been created.',
+	'msg_signup_code_created' => 'A signup code for a %s has been created.',
+	'err_kk_no_coupon' => 'You cannot create coupons this way!',
+	'kk_invite_slogan' => 'Invitation as a %s',
 	
 	### Types
 	'kk_type' => 'Account Type',
 	'kk_stars' => 'Bonus Points',
+	'kk_coupon' => 'Coupon',
 	'kk_cashier' => 'Cashier',
 	'kk_company' => 'Company',
 	'kk_customer' => 'Customer',
@@ -68,12 +72,16 @@ return [
 	'tt_kk_register_code' => 'A valid signup code is required if you signup as a Cashier or Company.',
 	'err_kk_signup_code' => 'As a cashier, or company, you need a valid signup code.',
 	
-	'coupon_kind' => 'Kindness',
-	'coupon_fast' => 'Quickness',
-	'coupon_help' => 'Smartness',
-	'tt_coupon_kind' => 'The collected badges of kindness. You can trade these for drinks.',
-	'tt_coupon_fast' => 'The collected badges of quickness. You can trade these for food.',
-	'tt_coupon_help' => 'The collected badges of smartness. You can trade these for auxilary products',
+
+	### Settings
+	'stars_purchased' => 'Extra Stars',
+	'stars_purchased_total' => 'Stars Purchased',
+	'stars_created' => 'Coupon-Stars Created',
+	'stars_entered' => 'Stars Earned',
+	'stars_available' => 'Stars Available',
+	'stars_redeemed' => 'Stars Redeemed',
+	'offers_redeemed' => 'Offers Redeemed',
+	'offers_created' => 'Offers Created',
 	
 	### Methods
 	'mt_kassierercard_welcome' => 'Welcome',
@@ -131,6 +139,8 @@ return [
 	'mt_kassierercard_printcoupon' => 'Print Coupon',
 	'btn_qrcode' => 'QR-Code',
 	'kk_info_print_coupon' => 'Print one of your coupons.<br/>Either send it to your printer, write the code down manually, or show your worker the QR code.',
+	'err_unknown_coupon' => 'This Coupon does not exist or is not yours.',
+	'msg_kk_enter_auth' => 'You are not authenticated. Please login and try again.',
 	
 	# Printed
 	'printed_coupons' => 'Printed Coupons',

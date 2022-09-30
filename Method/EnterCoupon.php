@@ -8,6 +8,8 @@ use GDO\KassiererCard\GDT_CouponToken;
 use GDO\Form\GDT_Validator;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\KassiererCard\Module_KassiererCard;
+use GDO\User\GDO_User;
+use GDO\Core\GDT;
 
 /**
  * Method for cashiers to enter coupons.
@@ -27,6 +29,11 @@ final class EnterCoupon extends MethodForm
 	public function beforeExecute() : void
 	{
 		Module_KassiererCard::instance()->addCashierBar();
+		
+		if (!GDO_User::current()->isAuthenticated())
+		{
+			$this->redirectError('msg_kk_enter_auth', null, $_SESSION['REQUEST_URI']);
+		}
 	}
 	
 	public function createForm(GDT_Form $form): void

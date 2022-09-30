@@ -137,6 +137,7 @@ final class KC_Offer extends GDO
 	
 	public function renderList() : string
 	{
+		$user = GDO_User::current();
 		$partner = $this->getPartner();
 		
 		$li = GDT_ListItem::make()->gdo($this);
@@ -149,18 +150,18 @@ final class KC_Offer extends GDO
 		);
 		$li->content($content);
 		
-		$user = GDO_User::current();
-		
 		$iscashier = $user->hasPermission('kk_cashier');
 		$iscompany = $user->hasPermission('kk_company');
 		$iscustomer = $user->hasPermission('kk_customer');
 		$canCreate = $iscompany || $iscustomer;
 		$canRedeem = $iscashier;
+		
 		$li->actions()->addFields(
 			GDT_Button::make('create_coupon')
 			->tooltip('tt_create_offer')
 			->href(href('KassiererCard', 'CreateCoupon', "&kc_offer={$this->getID()}"))
 			->enabled($canCreate));
+		
 		$li->actions()->addFields(
 			GDT_Button::make('redeem_offer')
 			->tooltip('tt_redeem_offer')
@@ -181,4 +182,14 @@ final class KC_Offer extends GDO
 	{
 		return $this->renderOption();
 	}
+	
+	##############
+	### Static ###
+	##############
+	public static function queryNumActive() : int
+	{
+		$now = Time::getDateWithoutTime();
+		return self::table()->countWhere("o_expires>'$now'");
+	}
+	
 }

@@ -3,7 +3,6 @@ namespace GDO\KassiererCard;
 
 use GDO\Core\GDO;
 use GDO\Core\GDT_AutoInc;
-use GDO\Core\GDT_Token;
 
 final class KC_SignupCode extends GDO
 {
@@ -12,10 +11,40 @@ final class KC_SignupCode extends GDO
 		return [
 			GDT_AutoInc::make('sc_id'),
 			GDT_AccountType::make('sc_type')->notNull(),
-			GDT_Token::make('sc_token')->initialNull()->notNull()->unique(),
+			GDT_CouponStars::make('sc_stars')->min(0)->max(1000)->initial('1'),
+			GDT_CouponToken::make('sc_token')->initialNull()->notNull()->unique(),
 		];
 	}
+	
+	public function getType() : string
+	{
+		return $this->gdoVar('sc_type');
+	}
+	
+	public function getStars() : string
+	{
+		return $this->gdoVar('sc_stars');
+	}
+	
+	public function getToken() : string
+	{
+		return $this->gdoVar('sc_token');
+	}
+	
+	####
+	public function href_kca_print() : string
+	{
+		return href('KassiererCard', 'PrintCoupon', "&token={$this->getToken()}");
+	}
+	
+	public function createCouponForSignupCode() : void
+	{
+		KC_Coupon::createSignupCoupon($this);
+	}
 
+	##############
+	### Static ###
+	##############
 	public static function validateCode(string $token, string $type) : bool
 	{
 		if (!($code = self::table()->getBy('sc_token', $token)))

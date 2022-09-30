@@ -9,6 +9,7 @@ use GDO\Core\GDT_AutoInc;
 use GDO\Date\Time;
 use GDO\Date\GDT_Timestamp;
 use GDO\Table\GDT_ListItem;
+use GDO\DB\Query;
 
 /**
  * Relation table. User working at Business.
@@ -96,14 +97,28 @@ final class KC_Working extends GDO
 			exec()->fetchValue() === '1';
 	}
 	
+	#####################
+	### Num Employees ###
+	#####################
+	public static function numEmployeesTotal() : int
+	{
+		$query = self::getNumEmployeesQuery();
+		return $query->exec()->fetchValue();
+	}
+	
 	public static function getNumEmployees(KC_Business $business) : int
+	{
+		$query = self::getNumEmployeesQuery()->
+			where("work_business={$business->getID()}");
+		return $query->exec()->fetchValue();
+	}
+	
+	public static function getNumEmployeesQuery() : Query
 	{
 		$today = Time::getDate();
 		return self::table()->select('COUNT(*)')->
-			where("work_business={$business->getID()}")->
-			where("work_from < '$today'")->
-			where("(work_until > '$today' OR work_until IS NULL)")->
-			exec()->fetchValue();
+		where("work_from < '$today'")->
+		where("(work_until > '$today' OR work_until IS NULL)");
 	}
 	
 }

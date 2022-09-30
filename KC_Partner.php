@@ -121,6 +121,6 @@ final class KC_Partner extends GDO
 	
 	public function renderCard() : string
 	{
-		return 'A';
+		return $this->displayCard($this->getAddress()->getAddressLine());
 	}
 }

@@ -57,7 +57,7 @@ final class Install
 			'Diesmal anders herum',
 			'Gewöhne Dich daran',
 			'Es wurde auch Zeit',
-			'Alles geht, nix muss',
+			'Alles geht. Nix muss',
 			'Denkt mal drüber nach',
 			'Willkommen im Club',
 			'Willkommen im 22 Jahrhundert',
@@ -75,12 +75,13 @@ final class Install
 			'Es wird auch Zeit',
 			'Darauf haben wir gewartet',
 			'Wir sind noch da',
-			'Daslohnt sich',
+			'Das lohnt sich',
 			'Jetzt erst recht',
 			'Besser als gefragt',
 			'Kreativ und beliebt',
-			'Für euch',
-			'Änderung, Verbesserung, Neuerung',
+			'Für Euch',
+			'Änderung. Verbesserung. Erneuerung',
+			'Ich shoppe auch gern',
 		];
 		
 		$i = 0;
@@ -353,31 +354,41 @@ final class Install
 		$titleEn = 'First Card printed!';
 		$titleDe = 'Erste Karte gedruckt!';
 		$messageEn = <<<EOT
-Hi am Happy to announce!<br/>
-<br/>
-KassiererCard.org has reached phase 1.<br/>
-<br/>
-In this phase, we test the service with only a few customers, empolyees, workers and partners.<br/>
-After this phase, the whole site will be reset and you have to register again.<br/>
-Phase two is scheduled for 11/9/2022.<br/>
-<br/>
-We currently have no real partner who is aiding us financially, but we are looking.<br/>
-First offers are on our cap.<br/>
-<br/>
+Hi am Happy to announce!
+
+KassiererCard.org has reached phase 1.
+
+In this phase, we test the service with only a few customers, empolyees, workers and partners.
+
+After this phase, the whole site will be reset and you have to register again.
+
+Phase two is scheduled for 11/9/2022.
+
+We currently have no real partner who is aiding us financially,
+
+but we are looking.
+
+First offers are on our cap.
+
  - gizmore
 EOT;
 		$messageDe = <<<EOT
-Voller Stolz presentiere ich die erste KassiererCard<br/>
-<br/>
-KassiererCard.org hat Phase 1 erreicht.<br/>
-Nach dieser Phase wird noch einmal Reset gedrückt, und Sie müssen sich neu registrieren.<br/>
-Phase 2 beginnt vorraussichtlich am 2.10.2022.<br/>
-<br/>
-In dieser Phase testen wir den Service mit nur wenigen Kunde, Angestellten, Arbeitern und Werbepartnern.<br/>
-<br/>
-Wir haben noch keine echten Werbepartner, die uns unterstützen, wir suchen aber nach Gelegenheiten.<br/>
-Die ersten Angebote gehen auf unsere Kappe!<br/>
-<br/>
+Voller Stolz presentiere ich die erste KassiererCard
+
+KassiererCard.org hat Phase 1 erreicht.
+
+Nach dieser Phase wird noch einmal Reset gedrückt, und Sie müssen sich neu registrieren.
+
+Phase 2 beginnt vorraussichtlich am 2.10.2022.
+
+In dieser Phase testen wir den Service mit nur wenigen Kunde, Angestellten, Arbeitern und Werbepartnern.
+
+Wir haben noch keine echten Werbepartner, die uns unterstützen,
+
+wir suchen aber nach Gelegenheiten.
+
+Die ersten Angebote gehen auf unsere Kappe!
+
  - gizmore
 EOT;
 		$date = '2022-09-24 13:37:42.666';

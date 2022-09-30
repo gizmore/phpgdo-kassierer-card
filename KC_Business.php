@@ -20,6 +20,7 @@ use GDO\User\GDO_User;
 use GDO\UI\GDT_Link;
 use GDO\UI\GDT_Card;
 use GDO\User\GDT_User;
+use GDO\DB\Cache;
 
 /**
  * A business in the crude world.
@@ -115,6 +116,9 @@ final class KC_Business extends GDO
 		return $card;
 	}
 
+	###############
+	### Render ####
+	###############
 	public function renderName() : string
 	{
 		return $this->renderAddressLine();
@@ -139,6 +143,24 @@ final class KC_Business extends GDO
 			return t('business', [$this->getID()]);
 		}
 		return $line;
+	}
+	
+	##############
+	### Static ###
+	##############
+	public static function numTotal() : int
+	{
+		if (null === ($cache = Cache::get('kk_business_count')))
+		{
+			$cache = self::queryTotal();
+			Cache::set('kk_business_count', $cache);
+		}
+		return $cache;
+	}
+	
+	private static function queryTotal() : int
+	{
+		return self::table()->countWhere("biz_deleted IS NULL");
 	}
 	
 }

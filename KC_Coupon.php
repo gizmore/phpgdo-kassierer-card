@@ -12,6 +12,8 @@ use GDO\Date\GDT_Timestamp;
 use GDO\User\GDT_User;
 use GDO\Net\GDT_Url;
 use GDO\QRCode\GDT_QRCode;
+use GDO\UI\GDT_Image;
+use GDO\UI\GDT_SVGImage;
 
 /**
  * A printed coupon to give to an employee.
@@ -21,13 +23,15 @@ use GDO\QRCode\GDT_QRCode;
  */
 class KC_Coupon extends GDO
 {
+	public static $INVITATION_TYPES = ['kk_cashier', 'kk_company', 'kk_customer'];
+	
 	public function gdoColumns(): array
 	{
 		return [
 			GDT_CouponToken::make('kc_token')->primary(),
-			GDT_Offer::make('kc_offer')->notNull()->emptyLabel('sel_coupon_offer'),
-			GDT_CouponType::make('kc_type'),
+			GDT_CouponType::make('kc_type')->notNull(),
 			GDT_CouponStars::make('kc_stars'),
+			GDT_Offer::make('kc_offer')->emptyLabel('sel_coupon_offer'),
 			GDT_CreatedBy::make('kc_creator'),
 			GDT_CreatedAt::make('kc_created'),
 			GDT_Timestamp::make('kc_printed'),
@@ -37,9 +41,19 @@ class KC_Coupon extends GDO
 		];
 	}
 	
-	public function getOffer() : KC_Offer
+	public function getCreator() : GDO_User
+	{
+		return $this->gdoValue('kc_creator');
+	}
+	
+	public function getOffer() : ?KC_Offer
 	{
 		return $this->gdoValue('kc_offer');
+	}
+	
+	public function getType() : string
+	{
+		return $this->gdoVar('kc_type');
 	}
 	
 	public function getToken() : string
@@ -57,12 +71,68 @@ class KC_Coupon extends GDO
 		return KC_Slogan::randomSloganText();
 	}
 	
+	public function isInvitation() : bool
+	{
+		return in_array($this->getType(), self::$INVITATION_TYPES, true);
+	}
+	
+	##############
+	### Images ###
+	##############
+	public function getFrontSide() : GDT_Image
+	{
+		$href = $this->hrefSVGFrontBack('Front');
+		return GDT_SVGImage::make('front')->src($href);
+	}
+	
+	public function getBackSide() : GDT_Image
+	{
+		# Our invitation back
+		if ($this->isInvitation())
+		{
+			return $this->getBackSideKC();
+		}
+
+		# Company's offer image
+		$offer = $this->getOffer();
+		if ($imageFile = $offer->getBacksideImage())
+		{
+			return GDT_Image::fromFile($imageFile, 'back');
+		}
+
+		# Our coupon back (Advertise here)
+		return $this->getBackSideKC();
+	}
+	
+	private function getBackSideKC() : GDT_SVGImage
+	{
+		$href = $this->hrefSVGFrontBack('Back');
+		return GDT_SVGImage::make('back')->src($href);
+	}
+	
+	##################
+	### Permission ###
+	##################
+	public function canPrint(GDO_User $user) : bool
+	{
+		if ($user->isStaff())
+		{
+			return true;
+		}
+		return $user === $this->getCreator();
+	}
+	
 	###############
 	### QR-Code ###
 	###############
 	public function getQRCode() : GDT_QRCode
 	{
-		return GDT_QRCode::make()->qrcodeSize($this->qrcodeSize())->var($this->urlEnter());
+		return $this->getQRCodeWithData($this->urlEnter());
+	}
+	
+	public function getQRCodeWithData(string $data) : GDT_QRCode
+	{
+		return GDT_QRCode::make()->qrcodeSize($this->qrcodeSize())->var($data);
 	}
 	
 	private function qrcodeSize()
@@ -73,20 +143,38 @@ class KC_Coupon extends GDO
 	############
 	### HREF ###
 	############
-	public function hrefSVGFront() : string
+	public function hrefSVGFrontBack(string $FrontBack='Front') : string
 	{
-		return href('KassiererCard', 'FrontSide', "&token={$this->getToken()}");
-		
-	}
-	
-	public function hrefSVGBack() : string
-	{
-		return href('KassiererCard', 'BackSide', "&token={$this->getToken()}");
+		$type = $this->getType();
+		$token = $this->getToken();
+		switch ($type)
+		{
+			case 'kk_coupon':
+				return href('KassiererCard', "{$FrontBack}Side", "&token={$token}");
+			case 'kk_cashier':
+			case 'kk_company':
+			case 'kk_customer':
+				return href('KassiererCard', "Invitation{$FrontBack}Side", "&token={$token}");
+			default:
+				return href('Register', 'InvalidCoupon', "&token={$token}&type={$type}");
+		}
 	}
 	
 	public function hrefEnter() : string
 	{
-		return href('KassiererCard', 'EnterCoupon', "&token={$this->getToken()}");
+		$type = $this->getType();
+		$token = $this->getToken();
+		switch ($type)
+		{
+			case 'kk_coupon':
+				return href('KassiererCard', 'EnterCoupon', "&token={$token}");
+			case 'kk_cashier':
+			case 'kk_company':
+			case 'kk_customer':
+				return href('Register', 'Form', "&kk_token={$token}&kk_type={$type}");
+			default:
+				return href('Register', 'InvalidCoupon', "&token={$token}&type={$type}");
+		}
 	}
 	
 	public function urlEnter() : string
@@ -97,16 +185,29 @@ class KC_Coupon extends GDO
 	##############
 	### Render ###
 	##############
+	public function renderType() : string
+	{
+		return $this->gdoColumn('kc_type')->renderVar();
+	}
 	
 	public function renderList() : string
 	{
 		return GDT_Template::php('KassiererCard', 'coupon_list.php', ['gdo' => $this]);
 	}
 	
+	public function renderSlogan() : string
+	{
+		return html($this->getSlogan());
+	}
+		
+	public function renderInvitationSlogan() : string
+	{
+		return t('kk_invite_slogan', [$this->renderType()]);
+	}
+	
 	##############
 	### Static ###
 	##############
-	
 	public static function numCouponsCreated(GDO_User $user) : int
 	{
 		return self::table()->countWhere("kc_creator={$user->getID()}");
@@ -118,9 +219,21 @@ class KC_Coupon extends GDO
 		$periodEnd = Time::getDate($periodEnd);
 		$periodStart = Time::getDate($periodStart);
 		$query = self::table()->select('SUM(kc_stars)')
-			->where("kc_created >= '$periodStart' AND kc_created < '$periodEnd'");
-		$query->where("kc_creator={$user->getID()}");
+			->where("kc_created >= '$periodStart' AND kc_created < '$periodEnd'")
+			->where("kc_creator={$user->getID()}");
 		return (int) $query->exec()->fetchValue();
+	}
+	
+	/**
+	 * Create a coupon for a signup code.
+	 */
+	public static function createSignupCoupon(KC_SignupCode $code) : self
+	{
+		return self::blank([
+			'kc_token' => $code->getToken(),
+			'kc_type' => $code->getType(),
+			'kc_stars' => $code->getStars(),
+		])->insert();
 	}
 	
 }

@@ -47,3 +47,8 @@ $acc->title('kk_faq_t8');
 $acc->addField(GDT_Paragraph::make()->text('kk_faq_b8', [sitename()]));
 echo $acc->render();
 
+$acc = GDT_Accordeon::make();
+$acc->title('kk_faq_t9');
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b9', [sitename()]));
+echo $acc->render();
+

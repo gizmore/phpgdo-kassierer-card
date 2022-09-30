@@ -1,13 +1,14 @@
 <?php
 namespace GDO\KassiererCard;
 
-use GDO\Core\GDT_Char;
 use GDO\Util\Random;
+use GDO\Core\GDT_Template;
+use GDO\Core\GDT_Token;
 
-final class GDT_CouponToken extends GDT_Char
+final class GDT_CouponToken extends GDT_Token
 {
 	const LENGTH = 10;
-	const CHARSET = '2345679ACDEFGHKMNPQRSTUVWXY';
+	const CHARSET = '2345679ACDEFGHKMNPQRSTUVWXYZ';
 	
 	protected function __construct()
 	{
@@ -20,6 +21,11 @@ final class GDT_CouponToken extends GDT_Char
 	public function blankData() : array
 	{
 		return [$this->getName() => self::generateRandomKey()];
+	}
+	
+	public function initialRandomKey() : self
+	{
+		return $this->initial(self::generateRandomKey());
 	}
 	
 	public static function generateRandomKey()
@@ -48,6 +54,11 @@ final class GDT_CouponToken extends GDT_Char
 	{
 		$chunks = str_split($this->getVar(), 2);
 		return implode('-', $chunks);
+	}
+	
+	public function renderForm() : string
+	{
+		return GDT_Template::php('KassiererCard', 'token_form.php', ['field' => $this]);
 	}
 	
 }

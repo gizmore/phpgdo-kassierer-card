@@ -15,7 +15,6 @@ final class GDT_Offer extends GDT_ObjectSelect
 	protected function __construct()
 	{
 		parent::__construct();
-		$this->notNull();
 		$this->table(KC_Offer::table());
 	}
 	

@@ -6,20 +6,18 @@ use GDO\Form\MethodForm;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Submit;
 use GDO\KassiererCard\GDT_Coupon;
-use GDO\KassiererCard\GDT_Slogan;
 use GDO\KassiererCard\KC_Coupon;
-use GDO\KassiererCard\KC_Slogan;
 use GDO\QRCode\GDT_QRCode;
-use GDO\KassiererCard\Module_KassiererCard;
 use GDO\Core\GDT_Tuple;
 use GDO\UI\GDT_Container;
 use GDO\UI\GDT_Image;
+use GDO\Date\Time;
+use GDO\Core\GDT;
 
 /**
  * Print one of your coupons.
  * 
  * @author gizmore
- *
  */
 final class PrintCoupon extends MethodForm
 {
@@ -40,13 +38,11 @@ final class PrintCoupon extends MethodForm
 		$coupon = GDT_Coupon::make('token')->label('code')->notNull()->onlyOwnCreated()->writeable(false);
 		$form->addFields(
 			$coupon,
-			GDT_Slogan::make('slogan'),
 			GDT_AntiCSRF::make(),
 		);
 		$form->actions()->addField(GDT_Submit::make('btn_preview')->onclick([$this, 'preview']));
 		$form->actions()->addField(GDT_Submit::make('btn_print')->onclick([$this, 'print']));
 		$form->actions()->addField(GDT_Submit::make('btn_qrcode')->onclick([$this, 'qrcode']));
-// 		$form->targetBlank();
 	}
 	
 	public function getCoupon() : KC_Coupon
@@ -59,40 +55,37 @@ final class PrintCoupon extends MethodForm
 		return $this->gdoParameterVar('slogan');
 	}
 
-	public function preview()
+	public function preview() : GDT_Tuple
 	{
 		return GDT_Tuple::make()->addFields(
-			$this->qrcode(),
 			$this->print(),
 			parent::renderPage()
 		);
 	}
 	
-	public function qrcode()
+	public function qrcode() : GDT_QRCode
 	{
 		$coupon = $this->getCoupon();
+		$coupon->saveVar('kc_printed', Time::getDate());
 		return $coupon->getQRCode();
 	}
 	
-	public function print()
+	public function print() : GDT
 	{
-		$cont = GDT_Container::make('images')->horizontal();
+		$this->getCoupon()->saveVar('kc_printed', Time::getDate());
+		$cont = GDT_Container::make('images')->horizontal()->addClass('kk-print-card-row');
 		$cont->addFields($this->printFront(), $this->printBack());
 		return $cont;
 	}
 	
-	private function printFront()
+	private function printFront() : GDT_Image
 	{
-		$coupon = $this->getCoupon();
-		$href = $coupon->hrefSVGFront();
-		return GDT_Image::make('front')->src($href);
+		return $this->getCoupon()->getFrontSide();
 	}
 
-	private function printBack()
+	private function printBack() : GDT_Image
 	{
-		$coupon = $this->getCoupon();
-		$href = $coupon->hrefSVGBack();
-		return GDT_Image::make('back')->src($href);
+		return $this->getCoupon()->getBackSide();
 	}
 
 }

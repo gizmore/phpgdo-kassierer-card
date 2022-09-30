@@ -1,6 +1,5 @@
 <?php
 namespace GDO\KassiererCard\tpl\svg;
-use GDO\UI\GDT_Image;
 use GDO\KassiererCard\KC_Coupon;
 /** @var $coupon KC_Coupon **/
 ?>
@@ -26,50 +25,14 @@ text {
 	font-size: 35px;
 }
 .fineprint {
-	letter-spacing: 7.8px;
-	font-size: 80px;
+	font-size: 35px;
 }
 </style>
 <rect x="0" y="0" width="1050" height="600" style="fill:#Fff;"></rect>
 <rect rx="10" ry="10" x="20" y="20" width="1010" height="1010" style="fill:#F94600;"></rect>
 <text x="-20" y="510" fill="#ffffff" stroke="#ffffff" class="txt">K</text>  
 <text x="270" y="510" fill="#ffffff" stroke="#ffffff" class="txt">C</text>
-<text x="30" y="580" fill="#ffffff" stroke="#ffffff" class="fineprint">www.KassiererCard.org</text>
+<text x="50%" y="65" fill="#ffffff" stroke="#ffffff" class="code" dominant-baseline="middle" text-anchor="middle"><?=$coupon->renderInvitationSlogan()?></text>
+<text x="50%" y="565" fill="#ffffff" stroke="#ffffff" class="fineprint" dominant-baseline="middle" text-anchor="middle"><?=$coupon->renderSlogan()?></text>
 <image x="622" y="105" width="410" height="410" xlink:href="data:image/png;base64,<?=$coupon->getQRCode()->renderBase64()?>"></image>
-<?php
-$x = 2;
-$y = 600;
-$margin = 1;
-$padding = 2;
-$dash = 1;
-$x = $margin;
-$code = $coupon->getToken();
-$c = 0;
-for ($i = 0; $i < 5; $i++)
-{
-	for ($j = 0; $j < 2; $j++)
-	{
-		$ch = $code[$c++];
-		$w = (100 - ($margin * 2) - ($dash * 4) - ($padding * 20)) / 10;
-		$xc = $x + (($w + $padding) / 2.0) - 0.1;
-		$h = 9;
-		$y = 5.7;
-		$yc = $y + 4.5 + $padding;
-		$x += $padding;
-		printf("<rect x=\"%.02f%%\" y=\"%.02f%%\" width=\"%.02f%%\" height=\"%.02f%%\" style=\"fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)\" />\n",
-			$x, $y, $w, $h);
-		$x += $w;
-		$x += $padding;
-		printf("<text class=\"code\" x=\"%.02f%%\" y=\"%.02f%%\">%s</text>",
-			$xc, $yc, $ch);
-	}
-	if ($i < 4)
-	{
-		printf("<rect x=\"%.02f%%\" y=\"%.02f%%\" width=\"%.02f%%\" height=\"%.02f%%\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n",
-			$x, $y + 3.8, $dash, 1.0,
-		);
-	}
-	$x += $dash;
-}
-?>
 </svg>
