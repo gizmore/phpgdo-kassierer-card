@@ -21,6 +21,7 @@ use GDO\UI\GDT_Length;
 use GDO\User\GDT_ACLRelation;
 use GDO\UI\GDT_Divider;
 use GDO\Core\Javascript;
+use GDO\Core\GDT_Checkbox;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -81,11 +82,13 @@ final class Module_KassiererCard extends GDO_Module
 	public function getConfig() : array
 	{
 		return [
+			GDT_Checkbox::make('pre_alpha')->initial('0'),
 			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
 			GDT_UInt::make('customer_coupon_modulus')->min(1)->initial('5'),
 		];
 	}
+	public function cfgPreAlpha() : bool { return $this->getConfigValue('pre_alpha'); }
 	public function cfgFreeStarsPerPeriod() : int { return $this->getConfigValue('free_stars_per_period'); }
 	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
 	public function cfgCustomerCouponModulus() : int { return $this->getConfigValue('customer_coupon_modulus'); }
@@ -215,8 +218,11 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function onIncludeScripts() : void
 	{
-		$script_html = 'alert("Dies ist eine fiktivie Vorabversion. Sobald diese Nachricht verschwindet geht es los!");';
-		Javascript::addJSPostInline($script_html);
+		if ($this->cfgPreAlpha())
+		{
+			$script_html = 'alert("Dies ist eine fiktivie Vorabversion. Sobald diese Nachricht verschwindet geht es los!");';
+			Javascript::addJSPostInline($script_html);
+		}
 	}
 	
 	#################
