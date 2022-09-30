@@ -20,6 +20,8 @@ final class GDT_CouponStars extends GDT_UInt
 	protected function __construct()
 	{
 		parent::__construct();
+		$this->notNull();
+		$this->bytes(1);
 		$this->initial('1');
 	}
 	

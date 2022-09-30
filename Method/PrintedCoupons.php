@@ -38,13 +38,5 @@ final class PrintedCoupons extends MethodQueryList
 		$uid = GDO_User::current()->getID();
 		return parent::getQuery()->where('kc_creator='.$uid);
 	}
-
-// 	public function execute()
-// 	{
-// 		$result = GDT_Tuple::make();
-// 		$result->addField(Module_KassiererCard::get$this->getC)
-// 		$result->addField(parent::execute());
-// 		return $result;
-// 	}
 	
 }

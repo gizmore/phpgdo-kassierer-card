@@ -14,6 +14,8 @@ use GDO\Table\GDT_ListItem;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Title;
 use GDO\UI\GDT_Button;
+use GDO\UI\GDT_Container;
+use GDO\File\GDT_ImageFile;
 
 /**
  * An offer for a cashier.
@@ -36,7 +38,8 @@ final class KC_Offer extends GDO
 			GDT_UInt::make('o_required_amt')->notNull()->bytes(1)->min(1)->initial('1')->label('required_amt'),
 			GDT_UInt::make('o_cashier_amt')->notNull()->bytes(1)->min(1)->initial('1')->label('cashier_amt'),
 			GDT_UInt::make('o_total_amt')->notNull()->min(1)->label('total_amt'),
-			GDT_Date::make('o_valid_until')->notNull()->minNow()->initial($this->nextFriday())->label('valid_until'),
+			GDT_Date::make('o_expires')->notNull()->minNow()->initial($this->nextFriday())->label('valid_until'),
+			GDT_ImageFile::make('o_image')->exactSize(1050, 600),
 			GDT_CreatedAt::make('o_created'),
 			GDT_CreatedBy::make('o_creator'),
 		];
@@ -47,6 +50,8 @@ final class KC_Offer extends GDO
 	##############
 	
 	public function getTitle() : string { return $this->gdoVar('o_title'); }
+	
+	public function getPartner() : KC_Partner { return $this->gdoValue('o_partner'); }
 
 	/**
 	 * How many coupons make one offer item?
@@ -70,7 +75,7 @@ final class KC_Offer extends GDO
 	
 	public function isOfferValid() : bool
 	{
-		$until = $this->gdoValue('o_valid_until');
+		$until = $this->gdoValue('o_expires');
 		$now = \DateTime::createFromFormat('U', strtotime('today'));
 		return $until >= $now;
 	}
@@ -91,7 +96,7 @@ final class KC_Offer extends GDO
 	#############
 	public function queryNumAvailable(GDO_User $user) : int
 	{
-		$redeemed = KC_CouponEntered::queryNumRedeemed($user, $this);
+		$redeemed = KC_CouponRedeemed::queryNumRedeemed($user, $this);
 		$maximum = $this->getMaxOffers($user);
 		return $maximum - $redeemed;
 	}
@@ -99,18 +104,18 @@ final class KC_Offer extends GDO
 	public function queryNumAvailableTotal() : int
 	{
 		$maximum = $this->getTotalOffers();
-		$redeemed = KC_CouponEntered::queryNumRedeemedTotal($this);
+		$redeemed = KC_CouponRedeemed::queryNumRedeemedTotal($this);
 		return $maximum - $redeemed;
 	}
 	
 	public function queryNumRedeemed(GDO_User $user) : int
 	{
-		return KC_CouponEntered::queryNumRedeemed($user, $this);
+		return KC_CouponRedeemed::queryNumRedeemed($user, $this);
 	}
 	
 	public function queryNumRedeemedTotal() : int
 	{
-		return KC_CouponEntered::queryNumRedeemedTotal($this);
+		return KC_CouponRedeemed::queryNumRedeemedTotal($this);
 	}
 	
 	public function queryNumOffers(KC_Partner $partner) : int
@@ -123,21 +128,44 @@ final class KC_Offer extends GDO
 	##############
 	public function renderValidDate() : string
 	{
-		$validTo = $this->gdoValue('o_valid_until');
+		$validTo = $this->gdoValue('o_expires');
 		return Time::displayDateTime($validTo, 'day');
 	}
 	
 	public function renderList() : string
 	{
+		$partner = $this->getPartner();
+		
 		$li = GDT_ListItem::make()->gdo($this);
 		$li->creatorHeader();
 		$li->titleRaw($this->getTitle());
-		$li->content($this->gdoColumn('o_text'));
+		$content = GDT_Container::make()->vertical();
+		$content->addFields(
+			$partner->linkPartner(),
+			$this->gdoColumn('o_text'),
+		);
+		$li->content($content);
+		
+		$user = GDO_User::current();
+		
+		$iscashier = $user->hasPermission('kk_cashier');
+		$iscompany = $user->hasPermission('kk_company');
+		$iscustomer = $user->hasPermission('kk_customer');
+		$canCreate = $iscompany || $iscustomer;
+		$canRedeem = $iscashier;
 		$li->actions()->addFields(
 			GDT_Button::make('create_coupon')
-				->tooltip('tt_create_offer')
-				->href(href('KassiererCard', 'CreateCoupon', "&kc_offer={$this->getID()}")));
+			->tooltip('tt_create_offer')
+			->href(href('KassiererCard', 'CreateCoupon', "&kc_offer={$this->getID()}"))
+			->enabled($canCreate));
+		$li->actions()->addFields(
+			GDT_Button::make('redeem_offer')
+			->tooltip('tt_redeem_offer')
+			->href(href('KassiererCard', 'RedeemOffer', "&id={$this->getID()}"))
+			->enabled($canRedeem));
+		
 		$li->footer(GDT_OfferStatus::make()->offer($this));
+		
 		return $li->render();
 	}
 	

@@ -11,7 +11,7 @@ use GDO\KassiererCard\KC_Coupon;
  * @author gizmore
  *
  */
-final class FrontSide extends Method
+final class BackSide extends Method
 {
 	public function isAjax() : bool { return true; }
 	

@@ -69,7 +69,7 @@ final class KC_Util
 	
 	public static function numStarsCreated($user) : int
 	{
-		return 0;
+		return KC_Coupon::table()->numCouponsCreated($user);
 	}
 	
 }

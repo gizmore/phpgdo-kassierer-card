@@ -1,7 +1,6 @@
 <?php
 namespace GDO\KassiererCard;
 
-use GDO\Core\GDT_Object;
 use GDO\Core\GDT_ObjectSelect;
 use GDO\Date\Time;
 
@@ -33,7 +32,7 @@ final class GDT_Offer extends GDT_ObjectSelect
 		if (!$this->expired)
 		{
 			$now = Time::getDateWithoutTime();
-			$query->where("o_valid_until >= '$now'");
+			$query->where("o_expires >= '$now'");
 		}
 		return $query->exec()->fetchAllArray2dObject();
 	}

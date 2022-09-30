@@ -17,6 +17,9 @@ use GDO\Form\GDT_Validator;
 use GDO\Core\GDT;
 use GDO\Core\Website;
 use GDO\Net\GDT_Url;
+use GDO\UI\GDT_Length;
+use GDO\User\GDT_ACLRelation;
+use GDO\UI\GDT_Divider;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -63,9 +66,9 @@ final class Module_KassiererCard extends GDO_Module
 			KC_Business::class,
 			KC_Working::class,
 			KC_Coupon::class,
-			KC_CouponEntered::class,
 			KC_Partner::class,
 			KC_Offer::class,
+			KC_CouponRedeemed::class,
 			KC_SignupCode::class,
 			KC_Slogan::class,
 		];
@@ -77,10 +80,13 @@ final class Module_KassiererCard extends GDO_Module
 	public function getConfig() : array
 	{
 		return [
-			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('1'),
+			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
+			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
 		];
 	}
 	public function cfgFreeStarsPerPeriod() : int { return $this->getConfigValue('free_stars_per_period'); }
+	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
+	
 	
 	################
 	### Settings ###
@@ -96,16 +102,39 @@ final class Module_KassiererCard extends GDO_Module
 		];
 	}
 	
+	public function getACLDefaults() : ?array
+	{
+		return [
+			# Profile
+			'profession' => [GDT_ACLRelation::MEMBERS, 0, null],
+			'personal_website' => [GDT_ACLRelation::MEMBERS, 0, null],
+			'favorite_website' => [GDT_ACLRelation::ALL, 0, null],
+			'favorite_meal' => [GDT_ACLRelation::FRIENDS, 0, null],
+			'favorite_song' => [GDT_ACLRelation::FRIENDS, 0, null],
+			'favorite_movie' => [GDT_ACLRelation::FRIENDS, 0, null],
+			# UI
+			'qrcode_size' => [GDT_ACLRelation::HIDDEN, 0, null],
+		];
+	}
+	
 	public function getUserSettings() : array
 	{
 		return [
+			GDT_Divider::make('div_kk'),
 			GDT_String::make('profession')->initial('Kassierer'),
 			GDT_Url::make('personal_website')->allowExternal(),
 			GDT_Url::make('favorite_website')->allowExternal(),
 			GDT_String::make('favorite_meal'),
 			GDT_String::make('favorite_song'),
 			GDT_String::make('favorite_movie'),
+			GDT_Divider::make('div_ui'),
+			GDT_Length::make('qrcode_size')->initial('512')->noacl(),
 		];
+	}
+	
+	public function cfgQRCodeSize() : int
+	{
+		return $this->userSettingVar(GDO_User::current(), 'qrcode_size');
 	}
 	
 	############
@@ -150,6 +179,8 @@ final class Module_KassiererCard extends GDO_Module
 			{
 				$page->rightBar()->addFields(
 					GDT_Link::make('enter_coupon')->href($this->href('EnterCoupon')),
+					GDT_Link::make('redeem_coupon')->href($this->href('RedeemCoupon')),
+					GDT_Link::make('entered_coupons')->href($this->href('EnteredCoupons')),
 				);
 				$page->rightBar()->addFields(
 					GDT_Badge::make()->icon('sun')->tooltip('tt_coupons_available')->label('coupons_available')->var($user->settingVar('KassiererCard', 'coupons_available')),
@@ -308,6 +339,14 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Link::make('edit_business')->href($this->href('CompanyEditBusiness')),
 		);
 		GDT_Page::instance()->topResponse()->addField($bar);
+	}
+	
+	### helprt
+	
+	public function linkOffers() : GDT_Link
+	{
+		$href = href('KassiererCard', 'Offers');
+		return GDT_Link::make('offers')->href($href);
 	}
 	
 }

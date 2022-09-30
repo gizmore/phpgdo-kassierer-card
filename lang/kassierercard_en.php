@@ -4,11 +4,11 @@ return [
 	### Nav
 	'sitename' => 'KassiererCard.org',
 	'link_kk_home' => 'KassiererCard.org',
-	'link_kk_offers' => 'Cashier Offers',
-	'link_kk_businesses' => 'Participating Stores',
-	'link_kk_employees' => 'Store Employees',
+	'link_kk_offers' => 'Offers',
+	'link_kk_businesses' => 'Employers',
+	'link_kk_employees' => 'Employees',
 	'link_kk_help' => 'Help / FaQ',
-	'link_kk_partners' => 'Partners',
+	'link_kk_partners' => 'Companies',
 	
 	### Buttons
 	'btn_send_coupons' => 'Send Coupons',
@@ -38,8 +38,11 @@ return [
 	'lbl_choose_account_type' => 'Please choose your account type.',
 	
 	'business' => 'Business',
+	'partner' => 'Partner',
+	'slogan' => 'Slogan',
 	'kc_token' => 'Code',
 	'kc_offer' => 'Coupon Offer',
+	'offers' => 'Offers',
 	'coupons_available' => 'Coupons available',
 	'coupons_created' => 'Coupons created',
 	'coupons_entered' => 'Coupons entered',
@@ -76,11 +79,11 @@ return [
 	'mt_kassierercard_welcome' => 'Welcome',
 	'md_kassierercard_welcome' => 'Kassierercard is a bonus program for employees instead of customers.',
 	
-	'mt_kassierercard_partners' => 'Out Partners',
-	'md_kassierercard_partners' => 'Participating partners of Kassierercard.org, the bonus system for employees.',
+	'mt_kassierercard_partners' => 'Our Partners',
+	'md_kassierercard_partners' => 'Partners of Kassierercard.org, the bonus system for employees.',
 	
-	'md_kassierercard_businesses' => 'This list is an overview of participating stores ordered by distance to you.',
-	'list_kassierercard_businesses' => '%s participating stores',
+	'md_kassierercard_businesses' => 'This list is an overview of participating businesses ordered by distance to you.',
+	'list_kassierercard_businesses' => '%s Businesses',
 	
 	'md_kassierercard_rateemployee' => 'Send Coupons to an employee of your choice. You can send up to %s coupons per day.',
 	
@@ -98,6 +101,10 @@ return [
 	# Enter
 	'enter_coupon' => 'Enter Coupon',
 	
+	# Entered
+	'entered_coupons' => 'Entered Coupons',
+	
+	
 	# Offer
 	'kk_info_offers' => 'Here you can find the available offers in your area.<br/>Offers are created by our partners, customers print the coupons and employees redeem them.<br/>For every 5 redeemed coupons, the customer gets a coupon as well.',
 	'create_offer' => 'Create Offer',
@@ -110,20 +117,27 @@ return [
 	
 	# Create Coupon
 	'create_coupon' => 'Create Coupon',
+	'generate_coupons' => 'Generate Coupons',
+	'kk_info_create_coupon' => 'Select your %s and the number of stars for your coupon.<br/>In total you have created %s coupons with %s stars. In this period, you can print %s/%s more stars on coupons in this period. This period goes from %s to %s.',
 	'sel_coupon_offer' => 'Select Offer',
 	'tt_create_offer' => 'Create a Coupon for this Offer to share with your local workers.',
+	'msg_coupon_created' => 'Your cashiercard coupon has been created. You gained %s experience and levelup to level %s.',
+	'err_kk_create_stars' => 'You want to create %s stars, but you could only add %s more stars this period. You already created %s stars this period.',
+	
+	# Redeem Coupon
+	'redeem_coupon' => 'Redeem Coupon',
 	
 	# Print
 	'mt_kassierercard_printcoupon' => 'Print Coupon',
-	'kk_info_create_coupon' => 'Select your Offer and the number of stars for your coupon.<br/>In total you have created %s coupons with %s stars. In this period, you can print %s/%s more stars on coupons.',
-	'generate_coupons' => 'Generate Coupons',
-	'msg_coupon_created' => 'Your cashiercard coupon has been created.',
-	'err_kk_create_stars' => 'You want to create %s stars, but you could only add %s more stars this period. You already created %s stars this period.',
+	'btn_qrcode' => 'QR-Code',
+	'kk_info_print_coupon' => 'Print one of your coupons.<br/>Either send it to your printer, write the code down manually, or show your worker the QR code.',
 	
 	# Printed
 	'printed_coupons' => 'Printed Coupons',
 	'li_kk_coupon_fresh' => 'This coupon is fresh and can be printed.',
 	'list_kassierercard_printedcoupons' => '%s Coupons ready',
+	
+	'redeem_offer' => 'Redeem Offer',
 	
 	# Granted
 	'granted_coupons' => 'Redeemed Coupons',

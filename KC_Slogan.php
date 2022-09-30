@@ -11,8 +11,18 @@ final class KC_Slogan extends GDO
 	{
 		return [
 			GDT_AutoInc::make('s_id'),
-			GDT_String::make('s_text')->notNull(),
+			GDT_String::make('s_text')->unique()->notNull(),
 		];
+	}
+	
+	public function getText() : string
+	{
+		return $this->gdoVar('s_text');
+	}
+	
+	public function renderSlogan()  : string
+	{
+		return html($this->getText());
 	}
 	
 }

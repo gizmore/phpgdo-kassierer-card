@@ -12,10 +12,16 @@ use GDO\KassiererCard\GDT_CouponStars;
 use GDO\KassiererCard\KC_Util;
 use GDO\Core\Application;
 use GDO\User\GDO_User;
+use GDO\Date\Time;
 
 final class CreateCoupon extends MethodForm
 {
 	public function getPermission() : ?string { return 'kk_customer,kk_company'; }
+	
+	public function getMethodTitle() : string
+	{
+		return t('create_coupon');
+	}
 	
 	public function beforeExecute() : void
 	{
@@ -25,13 +31,16 @@ final class CreateCoupon extends MethodForm
 	public function createForm(GDT_Form $form): void
 	{
 		$user = GDO_User::current();
-		$time = KC_Util::getPeriodStart(Application::$TIME);
+		$time = Application::$TIME;
 		$table = KC_Coupon::table();
 		$form->text('kk_info_create_coupon', [
+			Module_KassiererCard::instance()->linkOffers()->render(),
 			KC_Util::numCouponsCreated($user),
-			KC_Util::numStarsCreated($user),
+			KC_Util::numStarsCreatedInPeriod($user, $time),
 			KC_Util::canStarsCreatedInPeriod($user, $time),
 			KC_Util::maxStarsCreatedInPeriod($user, $time),
+			Time::displayTimestamp(KC_Util::getPeriodStart($time), 'day'),
+			Time::displayTimestamp(KC_Util::getPeriodEnd($time), 'day'),
 		]);
 		$stars = $table->gdoColumn('kc_stars');
 		$form->addField($stars);
@@ -44,8 +53,9 @@ final class CreateCoupon extends MethodForm
 	public function validateStars(GDT_Form $form, GDT_CouponStars $field, $value)
 	{
 		$want = $field->getValue();
-		$stars = KC_Util::numStarsCreatedInPeriod(GDO_User::current(), Application::$TIME);
-		$maxStars = KC_Util::maxStarsCreatedInPeriod(GDO_User::current(), Application::$TIME);
+		$time = Application::$TIME;
+		$stars = KC_Util::numStarsCreatedInPeriod(GDO_User::current(), $time);
+		$maxStars = KC_Util::maxStarsCreatedInPeriod(GDO_User::current(), $time);
 		$could = $maxStars - $stars;
 		if ($want > $could)
 		{
@@ -59,7 +69,15 @@ final class CreateCoupon extends MethodForm
 	{
 		$vars = $form->getFormVars();
 		KC_Coupon::blank($vars)->insert();
-		return $this->redirectMessage('msg_coupon_created', null, href('KassiererCard', 'PrintedCoupons'));
+		$by = Module_KassiererCard::instance()->cfgLevelPerPrintedCoupon();
+		$by *= $vars['kc_stars'];
+		$user = GDO_User::current();
+		$user->increase('user_level', $by);
+		$args = [
+			$by,
+			$user->getLevel(),
+		];
+		return $this->redirectMessage('msg_coupon_created', $args, href('KassiererCard', 'PrintedCoupons'));
 	}
 	
 }

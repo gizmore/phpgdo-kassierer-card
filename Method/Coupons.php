@@ -11,4 +11,5 @@ final class Coupons extends MethodQueryList
 		return KC_Coupon::table();
 	}
 	
+	
 }

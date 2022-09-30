@@ -81,8 +81,7 @@ final class Install
 			'Besser als gefragt',
 			'Kreativ und beliebt',
 			'Für euch',
-			'Änderung',
-			'Verbesserung',
+			'Änderung, Verbesserung, Neuerung',
 		];
 		
 		$i = 0;
@@ -476,7 +475,7 @@ EOT;
 				'o_required_amt' => $cost,
 				'o_cashier_amt' => $cashierAmt,
 				'o_total_amt' => $coupons,
-				'o_valid_until' => $expire,
+				'o_expires' => $expire,
 				'o_created' => $created,
 				'o_creator' => '2',
 			]);
@@ -492,7 +491,7 @@ EOT;
 				'o_required_amt' => $cost,
 				'o_cashier_amt' => $cashierAmt,
 				'o_total_amt' => $coupons,
-				'o_valid_until' => $expire,
+				'o_expires' => $expire,
 				'o_created' => $created,
 				'o_creator' => '2',
 			])->insert();

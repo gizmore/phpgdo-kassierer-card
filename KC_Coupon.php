@@ -10,6 +10,7 @@ use GDO\Date\Time;
 use GDO\Core\GDT_Index;
 use GDO\Date\GDT_Timestamp;
 use GDO\User\GDT_User;
+use GDO\Net\GDT_Url;
 
 /**
  * A printed coupon to give to an employee.
@@ -27,8 +28,9 @@ class KC_Coupon extends GDO
 			GDT_CouponStars::make('kc_stars'),
 			GDT_CreatedBy::make('kc_creator'),
 			GDT_CreatedAt::make('kc_created'),
-			GDT_Timestamp::make('kc_redeemed'),
-			GDT_User::make('kc_redeemer'),
+			GDT_Timestamp::make('kc_printed'),
+			GDT_User::make('kc_enterer'),
+			GDT_Timestamp::make('kc_entered'),
 			GDT_Index::make('index_offers')->indexColumns('kc_offer'),
 		];
 	}
@@ -48,10 +50,42 @@ class KC_Coupon extends GDO
 		return $this->gdoVar('kc_granted') !== null;
 	}
 	
+	############
+	### HREF ###
+	############
+	public function hrefSVGFront() : string
+	{
+		return href('KassiererCard', 'FrontSide', "&token={$this->getToken()}");
+		
+	}
+	
+	public function hrefSVGBack() : string
+	{
+		return href('KassiererCard', 'BackSide', "&token={$this->getToken()}");
+	}
+	
+	public function hrefEnter() : string
+	{
+		return href('KassiererCard', 'EnterCoupon', "&token={$this->getToken()}");
+	}
+	
+	public function urlEnter() : string
+	{
+		return GDT_Url::absolute($this->hrefEnter());
+	}
+	
+	##############
+	### Render ###
+	##############
+	
 	public function renderList() : string
 	{
 		return GDT_Template::php('KassiererCard', 'coupon_list.php', ['gdo' => $this]);
 	}
+	
+	##############
+	### Static ###
+	##############
 	
 	public static function numCouponsCreated(GDO_User $user) : int
 	{
@@ -68,16 +102,5 @@ class KC_Coupon extends GDO
 		$query->where("kc_creator={$user->getID()}");
 		return (int) $query->exec()->fetchValue();
 	}
-	
-// 	public static function numStarsGranted(GDO_User $user, int $periodStart) : int
-// 	{
-// 		$periodEnd = $periodStart + Time::ONE_DAY * 2;
-// 		$periodEnd = Time::getDate($periodEnd);
-// 		$periodStart = Time::getDate($periodStart);
-// 		$query = self::table()->select('SUM(kc_stars)')
-// 			->where("kc_granted >= '$periodStart' AND kc_granted < '$periodEnd'");
-// 		$query->where("kc_grantor={$user->getID()}");
-// 		return (int) $query->exec()->fetchValue();
-// 	}
 	
 }

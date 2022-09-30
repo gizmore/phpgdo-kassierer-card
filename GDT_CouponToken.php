@@ -7,7 +7,7 @@ use GDO\Util\Random;
 final class GDT_CouponToken extends GDT_Char
 {
 	const LENGTH = 10;
-	const CHARSET = '23456789ACDEFGHKMNPQRSTUVWXY';
+	const CHARSET = '2345679ACDEFGHKMNPQRSTUVWXY';
 	
 	protected function __construct()
 	{

@@ -16,7 +16,14 @@ use GDO\UI\GDT_HTML;
 use GDO\Net\GDT_Url;
 use GDO\Maps\Module_Maps;
 use GDO\UI\GDT_Link;
+use GDO\File\GDT_ImageFile;
 
+/**
+ * Merchandize Partner / Company.
+ *
+ * @author gizmore
+ * @version 7.0.1
+ */
 final class KC_Partner extends GDO
 {
 	public function gdoColumns(): array
@@ -28,6 +35,7 @@ final class KC_Partner extends GDO
 			GDT_Address::make('p_address')->notNull(),
 			GDT_Url::make('p_url')->allowExternal()->label('website'),
 			GDT_Message::make('p_description')->label('information'),
+			GDT_ImageFile::make('p_logo')->exactSize(128, 128),
 			GDT_CreatedAt::make('p_created'),
 			GDT_CreatedBy::make('p_creator'),
 		];
@@ -61,6 +69,18 @@ final class KC_Partner extends GDO
 	public function getURL() : ?string
 	{
 		return $this->gdoVar('p_url');
+	}
+	
+	public function hrefPartner() : string
+	{
+		return href('KassiererCard', 'Company', "&id={$this->getID()}");
+	}
+	
+	public function linkPartner() : GDT_Link
+	{
+		$href = $this->hrefPartner();
+		$label = $this->getAddress()->render();
+		return GDT_Link::make()->href($href)->label('partner')->text($label);
 	}
 	
 	##############
@@ -99,4 +119,8 @@ final class KC_Partner extends GDO
 		return $li->render();
 	}
 	
+	public function renderCard() : string
+	{
+		return 'A';
+	}
 }

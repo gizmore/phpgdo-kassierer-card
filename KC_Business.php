@@ -101,7 +101,7 @@ final class KC_Business extends GDO
 		}
 		
 		$li->actions()->addFields(
-			GDT_Link::make('link_employees')->href($this->getEmployeeHREF())->label('btn_biz_emplyoees', [$this->getNumEmployees()]),
+			GDT_Link::make('link_employees')->href($this->getEmployeeHREF())->text('btn_biz_emplyoees', [$this->getNumEmployees()]),
 		);
 		
 		return $li;
