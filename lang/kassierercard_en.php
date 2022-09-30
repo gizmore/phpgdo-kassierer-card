@@ -85,10 +85,10 @@ return [
 	
 	### Methods
 	'mt_kassierercard_welcome' => 'Welcome',
-	'md_kassierercard_welcome' => 'Kassierercard is a bonus program for employees instead of customers.',
+	'md_kassierercard_welcome' => 'KassiererCard is a bonus program for employees instead of customers.',
 	
 	'mt_kassierercard_partners' => 'Our Partners',
-	'md_kassierercard_partners' => 'Partners of Kassierercard.org, the bonus system for employees.',
+	'md_kassierercard_partners' => 'Partners of KassiererCard.org, the bonus system for employees.',
 	
 	'md_kassierercard_businesses' => 'This list is an overview of participating businesses ordered by distance to you.',
 	'list_kassierercard_businesses' => '%s Businesses',
@@ -96,7 +96,7 @@ return [
 	'md_kassierercard_rateemployee' => 'Send Coupons to an employee of your choice. You can send up to %s coupons per day.',
 	
 	'mt_kassierercard_workingthere' => 'Working There?',
-	'md_kassierercard_workingthere' => 'Setup your store or workplace to be ranked under Kassierercard.org',
+	'md_kassierercard_workingthere' => 'Setup your store or workplace to be ranked under KassiererCard.org',
 	'msg_kk_started_work' => 'You started to work at %s on %s.',
 	'msg_kk_stopped_work' => 'You stopped to work at %s.',
 

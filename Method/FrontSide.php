@@ -34,7 +34,7 @@ class FrontSide extends Method
 		header('Content-Type: image/svg+xml');
 		$tpl = $this->getSVGTemplateName();
 		$tVars = ['coupon' => $this->getCoupon()];
-		return GDT_Template::make()->template('Kassierercard', $tpl, $tVars);
+		return GDT_Template::make()->template('KassiererCard', $tpl, $tVars);
 	}
 	
 }
