@@ -30,8 +30,8 @@ text {
 	font-size: 80px;
 }
 </style>
-<rect x="0" y="0" width="1050" height="600" style="fill:#Fff;"></rect>
-<rect rx="10" ry="10" x="20" y="20" width="1010" height="1010" style="fill:#F94600;"></rect>
+<rect x="0" y="0" width="1050" height="600" style="fill:#fff;"></rect>
+<rect rx="10" ry="10" x="0" y="0" width="1050" height="600" style="fill:#F94600;"></rect>
 <text x="-20" y="510" fill="#ffffff" stroke="#ffffff" class="txt">K</text>  
 <text x="270" y="510" fill="#ffffff" stroke="#ffffff" class="txt">C</text>
 <text x="30" y="580" fill="#ffffff" stroke="#ffffff" class="fineprint">www.KassiererCard.org</text>
@@ -53,7 +53,7 @@ for ($i = 0; $i < 5; $i++)
 		$w = (100 - ($margin * 2) - ($dash * 4) - ($padding * 20)) / 10;
 		$xc = $x + (($w + $padding) / 2.0) - 0.1;
 		$h = 9;
-		$y = 5.7;
+		$y = 4.2;
 		$yc = $y + 4.5 + $padding;
 		$x += $padding;
 		printf("<rect x=\"%.02f%%\" y=\"%.02f%%\" width=\"%.02f%%\" height=\"%.02f%%\" style=\"fill:rgb(255,255,255);stroke-width:3;stroke:rgb(0,0,0)\" />\n",

@@ -5,10 +5,11 @@ return [
 	'sitename' => 'KassiererCard.org',
 	'link_kk_home' => 'KassiererCard.org',
 	'link_kk_offers' => '%s Offers',
-	'link_kk_businesses' => 'Employers',
-	'link_kk_employees' => 'Employees',
+	'link_kk_partners' => '%s Partners',
+	'link_kk_businesses' => '%s Employers',
+	'link_kk_employees' => '%s Employees',
+	'link_kk_team' => '%s Team Members',
 	'link_kk_help' => 'Help / FaQ',
-	'link_kk_partners' => 'Companies',
 	'kk_admin' => 'KC-Staff',
 	
 	### Buttons
@@ -82,6 +83,8 @@ return [
 	'stars_redeemed' => 'Stars Redeemed',
 	'offers_redeemed' => 'Offers Redeemed',
 	'offers_created' => 'Offers Created',
+	'your_dream' => 'Your Dream',
+	'qrcode_size' => 'QR-Code Size',
 	
 	### Methods
 	'mt_kassierercard_welcome' => 'Welcome',

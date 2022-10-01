@@ -29,10 +29,10 @@ text {
 }
 </style>
 <rect x="0" y="0" width="1050" height="600" style="fill:#Fff;"></rect>
-<rect rx="10" ry="10" x="20" y="20" width="1010" height="1010" style="fill:#F94600;"></rect>
+<rect rx="10" ry="10" x="0" y="0" width="1050" height="600" style="fill:#F94600;"></rect>
 <text x="-20" y="510" fill="#ffffff" stroke="#ffffff" class="txt">K</text>  
 <text x="270" y="510" fill="#ffffff" stroke="#ffffff" class="txt">C</text>
-<text x="50%" y="65" fill="#ffffff" stroke="#ffffff" class="code" dominant-baseline="middle" text-anchor="middle"><?=$coupon->renderInvitationSlogan()?></text>
-<text x="50%" y="565" fill="#ffffff" stroke="#ffffff" class="fineprint" dominant-baseline="middle" text-anchor="middle"><?=$coupon->renderSlogan()?></text>
+<text x="50%" y="50" fill="#ffffff" stroke="#ffffff" class="code" dominant-baseline="middle" text-anchor="middle"><?=$coupon->renderInvitationSlogan()?></text>
+<text x="50%" y="560" fill="#ffffff" stroke="#ffffff" class="fineprint" dominant-baseline="middle" text-anchor="middle"><?=$coupon->renderSlogan()?></text>
 <image x="622" y="105" width="410" height="410" xlink:href="data:image/png;base64,<?=$coupon->getQRCode()->renderBase64()?>"></image>
 </svg>

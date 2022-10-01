@@ -123,4 +123,18 @@ final class KC_Partner extends GDO
 	{
 		return $this->displayCard($this->getAddress()->getAddressLine());
 	}
+	
+	##############
+	### Static ###
+	##############
+	public static function numTotal() : int
+	{
+		return self::queryTotal();
+	}
+	
+	public static function queryTotal() : int
+	{
+		return self::table()->countWhere();
+	}
+	
 }
