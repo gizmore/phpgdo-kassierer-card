@@ -14,6 +14,7 @@ use GDO\Crypto\BCrypt;
 use GDO\News\GDO_News;
 use GDO\Avatar\Module_Avatar;
 use GDO\Maps\Module_Maps;
+use GDO\Core\GDO_SEO_URL;
 
 /**
  * Initial seed for rapid dev.
@@ -25,6 +26,7 @@ final class Install
 	public static function install(Module_KassiererCard $module) : bool
 	{
 		return
+			self::installRoutes() &&
 			self::installConfig() &&
 			self::installSlogans() &&
 			self::installPermissions() &&
@@ -34,6 +36,13 @@ final class Install
 			self::installPartners() &&
 			self::installNews() &&
 			self::installOffers();
+	}
+
+	private static function installRoutes() : bool
+	{
+		$m = Module_KassiererCard::instance();
+		GDO_SEO_URL::addRoute('favicon.ico', $m->wwwPath('img/kassierercard_logo.svg'));
+		return true;
 	}
 
 	##############
