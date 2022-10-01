@@ -48,7 +48,8 @@ final class Module_KassiererCard extends GDO_Module
 	public function getDependencies() : array
 	{
 		return [
-			'Account', 'ActivationAlert', 'Address', 'Admin', 'Avatar',
+			'Account', 'ActivationAlert', 'Address',
+			'Admin', 'Ads', 'Avatar',
 			'Backup', 'Birthday', 'Bootstrap5Theme',
 			'Category', 'Contact', 'Classic',
 			'CountryRestrictions', 'CSS',

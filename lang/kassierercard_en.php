@@ -108,6 +108,7 @@ return [
 	
 	# Enter
 	'enter_coupon' => 'Enter Coupon',
+	'err_kk_coupon_unknown' => 'This coupon is unknown or has been entered already.',
 	
 	# Entered
 	'entered_coupons' => 'Entered Coupons',

@@ -59,7 +59,17 @@ The current theme might be ugly, but there will be more beautiful in future.',
 	'kk_faq_t9' => 'You have dozens of spelling errors, it\'s a pain to use the site.',
 	'kk_faq_b9' => '%s',
 	
-	'kk_faq_t10' => 'Ich habe keinen Kundenkontakt?',
+	'kk_faq_t10' => 'I have no contact to cashiers.',
+	'kk_faq_b10' => 'This is no problem.<br/>
+The CashierCard is for any kind of worker, in any branche.<br/>
+Just invite more people and keep printing and spreading the word!',
+	
+	'kk_faq_t11' => 'I have a great idea!',
+	'kk_faq_b11' => 'Great, let us know! We also have dozens of ideas.<br/>
+EineAn official ToDo is available here: %s.<br/>
+You can also open a ticket or PullRequest on %s,
+but keep in mind this is propertary software!',
+	'kk_faq_lnk' => 'GitHub',
 	
 ];
 

@@ -3,6 +3,7 @@ namespace GDO\KassiererCard;
 
 use GDO\Core\GDO;
 use GDO\Core\GDT_AutoInc;
+use GDO\User\GDO_User;
 
 final class KC_SignupCode extends GDO
 {
@@ -58,9 +59,17 @@ final class KC_SignupCode extends GDO
 		return true;
 	}
 	
-	public static function clearCode(string $token) : bool
+	public static function onActivation(GDO_User $user, string $token) : bool
 	{
-		return self::table()->deleteWhere('sc_token='.quote($token)) === 1;
+		if ($code = self::getBy('sc_token', $token))
+		{
+			$coupon = KC_Coupon::getBy('kc_token', $token);
+			
+			$code->delete();
+			return true;
+		}
+		return false;
 	}
+	
 		
 }

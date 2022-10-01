@@ -5,9 +5,12 @@ namespace GDO\KassiererCard\tpl;
 <div class="kc-coupon-token gdt-container<?=$field->classError()?>">
 <label<?=$field->htmlForID()?>><?=$field->htmlIcon()?><?=$field->renderLabel()?></label>
 <input
-<?=$field->htmlFocus()?>
+<?=$field->htmlConfig()?>
 <?=$field->htmlID()?>
+<?=$field->htmlAttributes()?>
+<?=$field->htmlFocus()?>
  type="text"
+ autocomplete="off"
 <?=$field->htmlName()?>
 <?=$field->htmlDisabled()?>
 <?=$field->htmlRequired()?>

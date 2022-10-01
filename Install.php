@@ -13,6 +13,7 @@ use GDO\User\GDO_UserPermission;
 use GDO\Crypto\BCrypt;
 use GDO\News\GDO_News;
 use GDO\Avatar\Module_Avatar;
+use GDO\Maps\Module_Maps;
 
 /**
  * Initial seed for rapid dev.
@@ -45,6 +46,7 @@ final class Install
 		Module_CountryRestrictions::instance()->saveConfigVar('country_whitelist', '["DE"]');
 		Module_Language::instance()->saveConfigVar('languages', '["en","de"]');
 		Module_Language::instance()->saveConfigVar('use_in_javascript', '0');
+		Module_Maps::instance()->saveConfigVar('maps_api_google', '0');
 		return true;
 	}
 	
@@ -82,6 +84,7 @@ final class Install
 			'Für Euch',
 			'Änderung. Verbesserung. Erneuerung',
 			'Ich shoppe auch gern',
+			'Damit alle genug haben',
 		];
 		
 		$i = 0;
@@ -110,6 +113,7 @@ final class Install
 	private static function installPermissions() : bool
 	{
 		# Perms
+		GDO_Permission::create('kk_distributor', 400);
 		GDO_Permission::create('kk_cashier', 300);
 		GDO_Permission::create('kk_company', 200);
 		GDO_Permission::create('kk_customer', 100);

@@ -9,7 +9,10 @@ use GDO\UI\GDT_Link;
 <p>And many more...</p>
 
 <p>So, what do these systems have in common?</p>
-<p>Right, they are about the customer. No one ever thinks of the workers, the cashiers, the drivers, the cleaning personal, and maybe even some managers.</p>
+<p>Right, they are about the customer.
+No one ever thinks of the workers.
+The cashiers, the drivers, the cleaning personal,
+and maybe even some managers.</p>
 
 <p>This is were <a href="https://kassierercard.org">KassiererCard.org</a> steps in.
 Our bonus program is focused to aid the people who keep the business running,

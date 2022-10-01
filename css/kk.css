@@ -6,3 +6,13 @@
 	border: 2px dashed #333;
 }
 
+.kc-coupon-token input {
+	width: 50px;
+	min-width: initial;
+	text-align: center;
+}
+
+.kc-coupon-token input,
+.kc-coupon-token .dash {
+	margin-right: 8px;
+}
