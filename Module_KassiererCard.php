@@ -60,6 +60,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Licenses', 'Links', 'Login',
 			'Maps', 'Mail', 'Maps', 'Markdown',
 			'News', 'PM', 'QRCode', 'Recovery', 'Register',
+			'YouTube',
 		];
 	}
 	
