@@ -5,7 +5,6 @@ use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Submit;
-use GDO\KassiererCard\GDT_Coupon;
 use GDO\KassiererCard\GDT_Offer;
 
 final class RedeemOffer extends MethodForm

@@ -39,6 +39,8 @@ return [
 	'perm_kk_cashier' => 'Cashier',
 	'perm_kk_company' => 'Company',
 	'perm_kk_customer' => 'Customer',
+	'perm_kk_distributor' => 'Distributor',
+	'perm_kk_manager' => 'Manager',
 	
 	'lbl_choose_account_type' => 'Please choose your account type.',
 	
