@@ -45,6 +45,7 @@ final class CreateCoupon extends MethodForm
 		$stars = $table->gdoColumn('kc_stars');
 		$form->addField($stars);
 		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateStars']));
+		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateSunday']));
 		$form->addField($table->gdoColumn('kc_offer'));
 		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addField(GDT_Submit::make());
@@ -63,6 +64,24 @@ final class CreateCoupon extends MethodForm
 				$want, $could, $stars]);
 		}
 		return true;
+	}
+	
+	public function validateSunday(GDT_Form $form, GDT_CouponStars $field, $value)
+	{
+		if (GDO_User::current()->hasPermission('kk_distributor'))
+		{
+			return true;
+		}
+		if ($this->isSunday())
+		{
+			return $field->error('err_print_sundays');
+		}
+		return true;
+	}
+	
+	private function isSunday() : bool
+	{
+		return Time::getDate(0, 'N') === '7';
 	}
 	
 	public function formValidated(GDT_Form $form)

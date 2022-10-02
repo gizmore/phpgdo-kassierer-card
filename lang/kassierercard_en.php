@@ -146,6 +146,7 @@ return [
 	'kk_info_print_coupon' => 'Print one of your coupons.<br/>Either send it to your printer, write the code down manually, or show your worker the QR code.',
 	'err_unknown_coupon' => 'This Coupon does not exist or is not yours.',
 	'msg_kk_enter_auth' => 'You are not authenticated. Please login and try again.',
+	'err_print_sundays' => 'You cannot print coupons on sunday. You can try again tommorow.',
 	
 	# Printed
 	'printed_coupons' => 'Printed Coupons',
