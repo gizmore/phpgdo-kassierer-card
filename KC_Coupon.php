@@ -61,6 +61,11 @@ class KC_Coupon extends GDO
 		return $this->gdoVar('kc_token');
 	}
 	
+	public function getStars() : int
+	{
+		return $this->gdoVar('kc_stars');
+	}
+	
 	public function isEntered() : bool
 	{
 		return $this->gdoVar('kc_entered') !== null;
@@ -182,6 +187,18 @@ class KC_Coupon extends GDO
 		return GDT_Url::absolute($this->hrefEnter());
 	}
 	
+	#############
+	### Enter ###
+	#############
+	public function entered(GDO_User $user)
+	{
+		KC_Util::giveStars($user, $this->getStars());
+		$this->saveVars([
+			'kc_entered' => Time::getDate(),
+			'kc_enterer' => $user->getID(),
+		]);
+	}
+	
 	##############
 	### Render ###
 	##############
@@ -234,6 +251,14 @@ class KC_Coupon extends GDO
 			'kc_type' => $code->getType(),
 			'kc_stars' => $code->getStars(),
 		])->insert();
+	}
+	
+	########################
+	### Get Rate Limited ###
+	########################
+	public static function getByToken(string $token) : ?self
+	{
+		return self::getBy('kc_token', $token);
 	}
 	
 }

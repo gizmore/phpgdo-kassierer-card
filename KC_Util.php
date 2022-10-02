@@ -3,6 +3,7 @@ namespace GDO\KassiererCard;
 
 use GDO\Date\Time;
 use GDO\User\GDO_User;
+use GDO\Core\Website;
 
 /**
  * Various KC utility.
@@ -90,7 +91,6 @@ final class KC_Util
 	{
 		$query = KC_Offer::getAvailableOffersQuery($user);
 		return 2;
-		
 	}
 	
 	public static function numCustomerCouponsForStars(int $stars) : int
@@ -99,5 +99,10 @@ final class KC_Util
 		return floor($stars / $coupMod);
 	}
 	
+	public static function giveStars(GDO_User $user, int $stars) : void
+	{
+		
+		Website::message('KassiererCard.org', 'msg_earned_stars', [$stars]);
+	}
 	
 }

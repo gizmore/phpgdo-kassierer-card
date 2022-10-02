@@ -27,8 +27,7 @@ window.KC.tokenPress = function(event) {
 		else {
 			setTimeout(function(){
 				next.focus();
-				let text = input.val();
-				text = text.slice(-1).toUpperCase();
+				let text = event.originalEvent.key?.toUpperCase() || '';
 				input.val(text);
 			}, 10);
 		}

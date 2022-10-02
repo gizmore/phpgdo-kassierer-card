@@ -64,7 +64,7 @@ final class KC_SignupCode extends GDO
 		if ($code = self::getBy('sc_token', $token))
 		{
 			$coupon = KC_Coupon::getBy('kc_token', $token);
-			
+			KC_Util::giveStars($user, $coupon->getStars());
 			$code->delete();
 			return true;
 		}

@@ -165,6 +165,10 @@ return [
 	'li_kk_working_sub' => 'They has collected %s stars and redeemed %s offers.',
 
 	# Biz
+	'owner' => 'Owner',
+	'kk_info_crud_business' => 'Here you can add a new business with cashiers.<br/>You maybe want to %s first.',
+	'biz_participating' => 'Official Employer since',
+	'biz_declining' => 'Declined us at',
 	'btn_biz_emplyoees' => '%s Employees',
 	
 	# Coupons

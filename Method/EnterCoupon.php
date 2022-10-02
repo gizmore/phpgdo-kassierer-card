@@ -9,13 +9,13 @@ use GDO\Form\GDT_Validator;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\KassiererCard\Module_KassiererCard;
 use GDO\User\GDO_User;
-use GDO\Core\GDT;
+use GDO\KassiererCard\KC_Util;
 
 /**
  * Method for cashiers to enter coupons.
  * 
  * @author gizmore
- *
+ * @version 7.0.1
  */
 final class EnterCoupon extends MethodForm
 {
@@ -50,7 +50,7 @@ final class EnterCoupon extends MethodForm
 	{
 		$token = trim(strtoupper($value));
 		$token = preg_replace('/[^A-Z0-9]/iD', '', $token);
-		if (!($coupon = KC_Coupon::getBy('kc_token', $token)))
+		if (!($coupon = $this->getCoupon()))
 		{
 			return $field->error('err_kk_coupon_unknown');
 		}
@@ -61,5 +61,22 @@ final class EnterCoupon extends MethodForm
 		return true;
 	}
 	
+	public function getToken() : string
+	{
+		return $this->gdoParameterVar('token');
+	}
 	
+	public function getCoupon() : ?KC_Coupon
+	{
+		$token = $this->getToken();
+		return KC_Coupon::getByToken($token);
+	}
+	
+	public function formValidated(GDT_Form $form)
+	{
+		$user = GDO_User::current();
+		$coupon = $this->getCoupon();
+		$coupon->entered($user);
+		return $this->renderPage();
+	}
 }

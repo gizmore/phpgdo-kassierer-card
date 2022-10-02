@@ -122,6 +122,7 @@ final class Module_KassiererCard extends GDO_Module
 			'favorite_meal' => [GDT_ACLRelation::FRIENDS, 0, null],
 			'favorite_song' => [GDT_ACLRelation::FRIENDS, 0, null],
 			'favorite_movie' => [GDT_ACLRelation::FRIENDS, 0, null],
+			'your_dream' => [GDT_ACLRelation::FRIENDS, 0, null],
 			# UI
 			'qrcode_size' => [GDT_ACLRelation::HIDDEN, 0, null],
 		];
@@ -213,6 +214,13 @@ final class Module_KassiererCard extends GDO_Module
 				);
 			}
 			
+			if ($this->isDistributor($user))
+			{
+				$page->rightBar()->addFields(
+					GDT_Link::make('create_business')->href($this->href('BusinessCrud')),
+				);
+			}
+			
 			if ($user->isStaff())
 			{
 				$page->rightBar()->addFields(
@@ -246,6 +254,16 @@ final class Module_KassiererCard extends GDO_Module
 	#################
 	### User type ###
 	#################
+	public function isManager(GDO_User $user) : bool
+	{
+		return $this->isType($user, GDT_AccountType::MANAGER);
+	}
+	
+	public function isDistributor(GDO_User $user) : bool
+	{
+		return $this->isType($user, GDT_AccountType::DISTRIBUTOR);
+	}
+	
 	public function isCashier(GDO_User $user) : bool
 	{
 		return $this->isType($user, GDT_AccountType::CASHIER);

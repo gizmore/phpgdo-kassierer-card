@@ -14,6 +14,10 @@ final class GDT_AccountType extends GDT_Enum
 	const CASHIER = 'kk_cashier';
 	const COMPANY = 'kk_company';
 	const CUSTOMER = 'kk_customer';
+	
+	# non account type, but permission
+	const MANAGER = 'kk_manager';
+	const DISTRIBUTOR = 'kk_distributor';
 
 	public function defaultLabel(): self
 	{

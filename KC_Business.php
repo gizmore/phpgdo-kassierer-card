@@ -34,12 +34,12 @@ final class KC_Business extends GDO
 	{
 		return [
 			GDT_AutoInc::make('biz_id'),
-			GDT_Address::make('biz_address'),
-			GDT_Position::make('biz_coord'),
-			GDT_Category::make('biz_category'),
+			GDT_Address::make('biz_address')->emptyLabel('please_choose'),
+			GDT_Position::make('biz_coord')->initialCurrent(),
+			GDT_Category::make('biz_category')->emptyLabel('please_choose'),
 			GDT_Timestamp::make('biz_participating'),
 			GDT_Timestamp::make('biz_declining'),
-			GDT_User::make('biz_owner'),
+			GDT_User::make('biz_owner')->label('owner'),
 			GDT_CreatedAt::make('biz_created'),
 			GDT_CreatedBy::make('biz_creator'),
 			GDT_DeletedAt::make('biz_deleted'),
