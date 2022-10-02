@@ -10,7 +10,7 @@ function teamMembersInfo(string $group, array $users) : string
 	global $listed;
 	$back = '';
 	$back .= "<h3>" . t("the_{$group}") . "</h3>\n";
-	$back .= "<p>" . t("the_{$group}_paragraph") . "</p>\n";
+	$back .= "<p>" . t("the_{$group}_paragraph", [count($users)]) . "</p>\n";
 	foreach ($users as $user)
 	{
 		if (!in_array($user, $listed, true))

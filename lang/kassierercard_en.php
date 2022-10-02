@@ -74,7 +74,6 @@ return [
 	'lbl_kk_register_code' => 'Signup Code',
 	'tt_kk_register_code' => 'A valid signup code is required if you signup as a Cashier or Company.',
 	'err_kk_signup_code' => 'As a cashier, or company, you need a valid signup code.',
-	
 
 	### Settings
 	'stars_purchased' => 'Extra Stars',
@@ -118,7 +117,6 @@ return [
 	# Entered
 	'entered_coupons' => 'Entered Coupons',
 	
-	
 	# Offer
 	'kk_info_offers' => 'Here you can find the available offers in your area.<br/>Offers are created by our partners, customers print the coupons and employees redeem them.<br/>For every 5 redeemed coupons, the customer gets a coupon as well.',
 	'create_offer' => 'Create Offer',
@@ -140,6 +138,7 @@ return [
 	
 	# Redeem Coupon
 	'redeem_coupon' => 'Redeem Coupon',
+	'kk_info_redeem_offer' => 'Here you can claim an offer. Make sure you have earned enough stars and follow the instructions.',
 	
 	# Print
 	'mt_kassierercard_printcoupon' => 'Print Coupon',
@@ -170,6 +169,10 @@ return [
 
 	# The Team
 	'the_team' => 'The Team',
-	'the_team_paragraph' => 'This page '
+	'the_team_paragraph' => 'This page is dedicated to the %s Team Members.<br/>Hello!',
+	'the_admins' => 'The Admins',
+	'the_admins_paragraph' => '%s Admins have access to everything. Do not trust them!',
+	'the_staff' => 'The Staff',
+	'the_staff_paragraph' => '%s Staff members have access to almost everything. They censor the spam and get lots of email. Do not trust them!',
 	
 ];
