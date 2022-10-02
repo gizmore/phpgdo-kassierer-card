@@ -147,6 +147,7 @@ return [
 	'err_unknown_coupon' => 'This Coupon does not exist or is not yours.',
 	'msg_kk_enter_auth' => 'You are not authenticated. Please login and try again.',
 	'err_print_sundays' => 'You cannot print coupons on sunday. You can try again tommorow.',
+	'your_ad_here' => 'Backside 100% for Partners',
 	
 	# Printed
 	'printed_coupons' => 'Printed Coupons',
