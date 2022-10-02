@@ -122,6 +122,7 @@ final class Install
 	private static function installPermissions() : bool
 	{
 		# Perms
+		GDO_Permission::create('kk_manager', 750);
 		GDO_Permission::create('kk_distributor', 400);
 		GDO_Permission::create('kk_cashier', 300);
 		GDO_Permission::create('kk_company', 200);
@@ -293,16 +294,18 @@ final class Install
 	private static function installPartners() : bool
 	{
 		$descr = 'Der beste Döner in Peine, knusprig und preiswert.<br/>Das Original - Nur bei Saray Ali!';
-		self::partner(1, 7, 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40', $descr, 'https://saray.busch-peine.de/');
+		self::partner(1, 'Ali', 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40', $descr, 'https://saray.busch-peine.de/');
 		$descr = 'Der Frisör bei dem einen der Hut hochgeht?<br/>Schauen Sie mal vorbei!';
-		self::partner(2, 8, 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/');
+		self::partner(2, 'Walid', 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/');
 		$descr = 'Peiner Rock/Pank Szenekneipe.<br/>Ab und an auch mal Live Musik.<br/>Angenehme Atmosphäre.';
-		self::partner(3, 9, 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', null, $descr, 'https://garage-peine.de');
+		self::partner(3, 'Garage', 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', null, $descr, 'https://garage-peine.de');
 		return true;
 	}
 	
-	private static function partner(int $id, int $userId, int $cat, string $name, string $street, string $zip, string $city, string $country, ?string $phone, string $descr, string $url) : void
+	private static function partner(int $id, string $userName, int $cat, string $name, string $street, string $zip, string $city, string $country, ?string $phone, string $descr, string $url) : void
 	{
+		$userId = GDO_User::getByName($userName)->getID();
+		
 		if (!($addr = GDO_Address::getById($id+200000)))
 		{
 			$addr = GDO_Address::blank([

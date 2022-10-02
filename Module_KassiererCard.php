@@ -178,7 +178,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Link::make('link_kk_businesses')->href($this->href('Businesses'))->textArgs(KC_Business::numTotal())->icon('house'),
 			GDT_Link::make('link_kk_partners')->href($this->href('Partners'))->textArgs(KC_Partner::numTotal())->icon('icecream'),
 			GDT_Link::make('link_kk_employees')->href($this->href('Employees'))->textArgs(KC_Working::numEmployeesTotal())->icon('work'),
-			GDT_Link::make('link_kk_team')->href($this->href('TheTeam'))->textArgs(8)->icon('users'),
+			GDT_Link::make('link_kk_team')->href($this->href('Team'))->textArgs(8)->icon('users'),
 			GDT_Link::make('link_kk_help')->href($this->href('Help'))->icon('help'),
 		);
 		
