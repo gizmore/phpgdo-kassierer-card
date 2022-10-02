@@ -487,7 +487,7 @@ EOT;
 		
 		self::offer(5, 4, 2, 8, 1,  $now, '2022-11-09',
 			'DOPE!!!', 'Auszeit!',
-			'Ein Gramm CBD-Gras zum ausprobieren für €10.<br/>Na wenn das nix is!');
+			'Ein Gramm gratis CBD-Gras zum ausprobieren im Gegenwert von €10.<br/>Na wenn das nix is!');
 		
 		return true;
 	}

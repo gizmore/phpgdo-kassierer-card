@@ -309,13 +309,15 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function validateToken(GDT_Form $form, GDT $field, $value)
 	{
-		$type = $form->getFormVar('kk_type');
-		if ($type !== 'kk_customer')
+		if ($type = $form->getFormVar('kk_type'))
 		{
-			if (!(KC_SignupCode::validateCode($value, $type)))
+			if ($type !== 'kk_customer')
 			{
-				$field->error('err_kk_signup_code');
-				return false;
+				if (!(KC_SignupCode::validateCode($value?$value:'', $type)))
+				{
+					$field->error('err_kk_signup_code');
+					return false;
+				}
 			}
 		}
 		return true;
