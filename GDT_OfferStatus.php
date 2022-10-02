@@ -45,7 +45,7 @@ final class GDT_OfferStatus extends GDT_Label
 		}
 		
 		# Available
-		$cost = $offer->getRequiredCoupons();
+		$cost = $offer->getRequiredStars();
 		$numRedeem = $offer->queryNumRedeemedTotal();
 		return t('kk_offer_status', [$numRedeem, $numTotal, $numAvail, $offer->renderValidDate(), $cost]);
 	}

@@ -109,6 +109,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('stars_redeemed')->tooltip('tt_stars_redeemed')->icon('star'),
 			GDT_Badge::make('offers_redeemed')->tooltip('tt_offers_redeemed')->icon('star'),
 			GDT_Badge::make('offers_created')->tooltip('tt_offers_created')->icon('star'),
+			GDT_Badge::make('diamonds_earned')->tooltip('tt_diamonds_earned')->icon('sun'),
 		];
 	}
 	
@@ -185,11 +186,10 @@ final class Module_KassiererCard extends GDO_Module
 		
 		if ($user->isUser())
 		{
-			if ($this->isCustomer($user))
+			if ($this->canCreateCoupons($user))
 			{
 				$page->rightBar()->addFields(
-					GDT_Link::make('create_coupon')->href($this->href('CreateCoupon')),
-					GDT_Link::make('printed_coupons')->href($this->href('PrintedCoupons')),
+					GDT_Link::make('create_coupon')->href($this->href('CreateCoupon'))->icon('bee'),
 				);
 			}
 			
@@ -197,10 +197,14 @@ final class Module_KassiererCard extends GDO_Module
 			{
 				$page->rightBar()->addFields(
 					GDT_Link::make('enter_coupon')->href($this->href('EnterCoupon'))->icon('bee'),
-					GDT_Link::make('redeem_coupon')->href($this->href('RedeemCoupon'))->icon('bee'),
-					GDT_Link::make('entered_coupons')->href($this->href('EnteredCoupons'))->icon('star'),
 				);
+			}
+			
+			if ($this->canCreateCoupons($user))
+			{
 				$page->rightBar()->addFields(
+					GDT_Link::make('redeem_coupon')->href($this->href('RedeemOffer'))->icon('sun'),
+					GDT_Link::make('entered_coupons')->href($this->href('EnteredCoupons'))->icon('star'),
 					GDT_Badge::make()->icon('sun')->tooltip('tt_stars_available')->text('stars_available')->var(KC_Util::numStarsAvaliable($user)),
 					GDT_Badge::make()->icon('sun')->tooltip('tt_coupons_available')->text('coupons_available')->var(KC_Util::numCouponsAvailable($user)),
 				);
@@ -229,6 +233,13 @@ final class Module_KassiererCard extends GDO_Module
 				);
 			}
 		}
+	}
+	
+	private function canCreateCoupons(GDO_User $user)
+	{
+		return
+			$user->hasPermission('kk_customer') ||
+			$user->hasPermission('kk_cashier');
 	}
 	
 	public function onModuleInit() : void

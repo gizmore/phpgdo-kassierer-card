@@ -60,7 +60,7 @@ final class KC_Offer extends GDO
 	/**
 	 * How many coupons make one offer item?
 	 */
-	public function getRequiredCoupons() : int { return $this->gdoValue('o_required_amt'); }
+	public function getRequiredStars() : int { return $this->gdoValue('o_required_amt'); }
 	
 	/**
 	 * How many items/offers can a single user get from this offer.
@@ -75,7 +75,7 @@ final class KC_Offer extends GDO
 	/**
 	 * How many total offer items are available.
 	 */
-	public function getTotalOffers() : int { return floor($this->getTotalCoupons() / $this->getRequiredCoupons()); }
+	public function getTotalOffers() : int { return floor($this->getTotalCoupons() / $this->getRequiredStars()); }
 	
 	public function isOfferValid() : bool
 	{
@@ -125,6 +125,11 @@ final class KC_Offer extends GDO
 	public function queryNumOffers(KC_Partner $partner) : int
 	{
 		return self::countWhere("o_partner={$partner->getID()}");
+	}
+	
+	public function canAfford(GDO_User $user)
+	{
+		return KC_Util::numStarsAvaliable($user) >= $this->getRequiredStars();
 	}
 	
 	##############

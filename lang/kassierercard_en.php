@@ -126,6 +126,7 @@ return [
 	'info_create_offer' => 'Create a new coupon type / offer.',
 	'list_kassierercard_offers' => '%s Coupon Types',
 	'err_kk_offer_timeout' => 'This coupon\'s offer expired on %s and cannot be redeemed anymore.',
+	'err_kk_offer_afford' => 'You cannot afford to redeem this. The offer needs %s stars and you have %s available.',
 	'err_kk_offer_no_more_for_you' => 'You have redeemed %s of %s items for this offer. No more available for you.',
 	'kk_offer_status' => 'In total, %s of %s items have been redeemed. You may redeem this offer %s time(s) until %s. This offer cost %s coupon stars.',
 	

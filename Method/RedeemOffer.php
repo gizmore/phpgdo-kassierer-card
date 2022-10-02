@@ -18,7 +18,7 @@ final class RedeemOffer extends MethodForm
 	{
 		$this->setupInfoText($form);
 		$form->addFields(
-			GDT_Offer::make('id')->notNull()->writeable(false),
+			GDT_Offer::make('id')->notNull()->writeable(false)->affordable(),
 			GDT_AntiCSRF::make(),
 		);
 		$form->actions()->addFields(
