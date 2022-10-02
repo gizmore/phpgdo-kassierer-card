@@ -15,6 +15,7 @@ use GDO\News\GDO_News;
 use GDO\Avatar\Module_Avatar;
 use GDO\Maps\Module_Maps;
 use GDO\Core\GDO_SEO_URL;
+use GDO\Date\Time;
 
 /**
  * Initial seed for rapid dev.
@@ -143,6 +144,7 @@ final class Install
 		self::cat(6, 'Restaurant', 1);
 		self::cat(7, 'Hairstyler', 1);
 		self::cat(8, 'Pub', 1);
+		self::cat(9, 'Headshop', 1);
 		
 		self::cat(101, 'News', null);
 		self::cat(102, 'Peiner-News', 101);
@@ -299,6 +301,8 @@ final class Install
 		self::partner(2, 'Walid', 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/');
 		$descr = 'Peiner Rock/Pank Szenekneipe.<br/>Ab und an auch mal Live Musik.<br/>Angenehme Atmosphäre.';
 		self::partner(3, 'Garage', 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', null, $descr, 'https://garage-peine.de');
+		$descr = 'Endlich wieder ein Headshop in Peine<br/>CBD geht jetzt schon, echtes Weed soll es ja auch bald geben...<br/>Wer\'s glaubt!';
+		self::partner(4, 'Headshop', 9, 'Headhshop Peine', 'Am Markt', '31224', 'Peine', 'DE', null, $descr, 'https://headshop.busch-peine.de');
 		return true;
 	}
 	
@@ -395,7 +399,7 @@ KassiererCard.org hat Phase 1 erreicht.
 
 Nach dieser Phase wird noch einmal Reset gedrückt, und Sie müssen sich neu registrieren.
 
-Phase 2 beginnt vorraussichtlich am 2.10.2022.
+Phase 2 beginnt vorraussichtlich am 9.11.2022.
 
 In dieser Phase testen wir den Service mit nur wenigen Kunde, Angestellten, Arbeitern und Werbepartnern.
 
@@ -464,21 +468,26 @@ EOT;
 	##############
 	private static function installOffers() : bool
 	{
-		self::offer(1, 1, 50, 3, 1, '2022-09-25 13:37:42', '2022-11-09',
+		$now = Time::getDate();
+		self::offer(1, 1, 50, 3, 1, $now, '2022-11-09',
 			'ALIBABA!', 'Dönertaschtig!',
 			'Ein leckerer Döner mit Schafskäse und Fleisch nach Wahl, von Ihrem Saray.');
 
-		self::offer(2, 1, 25, 1, 1, '2022-09-25 13:37:42', '2022-11-09',
+		self::offer(2, 1, 25, 1, 1, $now, '2022-11-09',
 			'ALIBABA!', 'Erquickend!',
 			'Ein Gutschein für eine Soft-Getränk. Besser als garnix.');
 		
-		self::offer(3, 2, 20, 4, 1, '2022-09-25 13:37:42', '2022-11-09',
+		self::offer(3, 2, 20, 4, 1, $now, '2022-11-09',
 			'CUT!!!', 'Aerodynamisch!',
 			'Ein 5€ Gutschein für einen Haarschnitt bei Frisör Walid.');
 		
-		self::offer(4, 3, 20, 2, 1, '2022-09-25 13:37:42', '2022-11-09',
+		self::offer(4, 3, 20, 2, 1, $now, '2022-11-09',
 			'PROST!!!', 'Gesellig!',
 			'Ein Gutschein über ein Härke-Bier, dem ehemaligen Getränk der Stadt?');
+		
+		self::offer(5, 4, 2, 8, 1,  $now, '2022-11-09',
+			'DOPE!!!', 'Auszeit!',
+			'Ein Gramm CBD-Gras zum ausprobieren für €10.<br/>Na wenn das nix is!');
 		
 		return true;
 	}

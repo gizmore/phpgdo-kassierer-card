@@ -32,7 +32,7 @@ final class KC_Partner extends GDO
 			GDT_AutoInc::make('p_id'),
 			GDT_Category::make('p_category')->notNull(),
 			GDT_User::make('p_user')->notNull(),
-			GDT_Address::make('p_address')->notNull(),
+			GDT_Address::make('p_address')->notNull()->emptyLabel('please_choose'),
 			GDT_Url::make('p_url')->allowExternal()->label('website'),
 			GDT_Message::make('p_description')->label('information'),
 			GDT_ImageFile::make('p_logo')->exactSize(128, 128),

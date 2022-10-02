@@ -105,6 +105,8 @@ return [
 	'msg_kk_stopped_work' => 'You stopped to work at %s.',
 
 	# Partners
+	'kc_partner' => 'Partner',
+	'create_company' => 'Create Partner',
 	'list_kassierercard_partners' => '%s Partners',
 	'kk_info_partners_table' => 'Merchandize partners offer their goods in exchange for coupons.',
 	'footer_partner' => 'You can contact this partner via %s.',
@@ -154,6 +156,7 @@ return [
 	'li_kk_coupon_fresh' => 'This coupon is fresh and can be printed.',
 	'list_kassierercard_printedcoupons' => '%s Coupons ready',
 	
+	# Redeem
 	'redeem_offer' => 'Redeem Offer',
 	
 	# Granted
@@ -166,6 +169,7 @@ return [
 
 	# Biz
 	'owner' => 'Owner',
+	'create_business' => 'Create Employer',
 	'kk_info_crud_business' => 'Here you can add a new business with cashiers.<br/>You maybe want to %s first.',
 	'biz_participating' => 'Official Employer since',
 	'biz_declining' => 'Declined us at',

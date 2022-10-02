@@ -55,7 +55,7 @@ final class Module_KassiererCard extends GDO_Module
 			'CountryRestrictions', 'CSS',
 			'DoubleAccounts',
 			'FontAtkinson', 'FontAwesome', 'Forum',
-			'Invite', 'IP2Country',
+			'IP2Country',
 			'Javascript', 'JQueryAutocomplete',
 			'Licenses', 'Links', 'Login',
 			'Maps', 'Mail', 'Maps', 'Markdown',
@@ -217,7 +217,8 @@ final class Module_KassiererCard extends GDO_Module
 			if ($this->isDistributor($user))
 			{
 				$page->rightBar()->addFields(
-					GDT_Link::make('create_business')->href($this->href('BusinessCrud')),
+					GDT_Link::make('create_business')->href($this->href('BusinessCrud'))->icon('add'),
+					GDT_Link::make('create_company')->href($this->href('CompanyCrud'))->icon('add'),
 				);
 			}
 			
