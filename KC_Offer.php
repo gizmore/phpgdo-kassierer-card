@@ -160,12 +160,14 @@ final class KC_Offer extends GDO
 		$li->actions()->addFields(
 			GDT_Button::make('create_coupon')
 			->tooltip('tt_create_offer')
+			->icon('bee')
 			->href(href('KassiererCard', 'CreateCoupon', "&kc_offer={$this->getID()}"))
 			->enabled($canCreate));
 		
 		$li->actions()->addFields(
 			GDT_Button::make('redeem_offer')
 			->tooltip('tt_redeem_offer')
+			->icon('star')
 			->href(href('KassiererCard', 'RedeemOffer', "&id={$this->getID()}"))
 			->enabled($canRedeem));
 		

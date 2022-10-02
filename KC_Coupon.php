@@ -99,10 +99,12 @@ class KC_Coupon extends GDO
 		}
 
 		# Company's offer image
-		$offer = $this->getOffer();
-		if ($imageFile = $offer->getBacksideImage())
+		if ($offer = $this->getOffer())
 		{
-			return GDT_Image::fromFile($imageFile, 'back');
+			if ($imageFile = $offer->getBacksideImage())
+			{
+				return GDT_Image::fromFile($imageFile, 'back');
+			}
 		}
 
 		# Our coupon back (Advertise here)
