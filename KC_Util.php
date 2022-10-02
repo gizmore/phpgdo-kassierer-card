@@ -71,24 +71,24 @@ final class KC_Util
 		return $user->settingVar('KassiererCard', 'coupons_entered');
 	}
 	
-	public static function numCouponsCreated($user) : int
+	public static function numCouponsCreated(GDO_User $user) : int
 	{
 		return KC_Coupon::table()->numCouponsCreated($user);
 	}
 	
-	public static function numStarsCreated($user) : int
+	public static function numStarsCreated(GDO_User $user) : int
 	{
 		return KC_Coupon::table()->numCouponsCreated($user);
 	}
 	
-	public static function numStarsAvaliable($user) : int
+	public static function numStarsAvaliable(GDO_User $user) : int
 	{
-		
-		return 1;
+		return $user->settingVar('KassiererCard', 'stars_available');
 	}
 	
-	public static function numCouponsAvailable($user) : int
+	public static function numCouponsAvailable(GDO_User $user) : int
 	{
+		$query = KC_Offer::getAvailableOffersQuery($user);
 		return 2;
 		
 	}

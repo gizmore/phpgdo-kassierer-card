@@ -165,5 +165,9 @@ return [
 	'btn_biz_emplyoees' => '%s Employees',
 	
 	# Coupons
+
+	# The Team
+	'the_team' => 'The Team',
+	'the_team_paragraph' => 'This page '
 	
 ];

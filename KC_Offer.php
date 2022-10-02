@@ -17,6 +17,7 @@ use GDO\UI\GDT_Button;
 use GDO\UI\GDT_Container;
 use GDO\File\GDT_ImageFile;
 use GDO\File\GDO_File;
+use GDO\DB\Query;
 
 /**
  * An offer for a cashier.
@@ -190,6 +191,18 @@ final class KC_Offer extends GDO
 	{
 		$now = Time::getDateWithoutTime();
 		return self::table()->countWhere("o_expires>'$now'");
+	}
+	
+	### User Avail
+	public static function getAvailableOffersQuery(GDO_User $user) : Query
+	{
+		$starsAvailable = KC_Util::numStarsAvaliable($user);
+		$now = Time::getDateWithoutTime();
+		return
+			self::table()->select()
+				->where("(SELECT ")
+				->where("o_required_amt <= $starsAvailable")
+				->where("o_expires>'$now'");
 	}
 	
 }
