@@ -10,7 +10,7 @@ use GDO\User\GDT_User;
 
 final class PartnerRedeemOffer extends MethodForm
 {
-	public function getPermission() : ?string { return 'kc_company'; }
+	public function getPermission() : ?string { return 'kk_company'; }
 	
 	public function createForm(GDT_Form $form): void
 	{

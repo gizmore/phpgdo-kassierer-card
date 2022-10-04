@@ -17,6 +17,7 @@ use GDO\Maps\Module_Maps;
 use GDO\UI\GDT_Link;
 use GDO\File\GDT_ImageFile;
 use GDO\Core\GDT_Index;
+use GDO\Net\GDT_Url;
 
 /**
  * Merchandize Partner / Company.
@@ -34,7 +35,12 @@ final class KC_Partner extends GDO
 			GDT_Category::make('p_category')->notNull(),
 			GDT_Address::make('p_address')->notNull()->emptyLabel('please_choose'),
 			GDT_Message::make('p_description')->label('information'),
-			GDT_ImageFile::make('p_logo')->exactSize(196, 196)->label('logo'),
+			GDT_Url::make('p_url'),
+			GDT_WebsiteContent::make('p_website_content'),
+			GDT_ImageFile::make('p_logo')
+				->label('logo')
+				->scaledVersion('icon', 96, 96)
+				->exactSize(196, 196)->label('logo'),
 			GDT_CreatedAt::make('p_created'),
 			GDT_CreatedBy::make('p_creator'),
 			GDT_Index::make('p_index_p_user')->indexColumns('p_user'),
@@ -63,7 +69,7 @@ final class KC_Partner extends GDO
 	
 	public function getRedeemCount() : int
 	{
-		return (int) $this->getUser()->settingVar('kassierercard', 'personal_website');
+		return (int) $this->getUser()->settingVar('KassiererCard', 'offers_fullfilled');
 	}
 	
 	public function getURL() : ?string

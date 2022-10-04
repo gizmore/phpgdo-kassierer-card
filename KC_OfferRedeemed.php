@@ -30,6 +30,9 @@ final class KC_OfferRedeemed extends GDO
 			'or_user' => $user->getID(),
 			'or_offer' => $offer->getID(),
 		])->insert();
+		$module = Module_KassiererCard::instance();
+		$module->increaseConfigVar('offers_redeemed');
+		$module->increaseConfigVar('euros_generated', $offer->getWorth());
 		return true;
 	}
 	

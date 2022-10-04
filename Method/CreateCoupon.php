@@ -13,10 +13,11 @@ use GDO\KassiererCard\KC_Util;
 use GDO\Core\Application;
 use GDO\User\GDO_User;
 use GDO\Date\Time;
+use GDO\UI\GDT_Link;
 
 final class CreateCoupon extends MethodForm
 {
-	public function getPermission() : ?string { return 'kk_customer,kk_manager,kk_partner'; }
+	public function getPermission() : ?string { return 'kk_customer,kk_manager,kk_company'; }
 	
 	public function getMethodTitle() : string
 	{
@@ -34,7 +35,7 @@ final class CreateCoupon extends MethodForm
 		$time = Application::$TIME;
 		$table = KC_Coupon::table();
 		$form->text('kk_info_create_coupon', [
-			Module_KassiererCard::instance()->linkOffers()->render(),
+			GDT_Link::anchor(href('KassiererCard', 'Offers'), t('offers')),
 			KC_Util::numCouponsCreated($user),
 			KC_Util::numStarsCreatedInPeriod($user, $time),
 			KC_Util::canStarsCreatedInPeriod($user, $time),

@@ -18,6 +18,7 @@ use GDO\UI\GDT_Container;
 use GDO\File\GDT_ImageFile;
 use GDO\File\GDO_File;
 use GDO\DB\Query;
+use GDO\Payment\GDT_Money;
 
 /**
  * An offer for a cashier.
@@ -42,6 +43,8 @@ final class KC_Offer extends GDO
 			GDT_UInt::make('o_total_amt')->notNull()->min(1)->label('total_amt'),
 			GDT_Date::make('o_expires')->notNull()->minNow()->initial($this->nextFriday())->label('valid_until'),
 			GDT_ImageFile::make('o_image')->exactSize(1050, 600),
+			GDT_Money::make('o_invested')->notNull(), # for euros_invested
+			GDT_Money::make('o_worth')->notNull(), # for euros_generated
 			GDT_CreatedAt::make('o_created'),
 			GDT_CreatedBy::make('o_creator'),
 		];
@@ -54,7 +57,9 @@ final class KC_Offer extends GDO
 	public function getTitle() : string { return $this->gdoVar('o_title'); }
 	
 	public function getPartner() : KC_Partner { return $this->gdoValue('o_partner'); }
-
+	
+	public function getCreator() : GDO_User { return $this->gdoValue('o_creator'); }
+	
 	public function getBacksideImage() : ?GDO_File { return $this->gdoValue('o_image'); }
 	
 	/**
@@ -77,11 +82,32 @@ final class KC_Offer extends GDO
 	 */
 	public function getTotalOffers() : int { return $this->gdoVar('o_total_amt'); }
 	
+	public function getWorth() : float { return $this->gdoValue('o_worth'); }
+	
+	public function getInvested() : float { return $this->gdoVar('o_invested'); }
+	
 	public function isOfferValid() : bool
 	{
 		$until = $this->gdoValue('o_expires');
 		$now = \DateTime::createFromFormat('U', strtotime('today'));
 		return $until >= $now;
+	}
+	
+	#############
+	### Hooks ###
+	#############
+	public function gdoAfterCreate(GDO $gdo) : void
+	{
+		/** @var $gdo KC_Offer **/
+		# Creator Stats
+		$creator = $gdo->getCreator();
+		$creator->increaseSetting('KassiererCard', 'offers_created');
+		$creator->increaseSetting('KassiererCard', 'euros_invested', $gdo->getInvested());
+		
+		# Stats
+		$module = Module_KassiererCard::instance();
+		$module->increaseConfigVar('offers_created');
+		$module->increaseConfigVar('euros_invested', $this->getInvested());
 	}
 	
 	############

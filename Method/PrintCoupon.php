@@ -74,13 +74,14 @@ final class PrintCoupon extends MethodForm
 	public function qrcode() : GDT_QRCode
 	{
 		$coupon = $this->getCoupon();
-		$coupon->saveVar('kc_printed', Time::getDate());
+		$coupon->onPrinted();
 		return $coupon->getQRCode();
 	}
 	
 	public function print() : GDT
 	{
-		$this->getCoupon()->saveVar('kc_printed', Time::getDate());
+		$coupon = $this->getCoupon();
+		$coupon->onPrinted();
 		$cont = GDT_Container::make('images')->horizontal()->addClass('kk-print-card-row');
 		$cont->addFields($this->printFront(), $this->printBack());
 		return $cont;

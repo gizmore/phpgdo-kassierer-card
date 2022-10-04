@@ -23,9 +23,11 @@ often for the minimum wage.</p>
 and give them credit, where credit is due.</p>
 
 <p>On the left sidebar you find public resources,
-to the right are private.<br/>
+the right sidebar holds private functions.<br/>
 To register as a cashier or a companym you need a special Signup-Code.<br/>
-If you register as customer you can print 1 coupon all 2 days,
+If you
+<?=GDT_Link::anchor(href('Register', 'Form'), 'register as a customer')?>,
+you can print a coupon all 2 days,
 and hand them to your cashiers.
 </p>
 
@@ -36,8 +38,12 @@ and hand them to your cashiers.
 <br/>
 
 <p>Please note that this project is at the very beginning.</p>
-<p>The site will erase and start over a lot, until Nov, 9th 2022.<br/>Then we start Phase-II</p>
-
+<p>The site will erase and start over a lot, until Nov, 9th 2022.<br/>
+Then we will start Phase 2.</p>
+<p>This project is open source, but not free.<br/>
+The <a href="https://github.com/gizmore/phpgdo-kassierer-card">sourcecode of <?=sitename()?></a>
+is visible but it is all our property.<br/>
+However, maybe you are welcome to contribute something.
 <p>We are looking for partners!</p>
 
 <em>&copy;2022-23 - KassiererCard.org</em>

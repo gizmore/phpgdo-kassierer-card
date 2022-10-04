@@ -21,6 +21,7 @@ use GDO\User\GDT_ACLRelation;
 use GDO\UI\GDT_Divider;
 use GDO\Core\Javascript;
 use GDO\Core\GDT_Checkbox;
+use GDO\Payment\GDT_Money;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -56,9 +57,10 @@ final class Module_KassiererCard extends GDO_Module
 			'FontAtkinson', 'FontAwesome', 'Forum',
 			'IP2Country',
 			'Javascript', 'JQueryAutocomplete',
-			'Licenses', 'Links', 'Login',
-			'Maps', 'Mail', 'Maps', 'Markdown',
-			'News', 'Perf', 'PM', 'QRCode', 'Recovery', 'Register',
+			'Licenses', 'Links', 'LoC', 'Login',
+			'Maps', 'Mail', 'Maps', 'Markdown', 'News',
+			'Perf', 'Poll', 'PM', 'QRCode',
+			'Recovery', 'Register',
 			'YouTube',
 		];
 	}
@@ -83,11 +85,27 @@ final class Module_KassiererCard extends GDO_Module
 	public function getConfig() : array
 	{
 		return [
+			# Alert!
 			GDT_Checkbox::make('pre_alpha')->initial('0'),
+			# Balance
 			GDT_UInt::make('stars_per_euro')->min(1)->max(100)->initial('10'),
 			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
 			GDT_UInt::make('customer_coupon_modulus')->min(1)->initial('5'),
+			# Stats
+			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'),
+			GDT_Badge::make('coupons_printed')->initial('0')->label('cfg_coupons_printed')->tooltip('tt_cfg_coupons_printed'),
+			GDT_Badge::make('coupons_entered')->initial('0')->label('cfg_coupons_entered')->tooltip('tt_cfg_coupons_entered'),
+			GDT_Badge::make('stars_created')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
+			GDT_Badge::make('stars_purchased')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
+			GDT_Badge::make('stars_entered')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
+			GDT_Badge::make('stars_redeemed')->initial('0')->label('cfg_stars_redeemed')->tooltip('tt_cfg_stars_redeemed'),
+			GDT_Badge::make('offers_created')->initial('0')->label('cfg_offers_created')->tooltip('tt_cfg_offers_created'),
+			GDT_Badge::make('offers_redeemed')->initial('0')->label('cfg_offers_redeemed')->tooltip('tt_cfg_offers_redeemed'),
+			GDT_Money::make('euros_invested')->initial('0.00')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'),
+			GDT_Money::make('euros_generated')->initial('0.00')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'),
+			GDT_Money::make('euros_earned')->initial('0.00')->label('cfg_euros_earned')->tooltip('tt_cfg_euros_earned'),
+			GDT_Money::make('euros_revenue')->initial('0.00')->label('cfg_euros_revenue')->tooltip('tt_cfg_euros_revenue'),
 		];
 	}
 	public function cfgPreAlpha() : bool { return $this->getConfigValue('pre_alpha'); }
@@ -110,7 +128,11 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('stars_redeemed')->tooltip('tt_stars_redeemed')->icon('star'),
 			GDT_Badge::make('offers_redeemed')->tooltip('tt_offers_redeemed')->icon('star'),
 			GDT_Badge::make('offers_created')->tooltip('tt_offers_created')->icon('star'),
+			GDT_Badge::make('offers_fullfilled')->tooltip('tt_offers_fullfilled')->icon('bee'),
+			GDT_Badge::make('offers_fullfilled')->tooltip('tt_stars_fullfilled')->icon('bee'),
 			GDT_Badge::make('diamonds_earned')->tooltip('tt_diamonds_earned')->icon('sun'),
+			GDT_Money::make('euros_fullfilled')->tooltip('tt_euros_fullfilled')->label('cfg_euros_fullfilled'),
+			GDT_Money::make('euros_invested')->tooltip('tt_cfg_euros_invested')->label('cfg_euros_invested'),
 		];
 	}
 	
@@ -173,64 +195,46 @@ final class Module_KassiererCard extends GDO_Module
 		$page->leftBar()->addFieldFirst(
 			GDT_Link::make('link_kk_home')->icon('cc')->href($this->href('Welcome')),
 		);
-
-		$numOffers = KC_Offer::queryNumActive();
 		
 		$page->leftBar()->addFields(
-			GDT_Link::make()->href($this->href('Offers'))->text('link_kk_offers', [$numOffers])->icon('star'),
-			GDT_Link::make('link_kk_partners')->href($this->href('Partners'))->textArgs(KC_Partner::numTotal())->icon('icecream'),
-			GDT_Link::make()->href($this->href('Competitions'))->text('link_kk_competitions', [0]),
-			GDT_Link::make()->href($this->href('Statistics'))->text('link_kk_statistics', [1]),
-			GDT_Link::make('link_kk_businesses')->href($this->href('Businesses'))->textArgs(KC_Business::numTotal())->icon('house'),
-			GDT_Link::make('link_kk_employees')->href($this->href('Employees'))->textArgs(KC_Working::numEmployeesTotal())->icon('work'),
-			GDT_Link::make('link_kk_team')->href($this->href('Team'))->textArgs(8)->icon('users'),
-			GDT_Link::make('link_kk_help')->href($this->href('Help'))->icon('help'),
+			GDT_LeftMenu::make(),
 		);
 		
 		if ($user->isUser())
 		{
-			if ($this->canCreateCoupons($user))
-			{
-				$page->rightBar()->addFields(
-					GDT_Link::make('create_coupon')->href($this->href('CreateCoupon'))->icon('bee'),
-				);
-			}
+			$rb = $page->rightBar();
 			
 			if ($this->isCashier($user))
 			{
-				$page->rightBar()->addFields(
-					GDT_Link::make('enter_coupon')->href($this->href('EnterCoupon'))->icon('bee'),
-					GDT_Link::make('entered_coupons')->href($this->href('EnteredCoupons'))->icon('star'),
-				);
-			}
-			
-			if ($this->canRedeemOffers($user))
-			{
-				$page->rightBar()->addFields(
-					GDT_Link::make('redeem_offer')->href($this->href('RedeemOffer'))->icon('sun'),
-					GDT_Badge::make()->icon('sun')->tooltip('tt_stars_available')->text('stars_available')->var(KC_Util::numStarsAvaliable($user)),
-					GDT_Badge::make()->icon('sun')->tooltip('tt_coupons_available')->text('coupons_available')->var(KC_Util::numOffersAvailable($user)),
+				$rb->addFields(
+					GDT_CashierMenu::make('kk_cashier_menu'),
 				);
 			}
 			
 			if ($this->isCompany($user))
 			{
-				$page->rightBar()->addFields(
-					GDT_PartnerMenu::make('company_menu'),
+				$rb->addFields(
+					GDT_PartnerMenu::make('kk_company_menu'),
+				);
+			}
+			
+			if ($this->isCustomer($user))
+			{
+				$rb->addFields(
+					GDT_CustomerMenu::make('kk_customer_menu'),
 				);
 			}
 			
 			if ($this->isDistributor($user))
 			{
-				$page->rightBar()->addFields(
-					GDT_Link::make('create_business')->href($this->href('BusinessCrud'))->icon('add'),
-					GDT_Link::make('create_company')->href($this->href('CompanyCrud'))->icon('add'),
+				$rb->addFields(
+					GDT_DistributorMenu::make('kk_customer_menu'),
 				);
 			}
 			
 			if ($user->isStaff())
 			{
-				$page->rightBar()->addFields(
+				$rb->addFields(
 					GDT_Link::make('kk_admin')->href($this->href('Admin')),
 				);
 			}
@@ -239,7 +243,7 @@ final class Module_KassiererCard extends GDO_Module
 	
 	private function canCreateCoupons(GDO_User $user)
 	{
-		return $user->hasPermission('kk_customer');
+		return $user->hasPermission('kk_customer','kk_company');
 	}
 	
 	private function canRedeemOffers(GDO_User $user)
@@ -421,12 +425,12 @@ final class Module_KassiererCard extends GDO_Module
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
 	
-	### helprt
+// 	### helprt
 	
-	public function linkOffers() : GDT_Link
-	{
-		$href = href('KassiererCard', 'Offers');
-		return GDT_Link::make('offers')->href($href);
-	}
+// 	public function linkOffers() : GDT_Link
+// 	{
+// 		$href = href('KassiererCard', 'Offers');
+// 		return GDT_Link::make('offers')->href($href);
+// 	}
 	
 }

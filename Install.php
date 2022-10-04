@@ -18,6 +18,7 @@ use GDO\Core\GDO_SEO_URL;
 use GDO\Date\Time;
 use GDO\Core\Application;
 use GDO\Perf\Module_Perf;
+use GDO\LoC\Module_LoC;
 
 /**
  * Initial seed for rapid dev.
@@ -63,6 +64,7 @@ final class Install
 			Module_Perf::instance()->saveConfigVar('hook_sidebar', 'staff');
 			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '1');
 		}
+		Module_LoC::instance()->saveConfigVar('hook_sidebar', '0');
 		Module_Avatar::instance()->saveConfigVar('hook_sidebar', '0');
 		Module_Core::instance()->saveConfigVar('allow_guests', '0');
 		Module_CountryRestrictions::instance()->saveConfigVar('country_whitelist', '["DE"]');
@@ -78,6 +80,7 @@ final class Install
 	private static function installSlogans() : bool
 	{
 		$data = [
+			'Transparent und ehrlich',
 			'Diesmal anders herum',
 			'Gewöhne Dich daran',
 			'Es wurde auch Zeit',
@@ -493,29 +496,33 @@ EOT;
 	private static function installOffers() : bool
 	{
 		$now = Time::getDate();
-		self::offer(1, 1, 20,  4.00,  2, $now, '2022-11-09',
+		self::offer(1, 1, 15,  4.00, 60.00,  2, $now, '2022-11-09',
 			'ALIBABA!', 'Dönertaschtig',
 			'Ein leckerer Döner mit Schafskäse und Fleisch nach Wahl, von Ihrem Saray.');
 
-		self::offer(2, 1, 20,  2.00,  2, $now, '2022-11-09',
+		self::offer(2, 1, 20,  2.00, 40.00,  2, $now, '2022-11-09',
 			'ALIBABA!', 'Erquickend',
 			'Ein Gutschein für eine Soft-Getränk. Besser als garnix.');
 		
-		self::offer(3, 2,  5,  5.00,  1, $now, '2022-11-09',
+		self::offer(3, 2,  5,  5.00, 25.00,  1, $now, '2022-11-09',
 			'CUT!!!', 'Aerodynamisch',
 			'Ein 5€ Gutschein für einen Haarschnitt bei Frisör Walid.');
 		
-		self::offer(4, 3, 30,  1.50, 10, $now, '2022-11-09',
+		self::offer(4, 3, 30,  1.50, 45.00, 10, $now, '2022-11-09',
 			'PROST!!!', 'Gesellig',
 			'Ein Gutschein über ein Härke-Bier, dem ehemaligen Getränk der Stadt?');
 		
-		self::offer(5, 4,  2, 10.00,  1, $now, '2022-11-09',
+		self::offer(5, 4,  2, 10.00, 20.00,  1, $now, '2022-11-09',
 			'DOPE!!!', 'Auszeit',
 			'Ein Gramm gratis CBD-Gras zum ausprobieren im Gegenwert von €10.<br/>Na wenn das nix is!');
 		
-		self::offer(6, 5, 40,  1.50,  5, $now, '2022-11-09',
+		self::offer(6, 5, 40,  1.50, 50.00,  5, $now, '2022-11-09',
 			'COFFEE!!!', 'Zuerst ein\' Kaffee',
 			'Ein Kaffee in der Vortagsbäckerei. Schauen Sie mal vorbei!');
+		
+		self::offer(7, 5, 20,  2.00, 20.00,  2, $now, '2022-11-09',
+			'COFFEE!!!', 'Danach ein\' Donut',
+			'Ein Donut in der Vortagsbäckerei. Schauen Sie mal vorbei!');
 		
 		return true;
 	}
@@ -524,11 +531,12 @@ EOT;
 	 * Create an offer
 	 */
 	private static function offer(int $id, int $partnerId,
-		int $totalOffers, float $euro, int $cashierAmt,
+		int $totalOffers, float $worth, float $invested,
+		int $cashierAmt,
 		string $created, string $expire,
 		string $passphrase, string $title, string $text) : void
 	{
-		$cost = KC_Util::euroToStars($euro);
+		$stars = KC_Util::euroToStars($worth);
 		if ($offer = KC_Offer::getById($id))
 		{
 			$offer->saveVars([
@@ -536,10 +544,12 @@ EOT;
 				'o_passphrase' => $passphrase,
 				'o_title' => $title,
 				'o_text' => $text,
-				'o_required_stars' => $cost,
+				'o_required_stars' => $stars,
 				'o_cashier_amt' => $cashierAmt,
 				'o_total_amt' => $totalOffers,
 				'o_expires' => $expire,
+				'o_invested' => $invested,
+				'o_worth' => $worth,
 				'o_created' => $created,
 				'o_creator' => '2',
 			]);
@@ -552,9 +562,11 @@ EOT;
 				'o_passphrase' => $passphrase,
 				'o_title' => $title,
 				'o_text' => $text,
-				'o_required_stars' => $cost,
+				'o_required_stars' => $stars,
 				'o_cashier_amt' => $cashierAmt,
 				'o_total_amt' => $totalOffers,
+				'o_invested' => $invested,
+				'o_worth' => $worth,
 				'o_expires' => $expire,
 				'o_created' => $created,
 				'o_creator' => '2',

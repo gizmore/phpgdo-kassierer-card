@@ -28,7 +28,7 @@ final class PartnerEdit extends MethodForm
 		$hrefContact = href('Contact', 'Form');
 		$form->text('kk_info_partner_edit', [sitename(), $hrefAccount, $hrefContact]);
 		$form->addFields(...$table->gdoColumnsOnly(
-			'p_url', 'p_description', 'p_logo'));
+			'p_url', 'p_description', 'p_logo', 'p_website_content'));
 		$form->actions()->addFields(GDT_Submit::make());
 	}
 	

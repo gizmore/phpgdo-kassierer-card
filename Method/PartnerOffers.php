@@ -16,7 +16,7 @@ final class PartnerOffers extends MethodQueryList
 {
 	public function getMethodTitle() : string
 	{
-		return t('link_kk_partner_offers');
+		return t('link_kk_company_offers');
 	}
 	
 	public function gdoTable()

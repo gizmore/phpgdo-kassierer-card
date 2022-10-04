@@ -74,5 +74,15 @@ You can also open a ticket or PullRequest on %s,
 but keep in mind this is propertary software!',
 	'kk_faq_lnk' => 'GitHub',
 	
+	'kk_faq_t12' => 'This is all so confusing...',
+	'kk_faq_b12' => 'If an icon is golden, it has additional information.<br/>
+If something is unclear, please %s.',
+	
+	'kk_faq_t13' => 'How many Cards can i Print?',
+	'kk_faq_b13' => 'Cards can get printed by customers, managers, partners and above. No cashiers.<br/>
+As a customer you can print %s stars per period.<br/>
+A period is 2 days, and there are 3 periods per week; Mo/Di, We/Th and Fr/Sa.<br/>
+This means an active customer could cost us %s per month, but see the statistics in the left menu!<br/>
+There is no printing on Sundays.<br/>
+Partners and managers have special rules, of course.',
 ];
-

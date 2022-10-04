@@ -15,12 +15,13 @@ final class GDT_PartnerMenu extends GDT_Menu
 	protected function __construct()
 	{
 		parent::__construct();
+		$this->label('perm_kk_company');
 		$this->addFields(
-			GDT_Link::make('link_kk_partner_page')->href(href('KassiererCard', 'PartnerPage')),
-			GDT_Link::make('link_kk_partner_edit')->href(href('KassiererCard', 'PartnerEdit')),
-			GDT_Link::make('link_kk_partner_scans')->href(href('KassiererCard', 'PartnerScansOffer')),
-			GDT_Link::make('link_kk_partner_enter')->href(href('KassiererCard', 'PartnerEntersOffer')),
-			GDT_Link::make('link_kk_partner_offers')->href(href('KassiererCard', 'PartnerOffers')),
+			GDT_Link::make('link_kk_company_page')->href(href('KassiererCard', 'PartnerPage')),
+// 			GDT_Link::make('link_kk_company_edit')->href(href('KassiererCard', 'PartnerEdit')),
+			GDT_Link::make('link_kk_company_scans')->href(href('KassiererCard', 'PartnerScansOffer')),
+			GDT_Link::make('link_kk_company_enter')->href(href('KassiererCard', 'PartnerEntersOffer')),
+			GDT_Link::make('link_kk_company_offers')->href(href('KassiererCard', 'PartnerOffers')),
 		);
 	}
 	

@@ -101,6 +101,37 @@ class KC_Coupon extends GDO
 		return in_array($this->getType(), self::$INVITATION_TYPES, true);
 	}
 	
+	#############
+	### Hooks ###
+	#############
+	public function gdoAfterCreate(GDO $gdo) : void
+	{
+		/** @var $gdo KC_Coupon **/
+		
+		$mod = Module_KassiererCard::instance();
+		$mod->increaseConfigVar('coupons_created');
+		$mod->increaseConfigVar('stars_created', $gdo->getStars());
+		
+		$user = $gdo->getCreator();
+		$user->increase('stars_created', $gdo->getStars());
+		$user->increase('coupons_created', $gdo->getStars());
+	}
+	
+	public function onPrinted() : void
+	{
+		if (!$this->isPrinted())
+		{
+			$this->saveVar('kc_printed', Time::getDate());
+			$user = GDO_User::current();
+			$user->increase('coupons_printed', $this->getStars());
+		}
+	}
+	
+	public function onEntered() : void
+	{
+		
+	}
+	
 	##############
 	### Images ###
 	##############
