@@ -127,4 +127,12 @@ final class KC_Util
 		return GDO::gdoHashcodeS($data);
 	}
 	
+	############
+	### Euro ###
+	############
+	public static function euroToStars(float $euro) : int
+	{
+		$starsPerEuro = Module_KassiererCard::instance()->cfgStarsPerEuro();
+		return ceil($euro / $starsPerEuro);
+	}
 }

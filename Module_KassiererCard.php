@@ -51,7 +51,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Admin', 'Ads', 'Avatar',
 			'Backup', 'Birthday', 'Bootstrap5Theme',
 			'Category', 'Contact', 'Classic',
-			'CountryRestrictions', 'CSS',
+			'CountryCoordinates', 'CountryRestrictions', 'CSS',
 			'DoubleAccounts',
 			'FontAtkinson', 'FontAwesome', 'Forum',
 			'IP2Country',
@@ -84,12 +84,14 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			GDT_Checkbox::make('pre_alpha')->initial('0'),
+			GDT_UInt::make('stars_per_euro')->min(1)->max(100)->initial('10'),
 			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
 			GDT_UInt::make('customer_coupon_modulus')->min(1)->initial('5'),
 		];
 	}
 	public function cfgPreAlpha() : bool { return $this->getConfigValue('pre_alpha'); }
+	public function cfgStarsPerEuro() : int { return $this->getConfigValue('stars_per_euro'); }
 	public function cfgFreeStarsPerPeriod() : int { return $this->getConfigValue('free_stars_per_period'); }
 	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
 	public function cfgCustomerCouponModulus() : int { return $this->getConfigValue('customer_coupon_modulus'); }

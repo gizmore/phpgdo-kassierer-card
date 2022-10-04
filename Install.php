@@ -524,10 +524,11 @@ EOT;
 	 * Create an offer
 	 */
 	private static function offer(int $id, int $partnerId,
-		int $totalOffers, int $cost, int $cashierAmt,
+		int $totalOffers, float $euro, int $cashierAmt,
 		string $created, string $expire,
 		string $passphrase, string $title, string $text) : void
 	{
+		$cost = KC_Util::euroToStars($euro);
 		if ($offer = KC_Offer::getById($id))
 		{
 			$offer->saveVars([
