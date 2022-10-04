@@ -1,5 +1,5 @@
 <?php
-namespace a;
+namespace GDO\KassiererCard\tpl\page;
 ?>
 <h2>KC ToDo</h2>
 

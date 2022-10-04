@@ -122,6 +122,8 @@ The %4$s Team',
 	'err_kk_signup_code_type' => 'Wrong Account Type!. Your Signup-Code is only for a %s.',
 	
 	### Settings
+	'salary_gross' => 'Gross Salary',
+	'salary_hourly' => 'Hourly Rate',
 // 	'stars_purchased' => 'Extra Stars',
 // 	'stars_created' => 'Coupon-Stars Created',
 // 	'tt_stars_created' => 'Number of star coupons printed and entered. Also, stars created as gift, as a team member.',

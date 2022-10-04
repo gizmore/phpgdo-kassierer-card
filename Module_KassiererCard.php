@@ -59,6 +59,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Javascript', 'JQueryAutocomplete',
 			'Licenses', 'Links', 'LoC', 'Login',
 			'Maps', 'Mail', 'Maps', 'Markdown', 'News',
+			'PaymentCredits', 'PaymentPaypal',
 			'Perf', 'Poll', 'PM', 'QRCode',
 			'Recovery', 'Register',
 			'YouTube',
@@ -88,10 +89,10 @@ final class Module_KassiererCard extends GDO_Module
 			# Alert!
 			GDT_Checkbox::make('pre_alpha')->initial('0'),
 			# Balance
-			GDT_UInt::make('stars_per_euro')->min(1)->max(100)->initial('10'),
+			GDT_UInt::make('stars_per_euro')->min(1)->max(10000)->initial('10'),
 			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
-			GDT_UInt::make('customer_coupon_modulus')->min(1)->initial('5'),
+			GDT_UInt::make('customer_coupon_modulus')->min(1)->max(100)->initial('5'),
 			# Stats
 			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'),
 			GDT_Badge::make('coupons_printed')->initial('0')->label('cfg_coupons_printed')->tooltip('tt_cfg_coupons_printed'),
@@ -141,12 +142,14 @@ final class Module_KassiererCard extends GDO_Module
 		return [
 			# Profile
 			'profession' => [GDT_ACLRelation::MEMBERS, 0, null],
+			'salary_gross' => [GDT_ACLRelation::FRIENDS, 0, null],
+			'salary_hourly' => [GDT_ACLRelation::FRIENDS, 0, null],
+			'your_dream' => [GDT_ACLRelation::FRIENDS, 0, null],
 			'personal_website' => [GDT_ACLRelation::MEMBERS, 0, null],
 			'favorite_website' => [GDT_ACLRelation::ALL, 0, null],
 			'favorite_meal' => [GDT_ACLRelation::FRIENDS, 0, null],
 			'favorite_song' => [GDT_ACLRelation::FRIENDS, 0, null],
 			'favorite_movie' => [GDT_ACLRelation::FRIENDS, 0, null],
-			'your_dream' => [GDT_ACLRelation::FRIENDS, 0, null],
 			# UI
 			'qrcode_size' => [GDT_ACLRelation::HIDDEN, 0, null],
 		];
@@ -158,11 +161,13 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Divider::make('div_kk'),
 			GDT_String::make('profession')->icon('work'),
 			GDT_Url::make('personal_website')->allowExternal(),
+			GDT_Money::make('salary_gross')->unsigned()->min(1.00),
+			GDT_Money::make('salary_hourly')->unsigned()->min(1.00),
+			GDT_String::make('your_dream')->icon('spiderweb'),
 			GDT_Url::make('favorite_website')->allowExternal()->icon('trophy'),
 			GDT_String::make('favorite_meal')->icon('trophy'),
 			GDT_String::make('favorite_song')->icon('trophy'),
 			GDT_String::make('favorite_movie')->icon('trophy'),
-			GDT_String::make('your_dream')->icon('spiderweb'),
 			GDT_Divider::make('div_ui'),
 			GDT_Length::make('qrcode_size')->initial('320')->noacl(),
 		];
@@ -228,13 +233,14 @@ final class Module_KassiererCard extends GDO_Module
 			if ($this->isDistributor($user))
 			{
 				$rb->addFields(
-					GDT_DistributorMenu::make('kk_customer_menu'),
+					GDT_DistributorMenu::make('kk_distributor_menu'),
 				);
 			}
 			
 			if ($user->isStaff())
 			{
-				$rb->addFields(
+				$menu = $rb->getField('menu_admin');
+				$menu->addFields(
 					GDT_Link::make('kk_admin')->href($this->href('Admin')),
 				);
 			}
