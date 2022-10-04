@@ -13,10 +13,10 @@ use GDO\UI\GDT_Message;
 use GDO\User\GDO_User;
 use GDO\Address\GDO_Address;
 use GDO\UI\GDT_HTML;
-use GDO\Net\GDT_Url;
 use GDO\Maps\Module_Maps;
 use GDO\UI\GDT_Link;
 use GDO\File\GDT_ImageFile;
+use GDO\Core\GDT_Index;
 
 /**
  * Merchandize Partner / Company.
@@ -30,14 +30,14 @@ final class KC_Partner extends GDO
 	{
 		return [
 			GDT_AutoInc::make('p_id'),
-			GDT_Category::make('p_category')->notNull(),
 			GDT_User::make('p_user')->notNull(),
+			GDT_Category::make('p_category')->notNull(),
 			GDT_Address::make('p_address')->notNull()->emptyLabel('please_choose'),
-			GDT_Url::make('p_url')->allowExternal()->label('website'),
 			GDT_Message::make('p_description')->label('information'),
-			GDT_ImageFile::make('p_logo')->exactSize(128, 128),
+			GDT_ImageFile::make('p_logo')->exactSize(196, 196)->label('logo'),
 			GDT_CreatedAt::make('p_created'),
 			GDT_CreatedBy::make('p_creator'),
+			GDT_Index::make('p_index_p_user')->indexColumns('p_user'),
 		];
 	}
 	
@@ -86,6 +86,11 @@ final class KC_Partner extends GDO
 	##############
 	### Render ###
 	##############
+	public function renderName() : string
+	{
+		return $this->getAddress()->renderName();
+	}
+	
 	public function renderList() : string
 	{
 		$addr = $this->getAddress();
@@ -127,6 +132,11 @@ final class KC_Partner extends GDO
 	##############
 	### Static ###
 	##############
+	public static function getForUser(GDO_User $user) : ?self
+	{
+		return self::table()->getBy('p_user', $user->getID());
+	}
+	
 	public static function numTotal() : int
 	{
 		return self::queryTotal();

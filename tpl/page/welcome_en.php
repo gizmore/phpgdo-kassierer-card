@@ -36,6 +36,8 @@ and hand them to your cashiers.
 <br/>
 
 <p>Please note that this project is at the very beginning.</p>
+<p>The site will erase and start over a lot, until Nov, 9th 2022.<br/>Then we start Phase-II</p>
+
 <p>We are looking for partners!</p>
 
 <em>&copy;2022-23 - KassiererCard.org</em>

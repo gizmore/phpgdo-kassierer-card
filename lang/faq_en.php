@@ -12,6 +12,9 @@ KassiererCard.org has a flexible point system and we hope it is fun to earn Coup
 like getting a beer, a haircut, a kebab or a coffee.<br/>
 In crazy times, maybe a thank you and a smile is more required than ever.<br/>',
     
+	'kk_faq_t2' => 'Why do you do this?',
+	'kk_faq_b2' => '',
+	
     'kk_faq_t2' => 'How do we earn points?',
     'kk_faq_b2' => 'There are three types of accounts.<br/>
 Customer, Cashier and Company.

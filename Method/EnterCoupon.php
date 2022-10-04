@@ -9,7 +9,6 @@ use GDO\Form\GDT_Validator;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\KassiererCard\Module_KassiererCard;
 use GDO\User\GDO_User;
-use GDO\KassiererCard\KC_Util;
 
 /**
  * Method for cashiers to enter coupons.
@@ -77,6 +76,8 @@ final class EnterCoupon extends MethodForm
 		$user = GDO_User::current();
 		$coupon = $this->getCoupon();
 		$coupon->entered($user);
+		$this->redirectMessage('msg_entered_stars', [$coupon->getStars()], $this->href());
 		return $this->renderPage();
 	}
+	
 }

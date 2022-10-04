@@ -12,7 +12,7 @@ use GDO\Core\GDT;
 final class GDT_AccountType extends GDT_Enum
 {
 	const CASHIER = 'kk_cashier';
-	const COMPANY = 'kk_company';
+	const COMPANY = 'kk_company'; # partner
 	const CUSTOMER = 'kk_customer';
 	
 	# non account type, but permission

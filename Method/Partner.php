@@ -5,7 +5,7 @@ use GDO\Core\GDO;
 use GDO\UI\MethodCard;
 use GDO\KassiererCard\KC_Partner;
 
-final class Company extends MethodCard
+final class Partner extends MethodCard
 {
 	public function gdoTable(): GDO
 	{

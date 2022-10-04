@@ -4,6 +4,7 @@ namespace GDO\KassiererCard;
 use GDO\Core\GDT_ObjectSelect;
 use GDO\Date\Time;
 use GDO\User\GDO_User;
+use GDO\User\WithUser;
 
 /**
  * An offer selection.
@@ -13,6 +14,8 @@ use GDO\User\GDO_User;
  */
 final class GDT_Offer extends GDT_ObjectSelect
 {
+	use WithUser;
+	
 	protected function __construct()
 	{
 		parent::__construct();
@@ -33,6 +36,13 @@ final class GDT_Offer extends GDT_ObjectSelect
 		return $this;
 	}
 	
+	public bool $fromMe = false;
+	public function fromMe(bool $fromMe=true) : self
+	{
+		$this->fromMe = $fromMe;
+		return $this;
+	}
+	
 	public function getChoices()
 	{
 		$query = KC_Offer::table()->select();
@@ -40,6 +50,11 @@ final class GDT_Offer extends GDT_ObjectSelect
 		{
 			$now = Time::getDateWithoutTime();
 			$query->where("o_expires >= '$now'");
+		}
+		if ($this->fromMe)
+		{
+			$query->joinObject('o_partner');
+			$query->where("o_partner_t.user_id={$this->getUser()->getID()}");
 		}
 		return $query->exec()->fetchAllArray2dObject();
 	}
@@ -63,15 +78,27 @@ final class GDT_Offer extends GDT_ObjectSelect
 			}
 			if ($this->affordable)
 			{
+				# Star count
 				$user = GDO_User::current();
-				if (!$value->canAfford($user))
+				$stars = $value->getRequiredStars();
+				$avail = KC_Util::numStarsAvaliable($user);
+				if ($avail < $stars)
 				{
 					return $this->error('err_kk_offer_afford', [
-						$value->getRequiredStars(), KC_Util::numStarsAvaliable($user)]);
+						$stars, $avail]);
 				}
-				$numAvail = $value->queryNumAvailable($user);
-				$numRedeem = $value->queryNumRedeemed($user);
+
+				# Avail total
+				$numRedeem = $value->queryNumRedeemedTotal();
 				$numTotal = $value->getTotalOffers();
+				if ($numRedeem >= $numTotal)
+				{
+					return $this->error('err_kk_offer_totaled', [
+						$stars, $avail]);
+				}
+				
+				$numAvail = $value->queryNumAvailable($user);
+				$numRedeem = $value->queryNumRedeemedUser($user);
 				if ($numAvail <= 0)
 				{
 					return t('err_kk_offer_no_more_for_you', [

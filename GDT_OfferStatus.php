@@ -35,12 +35,14 @@ final class GDT_OfferStatus extends GDT_Label
 		# Redeemed
 		$user = GDO_User::current();
 		$numAvail = $offer->queryNumAvailable($user);
-		$numRedeem = $offer->queryNumRedeemed($user);
+		$numRedeem = $offer->queryNumRedeemedUser($user);
 		$numTotal = $offer->getTotalOffers();
+		$numTotalRedeemed = $offer->queryNumRedeemedTotal();
+		$maxPerUser = $offer->getMaxOffers($user);
 		if ($numAvail <= 0)
 		{
 			return t('err_kk_offer_no_more_for_you', [
-				$numRedeem, $numTotal, $numAvail,
+				$numRedeem, $maxPerUser, $numTotalRedeemed, $numTotal,
 			]);
 		}
 		

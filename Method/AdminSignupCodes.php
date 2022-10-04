@@ -7,6 +7,12 @@ use GDO\KassiererCard\MethodKCAdmin;
 use GDO\UI\GDT_DeleteButton;
 use GDO\UI\GDT_Button;
 
+/**
+ * Admin overview of KC Signup Codes.
+ * 
+ * @author gizmore
+ * @version 7.0.1
+ */
 final class AdminSignupCodes extends MethodQueryTable
 {
 	use MethodKCAdmin;

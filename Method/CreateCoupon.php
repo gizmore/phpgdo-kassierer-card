@@ -16,7 +16,7 @@ use GDO\Date\Time;
 
 final class CreateCoupon extends MethodForm
 {
-	public function getPermission() : ?string { return 'kk_customer,kk_company'; }
+	public function getPermission() : ?string { return 'kk_customer,kk_manager,kk_partner'; }
 	
 	public function getMethodTitle() : string
 	{
@@ -88,33 +88,36 @@ final class CreateCoupon extends MethodForm
 	{
 		$vars = $form->getFormVars();
 		$vars['kc_type'] = 'kk_coupon';
-		$stars = $vars['kc_stars'];
 		KC_Coupon::blank($vars)->insert();
-		$by = Module_KassiererCard::instance()->cfgLevelPerPrintedCoupon();
-		$by *= $stars;
-		$user = GDO_User::current();
-		$user->increase('user_level', $by);
-		$starsBefore = $user->settingVar('KassiererCard', 'stars_created');
-		$coupsBefore = KC_Util::numCustomerCouponsForStars($starsBefore);
-		$starsAfter = $starsBefore + $stars;
-		$coupsAfter = KC_Util::numCustomerCouponsForStars($starsAfter);
-		$coupsEarned = $coupsAfter - $coupsBefore;
+		$this->redirectMessage('msg_coupon_created', null, href('KassiererCard', 'PrintedCoupons'));
 		
-		$user->increaseSetting('KassiererCard', 'stars_created', $stars);
+		# THIS DO ON COUPON ENTERED
+// 		$stars = $vars['kc_stars'];
+// 		$by = Module_KassiererCard::instance()->cfgLevelPerPrintedCoupon();
+// 		$by *= $stars;
+// 		$user = GDO_User::current();
+// 		$user->increase('user_level', $by);
+// 		$starsBefore = $user->settingVar('KassiererCard', 'stars_created');
+// 		$coupsBefore = KC_Util::numCustomerCouponsForStars($starsBefore);
+// 		$starsAfter = $starsBefore + $stars;
+// 		$coupsAfter = KC_Util::numCustomerCouponsForStars($starsAfter);
+// 		$coupsEarned = $coupsAfter - $coupsBefore;
 		
-		$args = [
-			$by,
-			$user->getLevel(),
-		];
-		$this->redirectMessage('msg_coupon_created', $args, href('KassiererCard', 'PrintedCoupons'));
+// 		$user->increaseSetting('KassiererCard', 'stars_created', $stars);
+		
+// 		$args = [
+// 			$by,
+// 			$user->getLevel(),
+// 		];
+// 		$this->redirectMessage('msg_coupon_created', $args, href('KassiererCard', 'PrintedCoupons'));
 
-		if ($coupsEarned > 0)
-		{
-			$user->increaseSetting('KassiererCard', 'stars_entered', $coupsEarned);
-			$user->increaseSetting('KassiererCard', 'stars_avaiable', $coupsEarned);
-			$nowAvailable = $user->settingVar('KassiererCard', 'stars_avaiable');
-			$this->message('msg_kk_earned_customer_star', [$coupsEarned, $nowAvailable]);
-		}
+// 		if ($coupsEarned > 0)
+// 		{
+// 			$user->increaseSetting('KassiererCard', 'stars_entered', $coupsEarned);
+// 			$user->increaseSetting('KassiererCard', 'stars_available', $coupsEarned);
+// 			$nowAvailable = $user->settingVar('KassiererCard', 'stars_available');
+// 			$this->message('msg_kk_earned_customer_star', [$coupsEarned, $nowAvailable]);
+// 		}
 	}
 	
 }

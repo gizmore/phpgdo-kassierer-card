@@ -12,7 +12,7 @@ use GDO\KassiererCard\GDT_CouponType;
 use GDO\KassiererCard\GDT_CouponStars;
 
 /**
- * Create a special signup code for register form.
+ * Staff can create a special signup code for registration.
  * 
  * @author gizmore
  * @since 7.0.1
@@ -23,7 +23,9 @@ final class AdminCreateSignupCode extends MethodForm
 	
 	public function createForm(GDT_Form $form) : void
 	{
+		$table = KC_SignupCode::table();
 		$form->addFields(
+			$table->gdoColumn('sc_info'),
 			GDT_CouponToken::make('sc_token')->notNull()->initialRandomKey(),
 			GDT_CouponType::make('sc_type')->notNull()->initial('kk_cashier'),
 			GDT_CouponStars::make('sc_stars'),

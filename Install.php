@@ -16,6 +16,8 @@ use GDO\Avatar\Module_Avatar;
 use GDO\Maps\Module_Maps;
 use GDO\Core\GDO_SEO_URL;
 use GDO\Date\Time;
+use GDO\Core\Application;
+use GDO\Perf\Module_Perf;
 
 /**
  * Initial seed for rapid dev.
@@ -51,6 +53,16 @@ final class Install
 	##############
 	private static function installConfig() : bool
 	{
+		if (Application::isDev())
+		{
+			Module_Perf::instance()->saveConfigVar('hook_sidebar', 'all');
+			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '0');
+		}
+		else
+		{
+			Module_Perf::instance()->saveConfigVar('hook_sidebar', 'staff');
+			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '1');
+		}
 		Module_Avatar::instance()->saveConfigVar('hook_sidebar', '0');
 		Module_Core::instance()->saveConfigVar('allow_guests', '0');
 		Module_CountryRestrictions::instance()->saveConfigVar('country_whitelist', '["DE"]');
@@ -296,19 +308,23 @@ final class Install
 	private static function installPartners() : bool
 	{
 		$descr = 'Der beste Döner in Peine, knusprig und preiswert.<br/>Das Original - Nur bei Saray Ali!';
-		self::partner(1, 'Ali', 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', '+49 5171 / 37 40', $descr, 'https://saray.busch-peine.de/');
+		self::partner(1, 'Ali', 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', 'TR', '+49 5171 / 37 40', $descr, 'https://saray.busch-peine.de/');
 		$descr = 'Der Frisör bei dem einen der Hut hochgeht?<br/>Schauen Sie mal vorbei!';
-		self::partner(2, 'Walid', 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/');
+		self::partner(2, 'Walid', 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/');
 		$descr = 'Peiner Rock/Pank Szenekneipe.<br/>Ab und an auch mal Live Musik.<br/>Angenehme Atmosphäre.';
-		self::partner(3, 'Garage', 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', null, $descr, 'https://garage-peine.de');
+		self::partner(3, 'Garage', 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', 'DE', null, $descr, 'https://garage-peine.de');
 		$descr = 'Endlich wieder ein Headshop in Peine<br/>CBD geht jetzt schon, echtes Weed soll es ja auch bald geben...<br/>Wer\'s glaubt!';
-		self::partner(4, 'Headshop', 9, 'Headhshop Peine', 'Am Markt', '31224', 'Peine', 'DE', null, $descr, 'https://headshop.busch-peine.de');
+		self::partner(4, 'Headshop', 9, 'Headhshop Peine', 'Am Markt', '31224', 'Peine', 'DE', 'DE', null, $descr, 'https://headshop.busch-peine.de');
+		$descr = 'Brötchen vom Vortag sind nicht die besten, aber Kuchen vom Vortag klingt doch super!<br/>Café, Kuchen, Backwaren,';
+		self::partner(5, 'Vortagsbaeckerei', 3, 'Vortagsbaeckerei', 'Bahnhofstraße 5', '31224', 'Peine', 'DE', 'DE', '+49 176 218 23 784', $descr, 'https://www.facebook.com/people/Backlife-Caf%C3%A9-Vortagsb%C3%A4ckerei-Peine/100057060595562/');
 		return true;
 	}
 	
-	private static function partner(int $id, string $userName, int $cat, string $name, string $street, string $zip, string $city, string $country, ?string $phone, string $descr, string $url) : void
+	private static function partner(int $id, string $userName, int $cat, string $name, string $street, string $zip, string $city, string $country, string $origin, ?string $phone, string $descr, string $url) : void
 	{
 		$userId = GDO_User::getByName($userName)->getID();
+		$countryId = GDO_Country::findById($country)->getID();
+		$originId = GDO_Country::findById($origin)->getID();
 		
 		if (!($addr = GDO_Address::getById($id+200000)))
 		{
@@ -320,11 +336,13 @@ final class Install
 				'address_street' => $street,
 				'address_zip' => $zip,
 				'address_city' => $city,
-				'address_country' => GDO_Country::findById($country)->getID(),
+				'address_country' => $countryId,
 				'address_phone' => $phone,
 				'address_phone_fax' => null,
 				'address_phone_mobile' => null,
 				'address_email' => null,
+				'address_website' => $url,
+				'address_creator' => $userId,
 			])->insert();
 		}
 		else
@@ -336,18 +354,20 @@ final class Install
 				'address_street' => $street,
 				'address_zip' => $zip,
 				'address_city' => $city,
-				'address_country' => GDO_Country::findById($country)->getID(),
+				'address_country' => $countryId,
 				'address_phone' => $phone,
 				'address_phone_fax' => null,
 				'address_phone_mobile' => null,
 				'address_email' => null,
+				'address_website' => $url,
+				'address_creator' => $userId,
 			]);
 		}
+		
 		if (!($p = KC_Partner::getById($id)))
 		{
 			$p = KC_Partner::blank([
 				'p_id' => $id,
-				'p_url' => $url,
 				'p_user' => $userId,
 				'p_address' => $addr->getID(),
 				'p_category' => $cat,
@@ -357,13 +377,17 @@ final class Install
 		else
 		{
 			$p->saveVars([
-				'p_url' => $url,
 				'p_user' => $userId,
 				'p_address' => $addr->getID(),
 				'p_category' => $cat,
 				'p_description' => $descr,
 			]);
 		}
+		
+		$user = GDO_User::findById($userId);
+		$user->saveSettingVar('Address', 'address', $addr->getID());
+		$user->saveSettingVar('Country', 'country_of_living', $countryId);
+		$user->saveSettingVar('Country', 'country_of_origin', $originId);
 	}
 	
 	############
@@ -469,25 +493,29 @@ EOT;
 	private static function installOffers() : bool
 	{
 		$now = Time::getDate();
-		self::offer(1, 1, 50, 3, 1, $now, '2022-11-09',
-			'ALIBABA!', 'Dönertaschtig!',
+		self::offer(1, 1, 20,  4.00,  2, $now, '2022-11-09',
+			'ALIBABA!', 'Dönertaschtig',
 			'Ein leckerer Döner mit Schafskäse und Fleisch nach Wahl, von Ihrem Saray.');
 
-		self::offer(2, 1, 25, 1, 1, $now, '2022-11-09',
-			'ALIBABA!', 'Erquickend!',
+		self::offer(2, 1, 20,  2.00,  2, $now, '2022-11-09',
+			'ALIBABA!', 'Erquickend',
 			'Ein Gutschein für eine Soft-Getränk. Besser als garnix.');
 		
-		self::offer(3, 2, 20, 4, 1, $now, '2022-11-09',
-			'CUT!!!', 'Aerodynamisch!',
+		self::offer(3, 2,  5,  5.00,  1, $now, '2022-11-09',
+			'CUT!!!', 'Aerodynamisch',
 			'Ein 5€ Gutschein für einen Haarschnitt bei Frisör Walid.');
 		
-		self::offer(4, 3, 20, 2, 1, $now, '2022-11-09',
-			'PROST!!!', 'Gesellig!',
+		self::offer(4, 3, 30,  1.50, 10, $now, '2022-11-09',
+			'PROST!!!', 'Gesellig',
 			'Ein Gutschein über ein Härke-Bier, dem ehemaligen Getränk der Stadt?');
 		
-		self::offer(5, 4, 2, 8, 1,  $now, '2022-11-09',
-			'DOPE!!!', 'Auszeit!',
+		self::offer(5, 4,  2, 10.00,  1, $now, '2022-11-09',
+			'DOPE!!!', 'Auszeit',
 			'Ein Gramm gratis CBD-Gras zum ausprobieren im Gegenwert von €10.<br/>Na wenn das nix is!');
+		
+		self::offer(6, 5, 40,  1.50,  5, $now, '2022-11-09',
+			'COFFEE!!!', 'Zuerst ein\' Kaffee',
+			'Ein Kaffee in der Vortagsbäckerei. Schauen Sie mal vorbei!');
 		
 		return true;
 	}
@@ -496,7 +524,7 @@ EOT;
 	 * Create an offer
 	 */
 	private static function offer(int $id, int $partnerId,
-		int $coupons, int $cost, int $cashierAmt,
+		int $totalOffers, int $cost, int $cashierAmt,
 		string $created, string $expire,
 		string $passphrase, string $title, string $text) : void
 	{
@@ -507,9 +535,9 @@ EOT;
 				'o_passphrase' => $passphrase,
 				'o_title' => $title,
 				'o_text' => $text,
-				'o_required_amt' => $cost,
+				'o_required_stars' => $cost,
 				'o_cashier_amt' => $cashierAmt,
-				'o_total_amt' => $coupons,
+				'o_total_amt' => $totalOffers,
 				'o_expires' => $expire,
 				'o_created' => $created,
 				'o_creator' => '2',
@@ -523,9 +551,9 @@ EOT;
 				'o_passphrase' => $passphrase,
 				'o_title' => $title,
 				'o_text' => $text,
-				'o_required_amt' => $cost,
+				'o_required_stars' => $cost,
 				'o_cashier_amt' => $cashierAmt,
-				'o_total_amt' => $coupons,
+				'o_total_amt' => $totalOffers,
 				'o_expires' => $expire,
 				'o_created' => $created,
 				'o_creator' => '2',

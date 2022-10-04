@@ -71,9 +71,29 @@ class KC_Coupon extends GDO
 		return $this->gdoVar('kc_entered') !== null;
 	}
 	
+	public function getEnterer() : ?GDO_User
+	{
+		return $this->gdoValue('kc_enterer');
+	}
+	
+	public function getEntered() : ?string
+	{
+		return $this->gdoVar('kc_entered');
+	}
+	
 	public function getSlogan() : string
 	{
 		return KC_Slogan::randomSloganText();
+	}
+	
+	public function isPrinted() : bool
+	{
+		return $this->gdoVar('kc_printed') !== null;
+	}
+
+	public function getPrinted() : string
+	{
+		return $this->gdoVar('kc_printed');
 	}
 	
 	public function isInvitation() : bool
@@ -194,16 +214,24 @@ class KC_Coupon extends GDO
 	#############
 	public function entered(GDO_User $user)
 	{
-		KC_Util::giveStars($user, $this->getStars());
+		$stars = $this->getStars();
 		$this->saveVars([
 			'kc_entered' => Time::getDate(),
 			'kc_enterer' => $user->getID(),
 		]);
+		$user->increaseSetting('KassiererCard', 'stars_earned', $stars);
+		$user->increaseSetting('KassiererCard', 'stars_entered', $stars);
+		$user->increaseSetting('KassiererCard', 'stars_available', $stars);
 	}
 	
 	##############
 	### Render ###
 	##############
+	public function renderPrinted() : string
+	{
+		return tt($this->getPrinted());
+	}
+	
 	public function renderType() : string
 	{
 		return $this->gdoColumn('kc_type')->renderVar();

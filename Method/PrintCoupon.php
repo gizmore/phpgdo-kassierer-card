@@ -13,6 +13,7 @@ use GDO\UI\GDT_Container;
 use GDO\UI\GDT_Image;
 use GDO\Date\Time;
 use GDO\Core\GDT;
+use GDO\UI\GDT_Link;
 
 /**
  * Print one of your coupons.
@@ -58,9 +59,16 @@ final class PrintCoupon extends MethodForm
 	public function preview() : GDT_Tuple
 	{
 		return GDT_Tuple::make()->addFields(
+			$this->previewLink(),
 			$this->print(),
 			parent::renderPage()
 		);
+	}
+	
+	private function previewLink() : GDT_Link
+	{
+		$coupon = $this->getCoupon();
+		return GDT_Link::make('link_preview_enter_coupon')->href($coupon->hrefEnter());
 	}
 	
 	public function qrcode() : GDT_QRCode

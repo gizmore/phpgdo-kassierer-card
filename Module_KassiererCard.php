@@ -9,7 +9,6 @@ use GDO\User\GDO_User;
 use GDO\UI\GDT_Card;
 use GDO\Form\GDT_Form;
 use GDO\Register\GDO_UserActivation;
-use GDO\User\GDO_UserPermission;
 use GDO\UI\GDT_Bar;
 use GDO\Core\GDT_UInt;
 use GDO\Core\GDT_String;
@@ -48,7 +47,7 @@ final class Module_KassiererCard extends GDO_Module
 	public function getDependencies() : array
 	{
 		return [
-			'Account', 'ActivationAlert', 'Address',
+			'Account', 'AboutMe', 'ActivationAlert', 'Address',
 			'Admin', 'Ads', 'Avatar',
 			'Backup', 'Birthday', 'Bootstrap5Theme',
 			'Category', 'Contact', 'Classic',
@@ -59,7 +58,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Javascript', 'JQueryAutocomplete',
 			'Licenses', 'Links', 'Login',
 			'Maps', 'Mail', 'Maps', 'Markdown',
-			'News', 'PM', 'QRCode', 'Recovery', 'Register',
+			'News', 'Perf', 'PM', 'QRCode', 'Recovery', 'Register',
 			'YouTube',
 		];
 	}
@@ -67,11 +66,11 @@ final class Module_KassiererCard extends GDO_Module
 	public function getClasses() : array
 	{
 		return [
+			KC_Partner::class,
 			KC_Business::class,
 			KC_Coupon::class,
-			KC_Partner::class,
 			KC_Offer::class,
-			KC_CouponRedeemed::class,
+			KC_OfferRedeemed::class,
 			KC_SignupCode::class,
 			KC_Slogan::class,
 			KC_Working::class,
@@ -102,9 +101,9 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			GDT_Badge::make('stars_purchased')->tooltip('tt_stars_purchased')->icon('money'),
-			GDT_Badge::make('stars_purchased_total')->tooltip('tt_stars_purchased_total')->icon('money'),
 			GDT_Badge::make('stars_created')->tooltip('tt_stars_created')->icon('bee'),
 			GDT_Badge::make('stars_entered')->tooltip('tt_stars_entered')->icon('bee'),
+			GDT_Badge::make('stars_earned')->tooltip('tt_stars_earned')->icon('bee'),
 			GDT_Badge::make('stars_available')->tooltip('tt_stars_available')->icon('sun'),
 			GDT_Badge::make('stars_redeemed')->tooltip('tt_stars_redeemed')->icon('star'),
 			GDT_Badge::make('offers_redeemed')->tooltip('tt_offers_redeemed')->icon('star'),
@@ -133,7 +132,7 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			GDT_Divider::make('div_kk'),
-			GDT_String::make('profession')->initial('Kassierer')->icon('work'),
+			GDT_String::make('profession')->icon('work'),
 			GDT_Url::make('personal_website')->allowExternal(),
 			GDT_Url::make('favorite_website')->allowExternal()->icon('trophy'),
 			GDT_String::make('favorite_meal')->icon('trophy'),
@@ -177,8 +176,10 @@ final class Module_KassiererCard extends GDO_Module
 		
 		$page->leftBar()->addFields(
 			GDT_Link::make()->href($this->href('Offers'))->text('link_kk_offers', [$numOffers])->icon('star'),
-			GDT_Link::make('link_kk_businesses')->href($this->href('Businesses'))->textArgs(KC_Business::numTotal())->icon('house'),
 			GDT_Link::make('link_kk_partners')->href($this->href('Partners'))->textArgs(KC_Partner::numTotal())->icon('icecream'),
+			GDT_Link::make()->href($this->href('Competitions'))->text('link_kk_competitions', [0]),
+			GDT_Link::make()->href($this->href('Statistics'))->text('link_kk_statistics', [1]),
+			GDT_Link::make('link_kk_businesses')->href($this->href('Businesses'))->textArgs(KC_Business::numTotal())->icon('house'),
 			GDT_Link::make('link_kk_employees')->href($this->href('Employees'))->textArgs(KC_Working::numEmployeesTotal())->icon('work'),
 			GDT_Link::make('link_kk_team')->href($this->href('Team'))->textArgs(8)->icon('users'),
 			GDT_Link::make('link_kk_help')->href($this->href('Help'))->icon('help'),
@@ -197,24 +198,23 @@ final class Module_KassiererCard extends GDO_Module
 			{
 				$page->rightBar()->addFields(
 					GDT_Link::make('enter_coupon')->href($this->href('EnterCoupon'))->icon('bee'),
+					GDT_Link::make('entered_coupons')->href($this->href('EnteredCoupons'))->icon('star'),
 				);
 			}
 			
-			if ($this->canCreateCoupons($user))
+			if ($this->canRedeemOffers($user))
 			{
 				$page->rightBar()->addFields(
-					GDT_Link::make('redeem_coupon')->href($this->href('RedeemOffer'))->icon('sun'),
-					GDT_Link::make('entered_coupons')->href($this->href('EnteredCoupons'))->icon('star'),
+					GDT_Link::make('redeem_offer')->href($this->href('RedeemOffer'))->icon('sun'),
 					GDT_Badge::make()->icon('sun')->tooltip('tt_stars_available')->text('stars_available')->var(KC_Util::numStarsAvaliable($user)),
-					GDT_Badge::make()->icon('sun')->tooltip('tt_coupons_available')->text('coupons_available')->var(KC_Util::numCouponsAvailable($user)),
+					GDT_Badge::make()->icon('sun')->tooltip('tt_coupons_available')->text('coupons_available')->var(KC_Util::numOffersAvailable($user)),
 				);
 			}
 			
 			if ($this->isCompany($user))
 			{
 				$page->rightBar()->addFields(
-					GDT_Link::make('businesses')->href($this->href('CompanyBusinesses')),
-					GDT_Link::make('create_offer')->href($this->href('CreateOffer')),
+					GDT_PartnerMenu::make('company_menu'),
 				);
 			}
 			
@@ -237,9 +237,12 @@ final class Module_KassiererCard extends GDO_Module
 	
 	private function canCreateCoupons(GDO_User $user)
 	{
-		return
-			$user->hasPermission('kk_customer') ||
-			$user->hasPermission('kk_cashier');
+		return $user->hasPermission('kk_customer');
+	}
+	
+	private function canRedeemOffers(GDO_User $user)
+	{
+		return $user->hasPermission('kk_customer,kk_cashier');
 	}
 	
 	public function onModuleInit() : void
@@ -309,10 +312,10 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function hookRegisterForm(GDT_Form $form)
 	{
-	    $type = GDT_AccountType::make('kk_type')->notNull()->tooltip('tt_kk_type')->icon('info');
-	    $form->addFieldAfterName($type, 'user_name');
-	    $code = GDT_String::make('kk_token')->label('lbl_kk_register_code')->tooltip('tt_kk_register_code');
-	    $form->addFieldAfterName($code, 'kk_type');
+		$code = GDT_SignupCode::make('kk_token')->label('lbl_kk_register_code')->tooltip('tt_kk_register_code');
+		$type = GDT_AccountType::make('kk_type')->notNull();
+		$form->addFieldAfterName($code, 'user_name');
+		$form->addFieldAfterName($type, 'kk_token');
 	    $vali = GDT_Validator::make('kk_valid_token')->validator($form, $code, [$this, 'validateToken']);
 	    $form->addFieldAfterName($vali, 'kk_token');
 	    $form->text('kk_info_register');
@@ -320,24 +323,41 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function validateToken(GDT_Form $form, GDT $field, $value)
 	{
-		if ($type = $form->getFormVar('kk_type'))
+		if ($code = $form->getFormVar('kk_token'))
 		{
-			if ($type !== 'kk_customer')
+			if (!($code = KC_SignupCode::getBy('sc_token', $code)))
 			{
-				if (!(KC_SignupCode::validateCode($value?$value:'', $type)))
-				{
-					$field->error('err_kk_signup_code');
-					return false;
-				}
+				return $field->error('err_kk_signup_code_unknown');
 			}
 		}
+		
+		$type = $form->getFormVar('kk_type');
+		
+		if ($type === 'kk_customer')
+		{
+			if ($code)
+			{
+				return $field->error('err_kk_signup_customer_no_code');
+			}
+			return true;
+		}
+		
+		if (!$code)
+		{
+			return $field->error('err_kk_signup_code_required');
+		}
+		
+		if ($type !== $code->getType())
+		{
+			return $field->error('err_kk_signup_code_type', [$code->renderType()]);
+		}
+		
 		return true;
 	}
 	
 	public function hookOnRegister(GDT_Form $form, GDO_UserActivation $activation)
 	{
 		$data = $activation->gdoValue('ua_data');
-		$data['kk_type'] = $form->getFormVar('kk_type');
 		$data['kk_token'] = $form->getFormVar('kk_token');
 		$activation->setValue('ua_data', $data);
 	}
@@ -350,14 +370,7 @@ final class Module_KassiererCard extends GDO_Module
 		if ($activation)
 		{
 			$data = $activation->gdoValue('ua_data');
-			if (@$data['kk_type'])
-			{
-				GDO_UserPermission::grant($user, $data['kk_type']);
-			}
-			if (@$data['kk_token'])
-			{
-				KC_SignupCode::clearCode($data['kk_token']);
-			}
+			KC_SignupCode::onActivation($user, @$data['kk_token']);
 		}
 	}
 	
@@ -370,7 +383,8 @@ final class Module_KassiererCard extends GDO_Module
 		$bar->addFields(
 			GDT_Link::make('generate_signup_code')->href($this->href('AdminCreateSignupCode'))->icon('create'),
 			GDT_Link::make('signup_codes')->href($this->href('AdminSignupCodes'))->icon('list'),
-		);
+			GDT_Link::make('grant_stars')->href($this->href('AdminGrantStars'))->icon('star'),
+			);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
 	

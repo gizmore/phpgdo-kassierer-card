@@ -3,7 +3,7 @@ namespace GDO\KassiererCard;
 
 use GDO\Date\Time;
 use GDO\User\GDO_User;
-use GDO\Core\Website;
+use GDO\Core\GDO;
 
 /**
  * Various KC utility.
@@ -45,8 +45,12 @@ final class KC_Util
 	public static function maxStarsCreatedInPeriod(GDO_User $user, int $time) : int
 	{
 		$mod = Module_KassiererCard::instance();
-		$min = $mod->cfgFreeStarsPerPeriod();
-		return $min;
+		if ($user->hasPermission('kk_manager'))
+		{
+			return 100;
+		}
+		$max = $mod->cfgFreeStarsPerPeriod();
+		return $max;
 	}
 	
 	public static function getStars(GDO_User $user) : int
@@ -87,7 +91,10 @@ final class KC_Util
 		return $user->settingVar('KassiererCard', 'stars_available');
 	}
 	
-	public static function numCouponsAvailable(GDO_User $user) : int
+	/**
+	 * Check how many offers are available for a user.
+	 */
+	public static function numOffersAvailable(GDO_User $user) : int
 	{
 		$query = KC_Offer::getAvailableOffersQuery($user);
 		return 2;
@@ -99,10 +106,25 @@ final class KC_Util
 		return floor($stars / $coupMod);
 	}
 	
-	public static function giveStars(GDO_User $user, int $stars) : void
+	public static function canAfford(GDO_User $user, KC_Offer $offer, ?string &$reason=null)
 	{
-		
-		Website::message('KassiererCard.org', 'msg_earned_stars', [$stars]);
+		$gdt = GDT_Offer::make()->affordable()->user($user)->value($offer);
+		if (!$gdt->validate($offer))
+		{
+			$reason = $gdt->renderError();
+			return false;
+		}
+		return true;
+	}
+
+	### Hash 
+	public static function hashcodeForRedeem(GDO_User $user, KC_Offer $offer) : string
+	{
+		$data = [
+			'user' => $user->getID(),
+			'offer' => $offer->getID(),
+		];
+		return GDO::gdoHashcodeS($data);
 	}
 	
 }

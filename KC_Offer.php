@@ -37,7 +37,7 @@ final class KC_Offer extends GDO
 			GDT_String::make('o_passphrase')->notNull()->label('passphrase'),
 			GDT_Title::make('o_title')->notNull(),
 			GDT_Message::make('o_text')->notNull()->label('description'),
-			GDT_UInt::make('o_required_amt')->notNull()->bytes(1)->min(1)->initial('1')->label('required_amt'),
+			GDT_UInt::make('o_required_stars')->notNull()->bytes(1)->min(1)->initial('1')->label('required_amt'),
 			GDT_UInt::make('o_cashier_amt')->notNull()->bytes(1)->min(1)->initial('1')->label('cashier_amt'),
 			GDT_UInt::make('o_total_amt')->notNull()->min(1)->label('total_amt'),
 			GDT_Date::make('o_expires')->notNull()->minNow()->initial($this->nextFriday())->label('valid_until'),
@@ -60,7 +60,7 @@ final class KC_Offer extends GDO
 	/**
 	 * How many coupons make one offer item?
 	 */
-	public function getRequiredStars() : int { return $this->gdoValue('o_required_amt'); }
+	public function getRequiredStars() : int { return $this->gdoValue('o_required_stars'); }
 	
 	/**
 	 * How many items/offers can a single user get from this offer.
@@ -75,13 +75,25 @@ final class KC_Offer extends GDO
 	/**
 	 * How many total offer items are available.
 	 */
-	public function getTotalOffers() : int { return floor($this->getTotalCoupons() / $this->getRequiredStars()); }
+	public function getTotalOffers() : int { return $this->gdoVar('o_total_amt'); }
 	
 	public function isOfferValid() : bool
 	{
 		$until = $this->gdoValue('o_expires');
 		$now = \DateTime::createFromFormat('U', strtotime('today'));
 		return $until >= $now;
+	}
+	
+	############
+	### HREF ###
+	############
+	public function hrefPartnerRedeemQRCode(GDO_User $user) : string
+	{
+		$append = "&offer={$this->getID()}";
+		$append .= "&user={$user->getID()}";
+		$hashcode = KC_Util::hashcodeForRedeem($user, $this);
+		$append .= "&hashcode={$hashcode}";
+		return href('KassiererCard', 'PartnerRedeemQRCode', $append);
 	}
 	
 	###############
@@ -100,26 +112,26 @@ final class KC_Offer extends GDO
 	#############
 	public function queryNumAvailable(GDO_User $user) : int
 	{
-		$redeemed = KC_CouponRedeemed::queryNumRedeemed($user, $this);
-		$maximum = $this->getMaxOffers($user);
+		$maximum = min([$this->getMaxOffers($user), $this->queryNumAvailableTotal()]);
+		$redeemed = $this->queryNumRedeemedUser($user);
 		return $maximum - $redeemed;
 	}
 	
 	public function queryNumAvailableTotal() : int
 	{
 		$maximum = $this->getTotalOffers();
-		$redeemed = KC_CouponRedeemed::queryNumRedeemedTotal($this);
+		$redeemed = $this->queryNumRedeemedTotal($this);
 		return $maximum - $redeemed;
 	}
 	
-	public function queryNumRedeemed(GDO_User $user) : int
+	public function queryNumRedeemedUser(GDO_User $user) : int
 	{
-		return KC_CouponRedeemed::queryNumRedeemed($user, $this);
+		return KC_OfferRedeemed::table()->countWhere("or_offer={$this->getID()} AND or_user={$user->getID()}");
 	}
 	
 	public function queryNumRedeemedTotal() : int
 	{
-		return KC_CouponRedeemed::queryNumRedeemedTotal($this);
+		return KC_OfferRedeemed::table()->countWhere("or_offer={$this->getID()}");
 	}
 	
 	public function queryNumOffers(KC_Partner $partner) : int
@@ -129,7 +141,7 @@ final class KC_Offer extends GDO
 	
 	public function canAfford(GDO_User $user)
 	{
-		return KC_Util::numStarsAvaliable($user) >= $this->getRequiredStars();
+		return KC_Util::canAfford($user, $this);
 	}
 	
 	##############
@@ -208,7 +220,7 @@ final class KC_Offer extends GDO
 		return
 			self::table()->select()
 				->where("(SELECT ")
-				->where("o_required_amt <= $starsAvailable")
+				->where("o_required_stars <= $starsAvailable")
 				->where("o_expires>'$now'");
 	}
 	

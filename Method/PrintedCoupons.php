@@ -23,6 +23,11 @@ final class PrintedCoupons extends MethodQueryList
 		return 'kk_customer';
 	}
 	
+	public function getDefaultOrder() : ?string
+	{
+		return 'kc_created DESC';
+	}
+	
 	public function gdoTable()
 	{
 		return KC_Coupon::table();
