@@ -75,6 +75,7 @@ final class KC_SignupCode extends GDO
 			if ($type = $code->getType())
 			{
 				GDO_UserPermission::grant($user, $type);
+				$user->changedPermissions();
 			}
 			
 			if ($coupon = KC_Coupon::getBy('kc_token', $token))
