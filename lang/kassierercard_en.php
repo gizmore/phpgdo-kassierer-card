@@ -78,6 +78,10 @@ The %4$s Team',
 	'sc_info' => 'KC-Staff Note',
 	'kc_entered' => 'Entered at',
 	
+	# Signup
+	'msg_signup_customer_no_token' => 'You did not enter a Signup-Code and thus are registered as customer.<br/>If you are a worker or company, please contact us.<br/>If you signup again you might get banned.',
+	'err_kk_signup_code_required' => 'You need a Signup-Code unless you are a customer.',
+	
 	### Types
 	'kk_type' => 'Account Type',
 	'kk_stars' => 'Bonus Points',

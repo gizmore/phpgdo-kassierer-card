@@ -111,6 +111,7 @@ final class Install
 			'Änderung. Verbesserung. Erneuerung',
 			'Ich shoppe auch gern',
 			'Damit alle genug haben',
+			'Für Spaß, Gegen Gewalt',
 		];
 		
 		$i = 0;

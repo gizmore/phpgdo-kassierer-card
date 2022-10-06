@@ -365,9 +365,13 @@ final class Module_KassiererCard extends GDO_Module
 			return true;
 		}
 		
-		if (!$code)
+		if (!$code && $type)
 		{
 			return $field->error('err_kk_signup_code_required');
+		}
+		elseif (!$code)
+		{
+			return true; # no code + no type
 		}
 		
 		if ($type !== $code->getType())
