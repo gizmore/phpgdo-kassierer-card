@@ -19,6 +19,7 @@ use GDO\Date\Time;
 use GDO\Core\Application;
 use GDO\Perf\Module_Perf;
 use GDO\LoC\Module_LoC;
+use GDO\User\GDT_ACLRelation;
 
 /**
  * Initial seed for rapid dev.
@@ -198,6 +199,17 @@ final class Install
 		{
 			self::installUser(...$data);
 		}
+		
+		self::installUserSetting('Horus', 'KassiererCard', 'favorite_religion', 'Horus Götterkult', GDT_ACLRelation::ALL);
+		
+		return true;
+	}
+	
+	private static function installUserSetting(string $username, string $moduleName, string $settingName, string $settingVar, string $aclRelation): bool
+	{
+		$user = GDO_User::getByName($username);
+		$user->saveSettingVar($moduleName, $settingName, $settingVar);
+		$user->saveSettingVar($moduleName, "_acl_{$settingName}_relation", $aclRelation);
 		return true;
 	}
 	
