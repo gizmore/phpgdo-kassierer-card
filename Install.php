@@ -151,15 +151,18 @@ final class Install
 	##################
 	private static function installCategories() : bool
 	{
-		self::cat(1, 'Businesses', null);
-		self::cat(2, 'Supermarket', 1);
-		self::cat(3, 'Bakery', 1);
-		self::cat(4, 'Slaughter', 1);
-		self::cat(5, 'Office', 1);
-		self::cat(6, 'Restaurant', 1);
-		self::cat(7, 'Hairstyler', 1);
-		self::cat(8, 'Pub', 1);
-		self::cat(9, 'Headshop', 1);
+		self::cat(1,  'Businesses', null);
+		self::cat(2,  'Supermarket', 1);
+		self::cat(3,  'Bakery', 1);
+		self::cat(4,  'Slaughter', 1);
+		self::cat(5,  'Office', 1);
+		self::cat(6,  'Restaurant', 1);
+		self::cat(7,  'Hairstyler', 1);
+		self::cat(8,  'Pub', 1);
+		self::cat(9,  'Headshop', 1);
+		self::cat(10, 'Charity', 1);
+		self::cat(11, 'NGO', 1);
+		self::cat(12, 'Social', 1);
 		
 		self::cat(101, 'News', null);
 		self::cat(102, 'Peiner-News', 101);
@@ -237,12 +240,13 @@ final class Install
 	private static function installBusinesses() : bool
 	{
 		$i = 1;
-		self::biz($i++, 'REWE Markt Peine',   2, 'Schäferstraße 12',         '31224', 'Peine', 52.32101586390254, 10.24893384967010, '+49 5171 58 315 87');
-		self::biz($i++, 'REWE Markt Peine',   2, 'Celler Straße 51-55',      '31224', 'Peine', 52.32999367361805, 10.23279618918122, '+49 5171 712 82');
-		self::biz($i++, 'EDEKA Center Peine', 2, 'Friedrich-Ebert-Platz 25', '31226', 'Peine', 52.31740702775802, 10.22991038947184, '+49 5171 95 50');
-		self::biz($i++, 'Penny Markt Peine',  2, 'Duttenstedter Str. 136',   '31224', 'Peine', 52.32887785039469, 10.25016182443094, '+49 221 2019 9959');
-		self::biz($i++, 'NP-Markt Peine',     2, 'Sedanstraße 41',           '31224', 'Peine', 52.32509004097773, 10.23358606569167, '+49 5171 14 145');
-		self::biz($i++, 'Jawoll Peine',       2, 'Woltorfer Str. 102',       '31224', 'Peine', 52.31962953955457, 10.24794936924906, '+49 05191 980 30');
+		self::biz($i++, 'REWE Markt Peine',   2, 'Schäferstraße 12',         '31224', 'Peine', 52.32101586390254, 10.24893384967010,  '+49 5171 58 315 87');
+		self::biz($i++, 'REWE Markt Peine',   2, 'Celler Straße 51-55',      '31224', 'Peine', 52.32999367361805, 10.23279618918122,  '+49 5171 712 82');
+		self::biz($i++, 'EDEKA Center Peine', 2, 'Friedrich-Ebert-Platz 25', '31226', 'Peine', 52.31740702775802, 10.22991038947184,  '+49 5171 95 50');
+		self::biz($i++, 'Penny Markt Peine',  2, 'Duttenstedter Str. 136',   '31224', 'Peine', 52.32887785039469, 10.25016182443094,  '+49 221 2019 9959');
+		self::biz($i++, 'NP-Markt Peine',     2, 'Sedanstraße 41',           '31224', 'Peine', 52.32509004097773, 10.23358606569167,  '+49 5171 14 145');
+		self::biz($i++, 'Jawoll Peine',       2, 'Woltorfer Str. 102',       '31224', 'Peine', 52.31962953955457, 10.24794936924906,  '+49 05191 980 30');
+		self::biz($i++, 'Café Mitte Peine',  12, 'Breite Straße 48',         '31224', 'Peine', 52.32208090312398, 10.226910900342983, '+49 05171 58 777 55');
 		return true;
 	}
 	
@@ -320,6 +324,8 @@ final class Install
 		self::partner(4, 'Headshop', 9, 'Headhshop Peine', 'Am Markt', '31224', 'Peine', 'DE', 'DE', null, $descr, 'https://headshop.busch-peine.de');
 		$descr = 'Brötchen vom Vortag sind nicht die besten, aber Kuchen vom Vortag klingt doch super!<br/>Café, Kuchen, Backwaren,';
 		self::partner(5, 'Vortagsbaeckerei', 3, 'Vortagsbaeckerei', 'Bahnhofstraße 5', '31224', 'Peine', 'DE', 'DE', '+49 176 218 23 784', $descr, 'https://www.facebook.com/people/Backlife-Caf%C3%A9-Vortagsb%C3%A4ckerei-Peine/100057060595562/');
+		$descr = 'Der FIPS-Peine betreut Psychisch-Behinderte.<br/>Diese arbeiten in einigen Geschäften in der Innenstadt, wie z.B. Gebrauchtwaren oder Kaffees.';
+		self::partner(6, 'FIPS', 12, 'FIPS Peine', 'Hagenstr. 12', '31224', 'Peine', 'DE', 'DE', '+49 5171 50 89 25', $descr, 'https://www.fips-ev.de/treffen/beratungs-begegnungsst%C3%A4tte-peine/');
 		return true;
 	}
 	
@@ -523,6 +529,10 @@ EOT;
 		self::offer(7, 5, 20,  2.00, 20.00,  2, $now, '2022-11-09',
 			'COFFEE!!!', 'Danach ein\' Donut',
 			'Ein Donut in der Vortagsbäckerei. Schauen Sie mal vorbei!');
+		
+		self::offer(8, 6, 10,  1.00, 10.00,  2, $now, '2022-11-09',
+			'buchwurm', 'Belesen',
+			'Ein Gutschein für ein Buch im Bücherwurm Gebrauchtleseartikelgeschäft.');
 		
 		return true;
 	}

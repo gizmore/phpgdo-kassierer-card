@@ -14,7 +14,8 @@ As we are open as one can be... the public may see it as well.</p>
 <li>Competition: Partner of the day: Auto Show the whole day as Ads.</li>
 <li>Competition: Prices for the winners.</li>
 <li>Setup Contract, Testamentum and ITMB stuff.</li>
-<li>
+<li>Individual Guestbook for users?</li>
+<li></li>
 
 
 </ol>
@@ -37,6 +38,8 @@ As we are open as one can be... the public may see it as well.</p>
 <ul>
 <li><b>Phase 0 Flyer</b></li>
 <li>Chess Tokens? [digit,letter,-,digit,letter,-,....</li>
+<li>Real Advertisement Space</li>
+<li>No 3rd parties at all - Ony Cookie is enough.</li> 
 <li>
 </ul>
 </div>

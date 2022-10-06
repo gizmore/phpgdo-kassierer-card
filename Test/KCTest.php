@@ -9,8 +9,6 @@ use GDO\Address\GDO_Address;
 use GDO\KassiererCard\KC_Offer;
 use GDO\User\GDO_User;
 use GDO\KassiererCard\Method\CreateCoupon;
-use GDO\Core\Method;
-use GDO\Tests\GDT_MethodTest;
 use GDO\KassiererCard\Module_KassiererCard;
 
 final class KCTest extends TestCase

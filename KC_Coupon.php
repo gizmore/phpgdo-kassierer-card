@@ -122,14 +122,24 @@ class KC_Coupon extends GDO
 		if (!$this->isPrinted())
 		{
 			$this->saveVar('kc_printed', Time::getDate());
-			$user = GDO_User::current();
-			$user->increase('coupons_printed', $this->getStars());
+// 			$user = GDO_User::current();
+// 			$user->increaseSetting('KassiererCard', 'stars_printed', $this->getStars());
+			Module_KassiererCard::instance()->increaseConfigVar('coupons_printed');
 		}
 	}
 	
-	public function onEntered() : void
+	public function entered(GDO_User $user)
 	{
-		
+		$stars = $this->getStars();
+		$this->saveVars([
+			'kc_entered' => Time::getDate(),
+			'kc_enterer' => $user->getID(),
+		]);
+		$user->increaseSetting('KassiererCard', 'stars_earned', $stars);
+		$user->increaseSetting('KassiererCard', 'stars_entered', $stars);
+		$user->increaseSetting('KassiererCard', 'stars_available', $stars);
+		Module_KassiererCard::instance()->increaseConfigVar('coupons_entered');
+		Module_KassiererCard::instance()->increaseConfigVar('stars_entered');
 	}
 	
 	##############
@@ -238,21 +248,6 @@ class KC_Coupon extends GDO
 	public function urlEnter() : string
 	{
 		return GDT_Url::absolute($this->hrefEnter());
-	}
-	
-	#############
-	### Enter ###
-	#############
-	public function entered(GDO_User $user)
-	{
-		$stars = $this->getStars();
-		$this->saveVars([
-			'kc_entered' => Time::getDate(),
-			'kc_enterer' => $user->getID(),
-		]);
-		$user->increaseSetting('KassiererCard', 'stars_earned', $stars);
-		$user->increaseSetting('KassiererCard', 'stars_entered', $stars);
-		$user->increaseSetting('KassiererCard', 'stars_available', $stars);
 	}
 	
 	##############

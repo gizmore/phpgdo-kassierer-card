@@ -76,8 +76,7 @@ final class EnterCoupon extends MethodForm
 		$user = GDO_User::current();
 		$coupon = $this->getCoupon();
 		$coupon->entered($user);
-		$this->redirectMessage('msg_entered_stars', [$coupon->getStars()], $this->href());
-		return $this->renderPage();
+		return $this->redirectMessage('msg_entered_stars', [$coupon->getStars()], $this->href());
 	}
 	
 }

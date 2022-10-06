@@ -93,6 +93,9 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
 			GDT_UInt::make('customer_coupon_modulus')->min(1)->max(100)->initial('5'),
+			GDT_UInt::make('cashier_stars_per_invitation')->max(10000)->initial('1'),
+			GDT_UInt::make('customer_stars_per_invitation')->max(10000)->initial('2'),
+			GDT_UInt::make('stars_per_poll')->max(100)->initial('1'),
 			# Stats
 			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'),
 			GDT_Badge::make('coupons_printed')->initial('0')->label('cfg_coupons_printed')->tooltip('tt_cfg_coupons_printed'),
@@ -114,6 +117,8 @@ final class Module_KassiererCard extends GDO_Module
 	public function cfgFreeStarsPerPeriod() : int { return $this->getConfigValue('free_stars_per_period'); }
 	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
 	public function cfgCustomerCouponModulus() : int { return $this->getConfigValue('customer_coupon_modulus'); }
+	public function cfgCashierInviteStars() : int { return $this->getConfigValue('cashier_stars_per_invitation'); }
+	public function cfgCustomerInviteStars() : int { return $this->getConfigValue('customer_stars_per_invitation'); }
 	
 	################
 	### Settings ###
@@ -146,10 +151,13 @@ final class Module_KassiererCard extends GDO_Module
 			'salary_hourly' => [GDT_ACLRelation::FRIENDS, 0, null],
 			'your_dream' => [GDT_ACLRelation::FRIENDS, 0, null],
 			'personal_website' => [GDT_ACLRelation::MEMBERS, 0, null],
-			'favorite_website' => [GDT_ACLRelation::ALL, 0, null],
+			'favorite_artist' => [GDT_ACLRelation::ALL, 0, null],
+			'favorite_book' => [GDT_ACLRelation::ALL, 0, null],
 			'favorite_meal' => [GDT_ACLRelation::FRIENDS, 0, null],
-			'favorite_song' => [GDT_ACLRelation::FRIENDS, 0, null],
-			'favorite_movie' => [GDT_ACLRelation::FRIENDS, 0, null],
+			'favorite_movie' => [GDT_ACLRelation::ALL, 0, null],
+			'favorite_religion' => [GDT_ACLRelation::FRIENDS, 0, null],
+			'favorite_song' => [GDT_ACLRelation::ALL, 0, null],
+			'favorite_website' => [GDT_ACLRelation::ALL, 0, null],
 			# UI
 			'qrcode_size' => [GDT_ACLRelation::HIDDEN, 0, null],
 		];
@@ -164,10 +172,13 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Money::make('salary_gross')->unsigned()->min(1.00),
 			GDT_Money::make('salary_hourly')->unsigned()->min(1.00),
 			GDT_String::make('your_dream')->icon('spiderweb'),
-			GDT_Url::make('favorite_website')->allowExternal()->icon('trophy'),
+			GDT_String::make('favorite_artist')->icon('trophy'),
+			GDT_String::make('favorite_book')->icon('trophy'),
 			GDT_String::make('favorite_meal')->icon('trophy'),
-			GDT_String::make('favorite_song')->icon('trophy'),
 			GDT_String::make('favorite_movie')->icon('trophy'),
+			GDT_String::make('favorite_religion')->icon('trophy'),
+			GDT_String::make('favorite_song')->icon('trophy'),
+			GDT_Url::make('favorite_website')->allowExternal()->icon('trophy'),
 			GDT_Divider::make('div_ui'),
 			GDT_Length::make('qrcode_size')->initial('320')->noacl(),
 		];
