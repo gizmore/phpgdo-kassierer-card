@@ -42,7 +42,7 @@ final class Invite extends MethodForm
 			sitename(), $starsPerInvite, $starsAvailable]);
 		$form->addFields(
 			GDT_CouponStars::make('stars')->notNull()->initial('1')->min(0)->max($starsAvailable - $starsPerInvite),
-			GDT_CouponType::make('type')->notNull()->noCoupon()->noCompany(),
+			GDT_CouponType::make('type')->notNull()->noCoupon()->noCompany()->emptyLabel('kk_type'),
 			GDT_CouponToken::make('token')->hidden()->initialRandomKey()->notNull(),
 			GDT_Email::make('email')->notNull(),
 			GDT_Language::make('language')->notNull()->initialCurrent(),

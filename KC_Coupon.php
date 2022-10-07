@@ -127,10 +127,10 @@ class KC_Coupon extends GDO
 		$mod = Module_KassiererCard::instance();
 		$mod->increaseConfigVar('coupons_created');
 		$mod->increaseConfigVar('stars_created', $gdo->getStars());
-		
+
 		$user = $gdo->getCreator();
-		$user->increase('stars_created', $gdo->getStars());
-		$user->increase('coupons_created', $gdo->getStars());
+		$user->increaseSetting('KassiererCard', 'coupons_created');
+		$user->increaseSetting('KassiererCard', 'stars_created', $gdo->getStars());
 	}
 	
 	public function onPrinted() : void
@@ -144,26 +144,34 @@ class KC_Coupon extends GDO
 		}
 	}
 	
-	public function entered(GDO_User $user, bool $signup=false): void
+	public function entered(GDO_User $user, bool $isActivation=false): void
 	{
+		$kk = Module_KassiererCard::instance();
+		$kkn = $kk->getModuleName();
 		$stars = $this->getStars();
 		$creator = $this->getCreator();
 		$this->saveVars([
 			'kc_entered' => Time::getDate(),
 			'kc_enterer' => $user->getID(),
 		]);
-		$user->increaseSetting('KassiererCard', 'stars_earned', $stars);
-		$user->increaseSetting('KassiererCard', 'stars_available', $stars);
-		if (!$signup)
+		$user->increaseSetting($kkn, 'stars_available', $stars);
+		$user->increaseSetting($kkn, 'stars_entered', $stars);
+		$user->increaseSetting($kkn, 'stars_earned', $stars);
+		$kk->increaseConfigVar('stars_entered');
+		if ($isActivation)
 		{
-			$user->increaseSetting('KassiererCard', 'stars_entered', $stars);
+			if ($this->isInvitation())
+			{
+				$kk->increaseConfigVar('users_invited');
+				$kk->increaseConfigVar('stars_invited', $stars);
+				$creator->increaseConfigVar('users_invited');
+				$creator->increaseConfigVar('stars_invited', $stars);
+				
+				$creator->increaseSetting('KassiererCard', 'diamonds_earned', $stars);
+			}
 		}
-		if ($signup)
-		{
-			Module_KassiererCard::instance()->increaseConfigVar('stars_entered');
-		}
-		Module_KassiererCard::instance()->increaseConfigVar('coupons_entered');
-		Module_KassiererCard::instance()->increaseConfigVar('stars_entered');
+		$kk->increaseConfigVar('coupons_entered');
+		odule_KassiererCard::instance()->increaseConfigVar('stars_entered');
 	}
 	
 	public static function onActivation(GDO_User $user, ?string $token): void
@@ -376,6 +384,12 @@ class KC_Coupon extends GDO
 	########################
 	public static function getByToken(string $token, bool $entered=false) : ?self
 	{
+		$reason = '';
+		if (KC_TokenRequest::isBlocked($reason))
+		{
+			Website::error(sitername(), '%s', [$reason]);
+			return null;
+		}
 		if ($coupon = self::getBy('kc_token', $token))
 		{
 			return $coupon->isEntered() === $entered

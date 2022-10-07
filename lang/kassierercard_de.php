@@ -19,7 +19,8 @@ Das %4$s-Team',
 ### Buttons
 // 	'btn_send_coupons' => 'Send Coupons',
 'btn_stopped_there' => 'Da habe ich aufgehört!','btn_working_there' => 'Ich arbeite dort!',### Admin Signup Codes
-'generate_signup_code' => 'Anmeldecode erstellen','signup_codes' => 'Anmeldecodes','mt_kassierercard_admincreatesignupcode' => 'Anmeldecode erstellen','list_kassierercard_adminsignupcodes' => '%s Anmeldecodes','msg_signup_code_created' => 'Ein Registrierungscode für %s wurde erstellt.','err_kk_no_coupon' => 'Sie können auf diese Weise keine Coupons erstellen!','kk_invite_slogan' => 'Einladung als %s','msg_signup_stars' => 'Willkommen bei %s; Sie haben %s Sterne für Ihre Einladung verdient.',
+'generate_signup_code' => 'Anmeldecode erstellen','signup_codes' => 'Anmeldecodes',
+'register_as_customer' => 'als Kunde registrieren','mt_kassierercard_admincreatesignupcode' => 'Anmeldecode erstellen','list_kassierercard_adminsignupcodes' => '%s Anmeldecodes','msg_signup_code_created' => 'Ein Registrierungscode für %s wurde erstellt.','err_kk_no_coupon' => 'Sie können auf diese Weise keine Coupons erstellen!','kk_invite_slogan' => 'Einladung als %s','msg_signup_stars' => 'Willkommen bei %s; Sie haben %s Sterne für Ihre Einladung verdient.',
 'kc_info' => 'Einladungsnotiz','kc_entered' => 'Eingegeben bei',# Signup
 'msg_signup_customer_no_token' => 'Sie haben keinen Registrierungscode eingegeben und sind somit als Kunde registriert.<br/>Wenn Sie ein Arbeitnehmer oder ein Unternehmen sind, kontaktieren Sie uns bitte.<br/>Wenn Sie sich erneut anmelden, werden Sie möglicherweise gesperrt. ',
 'err_kk_signup_code_required' => 'Sie benötigen einen Registrierungscode, es sei denn, Sie sind Kunde.',### Types
@@ -125,6 +126,10 @@ von denen Sie jetzt %s haben.
 
 Ihr Benutzerlevel ist um %s Punkte auf %s gestiegen.
 
-Mit freundlichen Grüße,
-Der Dampf',
+Mit freundlichen Grüßen,
+Das %4$s Team',
+
+	# Impressum
+	'responsible_is' => 'Verantwortlich hierfür ist:',
+	
 ];

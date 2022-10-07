@@ -76,6 +76,7 @@ final class Module_KassiererCard extends GDO_Module
 			KC_OfferRedeemed::class,
 			KC_Slogan::class,
 			KC_Working::class,
+			KC_TokenRequest::class,
 		];
 	}
 	
@@ -98,10 +99,10 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_UInt::make('customer_stars_per_invitation')->max(10000)->initial('2'),
 			GDT_UInt::make('stars_per_poll')->max(100)->initial('1'),
 			# Stats
-			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'),
-			GDT_Badge::make('coupons_printed')->initial('0')->label('cfg_coupons_printed')->tooltip('tt_cfg_coupons_printed'),
-			GDT_Badge::make('coupons_entered')->initial('0')->label('cfg_coupons_entered')->tooltip('tt_cfg_coupons_entered'),
-			GDT_Badge::make('stars_created')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
+			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'), #
+			GDT_Badge::make('coupons_printed')->initial('0')->label('cfg_coupons_printed')->tooltip('tt_cfg_coupons_printed'), #
+			GDT_Badge::make('coupons_entered')->initial('0')->label('cfg_coupons_entered')->tooltip('tt_cfg_coupons_entered'), 
+			GDT_Badge::make('stars_created')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'), #
 			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
 			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'),
 			GDT_Badge::make('stars_purchased')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
@@ -132,6 +133,7 @@ final class Module_KassiererCard extends GDO_Module
 	public function getUserConfig() : array
 	{
 		return [
+			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'),
 			GDT_Badge::make('stars_purchased')->tooltip('tt_stars_purchased')->icon('money')->label('cfg_stars_purchased'),
 			GDT_Badge::make('stars_created')->tooltip('tt_stars_created')->icon('bee'),
 			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
@@ -293,8 +295,11 @@ final class Module_KassiererCard extends GDO_Module
 		$this->addCSS('css/kk.css');
 		if ($this->cfgPreAlpha())
 		{
-			$script_html = 'alert("Dies ist eine fiktivie Vorabversion. Sobald diese Nachricht nicht mehr erscheint startet Phase 1.");';
-			Javascript::addJSPostInline($script_html);
+			if (!GDO_User::current()->isAuthenticated())
+			{
+				$script_html = 'alert("Dies ist eine fiktivie Vorabversion. Sobald diese Nachricht nicht mehr erscheint startet Phase 1.");';
+				Javascript::addJSPostInline($script_html);
+			}
 		}
 	}
 	

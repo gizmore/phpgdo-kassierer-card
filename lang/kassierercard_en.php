@@ -70,6 +70,7 @@ The %4$s Team',
 	### Admin Signup Codes
 	'generate_signup_code' => 'Create Signup-Code',
 	'signup_codes' => 'Signup-Codes',
+	'register_as_customer' => 'registrieren as a customer',
 	'mt_kassierercard_admincreatesignupcode' => 'Create Signup-Code',
 	'list_kassierercard_adminsignupcodes' => '%s Signup-Codes',
 	'msg_signup_code_created' => 'A signup code for a %s has been created.',
@@ -330,4 +331,7 @@ Your userlevel increased by %s points to %s.
 
 Kind Regards,
 The %s Team',
+	
+	# Impressum
+	'responsible_is' => 'Responsible for this is:',
 ];

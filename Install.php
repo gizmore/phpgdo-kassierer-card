@@ -23,6 +23,8 @@ use GDO\LoC\Module_LoC;
 use GDO\User\GDT_ACLRelation;
 use GDO\File\GDO_File;
 use GDO\Avatar\GDO_Avatar;
+use GDO\Javascript\Module_Javascript;
+use GDO\CSS\Module_CSS;
 
 /**
  * Initial seed for rapid dev.
@@ -63,16 +65,19 @@ final class Install
 			Module_Perf::instance()->saveConfigVar('hook_sidebar', 'all');
 			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '0');
 		}
-		else
+		else # Prod
 		{
 			Module_Perf::instance()->saveConfigVar('hook_sidebar', 'staff');
 			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '1');
+			Module_Core::instance()->saveConfigVar('force_ssl', '1');
+			Module_Javascript::instance()->saveConfigVar('minify_js', 'concat');
+			Module_CSS::instance()->saveConfigVar('minify_css', '1');
 		}
 		Module_LoC::instance()->saveConfigVar('hook_sidebar', '0');
 		Module_Avatar::instance()->saveConfigVar('hook_sidebar', '0');
 		Module_Core::instance()->saveConfigVar('allow_guests', '0');
 		Module_CountryRestrictions::instance()->saveConfigVar('country_whitelist', '["DE"]');
-		Module_Language::instance()->saveConfigVar('languages', '["en","de"]');
+		Module_Language::instance()->saveConfigVar('languages', '["en","de","it","fr","es","tr","ru"]');
 		Module_Language::instance()->saveConfigVar('use_in_javascript', '0');
 		Module_Maps::instance()->saveConfigVar('maps_api_google', '0');
 		return true;
@@ -169,6 +174,7 @@ final class Install
 		self::cat(10, 'Charity', 1);
 		self::cat(11, 'NGO', 1);
 		self::cat(12, 'Social', 1);
+		self::cat(13, 'Fashion', 1);
 		
 		self::cat(101, 'News', null);
 		self::cat(102, 'Peiner-News', 101);
@@ -365,6 +371,8 @@ final class Install
 		self::partner(5, 'Vortagsbaeckerei', 3, 'Vortagsbaeckerei', 'Bahnhofstraße 5', '31224', 'Peine', 'DE', 'DE', '+49 176 218 23 784', $descr, 'https://www.facebook.com/people/Backlife-Caf%C3%A9-Vortagsb%C3%A4ckerei-Peine/100057060595562/');
 		$descr = 'Der FIPS-Peine betreut Psychisch-Behinderte.<br/>Diese arbeiten in einigen Geschäften in der Innenstadt, wie z.B. Gebrauchtwaren oder Kaffees.';
 		self::partner(6, 'FIPS', 12, 'FIPS Peine', 'Hagenstr. 12', '31224', 'Peine', 'DE', 'DE', '+49 5171 50 89 25', $descr, 'https://www.fips-ev.de/treffen/beratungs-begegnungsst%C3%A4tte-peine/');
+		$descr = 'Der FIPS-Peine betreut Psychisch-Behinderte.<br/>Diese arbeiten in einigen Geschäften in der Innenstadt, wie z.B. Gebrauchtwaren oder Kaffees.';
+		self::partner(7, 'Alex', 13, 'Vereinsschleifen', 'Schäferstraße', '31224', 'Peine', 'DE', 'DE', '+49 123 456 789', $descr, 'https://gizmore.124.de');
 		return true;
 	}
 	
@@ -572,6 +580,10 @@ EOT;
 		self::offer(8, 6, 10,  1.00, 10.00,  2, $now, '2022-11-09',
 			'buchwurm', 'Belesen',
 			'Ein Gutschein für ein Buch im Bücherwurm Gebrauchtleseartikelgeschäft.');
+		
+		self::offer(9, 7, 5,   5.00, 10.00,  2, $now, '2022-11-09',
+			'seife', 'Endlosschleife',
+			'Ein Gutschein für ein paar Schleifen vom Alex und Tanja.');
 		
 		return true;
 	}
