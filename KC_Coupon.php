@@ -154,24 +154,26 @@ class KC_Coupon extends GDO
 			'kc_entered' => Time::getDate(),
 			'kc_enterer' => $user->getID(),
 		]);
+		
 		$user->increaseSetting($kkn, 'stars_available', $stars);
 		$user->increaseSetting($kkn, 'stars_entered', $stars);
 		$user->increaseSetting($kkn, 'stars_earned', $stars);
-		$kk->increaseConfigVar('stars_entered');
+		
+		$kk->increaseConfigVar('coupons_entered');
+		$kk->increaseConfigVar('stars_entered', $stars);
 		if ($isActivation)
 		{
 			if ($this->isInvitation())
 			{
 				$kk->increaseConfigVar('users_invited');
 				$kk->increaseConfigVar('stars_invited', $stars);
-				$creator->increaseConfigVar('users_invited');
-				$creator->increaseConfigVar('stars_invited', $stars);
-				
+				$kk->increaseConfigVar('diamonds_created', $stars);
+				$creator->increaseSetting('KassiererCard', 'users_invited');
+				$creator->increaseSetting('KassiererCard', 'stars_invited', $stars);
 				$creator->increaseSetting('KassiererCard', 'diamonds_earned', $stars);
+				$this->sendDiamondMail($user);
 			}
 		}
-		$kk->increaseConfigVar('coupons_entered');
-		odule_KassiererCard::instance()->increaseConfigVar('stars_entered');
 	}
 	
 	public static function onActivation(GDO_User $user, ?string $token): void

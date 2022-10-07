@@ -87,17 +87,23 @@ oder zeigen Sie Ihrem Mitarbeiter den QR-Code.',
 'redeem_offer' => 'Angebot einlösen','all_offers' => 'alle Angebote','kk_info_redeem_offer' => 'Hier können Sie ein Angebot einlösen.<br/>Du findest %s im linken Menü.<br/>
 Bitte beachten Sie, dass Sie den Einlösevorgang nicht abbrechen können,
 nachdem Sie hier auf die Schaltfläche gedrückt haben!',
-'err_kk_offer_totaled' => 'Dieses Angebot ist abgeschlossen, da es %s/%s Mal eingelöst wurde.',# Redeem Now
+'err_kk_offer_totaled' => 'Dieses Angebot ist abgeschlossen, da es %s/%s Mal eingelöst wurde.',
+# Redeem Now
 'msg_redeem_started' => 'Sie fordern das Angebot jetzt an!','kk_info_redeem_offer_now' => 'Du <b>entweder</b> lässt den Arbeiter bei %s die OK-Taste drücken, oder du drückst den QR-Code-Button und lässt den Arbeiter scannen.<br/>So oder so, es gibt es kein Weg zurück jetzt. Sie haben das Angebot angenommen!',
 
 # Granted
-'granted_coupons' => 'Eingelöste Gutscheine',# Employees
-'list_kassierercard_employees' => '%s Mitarbeiter','li_kk_working' => '%s arbeitet seit %s bei %s.','li_kk_working_sub' => 'Sie hat %s Sterne gesammelt und %s Angebote eingelöst.',# Biz
-'owner' => 'Eigentümer','create_business' => 'Arbeitgeber erstellen','kk_info_crud_business' => 'Hier können Sie ein neues Geschäft mit Kassierer hinzufügen.<br/>Vielleicht möchten Sie zuerst %s.','biz_participating' => 'Offizieller Arbeitgeber seit','biz_declining' => 'Uns abgelehnt bei','btn_biz_emplyoees' => '%s Mitarbeiter',# Coupons
-'li_kk_coupon_entered' => 'Eingetragen am %s von %s.',# The Team
+'granted_coupons' => 'Eingelöste Gutscheine',
+# Employees
+'list_kassierercard_employees' => '%s Mitarbeiter','li_kk_working' => '%s arbeitet seit %s bei %s.','li_kk_working_sub' => 'Sie hat %s Sterne gesammelt und %s Angebote eingelöst.',
+# Biz
+'owner' => 'Eigentümer','create_business' => 'Arbeitgeber erstellen','kk_info_crud_business' => 'Hier können Sie ein neues Geschäft mit Kassierer hinzufügen.<br/>Vielleicht möchten Sie zuerst %s.','biz_participating' => 'Offizieller Arbeitgeber seit','biz_declining' => 'Uns abgelehnt bei','btn_biz_emplyoees' => '%s Mitarbeiter',
+# Coupons
+'li_kk_coupon_entered' => 'Eingetragen am %s von %s.',
+# The Team
 'the_team' => 'Das Team','the_team_paragraph' => 'Diese Seite ist den %s Teammitgliedern gewidmet.<br/>Hallo!','the_admins' => 'Die Admins','the_admins_paragraph' => '%s Admins haben Zugriff auf alles. Vertraue ihnen nicht!',
 'the_staff' => 'Das Personal','the_staff_paragraph' => '%s Mitarbeiter haben Zugriff auf fast alles. Sie zensieren den Spam und erhalten viele E-Mails. Vertraue ihnen nicht!',
-'the_kk_manager' => 'Die Manager','the_kk_manager_paragraph' => '%s Manager beliefern die Distributoren mit gedruckten Karten und Flyern.','the_kk_distributor' => 'Die Manager','the_kk_distributor_paragraph' => '%s Distributoren führen Merchandise-Arbeiten durch und spielen Testkunden.',# Invite
+'the_kk_manager' => 'Die Manager','the_kk_manager_paragraph' => '%s Manager beliefern die Distributoren mit gedruckten Karten und Flyern.','the_kk_distributor' => 'Die Manager','the_kk_distributor_paragraph' => '%s Distributoren führen Merchandise-Arbeiten durch und spielen Testkunden.',
+# Invite
 'invite_users' => 'Personen einladen','kk_info_invite_stars' => 'Hier können Sie weitere Personen zu %s einladen.Das Versenden einer Einladung kostet %s/%s Sterne.<br/>
 Wählen Sie außerdem die Anzahl der Sterne für Ihre Einladung,
 und wenn die eingeladene Person aktiviert,
@@ -105,7 +111,10 @@ Sie erhalten den gleichen Betrag wie Diamanten zurück.
 Sonst gehen deine Sterne verloren und werden zu Staub im Wind!<br/>
 Derzeit sind Diamanten wertlos, außer für unsere Wettbewerbe.',
 'msg_kk_sent_invitation' => 'Sie haben %s ausgegeben, um eine Einladung an %s zu senden. Außerdem sind %s Sterne Ihr Geschenk an sie, die in Diamanten umgewandelt werden, sobald sie sich anmelden.',
-'mailsubj_kk_invite' => '%s: Einladung als %s','mailbody_kk_invite' => 'Hallo lieber zukünftiger User,%s hat Sie als %s auf %s eingeladen.
+
+	# Mail Invite
+	
+	'mailsubj_kk_invite' => '%s: Einladung als %s','mailbody_kk_invite' => 'Hallo lieber zukünftiger User,%s hat Sie als %s auf %s eingeladen.
 
 Wir sind ein Prämiensystem (mehr) für Arbeitnehmer statt nur für die Kunden,
 und sind unabhängig, bieten echte Waren an, wie einen Kaffee oder einen Döner.
@@ -120,6 +129,9 @@ Besuchen Sie uns unter: %s
 
 Mit freundlichen Grüße,
 Das %3$s-System',
+	
+	# Mail Invite Diamonds
+	
 'mail_subj_kk_invited_diamonds' => '%s: %s hat sich uns angeschlossen!','mail_subj_kk_invited_diamonds' => 'Lieber %s,%s (%s) ist Ihrer Einladung zu %s gefolgt und wurde gerade aktiviert.
 Ihre Investition von %s Sternen wird in %s Diamanten umgewandelt,
 von denen Sie jetzt %s haben.

@@ -19,7 +19,6 @@ use GDO\File\GDT_ImageFile;
 use GDO\File\GDO_File;
 use GDO\DB\Query;
 use GDO\Payment\GDT_Money;
-use GDO\Core\GDT_Virtual;
 
 /**
  * An offer for a cashier.

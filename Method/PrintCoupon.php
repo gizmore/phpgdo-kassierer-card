@@ -14,7 +14,6 @@ use GDO\UI\GDT_Image;
 use GDO\Core\GDT;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_User;
-use GDO\KassiererCard\GDT_Slogan;
 
 /**
  * Print one of your coupons.

@@ -69,7 +69,6 @@ final class Install
 		{
 			Module_Perf::instance()->saveConfigVar('hook_sidebar', 'staff');
 			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '1');
-			Module_Core::instance()->saveConfigVar('force_ssl', '1');
 			Module_Javascript::instance()->saveConfigVar('minify_js', 'concat');
 			Module_CSS::instance()->saveConfigVar('minify_css', '1');
 		}
