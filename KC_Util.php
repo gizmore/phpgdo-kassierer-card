@@ -136,7 +136,7 @@ final class KC_Util
 		return ceil($euro * $starsPerEuro);
 	}
 	
-	public static function starsToEuro(int $stars) : float
+	public static function starsToEuro(float $stars) : float
 	{
 		$starsPerEuro = Module_KassiererCard::instance()->cfgStarsPerEuro();
 		return round($stars / $starsPerEuro, 2);
