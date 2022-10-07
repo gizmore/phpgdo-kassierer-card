@@ -31,9 +31,9 @@ final class AdminGrantStars extends MethodForm
 	public function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
-			GDT_User::make('user')->notNull(),
-			GDT_CouponStars::make('stars')->max(1000),
 			GDT_String::make('reason'),
+			GDT_User::make('user')->notNull(),
+			GDT_CouponStars::make('stars')->min(1)->max(1000)->notNull(),
 			GDT_AntiCSRF::make(),
 		);
 		$form->actions()->addFields(GDT_Submit::make());

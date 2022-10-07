@@ -45,7 +45,8 @@ final class Install
 			self::installBusinesses() &&
 			self::installPartners() &&
 			self::installNews() &&
-			self::installOffers();
+			self::installOffers() &&
+			self::installCards();
 	}
 
 	private static function installRoutes() : bool
@@ -207,7 +208,7 @@ final class Install
 		$accounts = require 'account_seeds.php';
 		foreach ($accounts as $data)
 		{
-			echo "Installing user {$data[0]}\n";
+			echo "Installing user {$data[1]}\n";
 			self::installUser(...$data);
 		}
 		
@@ -283,14 +284,13 @@ final class Install
 	###########
 	private static function installBusinesses() : bool
 	{
-		$i = 1;
-		self::biz($i++, 'REWE Markt Peine',   2, 'Schäferstraße 12',         '31224', 'Peine', 52.32101586390254, 10.24893384967010,  '+49 5171 58 315 87');
-		self::biz($i++, 'REWE Markt Peine',   2, 'Celler Straße 51-55',      '31224', 'Peine', 52.32999367361805, 10.23279618918122,  '+49 5171 712 82');
-		self::biz($i++, 'EDEKA Center Peine', 2, 'Friedrich-Ebert-Platz 25', '31226', 'Peine', 52.31740702775802, 10.22991038947184,  '+49 5171 95 50');
-		self::biz($i++, 'Penny Markt Peine',  2, 'Duttenstedter Str. 136',   '31224', 'Peine', 52.32887785039469, 10.25016182443094,  '+49 221 2019 9959');
-		self::biz($i++, 'NP-Markt Peine',     2, 'Sedanstraße 41',           '31224', 'Peine', 52.32509004097773, 10.23358606569167,  '+49 5171 14 145');
-		self::biz($i++, 'Jawoll Peine',       2, 'Woltorfer Str. 102',       '31224', 'Peine', 52.31962953955457, 10.24794936924906,  '+49 05191 980 30');
-		self::biz($i++, 'Café Mitte Peine',  12, 'Breite Straße 48',         '31224', 'Peine', 52.32208090312398, 10.226910900342983, '+49 05171 58 777 55');
+		self::biz(1, 'REWE Markt Peine',   2, 'Schäferstraße 12',         '31224', 'Peine', 52.32101586390254, 10.24893384967010,  '+49 5171 58 315 87');
+		self::biz(2, 'REWE Markt Peine',   2, 'Celler Straße 51-55',      '31224', 'Peine', 52.32999367361805, 10.23279618918122,  '+49 5171 712 82');
+		self::biz(3, 'EDEKA Center Peine', 2, 'Friedrich-Ebert-Platz 25', '31226', 'Peine', 52.31740702775802, 10.22991038947184,  '+49 5171 95 50');
+		self::biz(4, 'Penny Markt Peine',  2, 'Duttenstedter Str. 136',   '31224', 'Peine', 52.32887785039469, 10.25016182443094,  '+49 221 2019 9959');
+		self::biz(5, 'NP-Markt Peine',     2, 'Sedanstraße 41',           '31224', 'Peine', 52.32509004097773, 10.23358606569167,  '+49 5171 14 145');
+		self::biz(6, 'Jawoll Peine',       2, 'Woltorfer Str. 102',       '31224', 'Peine', 52.31962953955457, 10.24794936924906,  '+49 05191 980 30');
+		self::biz(7, 'Café Mitte Peine',  12, 'Breite Straße 48',         '31224', 'Peine', 52.32208090312398, 10.226910900342983, '+49 05171 58 777 55');
 		return true;
 	}
 	
@@ -490,7 +490,7 @@ Die ersten Angebote gehen auf unsere Kappe!
 
  - gizmore
 EOT;
-		$date = '2022-09-24 13:37:42.666';
+		$date = Time::getDate();
 		self::installNewsEntry(1, 102, $date, 'en', $titleEn, $messageEn);
 		self::installNewsEntry(1, 102, $date, 'de', $titleDe, $messageDe);
 		
@@ -633,5 +633,51 @@ EOT;
 			])->insert();
 		}
 	}
-
+	
+	#############
+	### Cards ###
+	#############
+	private static function installCards() : bool
+	{
+		$cc = GDT_AccountType::CASHIER;
+		self::coupon(2, 'WANNA2TEAM', $cc, null, 35, 'Test-Cashier-1',  false);
+		self::coupon(2, 'WANNA4TEAM', $cc,    1, 25, 'Test-Cashier-2',  false);
+		$cc = GDT_AccountType::CUSTOMER;
+		self::coupon(2, 'TEST123401', $cc, null, 15, 'Test-Customer-1', false);
+		return true;
+	}
+	
+	private static function coupon(int $creatorId, string $token, string $accountType, ?int $offerId, int $stars, string $info, bool $isInvitation=false): KC_Coupon
+	{
+		$now = Time::getDate();
+		if (!($coupon = KC_Coupon::getBy('kc_token', $token)))
+		{
+			$coupon = KC_Coupon::blank([
+				'kc_token' => $token,
+				'kc_type' => $accountType,
+				'kc_invitation' => $isInvitation ? '1' : '0',
+				'kc_stars' => $stars,
+				'kc_info' => $info,
+				'kc_offer' => $offerId,
+				'kc_creator' => $creatorId,
+				'kc_created' => $now,
+				'kc_printed' => $now,
+			])->insert();
+		}
+		else
+		{
+			$coupon->saveVars([
+				'kc_type' => $accountType,
+				'kc_invitation' => $isInvitation ? '1' : '0',
+				'kc_stars' => $stars,
+				'kc_info' => $info,
+				'kc_offer' => $offerId,
+				'kc_creator' => $creatorId,
+				'kc_created' => $now,
+				'kc_printed' => $now,
+			]);
+		}
+		return $coupon;
+	}
+	
 }

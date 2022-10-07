@@ -10,6 +10,8 @@ use GDO\KassiererCard\KC_Offer;
 use GDO\User\GDO_User;
 use GDO\KassiererCard\Method\CreateCoupon;
 use GDO\KassiererCard\Module_KassiererCard;
+use function PHPUnit\Framework\assertGreaterThan;
+use GDO\KassiererCard\KC_Util;
 
 final class KCTest extends TestCase
 {
@@ -35,10 +37,19 @@ final class KCTest extends TestCase
 		assertGreaterThanOrEqual(6, $offr, 'Test if kk offers were created.');
 	}
 	
+	public function testCouponGifting() : void
+	{
+		$user = GDO_User::current();
+		$result = $this->cli('kassierercard.admingrantstars --reason=You suck,gizmore,100');
+		assertStringContainsString('granted', $result);
+		$this->assertOK("Test if kassierercard.admingrantstars crashes.");
+		assertGreaterThan(99, KC_Util::numStarsAvailable($user), "Test if admingrantstars works in CLI.");
+	}
+	
 	public function testCouponCreation() : void
 	{
-		$freeStars = Module_KassiererCard::instance()->cfgFreeStarsPerPeriod(); 
 		$this->testuser('Kunde1');
+		$freeStars = Module_KassiererCard::instance()->cfgFreeStarsPerPeriod(); 
 		$p = [
 			'kc_stars' => $freeStars,
 		];

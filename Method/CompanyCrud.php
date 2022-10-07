@@ -17,7 +17,7 @@ final class CompanyCrud extends MethodCrud
 	{
 		/** @var $business KC_Partner **/
 		$business = $gdo;
-		$business->getOwner() === GDO_User::current();
+		$business->getUser() === GDO_User::current();
 	}
 	
 	public function gdoTable(): GDO

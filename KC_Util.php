@@ -142,4 +142,12 @@ final class KC_Util
 		return round($stars / $starsPerEuro, 2);
 	}
 
+	################
+	### Diamonds ###
+	################
+	public static function numDiamondsTotal(GDO_User $user): int
+	{
+		return $user->settingVar('KassiererCard', 'diamonds_earned');
+	}
+	
 }

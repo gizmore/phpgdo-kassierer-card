@@ -16,6 +16,8 @@ As we are open as one can be... the public may see it as well.</p>
 <li>Setup Contract, Testamentum and ITMB stuff.</li>
 <li>Individual Guestbook for users?</li>
 <li>Do invitation and invest own stars. On activation, generate diamonds.</li>
+<li>A new competition: Best Card-Backside arts. / Designer Contest / Team Member?</li>
+<li>Print the Card-Number beside the QR-Code maybe.</li>
 <li></li>
 
 

@@ -17,6 +17,11 @@ class FrontSide extends Method
 	
 	public function isAjax() : bool { return true; }
 	
+	public function getMethodTitle(): string
+	{
+		return t('front_side');
+	}
+	
 	public function gdoParameters() : array
 	{
 		return [
@@ -31,7 +36,7 @@ class FrontSide extends Method
 	
 	public function execute()
 	{
-		header('Content-Type: image/svg+xml');
+		hdr('Content-Type: image/svg+xml');
 		$tpl = $this->getSVGTemplateName();
 		$tVars = ['coupon' => $this->getCoupon()];
 		return GDT_Template::make()->template('KassiererCard', $tpl, $tVars);

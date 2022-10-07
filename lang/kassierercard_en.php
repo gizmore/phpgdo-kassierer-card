@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\lang;
 return [
+	'module_kassierercard' => 'Cashier-Card',
 	### Nav
 	'sitename' => 'KassiererCard.org',
 	'link_kk_home' => 'KassiererCard.org',
@@ -22,7 +23,10 @@ return [
 	##############
 	### Config ###
 	##############
-	'cfg_free_stars_period' => 'Free Stars per period.',
+	'cfg_free_stars_period' => 'Free Stars per period',
+	'cfg_token_request_amt' => 'Coupons Entering: Tries',
+	'cfg_token_request_time' => 'Coupons Entering: Blocktime',
+	
 	'cfg_coupons_created' => 'Total Coupons Created',
 	'cfg_coupons_printed' => 'Total Coupons Printed',
 	'cfg_coupons_entered' => 'Total Coupons Entered',
@@ -36,6 +40,9 @@ return [
 	'cfg_euros_fullfilled' => 'Total Euros Generated',
 	'cfg_euros_earned' => 'Total Euros Earned',
 	'cfg_euros_revenue' => 'Total Euros Revenue',
+	
+	# Tooltips
+	'tt_cfg_token_request_time' => 'Duration: how much time for blocking coupon tokens?',
 	'tt_cfg_coupons_created' => 'Total Coupons Created',
 	'tt_cfg_coupons_printed' => 'Total Coupons Printed',
 	'tt_cfg_coupons_entered' => 'Total Coupons Entered',
@@ -76,7 +83,7 @@ The %4$s Team',
 	'msg_signup_code_created' => 'A signup code for a %s has been created.',
 	'err_kk_no_coupon' => 'You cannot create coupons this way!',
 	'kk_invite_slogan' => 'Invitation as a %s',
-	'msg_signup_stars' => 'Welcome to %s; You have earned %s stars for your invitation.',
+	'msg_signup_stars' => 'Welcome on %s. You have earned %s stars with your invitation and now have %s.',
 	'kc_info' => 'Invitation Note',
 	'kc_entered' => 'Entered at',
 	
@@ -104,6 +111,7 @@ The %4$s Team',
 	'slogan' => 'Slogan',
 	'kc_token' => 'Code',
 	'kc_offer' => 'Coupon Offer',
+	'kc_enterer' => 'Entered',
 	'offers' => 'Offers',
 	'offers_available' => 'Offers available',
 	'favorite_meal' => 'Favorite Meal',
@@ -134,21 +142,6 @@ The %4$s Team',
 	'favorite_book' => 'Favorite Book',
 	'your_dream' => 'Your Dream',
 	'favorite_religion' => 'Favorite Religion',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	'' => '',
-	// 	'stars_purchased' => 'Extra Stars',
-// 	'stars_created' => 'Coupon-Stars Created',
-// 	'tt_stars_created' => 'Number of star coupons printed and entered. Also, stars created as gift, as a team member.',
-// 	'stars_entered' => 'Stars Entererd',
-// 	'stars_available' => 'Stars Available',
-// 	'stars_redeemed' => 'Stars Redeemed',
-// 	'offers_redeemed' => 'Offers Redeemed',
-// 	'offers_created' => 'Offers Created',
-// 	'diamonds_earned' => 'Diamonds',
-// 	'your_dream' => 'Your Dream',
 // 	'qrcode_size' => 'QR-Code Size',
 	
 	### Methods
@@ -204,7 +197,8 @@ If you have questions or concerns, please <a href="%s">contact us</a>.',
 	'err_kk_coupon_unknown' => 'This coupon is unknown or has been entered already.',
 	'msg_entered_stars' => 'Your entered code is valid and you earned %s stars.',
 	'err_kk_coupon_used' => 'The code you entered was already entered.',
-
+	'err_kc_token_tries' => 'You enter too much codes too quickly. Please wait %s.',
+	
 	# Entered
 	'entered_coupons' => 'Entered Coupons',
 	'list_kassierercard_enteredcoupons' => '%s Entered Coupons',
@@ -230,6 +224,8 @@ If you have questions or concerns, please <a href="%s">contact us</a>.',
 	'err_kk_create_stars' => 'You want to create %s stars, but you could only add %s more stars this period. You already created %s stars this period.',
 	
 	# Print
+	'back_side' => 'Back-Side',
+	'front_side' => 'Front-Side',
 	'mt_kassierercard_printcoupon' => 'Print Coupon',
 	'btn_qrcode' => 'QR-Code',
 	'kk_info_print_coupon' => 'Print one of your coupons.<br/>
@@ -298,7 +294,7 @@ after you press the button here!',
 It cost %s/%s stars to send an invitation.<br/>
 Additionally, select the number of stars for your invitation,
 and when the invited person activates,
-you get the same amount as diamonds back.
+you get diamonds as reward.
 Else your stars are lost and become dust in the wind!<br/>
 Currently diamonds are worthless, except for our competitions.',
 	'msg_kk_sent_invitation' => 'You have spent %s to send an invitation to %s. Additionally, %s stars are your gift to them which get converted to diamonds as soon as they sign up.',
@@ -321,7 +317,7 @@ Check us out at: %s
 Kind Regards,
 The %3$s System',
 	'mail_subj_kk_invited_diamonds' => '%s: %s joined us!',
-	'mail_subj_kk_invited_diamonds' => 'Dear %s,
+	'mail_body_kk_invited_diamonds' => 'Dear %s,
 
 %s (%s) has followed your invitation towards %s and just got activated.
 You get your investment of %s stars turned into %s diamonds,
@@ -334,4 +330,22 @@ The %s Team',
 	
 	# Impressum
 	'responsible_is' => 'Responsible for this is:',
+
+	# Privacy
+	'kk_info_privacy_div' => 'KassiererCard.org saves your IP for some time.',
+
+	# Welcome PM
+	'pm_welcome_title' => 'Welcome to %s',
+	'pm_welcome_message' => 'Hello %s,
+<br/>
+Welcome to %s,<br/>
+the bonus system that goes the other way round,<br/>
+upside down, and head over heels!<br/>
+<br/>
+The site is brand new,
+and we can quickly implement and change features.<br/>
+Please help us to give more meaning to people and nature,
+instead of money.<br/>
+<br/>
+ - gizmore!',
 ];

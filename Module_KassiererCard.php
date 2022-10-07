@@ -22,6 +22,8 @@ use GDO\UI\GDT_Divider;
 use GDO\Core\Javascript;
 use GDO\Core\GDT_Checkbox;
 use GDO\Payment\GDT_Money;
+use GDO\Date\GDT_Duration;
+use GDO\Date\Time;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -52,10 +54,10 @@ final class Module_KassiererCard extends GDO_Module
 			'Admin', 'Ads', 'Avatar',
 			'Backup', 'Birthday', 'Bootstrap5Theme',
 			'Category', 'Contact', 'Classic',
-			'CountryCoordinates', 'CountryRestrictions', 'CSS',
-			'DoubleAccounts',
+			'CountryCoordinates', 'CountryRestrictions',
+			'Cronjob', 'CSS', 'DoubleAccounts',
 			'FontAtkinson', 'FontAwesome', 'Forum',
-			'IP2Country',
+			'GTranslate', 'IP2Country',
 			'Javascript', 'JQueryAutocomplete',
 			'Licenses', 'Links', 'LoC', 'Login',
 			'Maps', 'Mail', 'Maps', 'Markdown', 'News',
@@ -80,6 +82,14 @@ final class Module_KassiererCard extends GDO_Module
 		];
 	}
 	
+	public function getPrivacyRelatedFields(): array
+	{
+		return [
+			GDT_Divider::make('kk_info_privacy_div'),
+			$this->getConfigColumn('token_request_time'),
+		];
+	}
+	
 	##############
 	### Config ###
 	##############
@@ -90,23 +100,26 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Checkbox::make('pre_alpha')->initial('0'),
 			# Balance
 			GDT_UInt::make('stars_per_euro')->min(1)->max(10000)->initial('10'),
-			GDT_UInt::make('star_cost_per_invite')->min(0)->max(1000)->initial('1'),
+			GDT_UInt::make('star_cost_per_invite')->min(0)->max(1000)->initial('1'), # stars required to create an invite
 			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
 			GDT_UInt::make('level_gain_per_diamond')->min(0)->max(10000)->initial('10'),
 			GDT_UInt::make('customer_coupon_modulus')->min(1)->max(100)->initial('5'),
-			GDT_UInt::make('cashier_stars_per_invitation')->max(10000)->initial('1'),
-			GDT_UInt::make('customer_stars_per_invitation')->max(10000)->initial('2'),
+			GDT_UInt::make('cashier_stars_per_invitation')->max(10000)->initial('2'), # stars earned fur successful inivite
+			GDT_UInt::make('customer_stars_per_invitation')->max(10000)->initial('3'),
 			GDT_UInt::make('stars_per_poll')->max(100)->initial('1'),
+			GDT_UInt::make('stars_per_diamond')->min(1)->max(1000)->initial('1'),
+			GDT_UInt::make('token_request_amt')->min(1)->max(100)->initial('5'),
+			GDT_Duration::make('token_request_time')->max(Time::ONE_DAY)->initial('5m'),
 			# Stats
+			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'),
 			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'), #
 			GDT_Badge::make('coupons_printed')->initial('0')->label('cfg_coupons_printed')->tooltip('tt_cfg_coupons_printed'), #
 			GDT_Badge::make('coupons_entered')->initial('0')->label('cfg_coupons_entered')->tooltip('tt_cfg_coupons_entered'), 
 			GDT_Badge::make('stars_created')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'), #
-			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
-			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'),
-			GDT_Badge::make('stars_purchased')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
 			GDT_Badge::make('stars_entered')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
+			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
+			GDT_Badge::make('stars_purchased')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
 			GDT_Badge::make('stars_redeemed')->initial('0')->label('cfg_stars_redeemed')->tooltip('tt_cfg_stars_redeemed'),
 			GDT_Badge::make('offers_created')->initial('0')->label('cfg_offers_created')->tooltip('tt_cfg_offers_created'),
 			GDT_Badge::make('offers_redeemed')->initial('0')->label('cfg_offers_redeemed')->tooltip('tt_cfg_offers_redeemed'),
@@ -120,12 +133,16 @@ final class Module_KassiererCard extends GDO_Module
 	public function cfgPreAlpha() : bool { return $this->getConfigValue('pre_alpha'); }
 	public function cfgStarsPerEuro() : int { return $this->getConfigValue('stars_per_euro'); }
 	public function cfgStarsPerInvite() : int { return $this->getConfigValue('star_cost_per_invite'); }
+	public function cfgStarsPerPoll() : int { return $this->getConfigValue('star_cost_per_invite'); }
+	public function cfgStarsPerDiamond() : int { return $this->getConfigValue('stars_per_diamond'); }
 	public function cfgFreeStarsPerPeriod() : int { return $this->getConfigValue('free_stars_per_period'); }
 	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
 	public function cfgLevelPerDiamond() : int { return $this->getConfigValue('level_gain_per_diamond'); }
 	public function cfgCustomerCouponModulus() : int { return $this->getConfigValue('customer_coupon_modulus'); }
 	public function cfgCashierInviteStars() : int { return $this->getConfigValue('cashier_stars_per_invitation'); }
 	public function cfgCustomerInviteStars() : int { return $this->getConfigValue('customer_stars_per_invitation'); }
+	public function cfgTokenRequestAmt() : int { return $this->getConfigValue('token_request_amt'); }
+	public function cfgTokenRequestTime() : float { return $this->getConfigValue('token_request_time'); }
 	
 	################
 	### Settings ###
@@ -134,22 +151,20 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'),
-			GDT_Badge::make('stars_purchased')->tooltip('tt_stars_purchased')->icon('money')->label('cfg_stars_purchased'),
+			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'), # num users invited
+			GDT_Badge::make('stars_available')->tooltip('tt_stars_available')->icon('sun'), # stars earned - stars redeemed
 			GDT_Badge::make('stars_created')->tooltip('tt_stars_created')->icon('bee'),
-			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
-			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'),
-			GDT_Badge::make('stars_entered')->tooltip('tt_stars_entered')->icon('bee'),
-			GDT_Badge::make('stars_earned')->tooltip('tt_stars_earned')->icon('bee'),
-			GDT_Badge::make('stars_available')->tooltip('tt_stars_available')->icon('sun'),
-			GDT_Badge::make('stars_redeemed')->tooltip('tt_stars_redeemed')->icon('star'),
-			GDT_Badge::make('offers_redeemed')->tooltip('tt_offers_redeemed')->icon('star'),
-			GDT_Badge::make('offers_created')->tooltip('tt_offers_created')->icon('star'),
-			GDT_Badge::make('offers_fullfilled')->tooltip('tt_offers_fullfilled')->icon('bee'),
-			GDT_Badge::make('offers_fullfilled')->tooltip('tt_stars_fullfilled')->icon('bee'),
-			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
-			GDT_Badge::make('diamonds_earned')->tooltip('tt_diamonds_earned')->icon('sun'),
-			GDT_Money::make('euros_fullfilled')->tooltip('tt_euros_fullfilled')->label('cfg_euros_fullfilled'),
-			GDT_Money::make('euros_invested')->tooltip('tt_cfg_euros_invested')->label('cfg_euros_invested'),
+			GDT_Badge::make('stars_earned')->tooltip('tt_stars_earned')->icon('bee'), # stars earned via all means
+			GDT_Badge::make('stars_entered')->tooltip('tt_stars_entered')->icon('bee'), # stars entered on website and invite
+			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'), # stars spent on invite (-1?) 
+			GDT_Badge::make('stars_purchased')->tooltip('tt_stars_purchased')->icon('money')->label('cfg_stars_purchased'),
+			GDT_Badge::make('stars_redeemed')->tooltip('tt_stars_redeemed')->icon('star'), # stars taken for offer redeem
+			GDT_Badge::make('offers_created')->tooltip('tt_offers_created')->icon('star'), # partner buys offer
+			GDT_Badge::make('offers_fullfilled')->label('cfg_offers_fullfilled')->tooltip('tt_offers_fullfilled')->icon('bee'), # company fullfills
+			GDT_Badge::make('offers_redeemed')->tooltip('tt_offers_redeemed')->icon('star'), # offers taken
+			GDT_Badge::make('diamonds_earned')->tooltip('tt_diamonds_earned')->icon('sun'), # offers fulfilled stars
+			GDT_Money::make('euros_fullfilled')->tooltip('tt_euros_fullfilled')->label('cfg_euros_fullfilled'), # offer worth
+			GDT_Money::make('euros_invested')->tooltip('tt_cfg_euros_invested')->label('cfg_euros_invested'), # offer for euro purchased
 		];
 	}
 	

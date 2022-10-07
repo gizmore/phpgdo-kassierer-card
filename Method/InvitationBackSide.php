@@ -10,4 +10,9 @@ final class InvitationBackSide extends InvitationFrontSide
 {
 	protected function getSVGTemplateName() : string { return 'svg/card_back_invitation.php'; }
 	
+	public function getMethodTitle(): string
+	{
+		return t('back_side');
+	}
+
 }

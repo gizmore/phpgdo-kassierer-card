@@ -32,14 +32,9 @@ final class GDT_CouponType extends GDT_Enum
 	#################
 	### No Coupon ###
 	#################
-// 	public bool $noCoupon = false;
-	
 	public function noCoupon(bool $noCoupon=true) : self
 	{
-// 		$this->noCoupon = $noCoupon;
-// 		$this->enumValues('kk_cashier', 'kk_company', 'kk_customer');
 		$this->enumValues = Arrays::remove($this->enumValues, 'kk_coupon');
-// 		return $this;
 		return $this;
 	}
 
@@ -51,31 +46,6 @@ final class GDT_CouponType extends GDT_Enum
 	{
 		$this->enumValues = Arrays::remove($this->enumValues, 'kk_company');
 		return $this;
-// 		$this->enumValues('kk_cashier', 'kk_company', 'kk_customer');
 	}
 	
-// 	public function validateNoCoupon($value) : bool
-// 	{
-// 		if (!$this->noCoupon)
-// 		{
-// 			return true;
-// 		}
-// 		if ($value !== 'kk_coupon')
-// 		{
-// 			return true;
-// 		}
-// 		return $this->error('err_kk_no_coupon');
-// 	}
-	
-	################
-	### Validate ###
-	################
-// 	public function validate($value) : bool
-// 	{
-// 		if (!(parent::validate($value)))
-// 		{
-// 			return false;
-// 		}
-// 		return $this->validateNoCoupon($value);
-// 	}
 }

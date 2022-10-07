@@ -43,7 +43,7 @@ class KC_Coupon extends GDO
 			GDT_CreatedBy::make('kc_creator'),
 			GDT_CreatedAt::make('kc_created'),
 			GDT_Timestamp::make('kc_printed'),
-			GDT_User::make('kc_enterer'),
+			GDT_User::make('kc_enterer')->label('kc_enterer'),
 			GDT_Timestamp::make('kc_entered'),
 			
 			GDT_Index::make('index_offers')->indexColumns('kc_offer'),
@@ -163,15 +163,20 @@ class KC_Coupon extends GDO
 		$kk->increaseConfigVar('stars_entered', $stars);
 		if ($isActivation)
 		{
-			if ($this->isInvitation())
+			if ($this->isUserInvitation())
 			{
+				$level = $this->levelForStars();
+				$diamonds = $this->diamondsForInvitation();
 				$kk->increaseConfigVar('users_invited');
 				$kk->increaseConfigVar('stars_invited', $stars);
-				$kk->increaseConfigVar('diamonds_created', $stars);
+				$kk->increaseConfigVar('diamonds_created', $diamonds);
 				$creator->increaseSetting('KassiererCard', 'users_invited');
+				$creator->increaseSetting('KassiererCard', 'stars_available', $stars);
+				$creator->increaseSetting('KassiererCard', 'stars_earned', $stars);
 				$creator->increaseSetting('KassiererCard', 'stars_invited', $stars);
-				$creator->increaseSetting('KassiererCard', 'diamonds_earned', $stars);
-				$this->sendDiamondMail($user);
+				$creator->increaseSetting('KassiererCard', 'diamonds_earned', $diamonds);
+				$creator->increase('user_level', $level);
+				$this->sendDiamondMail($user, $diamonds, $level);
 			}
 		}
 	}
@@ -193,10 +198,9 @@ class KC_Coupon extends GDO
 				Website::message('KassiererCard', 'msg_signup_stars', [
 					sitename(),
 					$code->getStars(),
+					KC_Util::numStarsAvailable($user),
 				]);
 			}
-			
-			$code->sendDiamondMail($user);
 		}
 		else
 		{
@@ -206,21 +210,34 @@ class KC_Coupon extends GDO
 		}
 	}
 	
-	private function sendDiamondMail(GDO_User $newUser): void
+	private function sendDiamondMail(GDO_User $newUser, int $diamonds, int $level): void
 	{
 		$creator = $this->getCreator();
 		$mail = Mail::botMail();
 		$mail->setSubject(tusr($creator, 'mail_subj_kk_invited_diamonds', [sitename(), html($newUser->getMail())]));
-		$mail->setSubject(tusr($creator, 'mail_body_kk_invited_diamonds', [
+		$mail->setBody(tusr($creator, 'mail_body_kk_invited_diamonds', [
 			$creator->renderUserName(),
 			$newUser->renderUserName(),
 			$newUser->getMail(),
 			sitename(),
 			$this->getStars(),
+			$diamonds,
+			KC_Util::numDiamondsTotal($creator),
+			$level,
+			$creator->getLevel(),
 		]));
 		$mail->sendToUser($creator);
 	}
-	
+// 	'mail_body_kk_invited_diamonds' => 'Lieber %s,
+// %s (%s) ist Ihrer Einladung zu %s gefolgt und wurde gerade aktiviert.
+// Ihre Investition von %s Sternen wird in %s Diamanten umgewandelt,
+// von denen Sie jetzt %s haben.
+		
+// Ihr Benutzerlevel ist um %s Punkte auf %s gestiegen.
+		
+// Mit freundlichen Grüßen,
+// Das %4$s Team',
+
 	##############
 	### Images ###
 	##############
@@ -387,7 +404,7 @@ class KC_Coupon extends GDO
 	public static function getByToken(string $token, bool $entered=false) : ?self
 	{
 		$reason = '';
-		if (KC_TokenRequest::isBlocked($reason))
+		if (KC_TokenRequest::isBlocked(GDO_User::current(), $reason))
 		{
 			Website::error(sitername(), '%s', [$reason]);
 			return null;
