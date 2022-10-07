@@ -3,6 +3,7 @@ namespace GDO\KassiererCard;
 
 use GDO\Core\GDT;
 use GDO\Core\GDT_Enum;
+use GDO\Util\Arrays;
 
 /**
  * Coupon type changes the URL in QR code to Registration or EnterCode.
@@ -31,36 +32,50 @@ final class GDT_CouponType extends GDT_Enum
 	#################
 	### No Coupon ###
 	#################
-	public $noCoupon = false;
+// 	public bool $noCoupon = false;
 	
 	public function noCoupon(bool $noCoupon=true) : self
 	{
-		$this->noCoupon = $noCoupon;
+// 		$this->noCoupon = $noCoupon;
+// 		$this->enumValues('kk_cashier', 'kk_company', 'kk_customer');
+		$this->enumValues = Arrays::remove($this->enumValues, 'kk_coupon');
+// 		return $this;
 		return $this;
 	}
-	
-	public function validateNoCoupon($value) : bool
+
+	##################
+	### No Company ###
+	##################
+	public bool $noCompany = false;
+	public function noCompany(bool $noCompany=true): self
 	{
-		if (!$this->noCoupon)
-		{
-			return true;
-		}
-		if ($value !== 'kk_coupon')
-		{
-			return true;
-		}
-		return $this->error('err_kk_no_coupon');
+		$this->enumValues = Arrays::remove($this->enumValues, 'kk_company');
+		return $this;
+// 		$this->enumValues('kk_cashier', 'kk_company', 'kk_customer');
 	}
+	
+// 	public function validateNoCoupon($value) : bool
+// 	{
+// 		if (!$this->noCoupon)
+// 		{
+// 			return true;
+// 		}
+// 		if ($value !== 'kk_coupon')
+// 		{
+// 			return true;
+// 		}
+// 		return $this->error('err_kk_no_coupon');
+// 	}
 	
 	################
 	### Validate ###
 	################
-	public function validate($value) : bool
-	{
-		if (!(parent::validate($value)))
-		{
-			return false;
-		}
-		return $this->validateNoCoupon($value);
-	}
+// 	public function validate($value) : bool
+// 	{
+// 		if (!(parent::validate($value)))
+// 		{
+// 			return false;
+// 		}
+// 		return $this->validateNoCoupon($value);
+// 	}
 }

@@ -18,7 +18,7 @@ final class GDT_LeftMenu extends GDT_Menu
 		$mod = Module_KassiererCard::instance();
 		$this->labelRaw(sitename());
 		$this->addFields(
-			GDT_Link::make()->href($mod->href('Offers'))->text('link_kk_offers', [KC_Offer::queryNumActive()])->icon('star'),
+			GDT_Link::make()->href($mod->href('Offers'))->text('link_kk_offers', [KC_Offer::getAvailableOffers()])->icon('star'),
 			GDT_Link::make('link_kk_companys')->href($mod->href('Partners'))->textArgs(KC_Partner::numTotal())->icon('icecream'),
 			GDT_Link::make()->href($mod->href('Competitions'))->icon('trophy')->text('link_kk_competitions', [count(GDT_CompetitionSection::make()->enumValues)]),
 			GDT_Link::make()->href($mod->href('Statistics'))->text('link_kk_statistics', [23])->icon('amt'),

@@ -4,11 +4,10 @@ use GDO\UI\GDT_Accordeon;
 use GDO\UI\GDT_Paragraph;
 use GDO\UI\GDT_Link;
 use GDO\KassiererCard\Module_KassiererCard;
-use GDO\PaymentCredits\GDT_Credits;
 use GDO\KassiererCard\KC_Util;
 use GDO\Payment\GDT_Money;
 ?>
-<h2><?=sitename()?></h2>
+<h2><?=sitename()?> - Frequently asked NaNsense</h2>
 <h3><?=t('mt_faq')?></h3>
 <p><?=t('md_faq')?></p>
 <?php
@@ -20,55 +19,64 @@ $acc->addField(GDT_Paragraph::make()->text('kk_faq_b1', [sitename()]));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
+$acc->title('kk_faq_t1b');
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b1b', []));
+echo $acc->render();
+
+$acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t2');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b2', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b2', []));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t3');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b3', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b3', [
+	$kk->cfgFreeStarsPerPeriod(),
+	$kk->cfgCustomerCouponModulus(),
+]));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t4');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b4', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b4', []));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t5');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b5', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b5', []));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t6');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b6', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b6', []));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t7');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b7', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b7', []));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t8');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b8', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b8', []));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t9');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b9', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b9', []));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t10');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b10', [sitename()]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b10', []));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t11');
 $linkToDo = GDT_Link::anchor($kk->href('ToDo'), t('kk_link_todo'));
 $linkGithub = GDT_Link::anchor('https://github.com/gizmore/phpgdo-kassierer-card');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b11', [$linkToDo, $linkGithub]));
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b11', [
+	$linkToDo, $linkGithub]));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
@@ -88,5 +96,23 @@ $acc->addField(
 	GDT_Paragraph::make()->text('kk_faq_b13', [
 		$kk->cfgFreeStarsPerPeriod(),
 		GDT_Money::renderPrice($monthlyCostPerCustomer),
+	]));
+echo $acc->render();
+
+$acc = GDT_Accordeon::make();
+$acc->title('kk_faq_t14');
+$periodsPerWeek = 3;
+$weeksPerMonth = 4.2;
+$monthlyCostPerCustomer = KC_Util::starsToEuro($kk->cfgFreeStarsPerPeriod() * $periodsPerWeek * $weeksPerMonth);
+$acc->addField(
+	GDT_Paragraph::make()->text('kk_faq_b14', [
+		$kk->cfgStarsPerEuro(),
+	]));
+echo $acc->render();
+
+$acc = GDT_Accordeon::make();
+$acc->title('kk_faq_t15');
+$acc->addField(
+	GDT_Paragraph::make()->text('kk_faq_b15', [
 	]));
 echo $acc->render();

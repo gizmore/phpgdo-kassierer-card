@@ -15,6 +15,7 @@ As we are open as one can be... the public may see it as well.</p>
 <li>Competition: Prices for the winners.</li>
 <li>Setup Contract, Testamentum and ITMB stuff.</li>
 <li>Individual Guestbook for users?</li>
+<li>Do invitation and invest own stars. On activation, generate diamonds.</li>
 <li></li>
 
 

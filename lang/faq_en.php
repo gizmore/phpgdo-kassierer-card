@@ -8,12 +8,16 @@ return [
     'kk_faq_b1' => '%s is a service, and art project, to honor the cashiers and workers in the real economy.<br/>
 It is similiar to a tip or a thank you.<br/>
 Also it is the baptism of fire for my programming work.<br/>
-KassiererCard.org has a flexible point system and we hope it is fun to earn Coupons and redeem some of them into,<br/>
+KassiererCard.org has a fair reward system,
+and we hope it is fun to earn Stars and redeem some of them into,<br/>
 like getting a beer, a haircut, a kebab or a coffee.<br/>
-In crazy times, maybe a thank you and a smile is more required than ever.<br/>',
+In crazy times, maybe a thank you and a smile is more valuable than ever.<br/>
+We are transparent and indipendant, and have kinda charity plans for the future.',
     
-	'kk_faq_t2' => 'Why do you do this?',
-	'kk_faq_b2' => '',
+	'kk_faq_t1b' => 'Why do you do this?',
+	'kk_faq_b1b' => 'Fame and money :)<br/>
+Also we wanna move something.<br/>
+Help us to bring some power to the people.<br/>',
 	
     'kk_faq_t2' => 'How do we earn points?',
     'kk_faq_b2' => 'There are three types of accounts.<br/>
@@ -21,19 +25,18 @@ Customer, Cashier and Company.
 Let\'s call them the three C\'s; CEO, Christian and Charlette.<br/>
 Customers can print (and write down) Coupons.<br/>
 The Cashiers and workers can trade them for Offers.<br/>
-The Companies Offer goods for the trade Coupons, which might be a snack, some money off or a merchandize article, Anything is possible.',
+The Companies Offer goods for the stars and get Diamonds in return.
+Those are for competitions and ranking.',
 
     'kk_faq_t3' => 'The Customer 1x1',
     'kk_faq_b3' => 'As a customer;
 Print Coupons and hand them to the Cashiers and workers you like.<br/>
-You can print 1 Coupon every 2 days, meaning the periods are Mo/Tu, We/Th, Fr/Sa.<br/>
-You can either print a Coupon, write the code down, or use your mobile phone to transfer your codes to the Cashiers,<br/>
-Currently you get a customer coupon for every 5th Coupon your friends reedem.<br/>
-It is not 100% clear yet what Customer Coupons will do.<br/>
-Maybe a lottery, quite doubtful, or you will simply get the same Offers as a Cashier.<br/>
-We are open to suggestions and feedback, but let\'s not forget it\'s for them, not for you!',
+You can print %s free stars every period; Mo/Tu, We/Th and Fr/Sa.<br/>
+You can either print a Coupon, write the code down,
+or use your mobile phone to transfer codes to the Workers.<br/>
+You will get a star for every %sth star the workers enter from you.',
 
-    'kk_faq_t4' => 'The Cashier Crisis',
+	'kk_faq_t4' => 'The Cashier Crisis',
     'kk_faq_b4' => 'Let\'s not forget we do this for you, dear workers.<br/>
 Currently only admins can invite Cashiers individually.<br/>
 We try to cover Peine and maybe one or two other cities in the first run.<br/>
@@ -50,7 +53,8 @@ a merchandize platform that is not poisoned with bloated metrics.<br/>',
 
     'kk_faq_t6' => 'Pizza and Cola is lame, i want better stuff for my Coupons!',
     'kk_faq_b6' => 'For every Coupon redeemed, your userlevel will advance by one point.<br/>
-With your userlevel you can do forum posts, add links to this site, and do other stuff too.<br/>',
+With your userlevel you can do forum posts,
+add links to this site, create polls, and do other stuff.<br/>',
 
     'kk_faq_t7' => 'Can i transfer points to other users?',
     'kk_faq_b7' => 'No, you can only get goods or discounts.',
@@ -60,7 +64,7 @@ With your userlevel you can do forum posts, add links to this site, and do other
 The current theme might be ugly, but there will be more beautiful in future.',
 	
 	'kk_faq_t9' => 'You have dozens of spelling errors, it\'s a pain to use the site.',
-	'kk_faq_b9' => '%s',
+	'kk_faq_b9' => 'Yeah i no rite!',
 	
 	'kk_faq_t10' => 'I have no contact to cashiers.',
 	'kk_faq_b10' => 'This is no problem.<br/>
@@ -82,7 +86,19 @@ If something is unclear, please %s.',
 	'kk_faq_b13' => 'Cards can get printed by customers, managers, partners and above. No cashiers.<br/>
 As a customer you can print %s stars per period.<br/>
 A period is 2 days, and there are 3 periods per week; Mo/Di, We/Th and Fr/Sa.<br/>
-This means an active customer could cost us %s per month, but see the statistics in the left menu!<br/>
+This means an active customer could cost us around %s per month, but see the statistics in the left menu!<br/>
 There is no printing on Sundays.<br/>
 Partners and managers have special rules, of course.',
+	
+	'kk_faq_t14' => 'What are the stars for?',
+	'kk_faq_b14' => 'Stars are the points or coins here.<br/>
+One €uro roghly equals %s stars. This rate may change!<br/>
+Also, you can only trade the stars for the offers from our partners.',
+	
+	'kk_faq_t15' => 'What are the diamonds for?',
+	'kk_faq_b15' => 'Diamonds are only used for the competitions,<br/>
+like company, cashier, customer, offer, of, the, month.<br/>
+Every redeemed offer earns the company diamonds.<br/>
+As a customer or cashier, you can earn diamonds by inviting more users.<br/>',
+	
 ];

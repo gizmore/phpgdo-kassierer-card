@@ -11,9 +11,10 @@ use GDO\QRCode\GDT_QRCode;
 use GDO\Core\GDT_Tuple;
 use GDO\UI\GDT_Container;
 use GDO\UI\GDT_Image;
-use GDO\Date\Time;
 use GDO\Core\GDT;
 use GDO\UI\GDT_Link;
+use GDO\User\GDO_User;
+use GDO\KassiererCard\GDT_Slogan;
 
 /**
  * Print one of your coupons.
@@ -39,9 +40,13 @@ final class PrintCoupon extends MethodForm
 		$coupon = GDT_Coupon::make('token')->label('code')->notNull()->onlyOwnCreated()->writeable(false);
 		$form->addFields(
 			$coupon,
+// 			GDT_Slogan::make('slogan')->notNull()->initialRandom(),
 			GDT_AntiCSRF::make(),
 		);
-		$form->actions()->addField(GDT_Submit::make('btn_preview')->onclick([$this, 'preview']));
+		if (GDO_User::current()->hasPermission('kk_staff'))
+		{
+			$form->actions()->addField(GDT_Submit::make('btn_preview')->onclick([$this, 'preview']));
+		}
 		$form->actions()->addField(GDT_Submit::make('btn_print')->onclick([$this, 'print']));
 		$form->actions()->addField(GDT_Submit::make('btn_qrcode')->onclick([$this, 'qrcode']));
 	}
@@ -82,8 +87,12 @@ final class PrintCoupon extends MethodForm
 	{
 		$coupon = $this->getCoupon();
 		$coupon->onPrinted();
-		$cont = GDT_Container::make('images')->horizontal()->addClass('kk-print-card-row');
-		$cont->addFields($this->printFront(), $this->printBack());
+		$cont = GDT_Container::make('images')
+			->horizontal()
+			->addClass('kk-print-card-row');
+		$cont->addFields(
+			$this->printFront(),
+			$this->printBack());
 		return $cont;
 	}
 	

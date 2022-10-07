@@ -19,6 +19,7 @@ use GDO\File\GDT_ImageFile;
 use GDO\File\GDO_File;
 use GDO\DB\Query;
 use GDO\Payment\GDT_Money;
+use GDO\Core\GDT_Virtual;
 
 /**
  * An offer for a cashier.
@@ -45,6 +46,7 @@ final class KC_Offer extends GDO
 			GDT_ImageFile::make('o_image')->exactSize(1050, 600),
 			GDT_Money::make('o_invested')->notNull(), # for euros_invested
 			GDT_Money::make('o_worth')->notNull(), # for euros_generated
+// 			GDT_Virtual::make('o_total_redeemed')->gdtType(GDT_UInt::make())->subquery("SELECT COUNT(*) FROM kc_offerredeemed or2 WHERE or2.or_offer=kc_offer.o_id"),
 			GDT_CreatedAt::make('o_created'),
 			GDT_CreatedBy::make('o_creator'),
 		];
@@ -232,22 +234,26 @@ final class KC_Offer extends GDO
 	##############
 	### Static ###
 	##############
-	public static function queryNumActive() : int
+	public static function getAvailableOffers(GDO_User $user=null): int
 	{
-		$now = Time::getDateWithoutTime();
-		return self::table()->countWhere("o_expires>'$now'");
+		return self::getAvailableOffersQuery($user)
+			->selectOnly('COUNT(*)')
+			->exec()->fetchValue();
 	}
 	
 	### User Avail
-	public static function getAvailableOffersQuery(GDO_User $user) : Query
+	public static function getAvailableOffersQuery(GDO_User $user=null) : Query
 	{
-		$starsAvailable = KC_Util::numStarsAvaliable($user);
 		$now = Time::getDateWithoutTime();
-		return
-			self::table()->select()
-				->where("(SELECT ")
-				->where("o_required_stars <= $starsAvailable")
+		$query = self::table()->select()
+				->where("( SELECT IFNULL(COUNT(*), 0) FROM kc_offerredeemed or2 WHERE or2.or_offer=kc_offer.o_id ) < kc_offer.o_total_amt ")
 				->where("o_expires>'$now'");
+		if ($user)
+		{
+			$starsAvailable = KC_Util::numStarsAvailable($user);
+			$query->where("o_required_stars <= $starsAvailable");
+		}
+		return $query;
 	}
 	
 }

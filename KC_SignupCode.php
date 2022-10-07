@@ -7,6 +7,10 @@ use GDO\User\GDO_User;
 use GDO\User\GDO_UserPermission;
 use GDO\Core\Website;
 use GDO\Core\GDT_String;
+use GDO\Core\GDT_Checkbox;
+use GDO\Core\GDT_CreatedBy;
+use GDO\Core\GDT_CreatedAt;
+use GDO\Mail\Mail;
 
 final class KC_SignupCode extends GDO
 {
@@ -18,6 +22,8 @@ final class KC_SignupCode extends GDO
 			GDT_CouponStars::make('sc_stars')->min(0)->max(1000)->initial('1'),
 			GDT_String::make('sc_info'),
 			GDT_CouponToken::make('sc_token')->initialNull()->notNull()->unique(),
+			GDT_CreatedAt::make('sc_created'),
+			GDT_CreatedBy::make('sc_creator'),
 		];
 	}
 	
@@ -39,6 +45,11 @@ final class KC_SignupCode extends GDO
 	public function getToken() : string
 	{
 		return $this->gdoVar('sc_token');
+	}
+	
+	public function getCreator(): ?GDO_User
+	{
+		return $this->gdoValue('sc_creator');
 	}
 	
 	####
@@ -89,6 +100,12 @@ final class KC_SignupCode extends GDO
 						$stars,
 					]);
 				}
+				if ($coupon->isUserInvitation())
+				{
+					$creator = $code->getCreator();
+					$creator->increaseSetting('KassiererCard', 'diamonds_earned', $stars);
+					self::sendDiamondMail($creator, $user, $stars);
+				}
 			}
 			$code->delete();
 			return true;
@@ -101,6 +118,7 @@ final class KC_SignupCode extends GDO
 		
 		return false;
 	}
+	
 	
 		
 }

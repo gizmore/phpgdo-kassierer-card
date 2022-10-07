@@ -44,8 +44,36 @@ final class GDT_CouponToken extends GDT_Token
 	
 	private static function keyExists(string $key) : bool
 	{
-		return !!KC_Coupon::getBy('kc_token', $key);
+		return !!KC_Coupon::getByToken($key);
 	}
+	
+	public function validate($value): bool
+	{
+		if (!parent::validate($value))
+		{
+			return false;
+		}
+		if ($value)
+		{
+			if (self::keyExists($value))
+			{
+				$this->reset(true);
+				return $this->error('err_kk_coupon_used');
+			}
+		}
+		return true;
+	}
+	
+	### Var/Value ###
+// 	public function inputToVar($input) : ?string
+// 	{
+// 		if ($input === null)
+// 		{
+// 			return null;
+// 		}
+// 		$input = preg_replace('#[^0-9A-Z]#', '', strtoupper($input));
+// 		return $input;
+// 	}
 	
 	##############
 	### Render ###

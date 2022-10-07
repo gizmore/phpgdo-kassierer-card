@@ -26,6 +26,7 @@ return [
 	'cfg_coupons_created' => 'Total Coupons Created',
 	'cfg_coupons_printed' => 'Total Coupons Printed',
 	'cfg_coupons_entered' => 'Total Coupons Entered',
+	'cfg_stars_purchased' => 'Total Stars Purchased',
 	'cfg_stars_created' => 'Total Stars Created',
 	'cfg_stars_redeemed' => 'Total Stars Redeemed',
 	'cfg_offers_created' => 'Total Offers Created',
@@ -75,7 +76,7 @@ The %4$s Team',
 	'err_kk_no_coupon' => 'You cannot create coupons this way!',
 	'kk_invite_slogan' => 'Invitation as a %s',
 	'msg_signup_stars' => 'Welcome to %s; You have earned %s stars for your invitation.',
-	'sc_info' => 'KC-Staff Note',
+	'kc_info' => 'Invitation Note',
 	'kc_entered' => 'Entered at',
 	
 	# Signup
@@ -128,7 +129,16 @@ The %4$s Team',
 	### Settings
 	'salary_gross' => 'Gross Salary',
 	'salary_hourly' => 'Hourly Rate',
-// 	'stars_purchased' => 'Extra Stars',
+	'favorite_artist' => 'Favorite Artist',
+	'favorite_book' => 'Favorite Book',
+	'your_dream' => 'Your Dream',
+	'favorite_religion' => 'Favorite Religion',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
+	// 	'stars_purchased' => 'Extra Stars',
 // 	'stars_created' => 'Coupon-Stars Created',
 // 	'tt_stars_created' => 'Number of star coupons printed and entered. Also, stars created as gift, as a team member.',
 // 	'stars_entered' => 'Stars Entererd',
@@ -281,10 +291,43 @@ after you press the button here!',
 	'the_kk_distributor' => 'The Managers',
 	'the_kk_distributor_paragraph' => '%s Distributords do merchandize work and play test customer.',
 
-// 	# Stats
-// 	'kk_cards_printed' => 'Cards Printed/Shown',
-// 	'kk_cards_entered' => 'Cards Entered',
-// 	'kk_stars_printed' => 'Stars Printed/Shown',
-// 	'kk_stars_entered' => 'Stars Entered',
-	
+	# Invite
+	'invite_users' => 'Invite People',
+	'kk_info_invite_stars' => 'Here you can invite more people to %s.
+It cost %s/%s stars to send an invitation.<br/>
+Additionally, select the number of stars for your invitation,
+and when the invited person activates,
+you get the same amount as diamonds back.
+Else your stars are lost and become dust in the wind!<br/>
+Currently diamonds are worthless, except for our competitions.',
+	'msg_kk_sent_invitation' => 'You have spent %s to send an invitation to %s. Additionally, %s stars are your gift to them which get converted to diamonds as soon as they sign up.',
+	'mailsubj_kk_invite' => '%s: Invitation as %s',
+	'mailbody_kk_invite' => 'Hello Dear future User,
+
+%s has invited you as a %s on %s.
+
+We are a bonus system (more) for workers instead only the customers,
+and are indipendant, offer real goods, like a coffee or a kebab.
+
+Our exchange rates are 1 Euro == %s Star(s),
+
+and %1$s (%s) sends you %s stars as a welcome gift.
+
+We currently have %s attractive local offers, like kebab, a haircut, CBD weed and more.
+
+Check us out at: %s
+
+Kind Regards,
+The %3$s System',
+	'mail_subj_kk_invited_diamonds' => '%s: %s joined us!',
+	'mail_subj_kk_invited_diamonds' => 'Dear %s,
+
+%s (%s) has followed your invitation towards %s and just got activated.
+You get your investment of %s stars turned into %s diamonds,
+from which you have %s now.
+
+Your userlevel increased by %s points to %s.
+
+Kind Regards,
+The %s Team',
 ];

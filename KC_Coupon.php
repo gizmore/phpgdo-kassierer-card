@@ -2,18 +2,23 @@
 namespace GDO\KassiererCard;
 
 use GDO\Core\GDO;
+use GDO\Core\GDT_Checkbox;
 use GDO\Core\GDT_CreatedAt;
 use GDO\Core\GDT_CreatedBy;
 use GDO\Core\GDT_Template;
+use GDO\Core\Website;
 use GDO\User\GDO_User;
+use GDO\User\GDO_UserPermission;
 use GDO\Date\Time;
 use GDO\Core\GDT_Index;
 use GDO\Date\GDT_Timestamp;
 use GDO\User\GDT_User;
+use GDO\Mail\Mail;
 use GDO\Net\GDT_Url;
 use GDO\QRCode\GDT_QRCode;
 use GDO\UI\GDT_Image;
 use GDO\UI\GDT_SVGImage;
+use GDO\Core\GDT_String;
 
 /**
  * A printed coupon to give to an employee.
@@ -30,14 +35,20 @@ class KC_Coupon extends GDO
 		return [
 			GDT_CouponToken::make('kc_token')->primary(),
 			GDT_CouponType::make('kc_type')->notNull(),
-			GDT_CouponStars::make('kc_stars'),
+			GDT_Checkbox::make('kc_invitation')->notNull()->initial('0'),
+			GDT_CouponStars::make('kc_stars')->notNull()->initial('0'),
+			GDT_String::make('kc_info'),
 			GDT_Offer::make('kc_offer')->emptyLabel('sel_coupon_offer'),
+	
 			GDT_CreatedBy::make('kc_creator'),
 			GDT_CreatedAt::make('kc_created'),
 			GDT_Timestamp::make('kc_printed'),
 			GDT_User::make('kc_enterer'),
 			GDT_Timestamp::make('kc_entered'),
+			
 			GDT_Index::make('index_offers')->indexColumns('kc_offer'),
+			GDT_Index::make('index_kc_creator')->indexColumns('kc_creator'),
+			GDT_Index::make('index_kc_enterer')->indexColumns('kc_enterer'),
 		];
 	}
 	
@@ -59,6 +70,11 @@ class KC_Coupon extends GDO
 	public function getToken() : string
 	{
 		return $this->gdoVar('kc_token');
+	}
+	
+	public function isUserInvitation(): bool
+	{
+		return $this->gdoValue('kc_invitation');
 	}
 	
 	public function getStars() : int
@@ -128,18 +144,71 @@ class KC_Coupon extends GDO
 		}
 	}
 	
-	public function entered(GDO_User $user)
+	public function entered(GDO_User $user, bool $signup=false): void
 	{
 		$stars = $this->getStars();
+		$creator = $this->getCreator();
 		$this->saveVars([
 			'kc_entered' => Time::getDate(),
 			'kc_enterer' => $user->getID(),
 		]);
 		$user->increaseSetting('KassiererCard', 'stars_earned', $stars);
-		$user->increaseSetting('KassiererCard', 'stars_entered', $stars);
 		$user->increaseSetting('KassiererCard', 'stars_available', $stars);
+		if (!$signup)
+		{
+			$user->increaseSetting('KassiererCard', 'stars_entered', $stars);
+		}
+		if ($signup)
+		{
+			Module_KassiererCard::instance()->increaseConfigVar('stars_entered');
+		}
 		Module_KassiererCard::instance()->increaseConfigVar('coupons_entered');
 		Module_KassiererCard::instance()->increaseConfigVar('stars_entered');
+	}
+	
+	public static function onActivation(GDO_User $user, ?string $token): void
+	{
+		if ($code = self::getByToken($token))
+		{
+			if ($type = $code->getType())
+			{
+				GDO_UserPermission::grant($user, $type);
+				$user->changedPermissions();
+			}
+			
+			$code->entered($user, true);
+			
+			if ($code->getStars())
+			{
+				Website::message('KassiererCard', 'msg_signup_stars', [
+					sitename(),
+					$code->getStars(),
+				]);
+			}
+			
+			$code->sendDiamondMail($user);
+		}
+		else
+		{
+			GDO_UserPermission::grant($user, 'kk_customer');
+			$user->changedPermissions();
+			Website::message('KassiererCard', 'msg_signup_customer_no_token');
+		}
+	}
+	
+	private function sendDiamondMail(GDO_User $newUser): void
+	{
+		$creator = $this->getCreator();
+		$mail = Mail::botMail();
+		$mail->setSubject(tusr($creator, 'mail_subj_kk_invited_diamonds', [sitename(), html($newUser->getMail())]));
+		$mail->setSubject(tusr($creator, 'mail_body_kk_invited_diamonds', [
+			$creator->renderUserName(),
+			$newUser->renderUserName(),
+			$newUser->getMail(),
+			sitename(),
+			$this->getStars(),
+		]));
+		$mail->sendToUser($creator);
 	}
 	
 	##############
@@ -250,6 +319,11 @@ class KC_Coupon extends GDO
 		return GDT_Url::absolute($this->hrefEnter());
 	}
 	
+	public function href_print(): string
+	{
+		return href('KassiererCard', 'PrintCoupon', "&token={$this->getID()}");
+	}
+	
 	##############
 	### Render ###
 	##############
@@ -297,24 +371,17 @@ class KC_Coupon extends GDO
 		return (int) $query->exec()->fetchValue();
 	}
 	
-	/**
-	 * Create a coupon for a signup code.
-	 */
-	public static function createSignupCoupon(KC_SignupCode $code) : self
-	{
-		return self::blank([
-			'kc_token' => $code->getToken(),
-			'kc_type' => $code->getType(),
-			'kc_stars' => $code->getStars(),
-		])->insert();
-	}
-	
 	########################
 	### Get Rate Limited ###
 	########################
-	public static function getByToken(string $token) : ?self
+	public static function getByToken(string $token, bool $entered=false) : ?self
 	{
-		return self::getBy('kc_token', $token);
+		if ($coupon = self::getBy('kc_token', $token))
+		{
+			return $coupon->isEntered() === $entered
+				? $coupon : null;
+		}
+		return null;
 	}
 	
 }

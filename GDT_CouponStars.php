@@ -14,8 +14,8 @@ final class GDT_CouponStars extends GDT_UInt
 	###########
 	### Int ###
 	###########
-	public ?float $min = 1;
-	public ?float $max = 5;
+// 	public ?float $min = 1;
+// 	public ?float $max = 5;
 	
 	protected function __construct()
 	{

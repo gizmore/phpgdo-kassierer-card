@@ -19,6 +19,7 @@ final class GDT_CashierMenu extends GDT_Menu
 		$this->label('perm_kk_cashier');
 		$this->addFields(
 			GDT_Link::make('enter_coupon')->href($mod->href('EnterCoupon'))->icon('bee'),
+			GDT_Link::make('invite_users')->href($mod->href('Invite'))->icon('diamond'),
 			GDT_Link::make('entered_coupons')->href($mod->href('EnteredCoupons'))->icon('star'),
 			GDT_Link::make('redeem_offer')->href($mod->href('RedeemOffer'))->icon('sun'),
 		);

@@ -81,7 +81,7 @@ final class GDT_Offer extends GDT_ObjectSelect
 				# Star count
 				$user = GDO_User::current();
 				$stars = $value->getRequiredStars();
-				$avail = KC_Util::numStarsAvaliable($user);
+				$avail = KC_Util::numStarsAvailable($user);
 				if ($avail < $stars)
 				{
 					return $this->error('err_kk_offer_afford', [

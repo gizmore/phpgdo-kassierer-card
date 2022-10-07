@@ -86,7 +86,7 @@ final class KC_Util
 		return KC_Coupon::table()->numCouponsCreated($user);
 	}
 	
-	public static function numStarsAvaliable(GDO_User $user) : int
+	public static function numStarsAvailable(GDO_User $user) : int
 	{
 		return $user->settingVar('KassiererCard', 'stars_available');
 	}
@@ -139,7 +139,7 @@ final class KC_Util
 	public static function starsToEuro(int $stars) : float
 	{
 		$starsPerEuro = Module_KassiererCard::instance()->cfgStarsPerEuro();
-		return floor($stars / $starsPerEuro);
+		return round($stars / $starsPerEuro, 2);
 	}
 
 }

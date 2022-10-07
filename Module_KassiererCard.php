@@ -74,7 +74,6 @@ final class Module_KassiererCard extends GDO_Module
 			KC_Coupon::class,
 			KC_Offer::class,
 			KC_OfferRedeemed::class,
-			KC_SignupCode::class,
 			KC_Slogan::class,
 			KC_Working::class,
 		];
@@ -90,8 +89,10 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Checkbox::make('pre_alpha')->initial('0'),
 			# Balance
 			GDT_UInt::make('stars_per_euro')->min(1)->max(10000)->initial('10'),
+			GDT_UInt::make('star_cost_per_invite')->min(0)->max(1000)->initial('1'),
 			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
+			GDT_UInt::make('level_gain_per_diamond')->min(0)->max(10000)->initial('10'),
 			GDT_UInt::make('customer_coupon_modulus')->min(1)->max(100)->initial('5'),
 			GDT_UInt::make('cashier_stars_per_invitation')->max(10000)->initial('1'),
 			GDT_UInt::make('customer_stars_per_invitation')->max(10000)->initial('2'),
@@ -101,11 +102,14 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('coupons_printed')->initial('0')->label('cfg_coupons_printed')->tooltip('tt_cfg_coupons_printed'),
 			GDT_Badge::make('coupons_entered')->initial('0')->label('cfg_coupons_entered')->tooltip('tt_cfg_coupons_entered'),
 			GDT_Badge::make('stars_created')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
+			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
+			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'),
 			GDT_Badge::make('stars_purchased')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
 			GDT_Badge::make('stars_entered')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
 			GDT_Badge::make('stars_redeemed')->initial('0')->label('cfg_stars_redeemed')->tooltip('tt_cfg_stars_redeemed'),
 			GDT_Badge::make('offers_created')->initial('0')->label('cfg_offers_created')->tooltip('tt_cfg_offers_created'),
 			GDT_Badge::make('offers_redeemed')->initial('0')->label('cfg_offers_redeemed')->tooltip('tt_cfg_offers_redeemed'),
+			GDT_Badge::make('diamonds_created')->initial('0')->label('cfg_diamonds_created')->tooltip('tt_cfg_diamonds_created'),
 			GDT_Money::make('euros_invested')->initial('0.00')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'),
 			GDT_Money::make('euros_generated')->initial('0.00')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'),
 			GDT_Money::make('euros_earned')->initial('0.00')->label('cfg_euros_earned')->tooltip('tt_cfg_euros_earned'),
@@ -114,8 +118,10 @@ final class Module_KassiererCard extends GDO_Module
 	}
 	public function cfgPreAlpha() : bool { return $this->getConfigValue('pre_alpha'); }
 	public function cfgStarsPerEuro() : int { return $this->getConfigValue('stars_per_euro'); }
+	public function cfgStarsPerInvite() : int { return $this->getConfigValue('star_cost_per_invite'); }
 	public function cfgFreeStarsPerPeriod() : int { return $this->getConfigValue('free_stars_per_period'); }
 	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
+	public function cfgLevelPerDiamond() : int { return $this->getConfigValue('level_gain_per_diamond'); }
 	public function cfgCustomerCouponModulus() : int { return $this->getConfigValue('customer_coupon_modulus'); }
 	public function cfgCashierInviteStars() : int { return $this->getConfigValue('cashier_stars_per_invitation'); }
 	public function cfgCustomerInviteStars() : int { return $this->getConfigValue('customer_stars_per_invitation'); }
@@ -126,8 +132,10 @@ final class Module_KassiererCard extends GDO_Module
 	public function getUserConfig() : array
 	{
 		return [
-			GDT_Badge::make('stars_purchased')->tooltip('tt_stars_purchased')->icon('money'),
+			GDT_Badge::make('stars_purchased')->tooltip('tt_stars_purchased')->icon('money')->label('cfg_stars_purchased'),
 			GDT_Badge::make('stars_created')->tooltip('tt_stars_created')->icon('bee'),
+			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
+			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'),
 			GDT_Badge::make('stars_entered')->tooltip('tt_stars_entered')->icon('bee'),
 			GDT_Badge::make('stars_earned')->tooltip('tt_stars_earned')->icon('bee'),
 			GDT_Badge::make('stars_available')->tooltip('tt_stars_available')->icon('sun'),
@@ -136,6 +144,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('offers_created')->tooltip('tt_offers_created')->icon('star'),
 			GDT_Badge::make('offers_fullfilled')->tooltip('tt_offers_fullfilled')->icon('bee'),
 			GDT_Badge::make('offers_fullfilled')->tooltip('tt_stars_fullfilled')->icon('bee'),
+			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
 			GDT_Badge::make('diamonds_earned')->tooltip('tt_diamonds_earned')->icon('sun'),
 			GDT_Money::make('euros_fullfilled')->tooltip('tt_euros_fullfilled')->label('cfg_euros_fullfilled'),
 			GDT_Money::make('euros_invested')->tooltip('tt_cfg_euros_invested')->label('cfg_euros_invested'),
@@ -169,8 +178,8 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Divider::make('div_kk'),
 			GDT_String::make('profession')->icon('work'),
 			GDT_Url::make('personal_website')->allowExternal(),
-			GDT_Money::make('salary_gross')->unsigned()->min(1.00),
-			GDT_Money::make('salary_hourly')->unsigned()->min(1.00),
+			GDT_Money::make('salary_gross')->unsigned()->min(1.00)->label('salary_gross'),
+			GDT_Money::make('salary_hourly')->unsigned()->min(1.00)->label('salary_hourly'),
 			GDT_String::make('your_dream')->icon('spiderweb'),
 			GDT_String::make('favorite_artist')->icon('trophy'),
 			GDT_String::make('favorite_book')->icon('trophy'),
@@ -348,7 +357,7 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		if ($code = $form->getFormVar('kk_token'))
 		{
-			if (!($code = KC_SignupCode::getBy('sc_token', $code)))
+			if (!($code = KC_Coupon::getByToken($code)))
 			{
 				return $field->error('err_kk_signup_code_unknown');
 			}
@@ -396,8 +405,10 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		if ($activation)
 		{
-			$data = $activation->gdoValue('ua_data');
-			KC_SignupCode::onActivation($user, @$data['kk_token']);
+			if ($data = $activation->gdoValue('ua_data'))
+			{
+				KC_Coupon::onActivation($user, @$data['kk_token']);
+			}
 		}
 	}
 	
@@ -445,13 +456,5 @@ final class Module_KassiererCard extends GDO_Module
 		);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
-	
-// 	### helprt
-	
-// 	public function linkOffers() : GDT_Link
-// 	{
-// 		$href = href('KassiererCard', 'Offers');
-// 		return GDT_Link::make('offers')->href($href);
-// 	}
-	
+
 }

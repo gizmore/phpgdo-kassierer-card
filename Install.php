@@ -12,6 +12,7 @@ use GDO\User\GDO_User;
 use GDO\User\GDO_UserPermission;
 use GDO\Crypto\BCrypt;
 use GDO\News\GDO_News;
+use GDO\Avatar\GDO_UserAvatar;
 use GDO\Avatar\Module_Avatar;
 use GDO\Maps\Module_Maps;
 use GDO\Core\GDO_SEO_URL;
@@ -20,6 +21,8 @@ use GDO\Core\Application;
 use GDO\Perf\Module_Perf;
 use GDO\LoC\Module_LoC;
 use GDO\User\GDT_ACLRelation;
+use GDO\File\GDO_File;
+use GDO\Avatar\GDO_Avatar;
 
 /**
  * Initial seed for rapid dev.
@@ -107,11 +110,12 @@ final class Install
 			'Jetzt erst recht',
 			'Besser als gefragt',
 			'Kreativ und beliebt',
-			'Für Euch',
-			'Änderung. Verbesserung. Erneuerung',
+			'Für Euch. Für mich. Für uns!',
+			'Änderung. Verbesserung. Erneuerung.',
 			'Ich shoppe auch gern',
 			'Damit alle genug haben',
 			'Für Spaß, Gegen Gewalt',
+			'Einfach loslegen',
 		];
 		
 		$i = 0;
@@ -198,6 +202,7 @@ final class Install
 		$accounts = require 'account_seeds.php';
 		foreach ($accounts as $data)
 		{
+			echo "Installing user {$data[0]}\n";
 			self::installUser(...$data);
 		}
 		
@@ -214,7 +219,7 @@ final class Install
 		return true;
 	}
 	
-	private static function installUser(string $id, string $nickname, ?string $email, string $password, string $perms) : bool
+	private static function installUser(string $id, string $nickname, ?string $email, string $password, string $perms, string $avatarFile=null) : bool
 	{
 		if (!($user = GDO_User::getById($id)))
 		{
@@ -244,7 +249,28 @@ final class Install
 		}
 		$user->changedPermissions();
 		
+		if ($avatarFile)
+		{
+			self::installUserAvatar($user, $avatarFile);
+		}
+		
 		return true;
+	}
+	
+	private static function installUserAvatar(GDO_User $user, string $filename): void
+	{
+		if (!GDO_Avatar::forUser($user)->isPersisted())
+		{
+			$module = Module_KassiererCard::instance();
+			$path = $module->filePath("install_data/{$filename}");
+			$file = GDO_File::fromPath($filename, $path)->insert()->copy();
+			$avatar = GDO_Avatar::blank([
+				'avatar_file_id' => $file->getID(),
+				'avatar_created_by' => $user->getID(),
+			])->insert();
+			GDO_UserAvatar::updateAvatar($user, $avatar->getID());
+			$user->recache();
+		}
 	}
 	
 	###########

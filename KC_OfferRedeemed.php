@@ -14,7 +14,7 @@ final class KC_OfferRedeemed extends GDO
 	{
 		return [
 			GDT_AutoInc::make('or_id'),
-			GDT_User::make('or_user'),
+			GDT_User::make('or_user')->notNull(),
 			GDT_Offer::make('or_offer'),
 			GDT_CreatedAt::make('or_created'),
 			GDT_CreatedBy::make('or_creator'),

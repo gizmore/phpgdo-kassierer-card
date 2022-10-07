@@ -6,10 +6,10 @@ use GDO\Form\MethodForm;
 use GDO\Form\GDT_Submit;
 use GDO\KassiererCard\MethodKCAdmin;
 use GDO\Form\GDT_AntiCSRF;
-use GDO\KassiererCard\KC_SignupCode;
 use GDO\KassiererCard\GDT_CouponToken;
 use GDO\KassiererCard\GDT_CouponType;
 use GDO\KassiererCard\GDT_CouponStars;
+use GDO\KassiererCard\KC_Coupon;
 
 /**
  * Staff can create a special signup code for registration.
@@ -23,12 +23,12 @@ final class AdminCreateSignupCode extends MethodForm
 	
 	public function createForm(GDT_Form $form) : void
 	{
-		$table = KC_SignupCode::table();
+		$table = KC_Coupon::table();
 		$form->addFields(
-			$table->gdoColumn('sc_info'),
-			GDT_CouponToken::make('sc_token')->notNull()->initialRandomKey(),
-			GDT_CouponType::make('sc_type')->notNull()->initial('kk_cashier'),
-			GDT_CouponStars::make('sc_stars'),
+			$table->gdoColumn('kc_info'),
+			GDT_CouponToken::make('kc_token')->notNull()->initialRandomKey(),
+			GDT_CouponType::make('kc_type')->notNull()->initial('kk_cashier'),
+			GDT_CouponStars::make('kc_stars'),
 			GDT_AntiCSRF::make(),
 		);
 		$form->actions()->addField(GDT_Submit::make());
@@ -36,10 +36,9 @@ final class AdminCreateSignupCode extends MethodForm
 	
 	public function formValidated(GDT_Form $form)
 	{
-		$code = KC_SignupCode::blank($form->getFormVars())->insert();
-		$code->createCouponForSignupCode();
+		$coupon = KC_Coupon::blank($form->getFormVars())->insert();
 		return $this->redirectMessage('msg_signup_code_created', [
-			$this->gdoParameter('sc_type')->renderVar()
+			$coupon->renderType(),
 		], $this->href());
 	}
 
