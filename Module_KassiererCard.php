@@ -53,7 +53,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Account', 'AboutMe', 'ActivationAlert', 'Address',
 			'Admin', 'Ads', 'Avatar',
 			'Backup', 'Birthday', 'Bootstrap5Theme',
-			'Category', 'Contact', 'Classic',
+			'Captcha', 'Category', 'Contact', 'Classic',
 			'CountryCoordinates', 'CountryRestrictions',
 			'Cronjob', 'CSS', 'DoubleAccounts',
 			'FontAtkinson', 'FontAwesome', 'Forum',

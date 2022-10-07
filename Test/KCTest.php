@@ -12,6 +12,7 @@ use GDO\KassiererCard\Method\CreateCoupon;
 use GDO\KassiererCard\Module_KassiererCard;
 use function PHPUnit\Framework\assertGreaterThan;
 use GDO\KassiererCard\KC_Util;
+use function PHPUnit\Framework\assertStringContainsString;
 
 final class KCTest extends TestCase
 {

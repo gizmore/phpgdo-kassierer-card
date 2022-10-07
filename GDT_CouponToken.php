@@ -8,7 +8,8 @@ use GDO\Core\GDT_Token;
 final class GDT_CouponToken extends GDT_Token
 {
 	const LENGTH = 10;
-	const CHARSET = '2345679ACDEFGHKMNPQRSTUVWXYZ';
+// 	const CHARSET = '2345679ACDEFGHKMNPQRSTUVWXYZ';
+	const CHARSET = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	
 	protected function __construct()
 	{
