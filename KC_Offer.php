@@ -101,13 +101,16 @@ final class KC_Offer extends GDO
 	{
 		/** @var $gdo KC_Offer **/
 		# Creator Stats
+		$kkn = 'KassiererCard';
 		$creator = $gdo->getCreator();
-		$creator->increaseSetting('KassiererCard', 'offers_created');
-		$creator->increaseSetting('KassiererCard', 'euros_invested', $gdo->getInvested());
+		$creator->increaseSetting($kkn, 'offers_created');
+// 		$creator->increaseSetting($kkn, 'stars_created');
+		$creator->increaseSetting($kkn, 'euros_invested', $gdo->getInvested());
 		
 		# Stats
 		$kk = Module_KassiererCard::instance();
 		$kk->increaseConfigVar('offers_created');
+// 		$kk->increaseConfigVar('stars_created');
 		$kk->increaseConfigVar('euros_invested', $this->getInvested());
 	}
 	

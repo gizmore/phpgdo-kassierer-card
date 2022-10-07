@@ -150,21 +150,21 @@ final class Module_KassiererCard extends GDO_Module
 	public function getUserConfig() : array
 	{
 		return [
-			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'),
-			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'), # num users invited
-			GDT_Badge::make('stars_available')->tooltip('tt_stars_available')->icon('sun'), # stars earned - stars redeemed
-			GDT_Badge::make('stars_created')->tooltip('tt_stars_created')->icon('bee'),
-			GDT_Badge::make('stars_earned')->tooltip('tt_stars_earned')->icon('bee'), # stars earned via all means
-			GDT_Badge::make('stars_entered')->tooltip('tt_stars_entered')->icon('bee'), # stars entered on website and invite
-			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'), # stars spent on invite (-1?) 
-			GDT_Badge::make('stars_purchased')->tooltip('tt_stars_purchased')->icon('money')->label('cfg_stars_purchased'),
-			GDT_Badge::make('stars_redeemed')->tooltip('tt_stars_redeemed')->icon('star'), # stars taken for offer redeem
-			GDT_Badge::make('offers_created')->tooltip('tt_offers_created')->icon('star'), # partner buys offer
+			GDT_Badge::make('coupons_created')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created')->icon('bee'),
+			GDT_Badge::make('users_invited')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited')->icon('bee'), # num users invited
+			GDT_Badge::make('stars_available')->label('cfg_stars_available')->tooltip('tt_stars_available')->icon('sun'), # stars earned - stars redeemed
+			GDT_Badge::make('stars_created')->label('cfg_offers_redeemed')->tooltip('tt_stars_created')->icon('bee'),
+			GDT_Badge::make('stars_earned')->label('cfg_offers_redeemed')->tooltip('tt_stars_earned')->icon('sun'), # stars earned via all means
+			GDT_Badge::make('stars_entered')->label('cfg_offers_redeemed')->tooltip('tt_stars_entered')->icon('bee'), # stars entered on website and invite
+			GDT_Badge::make('stars_invited')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited')->icon('bee'), # stars spent on invite (-1?) 
+			GDT_Badge::make('stars_purchased')->label('cfg_stars_purchased')->tooltip('tt_stars_purchased')->icon('money'),
+			GDT_Badge::make('stars_redeemed')->label('cfg_offers_redeemed')->tooltip('tt_stars_redeemed')->icon('star'), # stars taken for offer redeem
+			GDT_Badge::make('offers_created')->label('cfg_offers_redeemed')->tooltip('tt_offers_created')->icon('star'), # partner buys offer
 			GDT_Badge::make('offers_fullfilled')->label('cfg_offers_fullfilled')->tooltip('tt_offers_fullfilled')->icon('bee'), # company fullfills
-			GDT_Badge::make('offers_redeemed')->tooltip('tt_offers_redeemed')->icon('star'), # offers taken
-			GDT_Badge::make('diamonds_earned')->tooltip('tt_diamonds_earned')->icon('sun'), # offers fulfilled stars
-			GDT_Money::make('euros_fullfilled')->tooltip('tt_euros_fullfilled')->label('cfg_euros_fullfilled'), # offer worth
-			GDT_Money::make('euros_invested')->tooltip('tt_cfg_euros_invested')->label('cfg_euros_invested'), # offer for euro purchased
+			GDT_Badge::make('offers_redeemed')->label('cfg_offers_redeemed')->tooltip('tt_offers_redeemed')->icon('star'), # offers taken
+			GDT_Badge::make('diamonds_earned')->label('cfg_diamonds_earned')->tooltip('tt_cfg_diamonds_earned')->icon('diamond'),
+			GDT_Money::make('euros_fullfilled')->label('cfg_euros_fullfilled')->tooltip('tt_cfg_euros_fullfilled'), # offer worth
+			GDT_Money::make('euros_invested')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'), # offer for euro purchased
 		];
 	}
 	
@@ -240,6 +240,12 @@ final class Module_KassiererCard extends GDO_Module
 		
 		$page->leftBar()->addFields(
 			GDT_LeftMenu::make(),
+		);
+		
+		$page->topBar()->addFields(
+			$this->setting('diamonds_earned'),
+			$this->setting('stars_available'),
+			$user->gdoColumn('user_level'),
 		);
 		
 		if ($user->isUser())

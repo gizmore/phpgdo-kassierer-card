@@ -138,12 +138,14 @@ class KC_Coupon extends GDO
 		if (!$this->isPrinted())
 		{
 			$this->saveVar('kc_printed', Time::getDate());
-// 			$user = GDO_User::current();
-// 			$user->increaseSetting('KassiererCard', 'stars_printed', $this->getStars());
 			Module_KassiererCard::instance()->increaseConfigVar('coupons_printed');
 		}
 	}
 	
+	/**
+	 * Coupon got entered either as signup key or normal coupon.
+	 * @param bool $isActivation - Is triggered by signup activation?
+	 */
 	public function entered(GDO_User $user, bool $isActivation=false): void
 	{
 		$kk = Module_KassiererCard::instance();
@@ -228,16 +230,7 @@ class KC_Coupon extends GDO
 		]));
 		$mail->sendToUser($creator);
 	}
-// 	'mail_body_kk_invited_diamonds' => 'Lieber %s,
-// %s (%s) ist Ihrer Einladung zu %s gefolgt und wurde gerade aktiviert.
-// Ihre Investition von %s Sternen wird in %s Diamanten umgewandelt,
-// von denen Sie jetzt %s haben.
-		
-// Ihr Benutzerlevel ist um %s Punkte auf %s gestiegen.
-		
-// Mit freundlichen Grüßen,
-// Das %4$s Team',
-
+	
 	##############
 	### Images ###
 	##############

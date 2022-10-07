@@ -79,7 +79,7 @@ final class KC_Partner extends GDO
 	
 	public function hrefPartner() : string
 	{
-		return href('KassiererCard', 'Company', "&id={$this->getID()}");
+		return href('KassiererCard', 'Partner', "&id={$this->getID()}");
 	}
 	
 	public function linkPartner() : GDT_Link
