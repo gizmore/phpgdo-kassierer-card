@@ -371,7 +371,7 @@ final class Install
 		self::partner(5, 'Vortagsbaeckerei', 3, 'Vortagsbaeckerei', 'Bahnhofstraße 5', '31224', 'Peine', 'DE', 'DE', '+49 176 218 23 784', $descr, 'https://www.facebook.com/people/Backlife-Caf%C3%A9-Vortagsb%C3%A4ckerei-Peine/100057060595562/');
 		$descr = 'Der FIPS-Peine betreut Psychisch-Behinderte.<br/>Diese arbeiten in einigen Geschäften in der Innenstadt, wie z.B. Gebrauchtwaren oder Kaffees.';
 		self::partner(6, 'FIPS', 12, 'FIPS Peine', 'Hagenstr. 12', '31224', 'Peine', 'DE', 'DE', '+49 5171 50 89 25', $descr, 'https://www.fips-ev.de/treffen/beratungs-begegnungsst%C3%A4tte-peine/');
-		$descr = 'Der FIPS-Peine betreut Psychisch-Behinderte.<br/>Diese arbeiten in einigen Geschäften in der Innenstadt, wie z.B. Gebrauchtwaren oder Kaffees.';
+		$descr = 'Alex und Tanja sind als Cheerleader-Verein tätig. Ausserdem basteln Sie Schleifen und ähnliches.';
 		self::partner(7, 'Alex', 13, 'Vereinsschleifen', 'Schäferstraße', '31224', 'Peine', 'DE', 'DE', '+49 123 456 789', $descr, 'https://gizmore.124.de');
 		return true;
 	}
