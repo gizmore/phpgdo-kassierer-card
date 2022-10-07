@@ -5,7 +5,7 @@ use GDO\UI\GDT_Menu;
 use GDO\UI\GDT_Link;
 
 /**
- * Partner right panel menu.
+ * Partner/Company right panel menu.
  * 
  * @author gizmore
  */
@@ -15,6 +15,7 @@ final class GDT_PartnerMenu extends GDT_Menu
 	protected function __construct()
 	{
 		parent::__construct();
+		$this->vertical();
 		$this->label('perm_kk_company');
 		$this->addFields(
 			GDT_Link::make('link_kk_company_page')->href(href('KassiererCard', 'PartnerPage')),

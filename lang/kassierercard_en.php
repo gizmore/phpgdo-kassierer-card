@@ -66,17 +66,6 @@ return [
 	'tt_cfg_euros_revenue' => 'Total Euro revenue',
 	# Tooltips Config
 	'tt_cfg_token_request_time' => 'Duration: how much time for blocking coupon tokens?',
-	'tt_cfg_coupons_created' => 'Total Coupons Created',
-	'tt_cfg_coupons_printed' => 'Total Coupons Printed',
-	'tt_cfg_coupons_entered' => 'Total Coupons Entered',
-	'tt_cfg_stars_created' => 'Total Stars Created',
-	'tt_cfg_stars_redeemed' => 'Total Stars Redeemed',
-	'tt_cfg_offers_created' => 'Total Offers Created',
-	'tt_cfg_offers_redeemed' => 'Total Offers Redeemed',
-	'tt_cfg_euros_invested' => 'Total Euros Invested',
-	'tt_cfg_euros_generated' => 'The economic value we generated.',
-	'tt_cfg_euros_earned' => 'Total Euros Earned',
-	'tt_cfg_euros_revenue' => 'Total Euros Revenue',
 	
 	### AdminGrantStars
 	'grant_stars' => 'Grant Stars',

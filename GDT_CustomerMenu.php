@@ -16,6 +16,7 @@ final class GDT_CustomerMenu extends GDT_Menu
 	{
 		parent::__construct();
 		$mod = Module_KassiererCard::instance();
+		$this->vertical();
 		$this->label('perm_kk_customer');
 		$this->addFields(
 			GDT_Link::make('create_coupon')->href($mod->href('CreateCoupon'))->icon('bee'),

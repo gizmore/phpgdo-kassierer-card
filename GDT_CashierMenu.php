@@ -16,6 +16,7 @@ final class GDT_CashierMenu extends GDT_Menu
 	{
 		parent::__construct();
 		$mod = Module_KassiererCard::instance();
+		$this->vertical();
 		$this->label('perm_kk_cashier');
 		$this->addFields(
 			GDT_Link::make('enter_coupon')->href($mod->href('EnterCoupon'))->icon('bee'),

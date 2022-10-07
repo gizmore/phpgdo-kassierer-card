@@ -13,7 +13,6 @@ return [
 'cfg_diamonds_created' => 'Erzeugte Diamanten',
 'cfg_diamonds_earned' => 'Verdiente Diamanten',
 'cfg_coupons_created' => 'Gesamtzahl der erstellten Gutscheine','cfg_coupons_printed' => 'Gesamtzahl der gedruckten Gutscheine','cfg_coupons_entered' => 'Gesamtzahl der eingegebenen Gutscheine','cfg_stars_purchased' => 'Total gekaufte Sterne','cfg_stars_created' => 'Erstellte Sterne insgesamt','cfg_stars_redeemed' => 'Gesamtzahl der eingelösten Sterne','cfg_offers_created' => 'Gesamtzahl der erstellten Angebote','cfg_offers_redeemed' => 'Gesamtzahl der eingelösten Angebote','cfg_offers_fullfilled' => 'Angebote insgesamt erfüllt','cfg_euros_invested' => 'Investierte Euro insgesamt','cfg_euros_fullfilled' => 'Erwirtschaftete Euro insgesamt','cfg_euros_earned' => 'Gesamt verdiente Euros','cfg_euros_revenue' => 'Gesamteinnahmen in Euro',# Tooltips
-	'tt_cfg_diamonds_earned' => 'Verdiente Diamanten',
 	
 'tt_cfg_token_request_time' => 'Zeitspanne für Wieviel Codes dürfen in welcher Zeit eigngegeben werden?',
 

@@ -15,6 +15,7 @@ final class GDT_DistributorMenu extends GDT_Menu
 	protected function __construct()
 	{
 		parent::__construct();
+		$this->vertical();
 		$mod = Module_KassiererCard::instance();
 		$this->label('perm_kk_distributor');
 		$this->addFields(
