@@ -46,7 +46,7 @@ This can be done via exchanging a Coupon-Code, or scanning a QR-Code.<br/>
 We hope you enjoy this a little!',
 
     'kk_faq_t5' => 'The Company Cookbook',
-    'kk_faq_b5' => 'Last but not least, there are Compenies.<br/>
+    'kk_faq_b5' => 'Last but not least, there are Companies.<br/>
 Your job is to give your workers a bit money and products.<br/>
 In exchange you will get 100% off the backside of every printed KassiererCard,<br/>
 a merchandize platform that is not poisoned with bloated metrics.<br/>',
@@ -57,7 +57,10 @@ With your userlevel you can do forum posts,
 add links to this site, create polls, and do other stuff.<br/>',
 
     'kk_faq_t7' => 'Can i transfer points to other users?',
-    'kk_faq_b7' => 'No, you can only get goods or discounts.',
+    'kk_faq_b7' => 'No, you can only get goods or discounts,
+or virtual stuff like creating polls or advertisements.<br/>
+It is also planned to create NonFungebleAssets. For example for winning a competition.<br/>
+Ideas welcome!',
     
 	'kk_faq_t8' => 'They site is ugly and looks like it\'s 1999!',
 	'kk_faq_b8' => 'I put a lot effort into the design of this system.<br/>
