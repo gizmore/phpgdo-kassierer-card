@@ -95,7 +95,8 @@ nachdem Sie hier auf die Schaltfläche gedrückt haben!',
 'err_kk_offer_totaled' => 'Dieses Angebot ist abgeschlossen, da es %s/%s Mal eingelöst wurde.',
 # Redeem Now
 'msg_redeem_started' => 'Sie fordern das Angebot jetzt an!','kk_info_redeem_offer_now' => 'Du <b>entweder</b> lässt den Arbeiter bei %s die OK-Taste drücken, oder du drückst den QR-Code-Button und lässt den Arbeiter scannen.<br/>So oder so, es gibt es kein Weg zurück jetzt. Sie haben das Angebot angenommen!',
-
+	'msg_redeem aborted' => 'You have aborted the process.',
+	
 # Granted
 'granted_coupons' => 'Eingelöste Gutscheine',
 # Employees

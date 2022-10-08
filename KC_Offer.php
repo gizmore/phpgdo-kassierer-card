@@ -19,6 +19,9 @@ use GDO\File\GDT_ImageFile;
 use GDO\File\GDO_File;
 use GDO\DB\Query;
 use GDO\Payment\GDT_Money;
+use Facebook\Authentication\OAuth2Client;
+use GDO\UI\GDT_Card;
+use GDO\Net\GDT_Url;
 
 /**
  * An offer for a cashier.
@@ -114,16 +117,26 @@ final class KC_Offer extends GDO
 		$kk->increaseConfigVar('euros_invested', $this->getInvested());
 	}
 	
+	public function onRedeem(): void
+	{
+		
+	}
+	
 	############
 	### HREF ###
 	############
-	public function hrefPartnerRedeemQRCode(GDO_User $user) : string
+	public function hrefRedeem(GDO_User $user) : string
 	{
 		$append = "&offer={$this->getID()}";
 		$append .= "&user={$user->getID()}";
 		$hashcode = KC_Util::hashcodeForRedeem($user, $this);
 		$append .= "&hashcode={$hashcode}";
 		return href('KassiererCard', 'PartnerRedeemQRCode', $append);
+	}
+	
+	public function urlRedeem(GDO_User $user): string
+	{
+		return GDT_Url::absolute($this->hrefRedeem($user));
 	}
 	
 	###############
@@ -225,12 +238,31 @@ final class KC_Offer extends GDO
 	
 	public function renderOption() : string
 	{
-		return '#'.$this->getID().'-'.$this->gdoDisplay('o_title');
+		return sprintf('<span style="color:red;">%s(%s✯)</span>',
+			$this->renderName(), $this->getRequiredStars());
 	}
 
 	public function renderName() : string
 	{
-		return $this->renderOption();
+		return sprintf('#%s-%s',
+			$this->getID(), $this->renderTitle());
+	}
+	
+	public function renderTitle(): string
+	{
+		return $this->gdoDisplay('o_title');
+	}
+	
+	public function renderCard(): string
+	{
+		return $this->getCard()->render();
+	}
+	
+	public function getCard(): GDT_Card
+	{
+		$card = GDT_Card::make("offer-{$this->getID()}")->gdo($this);
+		$card->creatorHeader();
+		return $card;
 	}
 	
 	##############

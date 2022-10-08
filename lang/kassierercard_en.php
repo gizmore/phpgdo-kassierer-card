@@ -273,6 +273,7 @@ let the worker at %s press the OK button,
 or you press the QR-Code button and let the worker scan it.<br/>
 Either way, there is no way back,
 when you are claiming the offer!',
+	'msg_redeem aborted' => 'You have aborted the process.',
 	
 	# Granted
 	'granted_coupons' => 'Redeemed Coupons',

@@ -18,6 +18,7 @@ use GDO\UI\GDT_Link;
 use GDO\File\GDT_ImageFile;
 use GDO\Core\GDT_Index;
 use GDO\Net\GDT_Url;
+use GDO\UI\GDT_Card;
 
 /**
  * Merchandize Partner / Company.
@@ -133,6 +134,17 @@ final class KC_Partner extends GDO
 	public function renderCard() : string
 	{
 		return $this->displayCard($this->getAddress()->getAddressLine());
+	}
+	
+	############
+	### Card ###
+	############
+	public function getCard(): GDT_Card
+	{
+		$card = GDT_Card::make("partner-{$this->getID()}")->gdo($this);
+		$card->creatorHeader();
+		$card->title('ct_partner');
+		return $card;
 	}
 	
 	##############
