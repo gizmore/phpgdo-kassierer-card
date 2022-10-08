@@ -42,7 +42,7 @@ final class PrintCoupon extends MethodForm
 // 			GDT_Slogan::make('slogan')->notNull()->initialRandom(),
 			GDT_AntiCSRF::make(),
 		);
-		if (GDO_User::current()->hasPermission('kk_staff'))
+		if (GDO_User::current()->hasPermission('kk_manager'))
 		{
 			$form->actions()->addField(GDT_Submit::make('btn_preview')->onclick([$this, 'preview']));
 		}

@@ -33,15 +33,17 @@ final class RedeemOfferNow extends MethodForm
 		$partner = $offer->getPartner();
 		$form->text('kk_info_redeem_offer_now', [$partner->linkPartner()->render()]);
 		$form->addFields(
-// 			GDT_Offer::make('id')-><<notNull()->writeable(false),
+			$partner->getCard(),
+			$offer->getCard(),
 			GDT_AntiCSRF::make(),
 		);
 		$form->actions()->addFields(
 			GDT_Submit::make('btn_qrcode')->onclick([$this, 'redeemQRCode']),
 			GDT_Submit::make('btn_ok')->onclick([$this, 'redeemOKButton']),
+			GDT_Submit::make('btn_abort')->onclick([$this, 'redeenAbort']),
 		);
 	}
-
+	
 	public function redeemQRCode()
 	{
 		
@@ -50,6 +52,11 @@ final class RedeemOfferNow extends MethodForm
 	public function redeemOKButton()
 	{
 		
+	}
+	
+	public function redeemAbort()
+	{
+		$this->redirectMessage('msg_redeem aborted');
 	}
 	
 }

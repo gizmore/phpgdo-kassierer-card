@@ -370,7 +370,7 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function hookRegisterForm(GDT_Form $form)
 	{
-		$code = GDT_SignupCode::make('kk_token')->label('lbl_kk_register_code')->tooltip('tt_kk_register_code');
+		$code = GDT_CouponToken::make('kk_token')->label('lbl_kk_register_code')->tooltip('tt_kk_register_code');
 		$type = GDT_AccountType::make('kk_type')->notNull();
 		$form->addFieldAfterName($code, 'user_name');
 		$form->addFieldAfterName($type, 'kk_token');

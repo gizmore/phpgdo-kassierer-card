@@ -268,7 +268,11 @@ after you press the button here!',
 	
 	# Redeem Now
 	'msg_redeem_started' => 'You are claiming the offer now!',
-	'kk_info_redeem_offer_now' => 'You <b>either</b> let the worker at %s press the OK button, or you press the QR-Code button and let the worker scan it.<br/>Either way, there is no way back now. you claimed the offer!',
+	'kk_info_redeem_offer_now' => 'You <b>either</b>
+let the worker at %s press the OK button,
+or you press the QR-Code button and let the worker scan it.<br/>
+Either way, there is no way back,
+when you are claiming the offer!',
 	
 	# Granted
 	'granted_coupons' => 'Redeemed Coupons',

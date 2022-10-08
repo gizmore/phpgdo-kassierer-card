@@ -56,7 +56,7 @@ final class GDT_CouponToken extends GDT_Token
 		}
 		if ($value)
 		{
-			if (self::keyExists($value))
+			if (!self::keyExists($value))
 			{
 				$this->reset(true);
 				return $this->error('err_kk_coupon_used');
@@ -64,18 +64,7 @@ final class GDT_CouponToken extends GDT_Token
 		}
 		return true;
 	}
-	
-	### Var/Value ###
-// 	public function inputToVar($input) : ?string
-// 	{
-// 		if ($input === null)
-// 		{
-// 			return null;
-// 		}
-// 		$input = preg_replace('#[^0-9A-Z]#', '', strtoupper($input));
-// 		return $input;
-// 	}
-	
+
 	##############
 	### Render ###
 	##############
