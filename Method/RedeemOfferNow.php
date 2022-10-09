@@ -50,7 +50,7 @@ final class RedeemOfferNow extends MethodForm
 	{
 		$user = GDO_User::current();
 		$offer = $this->getOffer();
-		$offer->onRedeemed();
+// 		$offer->onRedeemed();
 		return GDT_QRCode::make()
 			->var($offer->urlRedeem($user));
 	}

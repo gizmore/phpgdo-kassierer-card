@@ -300,6 +300,11 @@ class KC_Coupon extends GDO
 	############
 	### HREF ###
 	############
+	public function href_delete(): string
+	{
+		return href('KassiererCard', 'AdminCouponDelete', "&coupon={$this->getID()}");
+	}
+	
 	public function hrefSVGFrontBack(string $FrontBack='Front') : string
 	{
 		$type = $this->getType();
