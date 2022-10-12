@@ -29,6 +29,9 @@ text {
 	letter-spacing: 7.8px;
 	font-size: 76px;
 }
+.stars {
+	font-size: 76px;
+}
 </style>
 <rect x="0" y="0" width="1050" height="600" style="fill:#fff;"></rect>
 <rect rx="10" ry="10" x="0" y="0" width="1050" height="600" style="fill:#F94600;"></rect>
@@ -72,4 +75,6 @@ for ($i = 0; $i < 5; $i++)
 	$x += $dash;
 }
 ?>
+<!-- <text x="450" y="320" fill="#ffffff" stroke="#ffffff" class="stars"><?=$coupon->getStars()?>⭐</text> -->
+
 </svg>
