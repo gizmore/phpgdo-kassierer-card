@@ -3,6 +3,8 @@ namespace GDO\KassiererCard;
 
 use GDO\Core\GDT_Enum;
 use GDO\DB\Query;
+use GDO\UI\GDT_Bar;
+use GDO\UI\GDT_Link;
 
 /**
  * A Competition selection.
@@ -69,6 +71,24 @@ final class GDT_CompetitionSection extends GDT_Enum
 			self::OFFER_OF_THE_MONTH,
 			self::OFFER_OF_THE_YEAR,
 		);
+	}
+	
+	public function renderCell(): string
+	{
+		return $this->displayVar($this->getVar());
+	}
+	
+	public function renderHTML(): string
+	{
+		$bar = GDT_Bar::make()->horizontal(true, true);
+		foreach ($this->enumValues as $var)
+		{
+			$href = href('KassiererCard', 'Competitions', "&section={$var}");
+			$link = GDT_Link::make()->href($href)
+				->textRaw($this->displayVar($var));
+			$bar->addField($link);
+		}
+		return $bar->render();
 	}
 	
 }

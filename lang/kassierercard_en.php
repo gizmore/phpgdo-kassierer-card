@@ -413,4 +413,24 @@ This offer has been redeemed %s/%s times now.
 Sincerly,
 The %s System',
 	
+	# Competitions
+	'enum_cashier_of_the_week' => 'Cashier of the Week',
+	'enum_cashier_of_the_month' => 'Cashier of the Month',
+	'enum_cashier_of_the_year' => 'Cashier of the Year',
+	'enum_customer_of_the_week' => 'Customer of the Week',
+	'enum_customer_of_the_month' => 'Customer of the Month',
+	'enum_customer_of_the_year' => 'Customer of the Year',
+	'enum_company_of_the_week' => 'Company of the Week',
+	'enum_company_of_the_month' => 'Company of the Month',
+	'enum_company_of_the_year' => 'Company of the Year',
+	'enum_business_of_the_week' => 'Business of the Week',
+	'enum_business_of_the_month' => 'Business of the Month',
+	'enum_business_of_the_year' => 'Business of the Year',
+	'enum_offer_of_the_week' => 'Offer of the Week',
+	'enum_offer_of_the_month' => 'Offer of the Month',
+	'enum_offer_of_the_year' => 'Offer of the Year',
+	
+	'competition_table' => '%s; %s entries; Page %s/%s',
+
+	
 ];
