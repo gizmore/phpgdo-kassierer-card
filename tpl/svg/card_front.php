@@ -27,7 +27,7 @@ text {
 }
 .fineprint {
 	letter-spacing: 7.8px;
-	font-size: 80px;
+	font-size: 76px;
 }
 </style>
 <rect x="0" y="0" width="1050" height="600" style="fill:#fff;"></rect>

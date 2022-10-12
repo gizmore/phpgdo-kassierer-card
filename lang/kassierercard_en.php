@@ -35,6 +35,8 @@ return [
 	'cfg_coupons_redeemed' => 'Coupons Redeemed',
 	'cfg_stars_available' => 'Stars Available',
 	'cfg_stars_created' => 'Stars Created',
+	'cfg_stars_earned' => 'Stars Earned',
+	'cfg_stars_entered' => 'Stars Entered',
 	'cfg_stars_purchased' => 'Stars Purchased',
 	'cfg_stars_redeemed' => 'Stars Redeemed',
 	'cfg_offers_created' => 'Offers Created',
@@ -343,6 +345,7 @@ Check us out at: %s
 
 Kind Regards,
 The %3$s System',
+	
 	'mail_subj_kk_invited_diamonds' => '%s: %s joined us!',
 	'mail_body_kk_invited_diamonds' => 'Dear %s,
 
@@ -353,7 +356,7 @@ from which you have %s now.
 Your userlevel increased by %s points to %s.
 
 Kind Regards,
-The %s Team',
+The %4$s Team',
 	
 	# Impressum
 	'responsible_is' => 'Responsible for this is:',
@@ -411,6 +414,16 @@ The user %s just redeemed one of your offers:
 This offer has been redeemed %s/%s times now.
 	
 Sincerly,
+The %s System',
+	
+	# Entered stars
+	'mail_subj_customer_stars' => '%s: %s stars earned',
+	'mail_body_customer_stars' => 'Hello %s,
+
+The user %s has just entered your coupon of %s stars.
+This earned you %s stars as well.
+
+Well Done!
 The %s System',
 	
 	# Competitions

@@ -90,7 +90,8 @@ final class CreateCoupon extends MethodForm
 		$vars = $form->getFormVars();
 		$vars['kc_type'] = 'kk_coupon';
 		KC_Coupon::blank($vars)->insert();
-		$this->redirectMessage('msg_coupon_created', null, href('KassiererCard', 'PrintedCoupons'));
+		return $this->redirectMessage('msg_coupon_created', null,
+			href('KassiererCard', 'PrintedCoupons'));
 		
 		# THIS DO ON COUPON ENTERED
 // 		$stars = $vars['kc_stars'];

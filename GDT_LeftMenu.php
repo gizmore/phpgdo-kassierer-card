@@ -12,9 +12,11 @@ use GDO\UI\GDT_Menu;
  */
 final class GDT_LeftMenu extends GDT_Menu
 {
+	
 	protected function __construct()
 	{
 		parent::__construct();
+		$this->vertical();
 		$mod = Module_KassiererCard::instance();
 		$this->labelRaw(sitename());
 		$this->addFields(

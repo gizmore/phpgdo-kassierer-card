@@ -5,6 +5,7 @@ use GDO\Core\GDT_Enum;
 use GDO\DB\Query;
 use GDO\UI\GDT_Bar;
 use GDO\UI\GDT_Link;
+use GDO\User\GDO_Permission;
 
 /**
  * A Competition selection.
@@ -42,7 +43,13 @@ final class GDT_CompetitionSection extends GDT_Enum
 	{
 		switch ($section)
 		{
-			
+			case self::CASHIER_OF_THE_WEEK:
+			case self::CASHIER_OF_THE_MONTH:
+			case self::CASHIER_OF_THE_YEAR:
+// 				$cashierId = GDO_Permission::getByName('kk_cashier')->getID();
+// 				$query->join('JOIN gdo_userpermission up ON up.perm_user_id=gdo_user.user_id AND up.perm_perm_id='.$cashierId);
+// 				$query->join('JOIN gdo_usersetting us_stars ON us_stars.uset_user=gdo_user.user_id AND us_stars.uset_name="stars_earned"');
+				break;
 		}
 	}
 	

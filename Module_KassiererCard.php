@@ -78,6 +78,7 @@ final class Module_KassiererCard extends GDO_Module
 			KC_OfferRedeemed::class,
 			KC_Slogan::class,
 			KC_Working::class,
+			KC_Competition::class,
 			KC_TokenRequest::class,
 		];
 	}
@@ -390,13 +391,17 @@ final class Module_KassiererCard extends GDO_Module
 		}
 		
 		$type = $form->getFormVar('kk_type');
+		if ($type !== $code->getType())
+		{
+			return $field->error('err_kk_signup_code_type', [$code->renderType()]);
+		}
 		
 		if ($type === 'kk_customer')
 		{
-			if ($code)
-			{
-				return $field->error('err_kk_signup_customer_no_code');
-			}
+// 			if ($code)
+// 			{
+// 				return $field->error('err_kk_signup_customer_no_code');
+// 			}
 			return true;
 		}
 		
@@ -407,11 +412,6 @@ final class Module_KassiererCard extends GDO_Module
 		elseif (!$code)
 		{
 			return true; # no code + no type
-		}
-		
-		if ($type !== $code->getType())
-		{
-			return $field->error('err_kk_signup_code_type', [$code->renderType()]);
 		}
 		
 		return true;

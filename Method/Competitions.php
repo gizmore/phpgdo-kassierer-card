@@ -12,6 +12,7 @@ use GDO\Table\MethodQueryList;
 use GDO\KassiererCard\KC_Offer;
 use GDO\KassiererCard\KC_Business;
 use GDO\KassiererCard\KC_Partner;
+use GDO\KassiererCard\KC_OfferRedeemed;
 
 /**
  * Show competition results.
@@ -21,25 +22,42 @@ use GDO\KassiererCard\KC_Partner;
  */
 final class Competitions extends MethodQueryList
 {
+	
+	public function isSearched(): bool
+	{
+		return false;
+	}
+	
+	public function isFiltered(): bool
+	{
+		return false;
+	}
+	
+	public function isOrdered(): bool
+	{
+		return false;
+	}
+	
 	public function gdoTable()
 	{
-		switch ($this->getSection())
-		{
-			case 'business_of_the_week':
-			case 'business_of_the_month':
-			case 'business_of_the_year':
-				return KC_Business::table();
-			case 'company_of_the_week':
-			case 'company_of_the_month':
-			case 'company_of_the_year':
-				return KC_Partner::table();
-			case 'offer_of_the_week':
-			case 'offer_of_the_month':
-			case 'offer_of_the_year':
-				return KC_Offer::table();
-			default:
-				return GDO_User::table();
-		}
+// 		switch ($this->getSection())
+// 		{
+// 			case 'business_of_the_week':
+// 			case 'business_of_the_month':
+// 			case 'business_of_the_year':
+// 				return KC_Business::table();
+// 			case 'company_of_the_week':
+// 			case 'company_of_the_month':
+// 			case 'company_of_the_year':
+// 				return KC_Partner::table();
+// 			case 'offer_of_the_week':
+// 			case 'offer_of_the_month':
+// 			case 'offer_of_the_year':
+// 				return KC_Offer::table();
+// 			default:
+// 				return GDO_User::table();
+// 		}
+		return KC_OfferRedeemed::table();
 	}
 	
 	public function gdoParameters() : array

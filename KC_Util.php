@@ -44,13 +44,19 @@ final class KC_Util
 	
 	public static function maxStarsCreatedInPeriod(GDO_User $user, int $time) : int
 	{
-		$mod = Module_KassiererCard::instance();
-		if ($user->hasPermission('kk_manager'))
+		if ($user->hasPermission('staff'))
+		{
+			return 1000;
+		}
+		elseif ($user->hasPermission('kk_manager'))
 		{
 			return 100;
 		}
-		$max = $mod->cfgFreeStarsPerPeriod();
-		return $max;
+		else
+		{
+			$mod = Module_KassiererCard::instance();
+			return $mod->cfgFreeStarsPerPeriod();
+		}
 	}
 	
 	public static function getStars(GDO_User $user) : int

@@ -161,6 +161,10 @@ class KC_Coupon extends GDO
 		$user->increaseSetting($kkn, 'stars_entered', $stars);
 		$user->increaseSetting($kkn, 'stars_earned', $stars);
 		
+		$creator->increaseSetting($kkn, 'stars_available', $stars);
+		$creator->increaseSetting($kkn, 'stars_earned', $stars);
+		$this->sendCreatorEarnedStars($creator, $user, $stars);
+		
 		$kk->increaseConfigVar('coupons_entered');
 		$kk->increaseConfigVar('stars_entered', $stars);
 		if ($isActivation)
@@ -172,15 +176,40 @@ class KC_Coupon extends GDO
 				$kk->increaseConfigVar('users_invited');
 				$kk->increaseConfigVar('stars_invited', $stars);
 				$kk->increaseConfigVar('diamonds_created', $diamonds);
-				$creator->increaseSetting('KassiererCard', 'users_invited');
-				$creator->increaseSetting('KassiererCard', 'stars_available', $stars);
-				$creator->increaseSetting('KassiererCard', 'stars_earned', $stars);
-				$creator->increaseSetting('KassiererCard', 'stars_invited', $stars);
-				$creator->increaseSetting('KassiererCard', 'diamonds_earned', $diamonds);
+				$creator->increaseSetting($kkn, 'users_invited');
+				$creator->increaseSetting($kkn, 'stars_available', $stars);
+				$creator->increaseSetting($kkn, 'stars_earned', $stars);
+				$creator->increaseSetting($kkn, 'stars_invited', $stars);
+				$creator->increaseSetting($kkn, 'diamonds_earned', $diamonds);
 				$creator->increase('user_level', $level);
 				$this->sendDiamondMail($user, $diamonds, $level);
 			}
 		}
+	}
+	
+	private function levelForStars(): int
+	{
+		return $this->getStars();
+	}
+	
+	private function diamondsForInvitation(): int
+	{
+		return $this->getStars();
+	}
+	
+	private function sendCreatorEarnedStars(GDO_User $customer, GDO_User $cashier, int $stars): void
+	{
+		$mail = Mail::botMail();
+		$mail->setSubject(tusr($customer, 'mail_subj_customer_stars', [sitename(), $stars]));
+		$args = [
+			$customer->renderUserName(),
+			$cashier->renderUserName(),
+			$stars,
+			$stars,
+			sitename(),
+		];
+		$mail->setBody(tusr($customer, 'mail_body_customer_stars', $args));
+		$mail->sendToUser($customer);
 	}
 	
 	public static function onActivation(GDO_User $user, ?string $token): void

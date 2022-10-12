@@ -43,6 +43,20 @@ final class GDT_CouponToken extends GDT_Token
 		return $key;
 	}
 	
+	################
+	### Existing ###
+	################
+	public ?bool $existing = null;
+	public function existing(?bool $existing=true): self
+	{
+		$this->existing = $existing;
+		return $this;
+	}
+	
+	
+	################
+	### Validate ###
+	################
 	private static function keyExists(string $key) : bool
 	{
 		return !!KC_Coupon::getByToken($key);
@@ -54,14 +68,25 @@ final class GDT_CouponToken extends GDT_Token
 		{
 			return false;
 		}
-		if ($value)
+		
+		if ($this->existing === true)
 		{
 			if (!self::keyExists($value))
+			{
+				$this->reset(true);
+				return $this->error('err_kk_coupon_unknown');
+			}
+		}
+		
+		if ($this->existing === false)
+		{
+			if (self::keyExists($value))
 			{
 				$this->reset(true);
 				return $this->error('err_kk_coupon_used');
 			}
 		}
+
 		return true;
 	}
 
