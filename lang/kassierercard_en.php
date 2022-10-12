@@ -37,6 +37,7 @@ return [
 	'cfg_stars_created' => 'Stars Created',
 	'cfg_stars_earned' => 'Stars Earned',
 	'cfg_stars_entered' => 'Stars Entered',
+	'cfg_stars_invited' => 'Stars Invited',
 	'cfg_stars_purchased' => 'Stars Purchased',
 	'cfg_stars_redeemed' => 'Stars Redeemed',
 	'cfg_offers_created' => 'Offers Created',
@@ -44,9 +45,10 @@ return [
 	'cfg_offers_fullfilled' => 'Offers Fullfilled',
 	'cfg_euros_invested' => 'Euros Invested',
 	'cfg_euros_fullfilled' => 'Euros Generated',
-	'cfg_euros_earned' => 'Euros Earned',
+	'cfg_euros_earned' => 'Euros Gathered',
 	'cfg_euros_donated' => 'Euros Donated',
 	'cfg_euros_revenue' => 'Euros Revenue',
+	'cfg_users_invited' => 'Users Invited',
 	# Tooltips Stats
 	'tt_cfg_diamonds_created' => 'Companies create Diamonds by fulfilling Offers.',
 	'tt_cfg_diamonds_earned' => 'Customers and Cashiers earn Diamonds by Invitations.',
@@ -64,8 +66,8 @@ return [
 	'tt_cfg_euros_invested' => 'Total Euro Invested',
 	'tt_cfg_euros_fullfilled' => 'Total Euro wealth generated',
 	'tt_cfg_euros_donated' => 'Total amount of Euro donated, from Members to KC.org.',
-	'tt_cfg_euros_earned' => 'Total Euro earned.',
-	'tt_cfg_euros_revenue' => 'Total Euro revenue',
+	'tt_cfg_euros_earned' => 'Total worth of Euros gathered.',
+	'tt_cfg_euros_revenue' => 'Total Euro revenue for the KassiererCard.org.',
 	# Tooltips Config
 	'tt_cfg_token_request_time' => 'Duration: how much time for blocking coupon tokens?',
 	
@@ -107,7 +109,7 @@ The %4$s Team',
 	
 	### Types
 	'kk_type' => 'Account Type',
-	'kk_stars' => 'Bonus Points',
+	'kk_stars' => 'KC Stars',
 // 	'kk_team' => 'Team Member',
 	'kk_coupon' => 'Coupon',
 	'kk_cashier' => 'Cashier',
@@ -326,7 +328,7 @@ and when the invited person activates,
 you get diamonds as reward.
 Else your stars are lost and become dust in the wind!<br/>
 Currently diamonds are worthless, except for our competitions.',
-	'msg_kk_sent_invitation' => 'You have spent %s to send an invitation to %s. Additionally, %s stars are your gift to them which get converted to diamonds as soon as they sign up.',
+	'msg_kk_sent_invitation' => 'You have spent %s stars to send an invitation to %s. Additionally, %s stars are your gift to them, which will get converted to diamonds as soon as they sign up with us.',
 	'mailsubj_kk_invite' => '%s: Invitation as %s',
 	'mailbody_kk_invite' => 'Hello Dear future User,
 

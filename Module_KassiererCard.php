@@ -164,7 +164,8 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('offers_fullfilled')->label('cfg_offers_fullfilled')->tooltip('tt_cfg_offers_fullfilled')->icon('bee'), # company fullfills
 			GDT_Badge::make('offers_redeemed')->label('cfg_offers_redeemed')->tooltip('tt_cfg_offers_redeemed')->icon('star'), # offers taken
 			GDT_Badge::make('diamonds_earned')->label('cfg_diamonds_earned')->tooltip('tt_cfg_diamonds_earned')->icon('diamond'),
-			GDT_Money::make('euros_fullfilled')->label('cfg_euros_fullfilled')->tooltip('tt_cfg_euros_fullfilled'), # offer worth
+			GDT_Money::make('euros_earned')->initial('0.00')->label('cfg_euros_earned')->tooltip('tt_cfg_euros_earned'),
+			GDT_Money::make('euros_generated')->initial('0.00')->label('cfg_euros_generated')->tooltip('tt_cfg_euros_generated'),
 			GDT_Money::make('euros_invested')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'), # offer for euro purchased
 		];
 	}
@@ -435,6 +436,18 @@ final class Module_KassiererCard extends GDO_Module
 			{
 				KC_Coupon::onActivation($user, @$data['kk_token']);
 			}
+		}
+	}
+	
+	public function hookUserSettingChanged(GDO_User $user, string $key, ?string $old, ?string $new): void
+	{
+		if ($key === 'stars_earned')
+		{
+			KC_Competition::onEarned($user, $new - $old);
+		}
+		elseif ($key === 'diamonds_earned')
+		{
+			KC_Competition::onEarned($user, 0, $new - $old);
 		}
 	}
 	

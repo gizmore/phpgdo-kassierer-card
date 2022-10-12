@@ -104,4 +104,9 @@ like company, cashier, customer, offer, of, the, month.<br/>
 Every redeemed offer earns the company diamonds.<br/>
 As a customer or cashier, you can earn diamonds by inviting more users.<br/>',
 	
+	'kk_faq_t16' => 'How long do my stars last?',
+	'kk_faq_b16' => 'The lifetime of your stars is unlimited.<br/>
+Unless you are not cheating, we are happy to support you!',
+
+	
 ];

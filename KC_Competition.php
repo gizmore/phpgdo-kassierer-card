@@ -6,6 +6,7 @@ use GDO\Core\GDT_AutoInc;
 use GDO\User\GDT_User;
 use GDO\Core\GDT_UInt;
 use GDO\Core\GDT_CreatedAt;
+use GDO\User\GDO_User;
 
 /**
  * A star or diamond has been earned/given.
@@ -27,6 +28,16 @@ final class KC_Competition extends GDO
 		];
 	}
 
-
+	##############
+	### Static ###
+	##############
+	public static function onEarned(GDO_User $user, int $stars, int $diamonds=0)
+	{
+		self::blank([
+			'c_user' => $user->getID(),
+			'c_stars_earned' => $stars,
+			'c_diamonds_earned' => $diamonds,
+		])->insert();
+	}
 	
 }

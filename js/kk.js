@@ -4,14 +4,12 @@ window.KC = {};
 
 window.KC.tokenPress = function(event) {
 	console.log('window.KC.tokenPress()', event);
-//	debugger;
 	var input = $(event.target);
 	if (event.originalEvent.keyCode ===  13) {
 		input.closest('input[type=submit]').click();
 	}
 	else {
 		var next = input.next();
-//		debugger;
 		let tag = next.prop("tagName");
 		if (tag === 'SPAN') {
 			next = next.next();
@@ -55,7 +53,6 @@ window.KC.enhanceCouponTokens = function() {
 			}
 		}
 		cont.closest('form').submit(function() {
-			debugger;
 			var tok = '';
 			$('.kk-split-token').each(function(){
 				tok += this.value;
