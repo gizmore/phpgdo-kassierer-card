@@ -9,9 +9,20 @@ use GDO\KassiererCard\GDT_Offer;
 use GDO\KassiererCard\KC_Offer;
 use GDO\QRCode\GDT_QRCode;
 use GDO\User\GDO_User;
+use GDO\UI\GDT_Redirect;
 
 final class RedeemOfferNow extends MethodForm
 {
+	public function isSidebarEnabled(): bool
+	{
+		if 	(($this->pressedButton === 'btn_qrcode') &&
+			($this->validated))
+		{
+			return false;
+		}
+		return true;
+	}
+	
 	public function getMethodTitle() : string
 	{
 		return t('redeem_offer');
@@ -50,14 +61,14 @@ final class RedeemOfferNow extends MethodForm
 	{
 		$user = GDO_User::current();
 		$offer = $this->getOffer();
-// 		$offer->onRedeemed();
 		return GDT_QRCode::make()
 			->var($offer->urlRedeem($user));
 	}
 	
 	public function redeemOKButton()
 	{
-		
+		$offer = $this->getOffer();
+		return GDT_Redirect::to(href('KassiererCard', 'RedeemOfferOk', "&offer={$offer->getID()}"));
 	}
 	
 	public function redeemAbort()

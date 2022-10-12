@@ -104,9 +104,9 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_UInt::make('free_stars_per_period')->min(0)->max(100)->initial('2'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
 			GDT_UInt::make('level_gain_per_diamond')->min(0)->max(10000)->initial('10'),
-			GDT_UInt::make('customer_coupon_modulus')->min(1)->max(100)->initial('5'),
+			GDT_UInt::make('customer_coupon_modulus')->min(1)->max(100)->initial('1'),
 			GDT_UInt::make('cashier_stars_per_invitation')->max(10000)->initial('2'), # stars earned fur successful inivite
-			GDT_UInt::make('customer_stars_per_invitation')->max(10000)->initial('3'),
+			GDT_UInt::make('customer_stars_per_invitation')->max(10000)->initial('2'),
 			GDT_UInt::make('stars_per_poll')->max(100)->initial('1'),
 			GDT_UInt::make('stars_per_diamond')->min(1)->max(1000)->initial('1'),
 			GDT_UInt::make('token_request_amt')->min(1)->max(100)->initial('5'),
@@ -125,7 +125,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('offers_redeemed')->initial('0')->label('cfg_offers_redeemed')->tooltip('tt_cfg_offers_redeemed'),
 			GDT_Badge::make('diamonds_created')->initial('0')->label('cfg_diamonds_created')->tooltip('tt_cfg_diamonds_created'),
 			GDT_Money::make('euros_invested')->initial('0.00')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'),
-			GDT_Money::make('euros_generated')->initial('0.00')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'),
+			GDT_Money::make('euros_generated')->initial('0.00')->label('cfg_euros_generated')->tooltip('tt_cfg_euros_generated'),
 			GDT_Money::make('euros_earned')->initial('0.00')->label('cfg_euros_earned')->tooltip('tt_cfg_euros_earned'),
 			GDT_Money::make('euros_revenue')->initial('0.00')->label('cfg_euros_revenue')->tooltip('tt_cfg_euros_revenue'),
 		];
@@ -468,7 +468,7 @@ final class Module_KassiererCard extends GDO_Module
 		$bar = GDT_Bar::make()->horizontal();
 		$bar->addFields(
 			GDT_Link::make('enter_coupon')->href($this->href('EnterCoupon')),
-			GDT_Link::make('granted_coupons')->href($this->href('GrantedCoupons')),
+			GDT_Link::make('granted_coupons')->href($this->href('EnteredCoupons')),
 		);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}

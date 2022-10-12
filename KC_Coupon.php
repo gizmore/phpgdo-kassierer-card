@@ -335,7 +335,7 @@ class KC_Coupon extends GDO
 			case 'kk_customer':
 				return href('Register', 'Form', "&kk_token={$token}&kk_type={$type}");
 			default:
-				return href('Register', 'InvalidCoupon', "&token={$token}&type={$type}");
+				return href('KassiererCard', 'InvalidCoupon', "&token={$token}&type={$type}");
 		}
 	}
 	

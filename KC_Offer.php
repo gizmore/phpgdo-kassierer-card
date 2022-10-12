@@ -19,7 +19,6 @@ use GDO\File\GDT_ImageFile;
 use GDO\File\GDO_File;
 use GDO\DB\Query;
 use GDO\Payment\GDT_Money;
-use Facebook\Authentication\OAuth2Client;
 use GDO\UI\GDT_Card;
 use GDO\Net\GDT_Url;
 
@@ -60,6 +59,8 @@ final class KC_Offer extends GDO
 	
 	public function getTitle() : string { return $this->gdoVar('o_title'); }
 	
+	public function getPassphrase() : string { return $this->gdoVar('o_passphrase'); }
+	
 	public function getPartner() : KC_Partner { return $this->gdoValue('o_partner'); }
 	
 	public function getCreator() : GDO_User { return $this->gdoValue('o_creator'); }
@@ -75,11 +76,6 @@ final class KC_Offer extends GDO
 	 * How many items/offers can a single user get from this offer.
 	 */
 	public function getMaxOffers(GDO_User $user) : int { return $this->gdoValue('o_cashier_amt'); }
-
-	/**
-	 * How many total coupons are available.
-	 */
-	public function getTotalCoupons() : int { return $this->gdoValue('o_total_amt'); }
 
 	/**
 	 * How many total offer items are available.
@@ -107,19 +103,17 @@ final class KC_Offer extends GDO
 		$kkn = 'KassiererCard';
 		$creator = $gdo->getCreator();
 		$creator->increaseSetting($kkn, 'offers_created');
-// 		$creator->increaseSetting($kkn, 'stars_created');
 		$creator->increaseSetting($kkn, 'euros_invested', $gdo->getInvested());
 		
 		# Stats
 		$kk = Module_KassiererCard::instance();
 		$kk->increaseConfigVar('offers_created');
-// 		$kk->increaseConfigVar('stars_created');
 		$kk->increaseConfigVar('euros_invested', $this->getInvested());
 	}
 	
-	public function onRedeem(): void
+	public function onRedeem(GDO_User $user): void
 	{
-		
+		KC_OfferRedeemed::onRedeemed($user, $this);
 	}
 	
 	############
@@ -130,7 +124,7 @@ final class KC_Offer extends GDO
 		$append = "&offer={$this->getID()}";
 		$append .= "&user={$user->getID()}";
 		$hashcode = KC_Util::hashcodeForRedeem($user, $this);
-		$append .= "&hashcode={$hashcode}";
+		$append .= "&token={$hashcode}";
 		return href('KassiererCard', 'PartnerRedeemQRCode', $append);
 	}
 	

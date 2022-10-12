@@ -250,6 +250,7 @@ Please login and try again.',
 	'err_print_sundays' => 'You cannot print coupons on sunday.<br/>
 You can try again tommorow.',
 	'your_ad_here' => 'Backside 100% for Partners',
+	'link_preview_enter_coupon' => 'Coupon URL',
 	
 	# Printed
 	'printed_coupons' => 'Printed Coupons',
@@ -274,6 +275,14 @@ or you press the QR-Code button and let the worker scan it.<br/>
 Either way, there is no way back,
 when you are claiming the offer!',
 	'msg_redeem aborted' => 'You have aborted the process.',
+	
+	# Partner Redeem
+	'mt_kassierercard_partnerredeemqrcode' => 'Scan Redeem Code',
+	'kk_info_redeem_qr' => 'As a partner, scan a customers QR-Code here.',
+	
+	# Redeem O.K.
+	'kk_info_redeem_offer_ok' => 'Let the worker at %s press the button now!',
+	'msg_offer_redeemed_ok' => 'You have officially redeemed this offer: %s.<br/>If this is an error: bad luck!',
 	
 	# Granted
 	'granted_coupons' => 'Redeemed Coupons',
@@ -366,4 +375,42 @@ Please help us to give more meaning to the people and nature,
 instead of money.<br/>
 <br/>
  - gizmore!',
+	
+	# Redeem Mails
+	'mailsubj_redeemed_staff' => '%s: Offer redeemed',
+	'mailbody_redeemed_staff' => 'Hello %s,
+	
+The user %s just redeemed the following offer:
+	
+%s - %s
+
+This offer has been redeemed %s/%s times now.
+	
+We just let you know
+The %s System',
+
+	'mailsubj_redeemed_user' => '%s: Offer redeemed',
+	'mailbody_redeemed_user' => 'Hello %s,
+	
+You just redeemed %s stars for the following offer:
+
+%s - %s
+
+You now have %s stars left.
+
+Sincerly,
+The %s System',
+
+	'mailsubj_redeemed_partner' => '%s: Offer redeemed',
+	'mailbody_redeemed_partner' => 'Hello %s,
+	
+The user %s just redeemed one of your offers:
+
+%s - %s
+
+This offer has been redeemed %s/%s times now.
+	
+Sincerly,
+The %s System',
+	
 ];
