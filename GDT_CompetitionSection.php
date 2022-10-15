@@ -5,7 +5,6 @@ use GDO\Core\GDT_Enum;
 use GDO\DB\Query;
 use GDO\UI\GDT_Bar;
 use GDO\UI\GDT_Link;
-use GDO\User\GDO_Permission;
 
 /**
  * A Competition selection.

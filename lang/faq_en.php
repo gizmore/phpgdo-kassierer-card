@@ -108,5 +108,9 @@ As a customer or cashier, you can earn diamonds by inviting more users.<br/>',
 	'kk_faq_b16' => 'The lifetime of your stars is unlimited.<br/>
 Unless you are not cheating, we are happy to support you!',
 
+	'kk_faq_t17' => 'Was is denn dein Finanzierungskonzept?',
+
+	'kk_faq_t18' => 'Warum sollte ich Euch vertrauen?', 
+
 	
 ];

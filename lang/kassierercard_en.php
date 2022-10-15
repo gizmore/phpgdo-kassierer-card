@@ -8,6 +8,7 @@ return [
 	'link_kk_offers' => '%s Offers',
 	'link_kk_companys' => '%s Partners',
 	'link_kk_statistics' => '%s Statistics',
+	'link_kk_favorites' => '%s Favorites',
 	'link_kk_competitions' => '%s Competitions',
 	'link_kk_businesses' => '%s Employers',
 	'link_kk_employees' => '%s Employees',
@@ -49,6 +50,8 @@ return [
 	'cfg_euros_donated' => 'Euros Donated',
 	'cfg_euros_revenue' => 'Euros Revenue',
 	'cfg_users_invited' => 'Users Invited',
+	# Profile settings
+	'cfg_your_dream' => '',
 	# Tooltips Stats
 	'tt_cfg_diamonds_created' => 'Companies create Diamonds by fulfilling Offers.',
 	'tt_cfg_diamonds_earned' => 'Customers and Cashiers earn Diamonds by Invitations.',
@@ -447,5 +450,9 @@ The %s System',
 	
 	'competition_table' => '%s; %s entries; Page %s/%s',
 
+	# Favorites
+	'mt_kk_favorites' => 'Favorite %s',
+	'tt_kk_favorites' => '%s favorite &quot;%s&quot; setings',
+	'md_kk_favorites' => 'The %s favorite %s on %s. Real user content, Real opinions on your favorite %2$s.',
 	
 ];

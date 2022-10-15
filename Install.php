@@ -212,9 +212,25 @@ final class Install
 			self::installUser(...$data);
 		}
 		
+		self::installGizmore();
+		
 		self::installUserSetting('Horus', 'KassiererCard', 'favorite_religion', 'Horus Götterkult', GDT_ACLRelation::ALL);
+// 		self::installUserSetting('gizmore', 'KassiererCard', 'favorite_religion', 'Horus Götterkult', GDT_ACLRelation::ALL);
 		
 		return true;
+	}
+	
+	private static function installGizmore(): void
+	{
+		$addr = GDO_Address::blank([
+			'address_company' => 'IT-Multiservice-Busch',
+			'address_vat' => '000-0000-000',
+			'address_name' => 'Christian Busch',
+			'address_street' => 'Am Bauhof 15',
+			'address_name' => 'Christian Busch',
+			'address_name' => 'Christian Busch',
+			'',
+		]);
 	}
 	
 	private static function installUserSetting(string $username, string $moduleName, string $settingName, string $settingVar, string $aclRelation): bool
