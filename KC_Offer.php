@@ -57,6 +57,7 @@ final class KC_Offer extends GDO
 	##############
 	### Getter ###
 	##############
+	public function isActive(): bool { return $this->gdoVar('o_partnership') === GDT_Partnership::ACTIVE; }
 	
 	public function getTitle() : string { return $this->gdoVar('o_title'); }
 	
@@ -227,6 +228,11 @@ final class KC_Offer extends GDO
 			->enabled($canRedeem));
 		
 		$li->footer(GDT_OfferStatus::make()->offer($this));
+		
+		if (!$this->isActive())
+		{
+			$li->addClass('kk-not-active');
+		}
 		
 		return $li->render();
 	}

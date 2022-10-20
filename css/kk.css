@@ -16,3 +16,7 @@
 .kc-coupon-token .dash {
 	margin-right: 8px;
 }
+
+div.kk-not-active.gdt-list-item {
+	background-color: rgba(226,114,91,155);
+}

@@ -234,6 +234,7 @@ final class Install
 				'address_name' => 'Christian Busch',
 				'address_street' => 'Am Bauhof 15',
 				'address_country' => 'DE',
+				'address_creator' => '2',
 			])->insert();
 		}
 		else
@@ -245,6 +246,7 @@ final class Install
 				'address_name' => 'Christian Busch',
 				'address_street' => 'Am Bauhof 15',
 				'address_country' => 'DE',
+				'address_creator' => '2',
 			]);
 		}
 		self::installUserSetting('gizmore', 'Address', 'address', '2', GDT_ACLRelation::ALL);
@@ -608,7 +610,7 @@ EOT;
 		
 		self::offer(3, $yes, 2,  5,  5.00, 25.00,  1, $now, '2022-11-09',
 			'CUT!!!', 'Aerodynamisch',
-			'Ein 20% Gutschein für einen Haarschnitt bei Frisör Valied.<br/>Damit auch die Damen nicht zu kurz kommen!');
+			'Ein 20% Gutschein für einen Haarschnitt bei Frisör Walied.<br/>Damit auch die Damen nicht zu kurz kommen!');
 		
 		self::offer(4, $want, 3, 30,  1.50, 45.00, 10, $now, '2022-11-09',
 			'PROST!!!', 'Gesellig',
