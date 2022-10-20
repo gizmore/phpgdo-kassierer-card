@@ -64,6 +64,7 @@ final class PartnerScanOffer extends MethodForm
 	{
 		$user = $this->getUser();
 		$offer = $this->getOffer();
+		
 	}
 	
 }

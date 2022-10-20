@@ -32,6 +32,7 @@ final class KC_Partner extends GDO
 	{
 		return [
 			GDT_AutoInc::make('p_id'),
+			GDT_Partnership::make('p_partnership'),
 			GDT_User::make('p_user')->notNull(),
 			GDT_Category::make('p_category')->notNull(),
 			GDT_Address::make('p_address')->notNull()->emptyLabel('please_choose'),
@@ -103,7 +104,7 @@ final class KC_Partner extends GDO
 		$addr = $this->getAddress();
 		$country = $addr->getCountry();
 		$li = GDT_ListItem::make("partner_{$this->getID()}")->gdo($this);
-		$li->titleRaw($addr->getCompany());
+		$li->titleRaw(GDT_Link::anchor($this->hrefPartner(), $addr->getCompany()));
 		$subt = $addr->getStreet() . ', ' . $addr->getZIP() . ' ';
 		$subt .= $addr->getCity();
 		$href = Module_Maps::instance()->getMapsURL($subt . ', ' . $country->getName());
@@ -133,7 +134,8 @@ final class KC_Partner extends GDO
 	
 	public function renderCard() : string
 	{
-		return $this->displayCard($this->getAddress()->getAddressLine());
+		return $this->getCard()->render();
+// 		return $this->displayCard($this->getAddress()->getAddressLine());
 	}
 	
 	############

@@ -55,7 +55,8 @@ final class KC_Util
 		else
 		{
 			$mod = Module_KassiererCard::instance();
-			return $mod->cfgFreeStarsPerPeriod();
+			$free = $mod->cfgFreeStarsPerPeriod();
+			return $free + KC_Util::numStarsAvailable($user);
 		}
 	}
 	

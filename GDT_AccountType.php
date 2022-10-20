@@ -11,6 +11,9 @@ use GDO\Core\GDT;
  */
 final class GDT_AccountType extends GDT_Enum
 {
+	# not an account type! ^^
+	const COUPON = 'kk_coupon';
+	
 	const CASHIER = 'kk_cashier';
 	const COMPANY = 'kk_company'; # partner
 	const CUSTOMER = 'kk_customer';

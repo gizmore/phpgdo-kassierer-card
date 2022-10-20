@@ -53,14 +53,14 @@ final class Module_KassiererCard extends GDO_Module
 			'Account', 'AboutMe', 'ActivationAlert', 'Address',
 			'Admin', 'Ads', 'Avatar',
 			'Backup', 'Birthday', 'Bootstrap5Theme',
-			'Captcha', 'Category', 'Contact', 'Classic',
+			'Captcha', 'Category', 'CKEditor', 'Contact', 'Classic',
 			'CountryCoordinates', 'CountryRestrictions',
 			'Cronjob', 'CSS', 'DoubleAccounts',
 			'FontAtkinson', 'FontAwesome', 'Forum',
 			'GTranslate', 'IP2Country',
 			'Javascript', 'JQueryAutocomplete',
 			'Licenses', 'Links', 'LoC', 'Login',
-			'Maps', 'Mail', 'Maps', 'Markdown', 'News',
+			'Maps', 'Mail', 'Maps', 'News',
 			'PaymentCredits', 'PaymentPaypal',
 			'Perf', 'Poll', 'PM', 'QRCode',
 			'Recovery', 'Register',
@@ -383,18 +383,20 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function validateToken(GDT_Form $form, GDT $field, $value)
 	{
+		$codeType = 'kk_customer';
 		if ($code = $form->getFormVar('kk_token'))
 		{
 			if (!($code = KC_Coupon::getByToken($code)))
 			{
 				return $field->error('err_kk_signup_code_unknown');
 			}
+			$codeType = $code->getType();
 		}
 		
 		$type = $form->getFormVar('kk_type');
-		if ($type !== $code->getType())
+		if ($type !== $codeType)
 		{
-			return $field->error('err_kk_signup_code_type', [$code->renderType()]);
+			return $field->error('err_kk_signup_code_type', [t($codeType)]);
 		}
 		
 		if ($type === 'kk_customer')

@@ -37,6 +37,7 @@ final class KC_Offer extends GDO
 		return [
 			GDT_AutoInc::make('o_id'),
 			GDT_Partner::make('o_partner')->notNull()->label('partner'),
+			GDT_Partnership::make('o_partnership')->notNull(),
 			GDT_String::make('o_passphrase')->notNull()->label('passphrase'),
 			GDT_Title::make('o_title')->notNull(),
 			GDT_Message::make('o_text')->notNull()->label('description'),

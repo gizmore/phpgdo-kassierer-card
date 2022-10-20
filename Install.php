@@ -175,6 +175,8 @@ final class Install
 		self::cat(11, 'NGO', 1);
 		self::cat(12, 'Social', 1);
 		self::cat(13, 'Fashion', 1);
+		self::cat(14, 'Print', 1);
+		self::cat(15, 'Retail', 1);
 		
 		self::cat(101, 'News', null);
 		self::cat(102, 'Peiner-News', 101);
@@ -208,7 +210,7 @@ final class Install
 		$accounts = require 'account_seeds.php';
 		foreach ($accounts as $data)
 		{
-			echo "Installing user {$data[1]}\n";
+			echo "Installing user {$data[2]}\n";
 			self::installUser(...$data);
 		}
 		
@@ -241,7 +243,7 @@ final class Install
 		return true;
 	}
 	
-	private static function installUser(string $id, string $nickname, ?string $email, string $password, string $perms, string $avatarFile=null) : bool
+	private static function installUser(string $id, string $status, string $nickname, ?string $email, string $password, string $perms, string $avatarFile=null) : bool
 	{
 		if (!($user = GDO_User::getById($id)))
 		{
@@ -374,24 +376,35 @@ final class Install
 	###############
 	private static function installPartners() : bool
 	{
+		$est = null;
+		$yes = 'kk_partner_active';
+		$want = 'kk_partner_wanted';
 		$descr = 'Der beste Döner in Peine, knusprig und preiswert.<br/>Das Original - Nur bei Saray Ali!';
-		self::partner(1, 'Ali', 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', 'TR', '+49 5171 / 37 40', $descr, 'https://saray.busch-peine.de/');
+		self::partner(1, $want, 'Ali', 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', 'TR', '+49 5171 / 37 40', $descr, 'https://saray.busch-peine.de/', $est);
 		$descr = 'Der Frisör bei dem einen der Hut hochgeht?<br/>Schauen Sie mal vorbei!';
-		self::partner(2, 'Walid', 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/');
+		self::partner(2, $yes, 'Walied', 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/', $est);
 		$descr = 'Peiner Rock/Pank Szenekneipe.<br/>Ab und an auch mal Live Musik.<br/>Angenehme Atmosphäre.';
-		self::partner(3, 'Garage', 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', 'DE', null, $descr, 'https://garage-peine.de');
+		self::partner(3, $want, 'Garage', 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', 'DE', null, $descr, 'https://garage-peine.de', $est);
 		$descr = 'Endlich wieder ein Headshop in Peine<br/>CBD geht jetzt schon, echtes Weed soll es ja auch bald geben...<br/>Wer\'s glaubt!';
-		self::partner(4, 'Headshop', 9, 'Headhshop Peine', 'Am Markt', '31224', 'Peine', 'DE', 'DE', null, $descr, 'https://headshop.busch-peine.de');
+		self::partner(4, $want, 'Headshop', 9, 'Headhshop Peine', 'Am Markt', '31224', 'Peine', 'DE', 'DE', null, $descr, 'https://headshop.busch-peine.de', $est);
 		$descr = 'Brötchen vom Vortag sind nicht die besten, aber Kuchen vom Vortag klingt doch super!<br/>Café, Kuchen, Backwaren,';
-		self::partner(5, 'Vortagsbaeckerei', 3, 'Vortagsbaeckerei', 'Bahnhofstraße 5', '31224', 'Peine', 'DE', 'DE', '+49 176 218 23 784', $descr, 'https://www.facebook.com/people/Backlife-Caf%C3%A9-Vortagsb%C3%A4ckerei-Peine/100057060595562/');
+		$est = '2018-04-01';
+		self::partner(5, $yes, 'Vortagsbaeckerei', 3, 'Vortagsbaeckerei', 'Bahnhofstraße 5', '31224', 'Peine', 'DE', 'DE', '+49 176 218 23 784', $descr, 'https://www.facebook.com/people/Backlife-Caf%C3%A9-Vortagsb%C3%A4ckerei-Peine/100057060595562/', $est);
 		$descr = 'Der FIPS-Peine betreut Psychisch-Behinderte.<br/>Diese arbeiten in einigen Geschäften in der Innenstadt, wie z.B. Gebrauchtwaren oder Kaffees.';
-		self::partner(6, 'FIPS', 12, 'FIPS Peine', 'Hagenstr. 12', '31224', 'Peine', 'DE', 'DE', '+49 5171 50 89 25', $descr, 'https://www.fips-ev.de/treffen/beratungs-begegnungsst%C3%A4tte-peine/');
+		$est = null;
+		self::partner(6, $want, 'FIPS', 12, 'FIPS Peine', 'Hagenstr. 12', '31224', 'Peine', 'DE', 'DE', '+49 5171 50 89 25', $descr, 'https://www.fips-ev.de/treffen/beratungs-begegnungsst%C3%A4tte-peine/', $est);
 		$descr = 'Alex und Tanja sind als Cheerleader-Verein tätig. Ausserdem basteln Sie Schleifen und ähnliches.';
-		self::partner(7, 'Alex', 13, 'Vereinsschleifen', 'Schäferstraße', '31224', 'Peine', 'DE', 'DE', '+49 123 456 789', $descr, 'https://gizmore.124.de');
+		self::partner(7, $want, 'Alex', 13, 'Vereinsschleifen', 'Schäferstraße', '31224', 'Peine', 'DE', 'DE', '+49 123 456 789', $descr, 'https://gizmore.124.de', $est);
+		$descr = 'Hier wird noch alles selbst gemacht. Echtes Lammfleisch gibt es eigentlich nur im Hatay!';
+		self::partner(8, $yes, 'Hatay', 6, 'Hatay Kebap', 'Neue Straße 11', '31224', 'Peine', 'DE', 'DE', '+49 5171 90 77 100', $descr, 'https://www.facebook.com/people/Hatay-Kebap-Peine/100050921601266/', $est);
+		$descr = 'Hier habe ich schon so einiges drucken lassen.<br/>Von T-Shirts über Tagebücher bis zu Kassierer-Cards.<br/>Kompetente Beratung! Gerne Wieder!';
+		self::partner(9, $yes, 'Druckertankstelle', 14, 'Druckertankstelle Peine', 'Schwarzer Weg 19', '31224', 'Peine', 'DE', 'DE', '+49 5171 58 78 97', $descr, 'http://www.druckertankstelle-peine.de/', $est);
+		$descr = 'Ein An- und Verkauf in Peine. Faire Preise und ein lokales Unternehmen was Kundschaft willkommen heisst.';
+		self::partner(10, $yes, 'PrimaSparen', 15, 'PrimaSparen Peine', 'Schwarzer Weg 36', '31224', 'Peine', 'DE', 'DE', '+49 5171 29 54 26', $descr, 'https://www.Prima-Sparen.de/', $est);
 		return true;
 	}
 	
-	private static function partner(int $id, string $userName, int $cat, string $name, string $street, string $zip, string $city, string $country, string $origin, ?string $phone, string $descr, string $url) : void
+	private static function partner(int $id, string $status, string $userName, int $cat, string $name, string $street, string $zip, string $city, string $country, string $origin, ?string $phone, string $descr, string $url, ?string $est) : void
 	{
 		$userId = GDO_User::getByName($userName)->getID();
 		$countryId = GDO_Country::findById($country)->getID();
@@ -402,6 +415,7 @@ final class Install
 			$addr = GDO_Address::blank([
 				'address_id' => $id + 200000,
 				'address_company' => $name,
+				'address_est' => $est,
 				'address_vat' => null,
 				'address_name' => null,
 				'address_street' => $street,
@@ -420,6 +434,7 @@ final class Install
 		{
 			$addr->saveVars([
 				'address_company' => $name,
+				'address_est' => $est,
 				'address_vat' => null,
 				'address_name' => null,
 				'address_street' => $street,
@@ -439,6 +454,7 @@ final class Install
 		{
 			$p = KC_Partner::blank([
 				'p_id' => $id,
+				'p_partnership' => $status,
 				'p_user' => $userId,
 				'p_address' => $addr->getID(),
 				'p_category' => $cat,
@@ -448,6 +464,7 @@ final class Install
 		else
 		{
 			$p->saveVars([
+				'p_partnership' => $status,
 				'p_user' => $userId,
 				'p_address' => $addr->getID(),
 				'p_category' => $cat,
@@ -563,42 +580,52 @@ EOT;
 	##############
 	private static function installOffers() : bool
 	{
+		$want = 'kk_partner_wanted';
+		$yes = 'kk_partner_active';
 		$now = Time::getDate();
-		self::offer(1, 1, 15,  4.00, 60.00,  2, $now, '2022-11-09',
+		self::offer(1, $want, 1, 15,  4.00, 60.00,  2, $now, '2022-11-09',
 			'ALIBABA!', 'Dönertaschtig',
 			'Ein leckerer Döner mit Schafskäse und Fleisch nach Wahl, von Ihrem Saray.');
 
-		self::offer(2, 1, 20,  2.00, 40.00,  2, $now, '2022-11-09',
+		self::offer(2, $want, 1, 20,  2.00, 40.00,  2, $now, '2022-11-09',
 			'ALIBABA!', 'Erquickend',
 			'Ein Gutschein für eine Soft-Getränk. Besser als garnix.');
 		
-		self::offer(3, 2,  5,  5.00, 25.00,  1, $now, '2022-11-09',
+		self::offer(3, $yes, 2,  5,  5.00, 25.00,  1, $now, '2022-11-09',
 			'CUT!!!', 'Aerodynamisch',
-			'Ein 5€ Gutschein für einen Haarschnitt bei Frisör Walid.');
+			'Ein 20% Gutschein für einen Haarschnitt bei Frisör Valied.<br/>Damit auch die Damen nicht zu kurz kommen!');
 		
-		self::offer(4, 3, 30,  1.50, 45.00, 10, $now, '2022-11-09',
+		self::offer(4, $want, 3, 30,  1.50, 45.00, 10, $now, '2022-11-09',
 			'PROST!!!', 'Gesellig',
 			'Ein Gutschein über ein Härke-Bier, dem ehemaligen Getränk der Stadt?');
 		
-		self::offer(5, 4,  2, 10.00, 20.00,  1, $now, '2022-11-09',
+		self::offer(5, $want, 4,  2, 10.00, 20.00,  1, $now, '2022-11-09',
 			'DOPE!!!', 'Auszeit',
 			'Ein Gramm gratis CBD-Gras zum ausprobieren im Gegenwert von €10.<br/>Na wenn das nix is!');
 		
-		self::offer(6, 5, 40,  1.50, 50.00,  5, $now, '2022-11-09',
+		self::offer(6, $yes, 5, 40,  1.50, 50.00,  5, $now, '2022-11-09',
 			'COFFEE!!!', 'Zuerst ein\' Kaffee',
 			'Ein Kaffee in der Vortagsbäckerei. Schauen Sie mal vorbei!');
 		
-		self::offer(7, 5, 20,  2.00, 20.00,  2, $now, '2022-11-09',
+		self::offer(7, $yes, 5, 20,  2.00, 20.00,  2, $now, '2022-11-09',
 			'COFFEE!!!', 'Danach ein\' Donut',
 			'Ein Donut in der Vortagsbäckerei. Schauen Sie mal vorbei!');
 		
-		self::offer(8, 6, 10,  1.00, 10.00,  2, $now, '2022-11-09',
+		self::offer(8, $want, 6, 10,  1.00, 10.00,  2, $now, '2022-11-09',
 			'buchwurm', 'Belesen',
 			'Ein Gutschein für ein Buch im Bücherwurm Gebrauchtleseartikelgeschäft.');
 		
-		self::offer(9, 7, 5,   5.00, 10.00,  2, $now, '2022-11-09',
+		self::offer(9, $want, 7, 5,   5.00, 10.00,  2, $now, '2022-11-09',
 			'seife', 'Endlosschleife',
 			'Ein Gutschein für ein paar Schleifen vom Alex und Tanja.');
+		
+		self::offer(10, $yes, 9, 2,  25.00, 50.00,  1, $now, '2022-11-09',
+			'FreePrint', 'Stylish',
+			'Ein Gutschein für ein selbstgedrucktes T-Shirt.<br/>Falls Dir nix einfällt druck\' doch unser Logo! ;)');
+		
+		self::offer(11, $yes, 10, 5,  10.00, 50.00,  1, $now, '2022-11-09',
+			'Gamestop', 'Used Truth',
+			'Ein 10 Öcken-Gutschein für den An- und Verkauf im Schwarzen Weg, Peine.<br/>Dort gibt es technischen Schnick-Schnack für den Spieltrieb');
 		
 		return true;
 	}
@@ -606,18 +633,21 @@ EOT;
 	/**
 	 * Create an offer
 	 */
-	private static function offer(int $id, int $partnerId,
+	private static function offer(int $id, string $status, int $partnerId,
 		int $totalOffers, float $worth, float $invested,
 		int $cashierAmt,
 		string $created, string $expire,
 		string $passphrase, string $title, string $text) : void
 	{
+		$partner = KC_Partner::getById($partnerId);
+		$paruser = $partner->getUser();
 		$stars = KC_Util::euroToStars($worth);
 		if ($offer = KC_Offer::getById($id))
 		{
 			$offer->saveVars([
 				'o_partner' => $partnerId,
 				'o_passphrase' => $passphrase,
+				'o_partnership' => $status,
 				'o_title' => $title,
 				'o_text' => $text,
 				'o_required_stars' => $stars,
@@ -627,7 +657,7 @@ EOT;
 				'o_invested' => $invested,
 				'o_worth' => $worth,
 				'o_created' => $created,
-				'o_creator' => '2',
+				'o_creator' => $paruser->getID(),
 			]);
 		}
 		else
@@ -635,6 +665,7 @@ EOT;
 			KC_Offer::blank([
 				'o_id' => $id,
 				'o_partner' => $partnerId,
+				'o_partnership' => $status,
 				'o_passphrase' => $passphrase,
 				'o_title' => $title,
 				'o_text' => $text,
@@ -645,7 +676,7 @@ EOT;
 				'o_worth' => $worth,
 				'o_expires' => $expire,
 				'o_created' => $created,
-				'o_creator' => '2',
+				'o_creator' => $paruser->getID(),
 			])->insert();
 		}
 	}
@@ -660,6 +691,11 @@ EOT;
 		self::coupon(2, 'WANNA4TEAM', $cc,    1, 25, 'Test-Cashier-2',  false);
 		$cc = GDT_AccountType::CUSTOMER;
 		self::coupon(2, 'TEST123401', $cc, null, 15, 'Test-Customer-1', false);
+		$cc = GDT_AccountType::COUPON;
+		self::coupon(2, 'PEINEROCKS', $cc, null, 10, 'Test-Coupon-1', false);
+		self::coupon(2, 'PEINEROCK5', $cc, null, 10, 'Test-Coupon-2', false);
+		self::coupon(2, 'PEINER0CK5', $cc, null, 10, 'Test-Coupon-3', false);
+		self::coupon(2, 'P3INEROCK5', $cc, null, 10, 'Test-Coupon-4', false);
 		return true;
 	}
 	

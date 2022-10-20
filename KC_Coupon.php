@@ -428,18 +428,21 @@ class KC_Coupon extends GDO
 	########################
 	### Get Rate Limited ###
 	########################
-	public static function getByToken(string $token, bool $entered=false) : ?self
+	public static function getByToken(?string $token, bool $entered=false) : ?self
 	{
-		$reason = '';
-		if (KC_TokenRequest::isBlocked(GDO_User::current(), $reason))
+		if ($token)
 		{
-			Website::error(sitername(), '%s', [$reason]);
-			return null;
-		}
-		if ($coupon = self::getBy('kc_token', $token))
-		{
-			return $coupon->isEntered() === $entered
-				? $coupon : null;
+			$reason = '';
+			if (KC_TokenRequest::isBlocked(GDO_User::current(), $reason))
+			{
+				Website::error(sitername(), '%s', [$reason]);
+				return null;
+			}
+			if ($coupon = self::getBy('kc_token', $token))
+			{
+				return $coupon->isEntered() === $entered
+					? $coupon : null;
+			}
 		}
 		return null;
 	}

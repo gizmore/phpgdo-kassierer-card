@@ -3,13 +3,15 @@ namespace GDO\KassiererCard\tpl\page;
 use GDO\UI\GDT_Link;
 use GDO\UI\GDT_Divider;
 ?>
-<h2>Hallo und herzlich Willkommen bei <?=sitename()?></h2>
+<h2>Hallo und herzlich Willkommen auf <?=sitename()?></h2>
+<p>Ich möchte mich kurz vorstellen.<br/>
+Ich heisse Christian Busch, oder auch <?=profile_link('gizmore')?>, bin ca. 42 Jahre alt, Programmierer aus Peine.</p>
 <p>Ihr alle kennt:</p>
 <ul>
 <li><a href="https://www.payback.de/" rel="nofollow">Payback Card</a></li>
 <li><a href="https://www.deutschlandcard.de/" rel="nofollow">Deutschland Card</a></li>
 <li>ARAL-Card</li>
-<li>OBI?</li>
+<li>OBI-Card?</li>
 </ul>
 <p>Und viele mehr...</p>
 

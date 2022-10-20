@@ -57,6 +57,11 @@ window.KC.enhanceCouponTokens = function() {
 			$('.kk-split-token').each(function(){
 				tok += this.value;
 			});
+			// Empty token is allowed for customers
+			tok = tok.trim();
+			if (tok === '') {
+				return true;
+			}
 			hidden.val(tok);
 			return hidden.val().length === len;
 		});
