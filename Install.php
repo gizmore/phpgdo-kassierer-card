@@ -224,15 +224,30 @@ final class Install
 	
 	private static function installGizmore(): void
 	{
-		$addr = GDO_Address::blank([
-			'address_company' => 'IT-Multiservice-Busch',
-			'address_vat' => '000-0000-000',
-			'address_name' => 'Christian Busch',
-			'address_street' => 'Am Bauhof 15',
-			'address_name' => 'Christian Busch',
-			'address_name' => 'Christian Busch',
-			'',
-		]);
+		if (!($addr = GDO_Address::getById('2')))
+		{
+			$addr = GDO_Address::blank([
+				'address_id' => '2',
+				'address_company' => 'IT-Multiservice-Busch',
+				'address_est' => '2018-06-01',
+				'address_vat' => '000-0000-000',
+				'address_name' => 'Christian Busch',
+				'address_street' => 'Am Bauhof 15',
+				'address_country' => 'DE',
+			])->insert();
+		}
+		else
+		{
+			$addr->saveVars([
+				'address_company' => 'IT-Multiservice-Busch',
+				'address_est' => '2018-06-01',
+				'address_vat' => '000-0000-000',
+				'address_name' => 'Christian Busch',
+				'address_street' => 'Am Bauhof 15',
+				'address_country' => 'DE',
+			]);
+		}
+		self::installUserSetting('gizmore', 'Address', 'address', '2', GDT_ACLRelation::ALL);
 	}
 	
 	private static function installUserSetting(string $username, string $moduleName, string $settingName, string $settingVar, string $aclRelation): bool
