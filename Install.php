@@ -696,6 +696,10 @@ EOT;
 		self::coupon(2, 'PEINEROCK5', $cc, null, 10, 'Test-Coupon-2', false);
 		self::coupon(2, 'PEINER0CK5', $cc, null, 10, 'Test-Coupon-3', false);
 		self::coupon(2, 'P3INEROCK5', $cc, null, 10, 'Test-Coupon-4', false);
+		
+		# 
+		
+		
 		return true;
 	}
 	
