@@ -637,8 +637,8 @@ EOT;
 			'Ein Gutschein für ein paar Schleifen vom Alex und Tanja.');
 		
 		self::offer(10, $yes, 8, 10,   6.50, 60.00,  1, $now, '2022-11-09',
-			'seife', 'Endlosschleife',
-			'Ein Gutschein für ein paar Schleifen vom Alex und Tanja.');
+			'50Lamm', 'Lammfromm',
+			'Ein leckerer Lammdöner vom Hatay Grill. Hier wird fast alles in Handarbeit gemacht. Sehr empfehlenswert.');
 		
 		self::offer(11, $yes, 9, 2,  25.00, 50.00,  1, $now, '2022-11-09',
 			'FreePrint', 'Stylish',
