@@ -170,7 +170,7 @@ final class Module_KassiererCard extends GDO_Module
 		];
 	}
 	
-	public function getACLDefaults() : ?array
+	public function getACLDefaults() : array
 	{
 		return [
 			# Profile
