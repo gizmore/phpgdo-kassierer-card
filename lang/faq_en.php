@@ -4,42 +4,62 @@ return [
     'mt_faq' => 'Help / FAQ',
     'md_faq' => 'Frequently asked questions and webservice helpfiles for KassiererCard.org',
 
-    'kk_faq_t1' => 'What is this site about?',
-    'kk_faq_b1' => '%s is a service, and art project, to honor the cashiers and workers in the real economy.<br/>
+    'kk_faq_t1a' => 'What is this site about?',
+    'kk_faq_b1a' => '%s is a service, and art project, to honor the cashiers and workers in the real economy.<br/>
 It is similiar to a tip or a thank you.<br/>
 Also it is the baptism of fire for my programming work.<br/>
-KassiererCard.org has a fair reward system,
-and we hope it is fun to earn Stars and redeem some of them into,<br/>
+KassiererCard.org has an interesting reward system,
+and we hope it is fun to earn Stars, browse the site and redeem some of the Offers,<br/>
 like getting a beer, a haircut, a kebab or a coffee.<br/>
 In crazy times, maybe a thank you and a smile is more valuable than ever.<br/>
 We are transparent and indipendant, and have kinda charity plans for the future.',
     
 	'kk_faq_t1b' => 'Why do you do this?',
 	'kk_faq_b1b' => 'Fame and money :)<br/>
-Also we wanna move something.<br/>
-Help us to bring some power to the people.<br/>',
+The project is kinda fun and perfect for my own software.<br/>
+Also we wanna move something!<br/>
+Please help us to bring some power to the people.<br/>',
+
+	'kk_faq_t1c' => 'How do you finance this?',
+	'kk_faq_b1c' => 'We try to get to some critical mass and a fun site quickly.<br/>
+until then, the costs are tightly calculated, and covored from a guy named gizmore :)<br/>
+Currently we have 0 expenses for servers and programming,
+and 100% of the marketing capital ends in the Offers; Well, except a few beers with the team.<br/>
+He hopes to bring some joy and a smile to your days at work.',
+	
+	'kk_faq_t1d' => 'Why should we trust you?!',
+	'kk_faq_b1d' => 'We are completely free from any third party code or assets,
+like &quot;images&quot; or web-bugs hosted on other companie\'s server.<br/>
+We do not collect any information from you, beside an email,
+some logs,
+and the information you reveal yourself in your profile.<br/>
+If you are suspicious, just do not reveal private information here.<br/>
+You can check your browser for how tight our security should be,
+and you will need some luck to find external resources.<br/>
+If you are interested in computer security you should checkout %s.',
 	
     'kk_faq_t2' => 'How do we earn points?',
     'kk_faq_b2' => 'There are three types of accounts.<br/>
 Customer, Cashier and Company.
 Let\'s call them the three C\'s; CEO, Christian and Charlette.<br/>
 Customers can print (and write down) Coupons.<br/>
-The Cashiers and workers can trade them for Offers.<br/>
-The Companies Offer goods for the stars and get Diamonds in return.
-Those are for competitions and ranking.',
+The Cashiers and workers can enter them to collect stars.<br/>
+Customers also get some stars (diamonds) when they invite people or give cards to the workers.<br/>
+The Companies Offer goods for the stars and also get Diamonds in return.
+Those are for competitions and rankings.',
 
     'kk_faq_t3' => 'The Customer 1x1',
     'kk_faq_b3' => 'As a customer;
 Print Coupons and hand them to the Cashiers and workers you like.<br/>
-You can print %s free stars every period; Mo/Tu, We/Th and Fr/Sa.<br/>
+You can print %s free stars every day.<br/>
 You can either print a Coupon, write the code down,
-or use your mobile phone to transfer codes to the Workers.<br/>
-You will get a star for every %sth star the workers enter from you.',
+or use mobile phones to transfer codes to the workers.<br/>
+You will get a diamond for every %sth star a worker enters from you.',
 
 	'kk_faq_t4' => 'The Cashier Crisis',
-    'kk_faq_b4' => 'Let\'s not forget we do this for you, dear workers.<br/>
-Currently only admins can invite Cashiers individually.<br/>
-We try to cover Peine and maybe one or two other cities in the first run.<br/>
+    'kk_faq_b4' => 'Let\'s not forget we do this for you, dear workers :).<br/>
+Currently only admins can invite Cashiers individually, but this will change in Phase-2.<br/>
+For now we try to cover Peine and maybe one or two other cities in the first run.<br/>
 If you like the idea, send invitations to your Customers. - Customers do not need a signup code.<br/>
 You will get handed Coupons from your Customers that you can trade for goods from the Companies.<br/>
 This can be done via exchanging a Coupon-Code, or scanning a QR-Code.<br/>
@@ -93,24 +113,23 @@ This means an active customer could cost us around %s per month, but see the sta
 There is no printing on Sundays.<br/>
 Partners and managers have special rules, of course.',
 	
-	'kk_faq_t14' => 'What are the stars for?',
-	'kk_faq_b14' => 'Stars are the points or coins here.<br/>
+	'kk_faq_t14' => 'What are the stars and diamonds for?',
+	'kk_faq_b14' => 'Stars can be created by customers out of thin air,
+but they cannot use them except to give them to workers.<br/>
+If a worker enters a coupon from you, you will get diamonds in return.<br/>
+Diamonds have the same value of stars for customers, as they can exchange them for Offers.
+Diamonds also put you into the rankings, where we can put some prizes or tombola up.<br/>
 One €uro roghly equals %s stars. This rate may change!<br/>
-Also, you can only trade the stars for the offers from our partners.',
-	
-	'kk_faq_t15' => 'What are the diamonds for?',
-	'kk_faq_b15' => 'Diamonds are only used for the competitions,<br/>
+Also, you can only trade the stars for the offers from our partners.
+Diamonds are also used for the competitions,<br/>
 like company, cashier, customer, offer, of, the, month.<br/>
-Every redeemed offer earns the company diamonds.<br/>
-As a customer or cashier, you can earn diamonds by inviting more users.<br/>',
+Every redeemed offer earns the companies diamonds,
+so they can compete for the most social company ever.<br/>
+As a customer and cashier, you can earn diamonds by inviting more users.<br/>',
 	
-	'kk_faq_t16' => 'How long do my stars last?',
-	'kk_faq_b16' => 'The lifetime of your stars is unlimited.<br/>
+	'kk_faq_t15' => 'How long do my stars last?',
+	'kk_faq_b15' => 'The lifetime of your stars is unlimited.<br/>
 Unless you are not cheating, we are happy to support you!',
-
-	'kk_faq_t17' => 'Was is denn dein Finanzierungskonzept?',
-
-	'kk_faq_t18' => 'Warum sollte ich Euch vertrauen?', 
 
 	
 ];

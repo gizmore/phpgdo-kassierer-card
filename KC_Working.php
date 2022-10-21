@@ -10,6 +10,7 @@ use GDO\Date\Time;
 use GDO\Date\GDT_Timestamp;
 use GDO\Table\GDT_ListItem;
 use GDO\DB\Query;
+use GDO\Core\GDT_UInt;
 
 /**
  * Relation table. User working at Business.
@@ -30,6 +31,7 @@ final class KC_Working extends GDO
 			GDT_Object::make('work_business')->table(KC_Business::table())->notNull(),
 			GDT_Timestamp::make('work_from')->notNull(),
 			GDT_Timestamp::make('work_until'),
+			GDT_UInt::make('work_hours_weekly'),
 		];
 	}
 	
@@ -62,13 +64,14 @@ final class KC_Working extends GDO
 	##############
 	### Static ###
 	##############
-	public static function startedWorking(GDO_User $user, KC_Business $biz, string $dateFrom=null) : void
+	public static function startedWorking(GDO_User $user, KC_Business $biz, string $dateFrom=null, int $hours=null) : void
 	{
 		$dateFrom = $dateFrom ? $dateFrom : Time::getDate();
 		self::blank([
 			'work_user' => $user->getID(),
 			'work_business' => $biz->getID(),
 			'work_from' => $dateFrom,
+			'work_hours_weekly' => $hours,
 		])->insert();
 	}
 	

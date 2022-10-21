@@ -14,13 +14,25 @@ use GDO\Payment\GDT_Money;
 $kk = Module_KassiererCard::instance();
 
 $acc = GDT_Accordeon::make();
-$acc->title('kk_faq_t1');
-$acc->addField(GDT_Paragraph::make()->text('kk_faq_b1', [sitename()]));
+$acc->title('kk_faq_t1a');
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b1a', [sitename()]));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t1b');
 $acc->addField(GDT_Paragraph::make()->text('kk_faq_b1b', []));
+echo $acc->render();
+
+$acc = GDT_Accordeon::make();
+$acc->title('kk_faq_t1c');
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b1c', []));
+echo $acc->render();
+
+$acc = GDT_Accordeon::make();
+$acc->title('kk_faq_t1d');
+$acc->addField(GDT_Paragraph::make()->text('kk_faq_b1d', [
+	GDT_Link::make()->href('https://www.wechall.net')->render(),
+]));
 echo $acc->render();
 
 $acc = GDT_Accordeon::make();

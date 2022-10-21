@@ -11,6 +11,7 @@ use GDO\KassiererCard\KC_Working;
 use GDO\User\GDO_User;
 use GDO\Date\GDT_Date;
 use GDO\Date\Time;
+use GDO\Core\GDT_UInt;
 
 /**
  * Set yourself to be working at a business.
@@ -35,6 +36,7 @@ final class WorkingThere extends MethodForm
 		$form->addFields(
 			$this->gdoParameter('biz'),
 			GDT_Date::make('from'),
+			GDT_UInt::make('hours')->min(4)->max(80),
 			GDT_AntiCSRF::make(),
 		);
 		$form->actions()->addFields(
@@ -53,8 +55,9 @@ final class WorkingThere extends MethodForm
 		$biz = $this->getBusiness();
 		$user = GDO_User::current();
 		$dateFrom = $this->gdoParameterVar('from');
+		$hours = $this->gdoParameterValue('hours');
 		KC_Working::stoppedWorking($user);
-		KC_Working::startedWorking($user, $biz, $dateFrom);
+		KC_Working::startedWorking($user, $biz, $dateFrom, $hours);
 		$args = [html($biz->renderName()), Time::displayDate($dateFrom, 'day')];
 		$this->message('msg_kk_started_work', $args);
 	}

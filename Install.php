@@ -636,11 +636,15 @@ EOT;
 			'seife', 'Endlosschleife',
 			'Ein Gutschein für ein paar Schleifen vom Alex und Tanja.');
 		
-		self::offer(10, $yes, 9, 2,  25.00, 50.00,  1, $now, '2022-11-09',
+		self::offer(10, $yes, 8, 10,   6.50, 60.00,  1, $now, '2022-11-09',
+			'seife', 'Endlosschleife',
+			'Ein Gutschein für ein paar Schleifen vom Alex und Tanja.');
+		
+		self::offer(11, $yes, 9, 2,  25.00, 50.00,  1, $now, '2022-11-09',
 			'FreePrint', 'Stylish',
 			'Ein Gutschein für ein selbstgedrucktes T-Shirt.<br/>Falls Dir nix einfällt druck\' doch unser Logo! ;)');
 		
-		self::offer(11, $yes, 10, 5,  10.00, 50.00,  1, $now, '2022-11-09',
+		self::offer(12, $yes, 10, 5,  10.00, 50.00,  1, $now, '2022-11-09',
 			'Gamestop', 'Used Truth',
 			'Ein 10 Öcken-Gutschein für den An- und Verkauf im Schwarzen Weg, Peine.<br/>Dort gibt es technischen Schnick-Schnack für den Spieltrieb');
 		
