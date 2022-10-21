@@ -3,7 +3,8 @@ namespace GDO\KassiererCard\lang;
 return [
 	'module_kassierercard' => 'KassiererCard',	
 ### Nav
-	'sitename' => 'KassiererCard.org',	'link_kk_home' => 'KassiererCard.org',	'link_kk_offers' => '%s Angebote',	'link_kk_companys' => '%s Partner',	'link_kk_statistics' => '%s Statistiken',	'link_kk_favorites' => '%s Favoriten',	'link_kk_competitions' => '%s Wettbewerbe',	'link_kk_businesses' => '%s Arbeitgeber',	'link_kk_employees' => '%s Mitarbeiter',	'link_kk_team' => '%s Teammitglieder',	'link_kk_help' => 'Hilfe / FAQ',	'link_kk_company_page' => 'Partnerseiten',	'link_kk_company_edit' => 'Bearbeiten',	'link_kk_company_enter' => 'Angebotscode eingeben',	'link_kk_company_scans' => 'Angebotscode scannen',	'link_kk_company_offers' => 'Ihre Angebote',	'kk_admin' => 'KC-Team',	
+	'sitename' => 'KassiererCard.org',	'link_kk_home' => 'KassiererCard.org',	'link_kk_offers' => '%s Angebote',	'link_kk_companys' => '%s Partner',	'link_kk_statistics' => '%s Statistiken',	'link_kk_favorites' => '%s Favoriten',	'link_kk_competitions' => '%s Wettbewerbe',	'link_kk_businesses' => '%s Arbeitgeber',	'link_kk_employees' => '%s Mitarbeiter',	'link_kk_team' => '%s Teammitglieder',	'link_kk_help' => 'Hilfe / FAQ',	'link_kk_company_page' => 'Partnerseiten',	'link_kk_company_edit' => 'Bearbeiten',	'link_kk_company_enter' => 'Angebotscode eingeben',	'link_kk_company_scans' => 'Angebotscode scannen',	'link_kk_company_offers' => 'Ihre Angebote',
+	'kk_link_todo' => 'ToDo',	'kk_admin' => 'KC-Team',	
 ##############
 	
 ### Config ###
@@ -12,8 +13,6 @@ return [
 	'cfg_free_stars_period' => 'Kostenlose Sterne pro Tag',	'cfg_token_request_amt' => 'Eingabe von Coupons: Versuche',	'cfg_token_request_time' => 'Gutscheineingabe: Timeout',	
 # Global Site Stats
 	'cfg_diamonds_created' => 'Erstellte Diamanten',	'cfg_diamonds_earned' => 'Verdiente Diamanten',	'cfg_coupons_created' => 'Gutscheine erstellt',	'cfg_coupons_entered' => 'Gutscheine eingegeben',	'cfg_coupons_printed' => 'Gutscheine gedruckt',	'cfg_coupons_redeemed' => 'Gutscheine eingelöst',	'cfg_stars_available' => 'Sterne verfügbar',	'cfg_stars_created' => 'Sterne erstellt',	'cfg_stars_earned' => 'Sterne verdient',	'cfg_stars_entered' => 'Sterne eingetragen',	'cfg_stars_invited' => 'Stars eingeladen',	'cfg_stars_purchased' => 'Sterne gekauft',	'cfg_stars_redeemed' => 'Sterne eingelöst',	'cfg_offers_created' => 'Angebote erstellt',	'cfg_offers_redeemed' => 'Eingelöste Angebote',	'cfg_offers_fullfilled' => 'Angebote erfüllt',	'cfg_euros_invested' => 'Investierte Euro',	'cfg_euros_fullfilled' => 'Erwirtschaftete Euro',	'cfg_euros_earned' => 'Euro gesammelt',	'cfg_euros_donated' => 'Euro gespendet',	'cfg_euros_revenue' => 'Einnahmen in Euro',	'cfg_users_invited' => 'Eingeladene Benutzer',	
-# Profile settings
-	'cfg_your_dream' => '',	
 # Tooltips Stats
 	'tt_cfg_diamonds_created' => 'Unternehmen schaffen Diamanten, indem sie Angebote erfüllen.',	'tt_cfg_diamonds_earned' => 'Kunden und Kassierer verdienen Diamanten durch Einladungen.',	'tt_cfg_coupons_created' => 'Kunden erstellen Coupons für die Kassierer.',	'tt_cfg_coupons_entered' => 'Kassierer geben Coupons ein, um Sterne zu verdienen. Kunden erhalten dafür Diamanten und Sterne.',
 	'tt_cfg_coupons_printed' => 'Kunden drucken Coupons für die Kassierer aus.',	'tt_cfg_coupons_redeemed' => 'Kunden und Kassierer lösen Coupons ein.',	'tt_cfg_stars_available' => 'Sterne können zum Einlösen von Angeboten verwendet werden.',	'tt_cfg_stars_created' => 'Kunden können Gutscheine mit Sternen erstellen.',	'tt_cfg_stars_purchased' => 'Kunden können Sterne mit echtem Geld kaufen.',	'tt_cfg_stars_redeemed' => 'Sterne eingelöst',	'tt_cfg_offers_created' => 'Angebote erstellt',	'tt_cfg_offers_redeemed' => 'Angebote eingelöst',	'tt_cfg_offers_fullfilled' => 'Angebote erfüllt',	'tt_cfg_euros_invested' => 'Insgesamt Euro investiert',	'tt_cfg_euros_fullfilled' => 'Erzeugtes Gesamtvermögen in Euro',	'tt_cfg_euros_donated' => 'Gesamtbetrag der gespendeten Euro von Mitgliedern an KC.org.',	'tt_cfg_euros_earned' => 'Gesamtwert der gesammelten Euros.',	'tt_cfg_euros_revenue' => 'Euro-Gesamtumsatz für die KassiererCard.org.',	
@@ -60,7 +59,7 @@ Das %4$s-Team',
 
 	'mt_kassierercard_workingthere' => 'Arbeiten Sie dort?',	'md_kassierercard_workingthere' => 'Richten Sie Ihr Geschäft oder Ihren Arbeitsplatz so ein, dass es unter KassiererCard.org eingestuft wird',	'msg_kk_started_work' => 'Sie haben am %s bei %s angefangen zu arbeiten.',	'msg_kk_stopped_work' => 'Du hast bei %s aufgehört zu arbeiten.',	
 # Partners
-	'kc_partner' => 'Partner',	'create_company' => 'Partner erstellen',	'list_kassierercard_partners' => '%s Partner',	'kk_info_partners_table' => 'Warenpartner bieten ihre Waren gegen Gutscheine an.',	'footer_partner' => 'Sie können diesen Partner über %s kontaktieren.',	'footer_partner_offers' => 'Dieser Partner hat <a href="%s">%s Angebote</a>.',	
+	'kc_partner' => 'Partner',	'create_company' => 'Partner erstellen',	'list_kassierercard_partners' => '%s Partner',	'kk_info_partners_table' => 'Werbepartner bieten ihre Waren für Sterne und Diamanten an.',	'footer_partner' => 'Sie können diesen Partner über %s kontaktieren.',	'footer_partner_offers' => 'Dieser Partner hat <a href="%s">%s Angebote</a>.',	
 # Partner Page
 	'info_kk_company_admin' => 'Hier erfahren Sie, wie Sie Partner von %s werden<br/>Sie können Ihre eigene kleine Webseite einrichten, wie auf myspace.<br/>
 Ihre Aufgabe ist es, Angebote für die Mitarbeiter und Kunden einzulösen.<br/>
@@ -69,6 +68,8 @@ Sie tun dies, indem Sie entweder QR-Codes scannen, eine Taste auf dem Mobiltelef
 Wir danken Ihnen sehr, dass Sie an diesem kleinen Projekt teilnehmen!<br/>
  - gizmore',
 
+# Partner Card
+	'kk_partner_estab' => '%s hat dieses Geschäft am %s eröffnet.',
 	
 # Partner Edit
 	'mt_kassierercard_partneredit' => 'Ihre Anwesenheit hier bearbeiten',	'kk_info_partner_edit' => 'Hier können Sie Ihre Partnerdetails auf %s bearbeiten.<br/>Sie können auch <a href="%s">Ihr Profil bearbeiten</a>.
@@ -90,7 +91,7 @@ Wenn Sie Fragen oder Bedenken haben, <a href="%s">kontaktieren Sie uns bitte</a>
 	'kk_info_offers' => 'Hier finden Sie die verfügbaren Angebote in Ihrer Nähe.<br/>Angebote werden von unseren Partnern erstellt, Kunden drucken die Coupons aus und Mitarbeiter lösen sie ein.<br/>Für jeweils 5 eingelöste Coupons bekommt der Kunde auch einen Gutschein.',
 	'create_offer' => 'Angebot erstellen',	'md_kassierercard_offers' => 'Zeige alle verfügbaren und bisherigen Gutscheinangebote auf KassiererCard.org.',	'info_create_offer' => 'Einen neuen Gutscheintyp / ein neues Angebot erstellen.',	'list_kassierercard_offers' => '%s Gutscheintypen',	'err_kk_offer_timeout' => 'Das Angebot dieses Gutscheins ist am %s abgelaufen und kann nicht mehr eingelöst werden.',	'err_kk_offer_afford' => 'Sie können es sich nicht leisten, dies einzulösen. Das Angebot benötigt %s Sterne und Sie haben nur %s zur Verfügung.',
 	'err_kk_offer_no_more_for_you' => 'Du hast %s/%s von %s/%s Artikeln für dieses Angebot eingelöst. Nicht mehr für Sie verfügbar.',
-	'kk_offer_status' => 'Insgesamt wurden %s von %s Artikeln eingelöst. Sie können dieses Angebot %s Mal bis %s einlösen. Dieses Angebot kostet %s Gutscheinsterne.',
+	'kk_offer_status' => 'Insgesamt wurden %s von %s Artikeln eingelöst. Sie können dieses Angebot %s Mal bis %s einlösen. Dieses Angebot kostet %s Sterne/Diamanten.',
 
 	
 	# Create Coupon
@@ -132,7 +133,7 @@ wenn Sie das Angebot in Anspruch nehmen!',
 # The Team
 	'the_team' => 'Das Team',	'the_team_paragraph' => 'Diese Seite ist den %s Teammitgliedern gewidmet.<br/>Hallo!',	'the_admins' => 'Die Admins',	'the_admins_paragraph' => '%s Admins haben Zugriff auf alles. Vertraue ihnen nicht!',
 	'the_staff' => 'Das Personal',	'the_staff_paragraph' => '%s Mitarbeiter haben Zugriff auf fast alles. Sie zensieren den Spam und erhalten viele E-Mails. Vertraue ihnen nicht!',
-	'the_managers' => 'Die Manager',	'the_managers_paragraph' => '%s Manager beliefern die Distributoren mit gedruckten Karten und Flyern.',	'the_distributors' => 'Die Distributoren',	'the_distributors_paragraph' => '%s Distributoren sind Gründungsmitglieder und führen Merchandise-Arbeiten durch und spielen Testkunde.',	
+	'the_managers' => 'Die Manager',	'the_managers_paragraph' => '%s Manager beliefern die Distributoren mit gedruckten Karten und Flyern.',	'the_distributors' => 'Die Distributoren',	'the_distributors_paragraph' => '%s Distributoren sind Gründungsmitglieder, führen Merchandise-Arbeiten durch, und spielen Testkunden.',	
 # Invite
 	'invite_users' => 'Personen einladen',	'kk_info_invite_stars' => 'Hier können Sie weitere Personen zu %s einladen.Das Versenden einer Einladung kostet %s/%s Sterne.<br/>
 Wählen Sie außerdem die Anzahl der Sterne für Ihre Einladung,

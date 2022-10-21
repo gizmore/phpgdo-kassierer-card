@@ -6,6 +6,7 @@ use GDO\Form\MethodForm;
 use GDO\KassiererCard\KC_Partner;
 use GDO\User\GDO_User;
 use GDO\Form\GDT_Submit;
+use GDO\Form\GDT_AntiCSRF;
 
 /**
  * Partners can edit their web page.
@@ -15,10 +16,15 @@ use GDO\Form\GDT_Submit;
  */
 final class PartnerEdit extends MethodForm
 {
+	public function getPermission():? string
+	{
+		return 'kk_company';
+	}
+	
 	public function getPartner(): KC_Partner
 	{
 		$user = GDO_User::current();
-		return KC_Partner::getFor($user);
+		return KC_Partner::getForUser($user);
 	}
 	
 	public function createForm(GDT_Form $form): void
@@ -28,13 +34,19 @@ final class PartnerEdit extends MethodForm
 		$hrefContact = href('Contact', 'Form');
 		$form->text('kk_info_partner_edit', [sitename(), $hrefAccount, $hrefContact]);
 		$form->addFields(...$table->gdoColumnsOnly(
-			'p_url', 'p_description', 'p_logo', 'p_website_content'));
+			'p_url', 'p_logo', 'p_description',
+			'p_website_content'));
+		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addFields(GDT_Submit::make());
+		$form->initFromGDO($this->getPartner());
 	}
 	
 	public function formValidated(GDT_Form $form)
 	{
-		
+		$partner = $this->getPartner();
+		$data = $form->getFormVars();
+		$partner->saveVars($data);
+		return parent::formValidated($form);
 	}
 
 }

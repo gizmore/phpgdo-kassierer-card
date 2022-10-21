@@ -64,7 +64,7 @@ Auch nehmt ihr automatisch an Wettbewerben teil, und könnt euch in der Communit
 eine Merchandise-Plattform, die nicht mit aufgeblähten Metriken vergiftet ist,
 sondern aus echten Peinern besteht.',
 
-    'kk_faq_t6' => 'Pizza und Cola sind lahm, ich will bessere Angebote für meine Sterne und Diamnten!',	'kk_faq_b6' => 'Für jeden eingelösten Coupon erhöht sich Ihr Benutzerlevel um einen Punkt.<br/>Mit Ihrem Benutzerlevel können Sie Forenbeiträge verfassen,
+    'kk_faq_t6' => 'Pizza und Cola sind lahm, ich will bessere Angebote für meine Sterne und Diamanten!',	'kk_faq_b6' => 'Für jeden eingelösten Coupon erhöht sich Ihr Benutzerlevel um einen Punkt.<br/>Mit Ihrem Benutzerlevel können Sie Forenbeiträge verfassen,
 Links zu dieser Seite hinzufügen, Umfragen erstellen und andere Dinge tun.<br/>
 <i>Diese Funktionen sind allerdings noch in Arbeit.</i>',
 

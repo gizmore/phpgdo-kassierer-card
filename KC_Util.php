@@ -14,21 +14,21 @@ use GDO\Core\GDO;
 final class KC_Util
 {
 	
-	public static function getPeriodStart(int $time) : int
-	{
-		$start = strtotime('next monday', $time);
-		$start -= Time::ONE_WEEK;
-		while ($start < $time)
-		{
-			$start += Time::ONE_DAY * 2;
-		}
-		return $start - Time::ONE_DAY * 2;
-	}
+// 	public static function getPeriodStart(int $time) : int
+// 	{
+// 		$start = strtotime('next monday', $time);
+// 		$start -= Time::ONE_WEEK;
+// 		while ($start < $time)
+// 		{
+// 			$start += Time::ONE_DAY * 2;
+// 		}
+// 		return $start - Time::ONE_DAY * 2;
+// 	}
 	
-	public static function getPeriodEnd(int $time) : int
-	{
-		return self::getPeriodStart($time) + Time::ONE_DAY * 2;
-	}
+// 	public static function getPeriodEnd(int $time) : int
+// 	{
+// 		return self::getPeriodStart($time) + Time::ONE_DAY * 2;
+// 	}
 	
 	public static function numStarsCreatedInPeriod(GDO_User $user, int $time) : int
 	{
@@ -55,7 +55,7 @@ final class KC_Util
 		else
 		{
 			$mod = Module_KassiererCard::instance();
-			$free = $mod->cfgFreeStarsPerPeriod();
+			$free = $mod->cfgFreeStarsPerDay();
 			return $free + KC_Util::numStarsAvailable($user);
 		}
 	}

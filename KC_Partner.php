@@ -37,12 +37,11 @@ final class KC_Partner extends GDO
 			GDT_Category::make('p_category')->notNull(),
 			GDT_Address::make('p_address')->notNull()->emptyLabel('please_choose'),
 			GDT_Message::make('p_description')->label('information'),
-			GDT_Url::make('p_url'),
+			GDT_Url::make('p_url')->allowExternal(),
 			GDT_WebsiteContent::make('p_website_content'),
-			GDT_ImageFile::make('p_logo')
-				->label('logo')
+			GDT_ImageFile::make('p_logo')->label('logo')
 				->scaledVersion('icon', 96, 96)
-				->exactSize(196, 196)->label('logo'),
+				->scaledVersion('thumb', 196, 196),
 			GDT_CreatedAt::make('p_created'),
 			GDT_CreatedBy::make('p_creator'),
 			GDT_Index::make('p_index_p_user')->indexColumns('p_user'),
@@ -88,7 +87,7 @@ final class KC_Partner extends GDO
 	{
 		$href = $this->hrefPartner();
 		$label = $this->getAddress()->render();
-		return GDT_Link::make()->href($href)->label('partner')->text($label);
+		return GDT_Link::make()->href($href)->label('partner')->textRaw($label);
 	}
 	
 	##############

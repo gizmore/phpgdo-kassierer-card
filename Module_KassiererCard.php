@@ -102,7 +102,7 @@ final class Module_KassiererCard extends GDO_Module
 			# Balance
 			GDT_UInt::make('stars_per_euro')->min(1)->max(10000)->initial('10'),
 			GDT_UInt::make('star_cost_per_invite')->min(0)->max(1000)->initial('1'), # stars required to create an invite
-			GDT_UInt::make('free_stars_per_day')->min(0)->max(100)->initial('2'),
+			GDT_UInt::make('free_stars_per_day')->min(0)->max(100)->initial('1'),
 			GDT_UInt::make('level_per_coupon_print')->min(0)->max(1000)->initial('1'),
 			GDT_UInt::make('level_gain_per_diamond')->min(0)->max(10000)->initial('10'),
 			GDT_UInt::make('customer_coupon_modulus')->min(1)->max(100)->initial('1'),
@@ -136,7 +136,7 @@ final class Module_KassiererCard extends GDO_Module
 	public function cfgStarsPerInvite() : int { return $this->getConfigValue('star_cost_per_invite'); }
 	public function cfgStarsPerPoll() : int { return $this->getConfigValue('star_cost_per_invite'); }
 	public function cfgStarsPerDiamond() : int { return $this->getConfigValue('stars_per_diamond'); }
-	public function cfgFreeStarsPerPeriod() : int { return $this->getConfigValue('free_stars_per_day'); }
+	public function cfgFreeStarsPerDay() : int { return $this->getConfigValue('free_stars_per_day'); }
 	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
 	public function cfgLevelPerDiamond() : int { return $this->getConfigValue('level_gain_per_diamond'); }
 	public function cfgCustomerCouponModulus() : int { return $this->getConfigValue('customer_coupon_modulus'); }

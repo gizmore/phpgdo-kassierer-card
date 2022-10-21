@@ -43,7 +43,7 @@ echo $acc->render();
 $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t3');
 $acc->addField(GDT_Paragraph::make()->text('kk_faq_b3', [
-	$kk->cfgFreeStarsPerPeriod(),
+	$kk->cfgFreeStarsPerDay(),
 	$kk->cfgCustomerCouponModulus(),
 ]));
 echo $acc->render();
@@ -103,10 +103,10 @@ $acc = GDT_Accordeon::make();
 $acc->title('kk_faq_t13');
 $periodsPerWeek = 3;
 $weeksPerMonth = 4.5;
-$monthlyCostPerCustomer = KC_Util::starsToEuro($kk->cfgFreeStarsPerPeriod() * $periodsPerWeek * $weeksPerMonth);
+$monthlyCostPerCustomer = KC_Util::starsToEuro($kk->cfgFreeStarsPerDay() * $periodsPerWeek * $weeksPerMonth);
 $acc->addField(
 	GDT_Paragraph::make()->text('kk_faq_b13', [
-		$kk->cfgFreeStarsPerPeriod(),
+		$kk->cfgFreeStarsPerDay(),
 		GDT_Money::renderPrice($monthlyCostPerCustomer),
 	]));
 echo $acc->render();

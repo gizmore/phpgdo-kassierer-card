@@ -50,7 +50,7 @@ final class KCTest extends TestCase
 	public function testCouponCreation() : void
 	{
 		$this->testuser('Kunde1');
-		$freeStars = Module_KassiererCard::instance()->cfgFreeStarsPerPeriod(); 
+		$freeStars = Module_KassiererCard::instance()->cfgFreeStarsPerDay(); 
 		$p = [
 			'kc_stars' => $freeStars,
 		];

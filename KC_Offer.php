@@ -45,10 +45,10 @@ final class KC_Offer extends GDO
 			GDT_UInt::make('o_cashier_amt')->notNull()->bytes(1)->min(1)->initial('1')->label('cashier_amt'),
 			GDT_UInt::make('o_total_amt')->notNull()->min(1)->label('total_amt'),
 			GDT_Date::make('o_expires')->notNull()->minNow()->initial($this->nextFriday())->label('valid_until'),
-			GDT_ImageFile::make('o_image')->exactSize(1050, 600),
+			GDT_ImageFile::make('o_image')->
+				scaledVersion('card', 1050, 600),
 			GDT_Money::make('o_invested')->notNull(), # for euros_invested
 			GDT_Money::make('o_worth')->notNull(), # for euros_generated
-// 			GDT_Virtual::make('o_total_redeemed')->gdtType(GDT_UInt::make())->subquery("SELECT COUNT(*) FROM kc_offerredeemed or2 WHERE or2.or_offer=kc_offer.o_id"),
 			GDT_CreatedAt::make('o_created'),
 			GDT_CreatedBy::make('o_creator'),
 		];
