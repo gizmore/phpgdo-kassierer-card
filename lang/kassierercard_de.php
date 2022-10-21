@@ -72,10 +72,10 @@ Wir danken Ihnen sehr, dass Sie an diesem kleinen Projekt teilnehmen!<br/>
 	'kk_partner_estab' => '%s hat dieses Geschäft am %s eröffnet.',
 	
 # Partner Edit
-	'mt_kassierercard_partneredit' => 'Ihre Anwesenheit hier bearbeiten',	'kk_info_partner_edit' => 'Hier können Sie Ihre Partnerdetails auf %s bearbeiten.<br/>Sie können auch <a href="%s">Ihr Profil bearbeiten</a>.
+	'mt_kassierercard_partneredit' => 'Ihren Auftritt hier bearbeiten',	'kk_info_partner_edit' => 'Hier können Sie Ihre Partnerdetails auf %s bearbeiten.<br/>Sie sollten auch <a href="%s">Ihr Profil bearbeiten</a>.
 Drücken Sie dazu im rechten Menü auf "Konto".<br/>
+Die Einstellungen sind manchmal etwas mühsam zu finden, z.B. findet sich Ihr Name unter Adresse-Eigenen-Adressen.<br/>
 Wenn Sie Fragen oder Bedenken haben, <a href="%s">kontaktieren Sie uns bitte</a>.',
-
 	
 # Partner Offers
 	'list_kassierercard_partneroffers' => '%s Angebote',	

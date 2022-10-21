@@ -52,7 +52,7 @@ final class Module_KassiererCard extends GDO_Module
 		return [
 			'Account', 'AboutMe', 'ActivationAlert', 'Address',
 			'Admin', 'Ads', 'Avatar',
-			'Backup', 'Birthday', 'Bootstrap5Theme',
+			'Backup', 'Birthday',
 			'Captcha', 'Category', 'CKEditor', 'Contact', 'Classic',
 			'CountryCoordinates', 'CountryRestrictions',
 			'Cronjob', 'CSS', 'DoubleAccounts',
@@ -64,6 +64,7 @@ final class Module_KassiererCard extends GDO_Module
 			'PaymentCredits', 'PaymentPaypal',
 			'Perf', 'Poll', 'PM', 'QRCode',
 			'Recovery', 'Register',
+			'TorDetection', 'VPNDetect',
 			'YouTube',
 		];
 	}
