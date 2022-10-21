@@ -256,7 +256,7 @@ final class Install
 	{
 		$user = GDO_User::getByName($username);
 		$user->saveSettingVar($moduleName, $settingName, $settingVar);
-		$user->saveSettingVar($moduleName, "_acl_{$settingName}_relation", $aclRelation);
+// 		$user->saveSettingVar($moduleName, "_acl_{$settingName}_relation", $aclRelation);
 		return true;
 	}
 	
@@ -713,10 +713,10 @@ EOT;
 		$cc = GDT_AccountType::CUSTOMER;
 		self::coupon(2, 'TEST123401', $cc, null, 15, 'Test-Customer-1', false);
 		$cc = GDT_AccountType::CASHIER;
-		self::coupon(2, 'PEINEROCKS', $cc, null, 10, 'Test-Coupon-1', false);
-		self::coupon(2, 'PEINEROCK5', $cc, null, 10, 'Test-Coupon-2', false);
-		self::coupon(2, 'PEINER0CK5', $cc, null, 10, 'Test-Coupon-3', false);
-		self::coupon(2, 'P3INEROCK5', $cc, null, 10, 'Test-Coupon-4', false);
+		self::coupon(2, 'PEINEROCKS', $cc, null, 20, 'Test-Coupon-1', false);
+		self::coupon(2, 'PEINEROCK5', $cc, null, 20, 'Test-Coupon-2', false);
+		self::coupon(2, 'PEINER0CK5', $cc, null, 20, 'Test-Coupon-3', false);
+		self::coupon(2, 'P3INEROCK5', $cc, null, 20, 'Test-Coupon-4', false);
 		# 
 		return true;
 	}
