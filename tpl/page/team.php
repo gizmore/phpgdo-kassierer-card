@@ -8,17 +8,21 @@ $listed = [];
 function teamMembersInfo(string $group, array $users) : string
 {
 	global $listed;
-	$back = '';
-	$back .= "<h3>" . t("the_{$group}") . "</h3>\n";
-	$back .= "<p>" . t("the_{$group}_paragraph", [count($users)]) . "</p>\n";
+	$i = 0;
+	$pre = '';
 	foreach ($users as $user)
 	{
 		if (!in_array($user, $listed, true))
 		{
-			$back .= teamMemberInfo($user);
+			$pre .= teamMemberInfo($user);
 			$listed[] = $user;
+			$i++;
 		}
 	}
+	$back = '';
+	$back .= "<h3>" . t("the_{$group}") . "</h3>\n";
+	$back .= "<p>" . t("the_{$group}_paragraph", [$i]) . "</p>\n";
+	$back .= $pre;
 	return $back;
 }
 function teamMemberInfo(GDO_User $user)

@@ -3,6 +3,7 @@ namespace GDO\KassiererCard;
 
 use GDO\UI\GDT_Link;
 use GDO\UI\GDT_Menu;
+use GDO\User\GDO_UserPermission;
 
 /**
  * The Public left Menu Submenu.
@@ -27,9 +28,26 @@ final class GDT_LeftMenu extends GDT_Menu
 			GDT_Link::make()->href($mod->href('Statistics'))->text('link_kk_statistics', [777])->icon('amt'),
 			GDT_Link::make('link_kk_businesses')->href($mod->href('Businesses'))->textArgs(KC_Business::numTotal())->icon('house'),
 			GDT_Link::make('link_kk_employees')->href($mod->href('Employees'))->textArgs(KC_Working::numEmployeesTotal())->icon('work'),
-			GDT_Link::make('link_kk_team')->href($mod->href('Team'))->textArgs(8)->icon('users'),
+			GDT_Link::make('link_kk_team')->href($mod->href('Team'))->textArgs($this->getNumTeamMembers())->icon('users'),
 			GDT_Link::make('link_kk_help')->href($mod->href('Help'))->icon('help'),
 		);
+	}
+	
+	private function getNumTeamMembers(): int
+	{
+		return $this->queryNumTeamMembers();
+	}
+	
+	private function queryNumTeamMembers(): int
+	{
+		$perms = ['admin', 'staff', 'kk_manager', 'kk_distributor'];
+		$perms = implode("','", $perms);
+		$query = GDO_UserPermission::table()
+			->select('COUNT(DISTINCT(user_id))')
+			->joinObject('perm_user_id')
+			->joinObject('perm_perm_id')
+			->where("perm_name IN ('$perms')");
+		return $query->exec()->fetchValue();
 	}
 	
 }

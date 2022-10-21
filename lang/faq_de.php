@@ -1,7 +1,7 @@
 <?php
 namespace GDO\KassiererCard\lang;
 return [
-    	'mt_faq' => 'Hilfe / FAQ',	'md_faq' => 'Häufig gestellte Fragen und Webservice-Hilfedateien für KassiererCard.org',	'kk_faq_t1a' => 'Worum geht es auf dieser Seite?',	'kk_faq_b1a' => '%s ist ein Service- und Kunstprojekt, um die Kassierer und Arbeiter in der Realwirtschaft zu ehren.<br/>Es ist vergleichbar mit einem Trinkgeld oder einem Dankeschön.<br/>
+    'mt_faq' => 'Hilfe / FAQ',	'md_faq' => 'Häufig gestellte Fragen und Webservice-Hilfedateien für KassiererCard.org',	'kk_faq_t1a' => 'Worum geht es auf dieser Seite?',	'kk_faq_b1a' => '%s ist ein Service- und Kunstprojekt, um die Kassierer und Arbeiter in der Realwirtschaft zu ehren.<br/>Es ist vergleichbar mit einem Trinkgeld oder einem Dankeschön.<br/>
 Außerdem ist es die Feuertaufe für meine Programmierarbeit.<br/>
 KassiererCard.org hat ein interessantes Belohnungssystem,
 und wir hoffen, es macht Spaß, Sterne zu verdienen, auf der Website zu stöbern und einige der Angebote einzulösen,<br/>
@@ -9,8 +9,8 @@ wie ein Bier, einen Haarschnitt, einen Döner oder einen Kaffee.<br/>
 In verrückten Zeiten ist ein Dankeschön und ein Lächeln vielleicht wertvoller denn je.<br/>
 Wir sind transparent und unabhängig und haben für die Zukunft gewisse Wohltätigkeitspläne.',
     
-	'kk_faq_t1b' => 'Warum machst du das?',	'kk_faq_b1b' => 'Ruhm und Geld :)<br/>Das Projekt macht irgendwie Spaß und ist perfekt für meine eigene Software.<br/>
-Auch wir wollen was bewegen!<br/>
+	'kk_faq_t1b' => 'Warum machst du das?',	'kk_faq_b1b' => 'Ruhm und Geld :) (auch)<br/>Das Projekt macht irgendwie Spaß und ist perfekt für meine eigene Software.<br/>
+Wir wollen etwas bewegen, motivieren sich gegenseitig zu unterstützen!<br/>
 Bitte helfen Sie uns, den Menschen etwas Macht zu bringen.<br/>',
 
 	'kk_faq_t1c' => 'Wie finanzieren Sie das?',	'kk_faq_b1c' => 'Wir versuchen, schnell eine kritische Masse und eine unterhaltsame Seite zu erreichen.<br/>bis dahin sind die Kosten knapp kalkuliert und werden von einem Typen namens gizmore gedeckt :)<br/>
@@ -18,14 +18,15 @@ Aktuell haben wir 0 Ausgaben für Server und Programmierung,
 und 100 % des Marketingkapitals endet in den Angeboten; Naja, außer ein paar Bierchen mit dem Team.<br/>
 Er hofft, etwas Freude und ein Lächeln in Ihren Arbeitstag zu bringen.',
 
-	'kk_faq_t1d' => 'Warum sollten wir Ihnen vertrauen?!',	'kk_faq_b1d' => 'Wir sind völlig frei von Code oder Vermögenswerten Dritter,wie "Bilder" oder Web-Bugs, die auf dem Server eines anderen Unternehmens gehostet werden.<br/>
-Wir sammeln keine Informationen von Ihnen, außer einer E-Mail,
-einige Protokolle,
-und die Informationen, die Sie selbst in Ihrem Profil preisgeben.<br/>
+	'kk_faq_t1d' => 'Warum sollten wir Dir vertrauen?',	'kk_faq_b1d' => 'Wir sind völlig unabhängig und frei von Dritten Parteien,
+die Ansprüche an euch oder euren Daten o.ä. erheben könnten.<br/>
+Wir verwenden nur Code von unserem eigenen Server.<br/>&quot;Bilder&quot; oder &quot;Web-Bugs&quot;, die von anderen Servern geladen werden.<br/>
+Wir sammeln keine Informationen von Ihnen, außer einer E-Mail, und einigen Log-Protokollen,
+sowie den Informationen, die Sie selbst in Ihrem Profil preisgeben.<br/>
 Wenn Sie misstrauisch sind, geben Sie hier einfach keine privaten Informationen preis.<br/>
 Sie können in Ihrem Browser überprüfen, wie streng unsere Sicherheit sein sollte,
 und Sie werden etwas Glück brauchen, um externe Ressourcen zu finden.<br/>
-Wenn Sie an Computersicherheit interessiert sind, sollten Sie %s auschecken.',
+Wenn Sie an Computersicherheit interessiert sind, sollten Sie %s besuchen.',
 
     	'kk_faq_t2' => 'Wie verdienen wir Punkte?',	'kk_faq_b2' => 'Es gibt drei Arten von Konten.<br/>Kunde, Kassierer und Unternehmen.
 Nennen wir sie die drei C\'s; CEO, Christian und Charlette.<br/>
@@ -114,7 +115,7 @@ Als Kunde und Kassierer können Sie auch Diamanten verdienen, indem Sie mehr Ben
 
 	'kk_faq_t15' => 'Wie lange halten meine Sterne?',	'kk_faq_b15' => 'Die Lebensdauer Ihrer Sterne ist unbegrenzt.<br/>Sofern Sie nicht betrügen, unterstützen wir Sie gerne!',
 
-	'kk_faq_t16' => 'Klingt utopisch. Machst Du Witze?',
+	'kk_faq_t16' => 'Das klingt utopisch. Machst Du Witze?',
 	'kk_faq_b16' => ':)',
 	
 ];

@@ -27,7 +27,7 @@ Currently we have 0 expenses for servers and programming,
 and 100% of the marketing capital ends in the Offers; Well, except a few beers with the team.<br/>
 He hopes to bring some joy and a smile to your days at work.',
 	
-	'kk_faq_t1d' => 'Why should we trust you?!',
+	'kk_faq_t1d' => 'Why should we trust you?',
 	'kk_faq_b1d' => 'We are completely free from any third party code or assets,
 like &quot;images&quot; or web-bugs hosted on other companie\'s server.<br/>
 We do not collect any information from you, beside an email,

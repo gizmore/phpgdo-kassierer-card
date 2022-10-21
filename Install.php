@@ -713,11 +713,17 @@ EOT;
 		$cc = GDT_AccountType::CUSTOMER;
 		self::coupon(2, 'TEST123401', $cc, null, 15, 'Test-Customer-1', false);
 		$cc = GDT_AccountType::CASHIER;
-		self::coupon(2, 'PEINEROCKS', $cc, null, 20, 'Test-Coupon-1', false);
-		self::coupon(2, 'PEINEROCK5', $cc, null, 20, 'Test-Coupon-2', false);
-		self::coupon(2, 'PEINER0CK5', $cc, null, 20, 'Test-Coupon-3', false);
-		self::coupon(2, 'P3INEROCK5', $cc, null, 20, 'Test-Coupon-4', false);
-		# 
+		self::coupon(2, 'PEINEROCKS', $cc, null, 10, 'Test-Coupon-1-Martin', false);
+		self::coupon(2, 'PEINEROCK5', $cc, null, 10, 'Test-Coupon-2-Martin', false);
+		self::coupon(2, 'PEINER0CK5', $cc, null, 10, 'Test-Coupon-3-Martin', false);
+		self::coupon(2, 'P3INEROCK5', $cc, null, 10, 'Test-Coupon-4-Martin', false);
+		# Bauhof 15
+		$cc = GDT_AccountType::CUSTOMER;
+		self::coupon(2, 'BAUHOF15UL', $cc, null, 10, 'Test-Customer-Bauhof15-UL', false);
+		self::coupon(2, 'BAUHOF15UR', $cc, null, 10, 'Test-Customer-Bauhof15-UR', false);
+		self::coupon(2, 'BAUHOF15ML', $cc, null, 10, 'Test-Customer-Bauhof15-ML', false);
+		self::coupon(2, 'BAUHOF15OR', $cc, null, 10, 'Test-Costomer-Bauhof15-OR', false);
+		
 		return true;
 	}
 	

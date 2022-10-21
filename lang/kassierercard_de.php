@@ -1,7 +1,7 @@
 <?php
 namespace GDO\KassiererCard\lang;
 return [
-	'module_kassierercard' => 'Kassenkarte',	
+	'module_kassierercard' => 'KassiererCard',	
 ### Nav
 	'sitename' => 'KassiererCard.org',	'link_kk_home' => 'KassiererCard.org',	'link_kk_offers' => '%s Angebote',	'link_kk_companys' => '%s Partner',	'link_kk_statistics' => '%s Statistiken',	'link_kk_favorites' => '%s Favoriten',	'link_kk_competitions' => '%s Wettbewerbe',	'link_kk_businesses' => '%s Arbeitgeber',	'link_kk_employees' => '%s Mitarbeiter',	'link_kk_team' => '%s Teammitglieder',	'link_kk_help' => 'Hilfe / FAQ',	'link_kk_company_page' => 'Partnerseiten',	'link_kk_company_edit' => 'Bearbeiten',	'link_kk_company_enter' => 'Angebotscode eingeben',	'link_kk_company_scans' => 'Angebotscode scannen',	'link_kk_company_offers' => 'Ihre Angebote',	'kk_admin' => 'KC-Team',	
 ##############
@@ -93,12 +93,12 @@ Wenn Sie Fragen oder Bedenken haben, <a href="%s">kontaktieren Sie uns bitte</a>
 	'kk_offer_status' => 'Insgesamt wurden %s von %s Artikeln eingelöst. Sie können dieses Angebot %s Mal bis %s einlösen. Dieses Angebot kostet %s Gutscheinsterne.',
 
 	
-# Create Coupon
+	# Create Coupon
 	'create_coupon' => 'Gutschein erstellen',	'generate_coupons' => 'Gutscheine generieren',	'kk_info_create_coupon' => 'Wählen Sie Ihre %s und die Anzahl der Sterne für Ihren Gutschein aus.<br/>Insgesamt haben Sie %s Gutscheine mit %s Sternen erstellt. In diesem Zeitraum können Sie in diesem Zeitraum %s/%s weitere Sterne auf Coupons drucken. Dieser Zeitraum geht von %s bis %s.',
 	'sel_coupon_offer' => 'Angebot auswählen',	'tt_create_offer' => 'Erstellen Sie einen Gutschein für dieses Angebot, um ihn mit Ihren lokalen Arbeitern zu teilen.',	'msg_coupon_created' => 'Ihr Cashiercard-Gutschein wurde erstellt.',	'err_kk_create_stars' => 'Du möchtest %s Sterne erstellen, aber du konntest in diesem Zeitraum nur %s weitere Sterne hinzufügen. Sie haben in diesem Zeitraum bereits %s Sterne erstellt.',
 
 	
-# Print
+	# Print
 	'back_side' => 'Rückseite',	'front_side' => 'Vorderseite',	'mt_kassierercard_printcoupon' => 'Gutschein drucken',	'btn_qrcode' => 'QR-Code',	'kk_info_print_coupon' => 'Drucken Sie einen Ihrer Gutscheine aus.<br/>Senden Sie es entweder an Ihren Drucker, schreiben Sie den Code manuell auf,
 oder zeigen Sie Ihrem Mitarbeiter den QR-Code.',
 	'err_unknown_coupon' => 'Dieser Gutschein existiert nicht oder gehört nicht Ihnen.',	'msg_kk_enter_auth' => 'Sie sind nicht authentifiziert.<br/>Bitte melden Sie sich an und versuchen Sie es erneut.',
@@ -132,7 +132,7 @@ wenn Sie das Angebot in Anspruch nehmen!',
 # The Team
 	'the_team' => 'Das Team',	'the_team_paragraph' => 'Diese Seite ist den %s Teammitgliedern gewidmet.<br/>Hallo!',	'the_admins' => 'Die Admins',	'the_admins_paragraph' => '%s Admins haben Zugriff auf alles. Vertraue ihnen nicht!',
 	'the_staff' => 'Das Personal',	'the_staff_paragraph' => '%s Mitarbeiter haben Zugriff auf fast alles. Sie zensieren den Spam und erhalten viele E-Mails. Vertraue ihnen nicht!',
-	'the_kk_manager' => 'Die Manager',	'the_kk_manager_paragraph' => '%s Manager beliefern die Distributoren mit gedruckten Karten und Flyern.',	'the_kk_distributor' => 'Die Manager',	'the_kk_distributor_paragraph' => '%s Distributoren führen Merchandise-Arbeiten durch und spielen Testkunden.',	
+	'the_managers' => 'Die Manager',	'the_managers_paragraph' => '%s Manager beliefern die Distributoren mit gedruckten Karten und Flyern.',	'the_distributors' => 'Die Distributoren',	'the_distributors_paragraph' => '%s Distributoren sind Gründungsmitglieder und führen Merchandise-Arbeiten durch und spielen Testkunde.',	
 # Invite
 	'invite_users' => 'Personen einladen',	'kk_info_invite_stars' => 'Hier können Sie weitere Personen zu %s einladen.Das Versenden einer Einladung kostet %s/%s Sterne.<br/>
 Wählen Sie außerdem die Anzahl der Sterne für Ihre Einladung,
@@ -223,10 +223,12 @@ Das %s-System',
 
 	
 # Competitions
-	'enum_cashier_of_the_week' => 'Kasse der Woche',	'enum_cashier_of_the_month' => 'Kassiererin des Monats',	'enum_cashier_of_the_year' => 'Kasse des Jahres',	'enum_customer_of_the_week' => 'Kunde der Woche',	'enum_customer_of_the_month' => 'Kunde des Monats',	'enum_customer_of_the_year' => 'Kunde des Jahres',	'enum_company_of_the_week' => 'Unternehmen der Woche',	'enum_company_of_the_month' => 'Unternehmen des Monats',	'enum_company_of_the_year' => 'Unternehmen des Jahres',	'enum_business_of_the_week' => 'Geschäft der Woche',	'enum_business_of_the_month' => 'Geschäft des Monats',	'enum_business_of_the_year' => 'Unternehmen des Jahres',	'enum_offer_of_the_week' => 'Angebot der Woche',	'enum_offer_of_the_month' => 'Angebot des Monats',	'enum_offer_of_the_year' => 'Angebot des Jahres',	'competition_table' => '%s; %s Einträge; Seite %s/%s',
+	'enum_cashier_of_the_week' => 'Kassierer der Woche',	'enum_cashier_of_the_month' => 'Kassierer des Monats',	'enum_cashier_of_the_year' => 'Kassierer des Jahres',	'enum_customer_of_the_week' => 'Kunde der Woche',	'enum_customer_of_the_month' => 'Kunde des Monats',	'enum_customer_of_the_year' => 'Kunde des Jahres',	'enum_company_of_the_week' => 'Unternehmen der Woche',	'enum_company_of_the_month' => 'Unternehmen des Monats',	'enum_company_of_the_year' => 'Unternehmen des Jahres',	'enum_business_of_the_week' => 'Geschäft der Woche',	'enum_business_of_the_month' => 'Geschäft des Monats',	'enum_business_of_the_year' => 'Unternehmen des Jahres',	'enum_offer_of_the_week' => 'Angebot der Woche',	'enum_offer_of_the_month' => 'Angebot des Monats',	'enum_offer_of_the_year' => 'Angebot des Jahres',	'competition_table' => '%s; %s Einträge; Seite %s/%s',
 
 	
 # Favorites
 	'mt_kk_favorites' => 'Favorit %s',	'tt_kk_favorites' => '%s bevorzugte "%s"-Einstellungen',	'md_kk_favorites' => 'Der %s Favorit %s auf %s. Echte Benutzerinhalte, echte Meinungen zu Ihren Lieblings-%2$s.',
 
+
+	
 ];

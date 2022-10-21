@@ -161,12 +161,13 @@ class KC_Coupon extends GDO
 		$user->increaseSetting($kkn, 'stars_entered', $stars);
 		$user->increaseSetting($kkn, 'stars_earned', $stars);
 		
-		$creator->increaseSetting($kkn, 'stars_available', $stars);
-		$creator->increaseSetting($kkn, 'stars_earned', $stars);
+		$creator->increaseSetting($kkn, 'diamonds_available', $stars);
+		$creator->increaseSetting($kkn, 'diamonds_earned', $stars);
 		$this->sendCreatorEarnedStars($creator, $user, $stars);
 		
 		$kk->increaseConfigVar('coupons_entered');
 		$kk->increaseConfigVar('stars_entered', $stars);
+		$kk->increaseConfigVar('diamonds_created', $stars);
 		if ($isActivation)
 		{
 			if ($this->isUserInvitation())
