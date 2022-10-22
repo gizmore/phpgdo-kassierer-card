@@ -72,6 +72,7 @@ final class Install
 			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '1');
 			Module_Javascript::instance()->saveConfigVar('minify_js', 'concat');
 			Module_CSS::instance()->saveConfigVar('minify_css', '1');
+			Module_Core::instance()->saveConfigVar('module_assets', '0');
 		}
 		Module_LoC::instance()->saveConfigVar('hook_sidebar', '0');
 		Module_Avatar::instance()->saveConfigVar('hook_sidebar', '0');
