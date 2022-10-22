@@ -215,6 +215,7 @@ final class Install
 		}
 		
 		self::installGizmore();
+		self::installKCUser();
 		
 		self::installUserSetting('Horus', 'KassiererCard', 'favorite_religion', 'Horus Götterkult', GDT_ACLRelation::ALL);
 		
@@ -249,6 +250,11 @@ final class Install
 			]);
 		}
 		self::installUserSetting('gizmore', 'Address', 'address', '2', GDT_ACLRelation::ALL);
+	}
+	
+	private static function installKCUser(): void
+	{
+		
 	}
 	
 	private static function installUserSetting(string $username, string $moduleName, string $settingName, string $settingVar, string $aclRelation): bool
