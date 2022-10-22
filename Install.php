@@ -255,7 +255,8 @@ final class Install
 	
 	private static function installKCUser(): void
 	{
-		
+		$kc = GDO_User::getById('3');
+		$kc->saveVar('user_type', 'system');
 	}
 	
 	private static function installUserSetting(string $username, string $moduleName, string $settingName, string $settingVar, string $aclRelation): bool
