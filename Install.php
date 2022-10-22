@@ -180,7 +180,7 @@ final class Install
 		
 		self::cat(101, 'News', null);
 		self::cat(102, 'Peiner-News', 101);
-		self::cat(103, 'Kassierer-News', 101);
+		self::cat(103, 'KassiererCard-News', 101);
 		
 		GDO_Category::table()->rebuildFullTree();
 		return true;
@@ -217,7 +217,6 @@ final class Install
 		self::installGizmore();
 		
 		self::installUserSetting('Horus', 'KassiererCard', 'favorite_religion', 'Horus Götterkult', GDT_ACLRelation::ALL);
-// 		self::installUserSetting('gizmore', 'KassiererCard', 'favorite_religion', 'Horus Götterkult', GDT_ACLRelation::ALL);
 		
 		return true;
 	}
@@ -256,7 +255,7 @@ final class Install
 	{
 		$user = GDO_User::getByName($username);
 		$user->saveSettingVar($moduleName, $settingName, $settingVar);
-// 		$user->saveSettingVar($moduleName, "_acl_{$settingName}_relation", $aclRelation);
+		$user->saveACLSettings($moduleName, $settingName, $aclRelation);
 		return true;
 	}
 	
@@ -304,7 +303,7 @@ final class Install
 		{
 			$module = Module_KassiererCard::instance();
 			$path = $module->filePath("install_data/{$filename}");
-			$file = GDO_File::fromPath($filename, $path)->insert()->copy();
+			$file = GDO_File::fromPath($filename, $path)->insert();
 			$avatar = GDO_Avatar::blank([
 				'avatar_file_id' => $file->getID(),
 				'avatar_created_by' => $user->getID(),

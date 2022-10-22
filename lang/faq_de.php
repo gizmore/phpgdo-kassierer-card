@@ -20,12 +20,16 @@ Er hofft, etwas Freude und ein Lächeln in Ihren Arbeitstag zu bringen.',
 
 	'kk_faq_t1d' => 'Warum sollten wir Dir vertrauen?',	'kk_faq_b1d' => 'Wir sind völlig unabhängig und frei von Dritten Parteien,
 die Ansprüche an euch oder euren Daten o.ä. erheben könnten.<br/>
-Wir verwenden nur Code von unserem eigenen Server.<br/>&quot;Bilder&quot; oder &quot;Web-Bugs&quot;, die von anderen Servern geladen werden.<br/>
-Wir sammeln keine Informationen von Ihnen, außer einer E-Mail, und einigen Log-Protokollen,
-sowie den Informationen, die Sie selbst in Ihrem Profil preisgeben.<br/>
+Wir verwenden nur Code von unserem eigenen Server.<br/>&quot;Bilder&quot; oder &quot;Web-Bugs&quot;,
+die von anderen Servern geladen werden,
+finden sich bei uns (*wahrscheinlich*) nicht.<br/>
+Wir sammeln keine Informationen von Ihnen,
+außer einer E-Mail, und einigen Protokollen,
+sowie den Informationen, die Sie selbst in Ihrem Profil für andere preisgeben.<br/>
+Sie, Du, oder wir, bestimmen!
 Wenn Sie misstrauisch sind, geben Sie hier einfach keine privaten Informationen preis.<br/>
-Sie können in Ihrem Browser überprüfen, wie streng unsere Sicherheit sein sollte,
-und Sie werden etwas Glück brauchen, um externe Ressourcen zu finden.<br/>
+Mit ein bisschen Vertrauen können Sie selbst nachprüfen,
+das wir es ernst meinen, und Sie werden etwas Glück brauchen, um externe Ressourcen zu finden.<br/>
 Wenn Sie an Computersicherheit interessiert sind, sollten Sie %s besuchen.',
 
     	'kk_faq_t2' => 'Wie verdienen wir Punkte?',	'kk_faq_b2' => 'Es gibt drei Arten von Konten.<br/>Kunde, Kassierer und Unternehmen.
@@ -35,13 +39,13 @@ Die Kassierer und Arbeiter können diese eingeben, um Sterne zu sammeln.<br/>
 Kunden erhalten auch Sterne (Diamanten), wenn sie Leute einladen, oder den Arbeitern die Coupons geben.<br/>
 Die Firmen bieten Waren für die Sterne und Diamanten an,
 und bekommen dafür ebenfalls Diamanten.
-Bei den Unternemen sind diese sind für Wettbewerbe und Besten-Listen interessant.<br/>
+Für die Unternemen und Partner sind diese für Wettbewerbe und Besten-Listen interessant.<br/>
 Die Kunden erhalten die gleichen Angebote wie die Arbeiter,
 nur halt für Diamanten anstatt Sterne.',
 	
     	'kk_faq_t3' => 'Das Kunden Einmaleins',	'kk_faq_b3' => 'Als Kunde drucken Sie Coupons aus und 
-verteilen diesen an die Arbeiter.
-Auch das werben weiterer Kunden bringt Diamanten.<br/>
+verteilen diese an die Arbeiter.
+Auch das Werben weiterer Kunden bringt Diamanten.<br/>
 Sie können jeden Tag %s kostenlose Sterne drucken und verteilen.<br/>
 Sie können die Coupons ausdrucken, den Code aufschreiben,
 oder Ihr Mobiltelefon verwenden, um Codes an die Arbeiter zu übertragen.<br/>
