@@ -40,6 +40,9 @@ Das %4$s-Team',
 # Signup
 	'msg_signup_customer_no_token' => 'Sie haben keinen Registrierungscode eingegeben und sind somit als Kunde registriert.<br/>Wenn Sie ein Arbeitnehmer oder ein Unternehmen sind, kontaktieren Sie uns bitte.<br/>Wenn Sie sich erneut anmelden, werden Sie möglicherweise gesperrt. ',
 	'err_kk_signup_code_required' => 'Sie benötigen einen Registrierungscode, es sei denn, Sie sind Kunde.',	
+# Free
+	'msg_kk_free_customer_stars' => 'Sie haben %s Sterne für heute erhalten.',
+	
 ### Types
 	'kk_type' => 'Kontotyp',	'kk_stars' => 'KC-Sterne',	
 // 	'kk_team' => 'Team Member',
@@ -95,7 +98,7 @@ Wenn Sie Fragen oder Bedenken haben, <a href="%s">kontaktieren Sie uns bitte</a>
 
 	
 	# Create Coupon
-	'create_coupon' => 'Gutschein erstellen',	'generate_coupons' => 'Gutscheine generieren',	'kk_info_create_coupon' => 'Wählen Sie Ihre %s und die Anzahl der Sterne für Ihren Gutschein aus.<br/>Insgesamt haben Sie %s Gutscheine mit %s Sternen erstellt. In diesem Zeitraum können Sie in diesem Zeitraum %s/%s weitere Sterne auf Coupons drucken. Dieser Zeitraum geht von %s bis %s.',
+	'create_coupon' => 'Gutschein erstellen',	'generate_coupons' => 'Gutscheine generieren',	'kk_info_create_coupon' => 'Wählen Sie die Anzahl der Sterne, Sie haben %s, für Ihren Coupon.<br/>Optional wählen Sie ein Angebot für die Rückseite.',
 	'sel_coupon_offer' => 'Angebot auswählen',	'tt_create_offer' => 'Erstellen Sie einen Gutschein für dieses Angebot, um ihn mit Ihren lokalen Arbeitern zu teilen.',	'msg_coupon_created' => 'Ihr Cashiercard-Gutschein wurde erstellt.',	'err_kk_create_stars' => 'Du möchtest %s Sterne erstellen, aber du konntest in diesem Zeitraum nur %s weitere Sterne hinzufügen. Sie haben in diesem Zeitraum bereits %s Sterne erstellt.',
 
 	

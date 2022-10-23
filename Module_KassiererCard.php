@@ -24,6 +24,7 @@ use GDO\Core\GDT_Checkbox;
 use GDO\Payment\GDT_Money;
 use GDO\Date\GDT_Duration;
 use GDO\Date\Time;
+use GDO\Core\Application;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -81,6 +82,7 @@ final class Module_KassiererCard extends GDO_Module
 			KC_Working::class,
 			KC_Competition::class,
 			KC_TokenRequest::class,
+			KC_StarTransfer::class,
 		];
 	}
 	
@@ -451,6 +453,24 @@ final class Module_KassiererCard extends GDO_Module
 		elseif ($key === 'diamonds_earned')
 		{
 			KC_Competition::onEarned($user, 0, $new - $old);
+		}
+	}
+	
+	public function hookBeforeExecute(): void
+	{
+		$user = GDO_User::current();
+		if ($user->hasPermission('kk_customer'))
+		{
+			$this->grantFreeStars($user, $this->cfgFreeStarsPerDay());
+		}
+	}
+	
+	private function grantFreeStars(GDO_User $user, int $numStars): void
+	{
+		if (!KC_StarTransfer::gotFreeStars($user, Application::$TIME))
+		{
+			KC_StarTransfer::freeStars($user, $numStars);
+			Website::message($this->getName(), 'msg_kk_free_customer_stars', [$numStars]);
 		}
 	}
 	

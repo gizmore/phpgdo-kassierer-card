@@ -9,7 +9,7 @@ wie ein Bier, einen Haarschnitt, einen Döner oder einen Kaffee.<br/>
 In verrückten Zeiten ist ein Dankeschön und ein Lächeln vielleicht wertvoller denn je.<br/>
 Wir sind transparent und unabhängig und haben für die Zukunft gewisse Wohltätigkeitspläne.',
     
-	'kk_faq_t1b' => 'Warum machst du das?',	'kk_faq_b1b' => 'Ruhm und Geld :) (auch)<br/>Das Projekt macht irgendwie Spaß und ist perfekt für meine eigene Software.<br/>
+	'kk_faq_t1b' => 'Warum machst Du das?',	'kk_faq_b1b' => 'Ruhm und Geld :) (auch)<br/>Das Projekt macht irgendwie Spaß und ist perfekt für meine eigene Software.<br/>
 Wir wollen etwas bewegen, motivieren sich gegenseitig zu unterstützen!<br/>
 Bitte helfen Sie uns, den Menschen etwas Macht zu bringen.<br/>',
 

@@ -6,6 +6,7 @@ use GDO\Form\MethodForm;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Submit;
 use GDO\KassiererCard\GDT_Coupon;
+use GDO\KassiererCard\GDT_Slogan;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\QRCode\GDT_QRCode;
 use GDO\Core\GDT_Tuple;
@@ -36,7 +37,7 @@ final class PrintCoupon extends MethodForm
 	public function createForm(GDT_Form $form) : void
 	{
 		$form->text('kk_info_print_coupon');
-		$coupon = GDT_Coupon::make('token')->label('code')->notNull()->onlyOwnCreated()->writeable(false);
+		$coupon = GDT_Coupon::make('token')->label('code')->notNull()->onlyOwnCreated()->writeable(true);
 		$form->addFields(
 			$coupon,
 // 			GDT_Slogan::make('slogan')->notNull()->initialRandom(),

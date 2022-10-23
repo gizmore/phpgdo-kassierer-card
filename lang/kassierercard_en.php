@@ -110,6 +110,9 @@ The %4$s Team',
 	'msg_signup_customer_no_token' => 'You did not enter a Signup-Code and thus are registered as customer.<br/>If you are a worker or company, please contact us.<br/>If you signup again you might get banned.',
 	'err_kk_signup_code_required' => 'You need a Signup-Code unless you are a customer.',
 	
+	# Free
+	'msg_kk_free_customer_stars' => 'You received %s Stars for today.',
+	
 	### Types
 	'kk_type' => 'Account Type',
 	'kk_stars' => 'KC Stars',
@@ -237,7 +240,7 @@ If you have questions or concerns, please <a href="%s">contact us</a>.',
 	# Create Coupon
 	'create_coupon' => 'Create Coupon',
 	'generate_coupons' => 'Generate Coupons',
-	'kk_info_create_coupon' => 'Select your %s and the number of stars for your coupon.<br/>In total you have created %s coupons with %s stars. In this period, you can print %s/%s more stars on coupons in this period. This period goes from %s to %s.',
+	'kk_info_create_coupon' => 'Select the amount of stars, you have %s, for your coupon.<br/>Optionally, select an offer for the backside.',
 	'sel_coupon_offer' => 'Select Offer',
 	'tt_create_offer' => 'Create a Coupon for this Offer to share with your local workers.',
 	'msg_coupon_created' => 'Your cashiercard coupon has been created.',

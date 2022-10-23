@@ -21,7 +21,7 @@ final class GDT_CouponStars extends GDT_UInt
 	{
 		parent::__construct();
 		$this->notNull();
-		$this->bytes(1);
+		$this->bytes(2);
 		$this->initial('1');
 	}
 	

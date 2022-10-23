@@ -13,7 +13,6 @@ use GDO\KassiererCard\KC_Util;
 use GDO\Core\Application;
 use GDO\User\GDO_User;
 use GDO\Date\Time;
-use GDO\UI\GDT_Link;
 
 final class CreateCoupon extends MethodForm
 {
@@ -32,53 +31,47 @@ final class CreateCoupon extends MethodForm
 	public function createForm(GDT_Form $form): void
 	{
 		$user = GDO_User::current();
-		$time = Application::$TIME;
+// 		$time = Application::$TIME;
 		$table = KC_Coupon::table();
 		$form->text('kk_info_create_coupon', [
-			GDT_Link::anchor(href('KassiererCard', 'Offers'), t('offers')),
-			KC_Util::numCouponsCreated($user),
-			KC_Util::numStarsCreatedInPeriod($user, $time),
-			KC_Util::canStarsCreatedInPeriod($user, $time),
-			KC_Util::maxStarsCreatedInPeriod($user, $time),
-			Time::displayTimestamp(KC_Util::getPeriodStart($time), 'day'),
-			Time::displayTimestamp(KC_Util::getPeriodEnd($time), 'day'),
+			KC_Util::numStarsAvailable($user),
 		]);
-		$stars = $table->gdoColumn('kc_stars');
+		$stars = GDT_CouponStars::make('kc_stars')->max(KC_Util::numStarsAvailable($user));
 		$form->addField($stars);
-		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateStars']));
-		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateSunday']));
+// 		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateStars']));
+// 		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateSunday']));
 		$form->addField($table->gdoColumn('kc_offer'));
 		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addField(GDT_Submit::make());
 	}
 	
-	public function validateStars(GDT_Form $form, GDT_CouponStars $field, $value)
-	{
-		$want = $field->getValue();
-		$time = Application::$TIME;
-		$stars = KC_Util::numStarsCreatedInPeriod(GDO_User::current(), $time);
-		$maxStars = KC_Util::maxStarsCreatedInPeriod(GDO_User::current(), $time);
-		$could = $maxStars - $stars;
-		if ($want > $could)
-		{
-			return $field->error('err_kk_create_stars', [
-				$want, $could, $stars]);
-		}
-		return true;
-	}
+// 	public function validateStars(GDT_Form $form, GDT_CouponStars $field, $value)
+// 	{
+// 		$want = $field->getValue();
+// 		$time = Application::$TIME;
+// 		$stars = KC_Util::numStarsCreatedInPeriod(GDO_User::current(), $time);
+// 		$maxStars = KC_Util::maxStarsCreatedInPeriod(GDO_User::current(), $time);
+// 		$could = $maxStars - $stars;
+// 		if ($want > $could)
+// 		{
+// 			return $field->error('err_kk_create_stars', [
+// 				$want, $could, $stars]);
+// 		}
+// 		return true;
+// 	}
 	
-	public function validateSunday(GDT_Form $form, GDT_CouponStars $field, $value)
-	{
-		if (GDO_User::current()->hasPermission('kk_distributor'))
-		{
-			return true;
-		}
-		if ($this->isSunday())
-		{
-			return $field->error('err_print_sundays');
-		}
-		return true;
-	}
+// 	public function validateSunday(GDT_Form $form, GDT_CouponStars $field, $value)
+// 	{
+// 		if (GDO_User::current()->hasPermission('kk_distributor'))
+// 		{
+// 			return true;
+// 		}
+// 		if ($this->isSunday())
+// 		{
+// 			return $field->error('err_print_sundays');
+// 		}
+// 		return true;
+// 	}
 	
 	private function isSunday() : bool
 	{
@@ -90,6 +83,9 @@ final class CreateCoupon extends MethodForm
 		$vars = $form->getFormVars();
 		$vars['kc_type'] = 'kk_coupon';
 		KC_Coupon::blank($vars)->insert();
+		$user = GDO_User::current();
+		$stars = $form->getFormVar('kc_stars');
+		$user->increaseSetting('KassiererCard', 'stars_available', - $stars);
 		return $this->redirectMessage('msg_coupon_created', null,
 			href('KassiererCard', 'PrintedCoupons'));
 		

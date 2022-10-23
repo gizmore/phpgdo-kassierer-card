@@ -13,22 +13,34 @@ use GDO\Core\GDO;
  */
 final class KC_Util
 {
+
+	public static function getPeriodStart(int $time) : int
+	{
+		$start = strtotime('next monday', $time);
+		$start -= Time::ONE_WEEK;
+		while ($start < $time)
+		{
+			$start += Time::ONE_DAY;
+		}
+		return $start - Time::ONE_DAY;
+	}
 	
-// 	public static function getPeriodStart(int $time) : int
-// 	{
-// 		$start = strtotime('next monday', $time);
-// 		$start -= Time::ONE_WEEK;
-// 		while ($start < $time)
-// 		{
-// 			$start += Time::ONE_DAY * 2;
-// 		}
-// 		return $start - Time::ONE_DAY * 2;
-// 	}
+	public static function getPeriodStartDate(int $time) : string
+	{
+		$t = self::getPeriodStart($time);
+		return Time::getDate($t);
+	}
 	
-// 	public static function getPeriodEnd(int $time) : int
-// 	{
-// 		return self::getPeriodStart($time) + Time::ONE_DAY * 2;
-// 	}
+	public static function getPeriodEnd(int $time) : int
+	{
+		return self::getPeriodStart($time) + Time::ONE_DAY;
+	}
+	
+	public static function getPeriodEndDate(int $time) : string
+	{
+		$t = self::getPeriodEnd($time);
+		return Time::getDate($t);
+	}
 	
 	public static function numStarsCreatedInPeriod(GDO_User $user, int $time) : int
 	{
