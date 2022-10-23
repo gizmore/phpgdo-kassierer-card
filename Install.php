@@ -255,7 +255,7 @@ final class Install
 	
 	private static function installKCUser(): void
 	{
-		$kc = GDO_User::getById('3');
+		$kc = GDO_User::getByName('kassierercard');
 		$kc->saveVar('user_type', 'system');
 	}
 	
@@ -283,7 +283,7 @@ final class Install
 			$user->saveVars([
 				'user_type' => 'member',
 				'user_name' => $nickname,
-				'user_password' => BCrypt::create($password)->__toString(),
+// 				'user_password' => BCrypt::create($password)->__toString(),
 			]);
 		}
 		
