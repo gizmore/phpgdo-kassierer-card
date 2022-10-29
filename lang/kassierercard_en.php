@@ -458,4 +458,8 @@ The %s System',
 	'tt_kk_favorites' => '%s favorite &quot;%s&quot; setings',
 	'md_kk_favorites' => 'The %s favorite %s on %s. Real user content, Real opinions on your favorite %2$s.',
 	
+	# Granted Coupons
+	'list_kassierercard_grantedcoupons' => '%s Eingegebene Coupons',
+	'md_kassierercard_grantedcoupons' => 'Übersicht ihrer erstellten Coupons, welche eingegben wurden.',
+	
 ];

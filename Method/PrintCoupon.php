@@ -6,8 +6,8 @@ use GDO\Form\MethodForm;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Submit;
 use GDO\KassiererCard\GDT_Coupon;
-use GDO\KassiererCard\GDT_Slogan;
 use GDO\KassiererCard\KC_Coupon;
+use GDO\KassiererCard\Module_KassiererCard;
 use GDO\QRCode\GDT_QRCode;
 use GDO\Core\GDT_Tuple;
 use GDO\UI\GDT_Container;
@@ -23,6 +23,11 @@ use GDO\User\GDO_User;
  */
 final class PrintCoupon extends MethodForm
 {
+	public function beforeExecute() : void
+	{
+		Module_KassiererCard::instance()->addCustomerBar();
+	}
+	
 	public function isSidebarEnabled() : bool
 	{
 		if ($this->getForm()->hasError())

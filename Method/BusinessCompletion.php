@@ -24,7 +24,7 @@ final class BusinessCompletion extends MethodCompletion
 		$eterm = GDO::escapeSearchS($term);
 		return $this->gdoTable()->select('*')
 			->joinObject('biz_address')
-			->joinObject('biz_partner')
+			->joinObject('biz_owner')
 			->where("address_street LIKE '%{$eterm}%'")
 			->orWhere("address_company LIKE '%{$eterm}%'")
 			->orWhere("address_name LIKE '%{$eterm}%'")

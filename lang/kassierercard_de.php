@@ -132,7 +132,7 @@ wenn Sie das Angebot in Anspruch nehmen!',
 # Biz
 	'owner' => 'Eigentümer',	'create_business' => 'Arbeitgeber erstellen',	'kk_info_crud_business' => 'Hier können Sie ein neues Geschäft mit Kassierer hinzufügen.<br/>Vielleicht möchten Sie zuerst %s.',	'biz_participating' => 'Offizieller Arbeitgeber seit',	'biz_declining' => 'Uns abgelehnt bei',	'btn_biz_emplyoees' => '%s Mitarbeiter',	
 # Coupons
-	'li_kk_coupon_entered' => 'Eingetragen am %s von %s.',	
+	'li_kk_coupon_entered' => 'Eingelöst am %s von %s.',	
 # The Team
 	'the_team' => 'Das Team',	'the_team_paragraph' => 'Diese Seite ist den %s Teammitgliedern gewidmet.<br/>Hallo!',	'the_admins' => 'Die Admins',	'the_admins_paragraph' => '%s Admins haben Zugriff auf alles. Vertraue ihnen nicht!',
 	'the_staff' => 'Das Personal',	'the_staff_paragraph' => '%s Mitarbeiter haben Zugriff auf fast alles. Sie zensieren den Spam und erhalten viele E-Mails. Vertraue ihnen nicht!',
@@ -233,6 +233,8 @@ Das %s-System',
 # Favorites
 	'mt_kk_favorites' => 'Favorit %s',	'tt_kk_favorites' => '%s bevorzugte "%s"-Einstellungen',	'md_kk_favorites' => 'Der %s Favorit %s auf %s. Echte Benutzerinhalte, echte Meinungen zu Ihren Lieblings-%2$s.',
 
-
+# Granted Coupons
+	'list_kassierercard_grantedcoupons' => '%s Eingegebene Coupons',
+	'md_kassierercard_grantedcoupons' => 'Übersicht ihrer erstellten Coupons, welche eingegben wurden.',
 	
 ];

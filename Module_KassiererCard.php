@@ -62,7 +62,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Javascript', 'JQueryAutocomplete',
 			'Licenses', 'Links', 'LoC', 'Login',
 			'Maps', 'Mail', 'Maps', 'News',
-			'PaymentCredits', 'PaymentPaypal',
+			'PaymentBank', 'PaymentCredits', 'PaymentPaypal',
 			'Perf', 'Poll', 'PM', 'QRCode',
 			'Recovery', 'Register',
 			'TorDetection', 'VPNDetect',
@@ -166,6 +166,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('offers_created')->label('cfg_offers_created')->tooltip('tt_cfg_offers_created')->icon('star'), # partner buys offer
 			GDT_Badge::make('offers_fullfilled')->label('cfg_offers_fullfilled')->tooltip('tt_cfg_offers_fullfilled')->icon('bee'), # company fullfills
 			GDT_Badge::make('offers_redeemed')->label('cfg_offers_redeemed')->tooltip('tt_cfg_offers_redeemed')->icon('star'), # offers taken
+			GDT_Badge::make('diamonds_available')->label('cfg_diamonds_available')->tooltip('tt_cfg_diamonds_available')->icon('diamond'),
 			GDT_Badge::make('diamonds_earned')->label('cfg_diamonds_earned')->tooltip('tt_cfg_diamonds_earned')->icon('diamond'),
 			GDT_Money::make('euros_earned')->initial('0.00')->label('cfg_euros_earned')->tooltip('tt_cfg_euros_earned'),
 			GDT_Money::make('euros_generated')->initial('0.00')->label('cfg_euros_generated')->tooltip('tt_cfg_euros_generated'),

@@ -8,7 +8,6 @@ use GDO\DB\Query;
 use GDO\KassiererCard\GDT_FavSection;
 use GDO\Core\GDT_String;
 use GDO\Country\Module_Country;
-use GDO\Table\GDT_RowNum;
 use GDO\Core\GDT_UInt;
 
 /**
@@ -38,7 +37,7 @@ final class Favorites extends MethodQueryTable
 	public function getTableTitle()
 	{
 		return t('tt_kk_favorites', [
-			$this->table->countItems(),
+			$this->getTable()->countItems(),
 			$this->displaySection(),
 		]);
 	}
@@ -55,7 +54,7 @@ final class Favorites extends MethodQueryTable
 	public function gdoParameters(): array
 	{
 		return [
-			GDT_FavSection::make('section')->initial('your_dream'),
+			GDT_FavSection::make('section')->initial('favorite_religion'),
 		];
 	}
 	
@@ -82,7 +81,8 @@ final class Favorites extends MethodQueryTable
 		$query->joinObject('uset_user');
 		Module_Country::instance()->joinSetting($query, 'country_of_living', 'uset_user_t.user_id');
 		$query->fetchTable(GDO_User::table());
-		GDO_UserSetting::table()->whereSettingVisible($query, 'KassiererCard', $this->getSection(), 'uset_user_t.user_id');
+		GDO_UserSetting::table()->whereSettingVisible($query,
+			'KassiererCard', $this->getSection(), GDO_User::current(), 'uset_user_t.user_id');
 		return $query;
 	}
 	

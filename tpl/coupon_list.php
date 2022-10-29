@@ -8,13 +8,19 @@ use GDO\User\GDO_User;
 /** @var $gdo KC_Coupon **/
 $user = GDO_User::current();
 $li = GDT_ListItem::make()->gdo($gdo);
-$li->creatorHeader();
+
+$creatorField = 'kc_creator';
+$createdField = 'kc_created';
+$li->creatorHeader($creatorField, $createdField);
 
 if ($gdo->isEntered())
 {
+// 	$creatorField = 'kc_enterer';
+// 	$createdField = 'kc_entered';
 	$li->title('li_kk_coupon_entered', [
 		tt($gdo->getEntered()),
 		$gdo->getEnterer()->renderUserName()]);
+	$li->avatarUser($gdo->getOtherUser($user));
 }
 else if ($gdo->isPrinted())
 {
@@ -28,6 +34,7 @@ else
 	$li->actions()->addField(GDT_Button::make('btn_print')
 		->href(href('KassiererCard', 'PrintCoupon', "&token={$gdo->getToken()}")));
 }
+
 
 $content = GDT_Container::make()->vertical();
 $content->addField($gdo->gdoColumn('kc_type'));

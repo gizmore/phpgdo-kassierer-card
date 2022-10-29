@@ -715,6 +715,8 @@ EOT;
 	#############
 	private static function installCards() : bool
 	{
+		$cc = GDT_AccountType::COUPON;
+		self::coupon(2, 'KASSIERERS', $cc, null, 99, 'Test-Demo-Card',  false);
 		$cc = GDT_AccountType::CASHIER;
 		self::coupon(2, 'WANNA2TEAM', $cc, null, 35, 'Test-Cashier-1',  false);
 		self::coupon(2, 'WANNA4TEAM', $cc,    1, 25, 'Test-Cashier-2',  false);

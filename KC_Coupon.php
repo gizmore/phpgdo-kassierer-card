@@ -117,6 +117,16 @@ class KC_Coupon extends GDO
 		return in_array($this->getType(), self::$INVITATION_TYPES, true);
 	}
 	
+	public function getOtherUser(GDO_User $user): GDO_User
+	{
+		$uid = $user->getID();
+		if ($uid === $this->gdoVar('kc_creator'))
+		{
+			return $this->gdoValue('kc_enterer');
+		}
+		return $this->gdoValue('kc_creator');
+	}
+	
 	#############
 	### Hooks ###
 	#############
@@ -446,6 +456,14 @@ class KC_Coupon extends GDO
 			}
 		}
 		return null;
+	}
+	
+	#################
+	### Demo Card ###
+	#################
+	public static function demoCoupon(): self
+	{
+		return self::getBy('kc_token', 'KASSIERERS');
 	}
 	
 }

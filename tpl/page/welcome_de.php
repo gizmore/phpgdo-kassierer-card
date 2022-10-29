@@ -2,10 +2,24 @@
 namespace GDO\KassiererCard\tpl\page;
 use GDO\UI\GDT_Link;
 use GDO\UI\GDT_Divider;
+use GDO\KassiererCard\KC_Coupon;
+use GDO\UI\GDT_Container;
 ?>
 <h2>Hallo und herzlich Willkommen auf <?=sitename()?></h2>
 <p>Ich möchte mich kurz vorstellen.<br/>
-Ich heisse Christian Busch, oder auch <?=profile_link('gizmore')?>, bin ca. 42 Jahre alt, Programmierer aus Peine.</p>
+Ich heisse Christian, oder auch <?=profile_link('gizmore')?>, bin ca. 42 Jahre alt, und bin ein Programmierer aus Peine.
+</p>
+<p>
+</p>
+<?php
+$coupon = KC_Coupon::demoCoupon();
+$cont = GDT_Container::make();
+$cont->addFields(
+	$coupon->getFrontSide()->css('max-width', '320px'),
+	$coupon->getBackSide()->css('max-width', '320px'),
+);
+echo $cont->render();
+?>
 <p>Ihr alle kennt:</p>
 <ul>
 <li><a href="https://www.payback.de/" rel="nofollow">Payback Card</a></li>

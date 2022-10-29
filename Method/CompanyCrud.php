@@ -15,9 +15,14 @@ final class CompanyCrud extends MethodCrud
 
 	public function canUpdate(GDO $gdo) : bool
 	{
+		$user = GDO_User::current();
+		if ($user->isStaff())
+		{
+			return true;
+		}
 		/** @var $business KC_Partner **/
 		$business = $gdo;
-		$business->getUser() === GDO_User::current();
+		return $business->getUser() === $user;
 	}
 	
 	public function gdoTable(): GDO

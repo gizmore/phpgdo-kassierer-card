@@ -25,7 +25,7 @@ class FrontSide extends Method
 	public function gdoParameters() : array
 	{
 		return [
-			GDT_Coupon::make('token')->notNull()->onlyOwnCreated(),
+			GDT_Coupon::make('token')->notNull()->onlyOwnCreated(false),
 		];
 	}
 	

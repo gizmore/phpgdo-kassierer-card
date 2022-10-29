@@ -16,6 +16,11 @@ use GDO\Form\GDT_AntiCSRF;
  */
 final class PartnerEdit extends MethodForm
 {
+	public function isTrivial(): bool
+	{
+		return false;
+	}
+	
 	public function getPermission():? string
 	{
 		return 'kk_company';
