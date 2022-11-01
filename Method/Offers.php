@@ -17,7 +17,9 @@ final class Offers extends MethodQueryList
 	public function getQuery() : Query
 	{
 		$now = Time::getDateWithoutTime();
-		return parent::getQuery()->orWhere("o_expires >= '$now'");
+		return parent::getQuery()
+			->where("o_partnership = 'kk_partner_active'")
+			->where("o_expires >= '$now'");
 	}
 	
 	protected function setupCollection(GDT_Table $table) : void

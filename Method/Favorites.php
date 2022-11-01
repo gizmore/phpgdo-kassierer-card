@@ -70,7 +70,7 @@ final class Favorites extends MethodQueryTable
 	
 	public function getQuery(): Query
 	{
-		$query = GDO_UserSetting::table()->select('uset_user_t.*, COUNT(uset_var) AS var_count, uset_var as '.$this->getSection());
+		$query = GDO_UserSetting::table()->select('uset_user_t.*, COUNT(uset_var) AS count, uset_var as '.$this->getSection());
 		$query->group('uset_var');
 		$query->where("uset_name=".quote($this->getSection()));
 		$query->joinObject('uset_user');
@@ -87,7 +87,7 @@ final class Favorites extends MethodQueryTable
 // 		$s = GDO_UserSetting::table();
 		$mc = Module_Country::instance();
 		return [
-			GDT_UInt::make('var_count'),
+			GDT_UInt::make('count'),
 			$mc->setting('country_of_living'),
 			$u->gdoColumn('user_name'),
 			$u->gdoColumn('user_level'),
