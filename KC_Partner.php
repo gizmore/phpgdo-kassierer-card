@@ -163,7 +163,7 @@ final class KC_Partner extends GDO
 	
 	public static function queryTotal() : int
 	{
-		return self::table()->countWhere();
+		return self::table()->countWhere("p_partnership='kk_partner_active'");
 	}
 	
 }

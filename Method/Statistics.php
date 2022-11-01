@@ -3,7 +3,6 @@ namespace GDO\KassiererCard\Method;
 
 use GDO\Core\Method;
 use GDO\UI\GDT_Card;
-use GDO\User\GDO_User;
 use GDO\KassiererCard\Module_KassiererCard;
 use GDO\Core\GDT;
 
@@ -28,7 +27,8 @@ final class Statistics extends Method
 		$card->addField($this->statsField('coupons_printed'));
 		$card->addField($this->statsField('coupons_entered'));
 		$card->addField($this->statsField('stars_created'));
-		$card->addField($this->statsField('stars_redeemed'));
+		$card->addField($this->statsField('diamonds_earned'));
+		$card->addField($this->statsField('diamonds_redeemed'));
 		$card->addField($this->statsField('offers_created'));
 		$card->addField($this->statsField('offers_redeemed'));
 		$card->addField($this->statsField('euros_invested'));

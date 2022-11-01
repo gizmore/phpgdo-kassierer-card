@@ -282,6 +282,7 @@ final class KC_Offer extends GDO
 		$now = Time::getDateWithoutTime();
 		$query = self::table()->select()
 				->where("( SELECT IFNULL(COUNT(*), 0) FROM kc_offerredeemed or2 WHERE or2.or_offer=kc_offer.o_id ) < kc_offer.o_total_amt ")
+				->where("o_partnership='kk_partner_active'")
 				->where("o_expires>'$now'");
 		if ($user)
 		{
