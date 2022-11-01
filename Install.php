@@ -219,6 +219,8 @@ final class Install
 		self::installGizmore();
 		self::installKCUser();
 		
+		self::installUserSetting('gizmore', 'KassiererCard', 'profession', 'Programmierer', GDT_ACLRelation::ALL);
+		
 		self::installUserSetting('Horus', 'KassiererCard', 'favorite_religion', 'Horus Götterkult', GDT_ACLRelation::ALL);
 		
 		return true;

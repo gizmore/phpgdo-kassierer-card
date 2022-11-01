@@ -2,9 +2,11 @@
 namespace GDO\KassiererCard\Method;
 
 use GDO\Table\MethodQueryTable;
+use GDO\UI\GDT_SearchButton;
 use GDO\User\GDO_User;
 use GDO\User\GDO_UserSetting;
 use GDO\DB\Query;
+use GDO\Form\GDT_Form;
 use GDO\KassiererCard\GDT_FavSection;
 use GDO\Core\GDT_String;
 use GDO\Country\Module_Country;
@@ -28,7 +30,6 @@ final class Favorites extends MethodQueryTable
 		return false;
 	}
 	
-	
 	public function getMethodTitle(): string
 	{
 		return t('mt_kk_favorites', [
@@ -50,13 +51,6 @@ final class Favorites extends MethodQueryTable
 			$this->displaySection(),
 			sitename(),
 		]);
-	}
-	
-	public function gdoParameters(): array
-	{
-		return [
-			GDT_FavSection::make('section')->initial('favorite_religion'),
-		];
 	}
 	
 	public function gdoTable()
@@ -101,13 +95,29 @@ final class Favorites extends MethodQueryTable
 		];
 	}
 
-	public function execute()
+// 	public function execute()
+// 	{
+// 		$response = parent::execute();
+// 		return GDT_Tuple::makeWith(
+// // 			$this->gdoParameter('section'),
+// 			$response,
+// 		);
+// 	}
+	public function createForm(GDT_Form $form): void
 	{
-		$response = parent::execute();
-		return GDT_Tuple::makeWith(
-			$this->gdoParameter('section'),
-			$response,
+		$form->addFields(
+			GDT_FavSection::make('section')->initial('profession'),
 		);
+		$form->actions()->addField(
+			GDT_SearchButton::make('go')
+			->onclick([$this, 'executeWithSection']));
+		$form->slim();
+		$form->verb(GDT_Form::GET);
 	}
 	
+	public function exexuteWithSection()
+	{
+		return $this->renderPage();
+	}
+
 }
