@@ -9,6 +9,7 @@ use GDO\KassiererCard\GDT_FavSection;
 use GDO\Core\GDT_String;
 use GDO\Country\Module_Country;
 use GDO\Core\GDT_UInt;
+use GDO\Core\GDT_Tuple;
 
 /**
  * Display the profile favorites of all users.
@@ -100,4 +101,13 @@ final class Favorites extends MethodQueryTable
 		];
 	}
 
+	public function execute()
+	{
+		$response = parent::execute();
+		return GDT_Tuple::makeWith(
+			$this->gdoParameter('section'),
+			$response,
+		);
+	}
+	
 }

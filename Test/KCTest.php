@@ -13,6 +13,7 @@ use GDO\KassiererCard\Module_KassiererCard;
 use function PHPUnit\Framework\assertGreaterThan;
 use GDO\KassiererCard\KC_Util;
 use function PHPUnit\Framework\assertStringContainsString;
+use GDO\KassiererCard\Method\Welcome;
 
 final class KCTest extends TestCase
 {
@@ -49,10 +50,15 @@ final class KCTest extends TestCase
 	
 	public function testCouponCreation() : void
 	{
-		$this->testuser('Kunde1');
-		$freeStars = Module_KassiererCard::instance()->cfgFreeStarsPerDay(); 
+		$user = $this->testuser('Kunde1');
+
+		$this->callMethod(Welcome::make(), []);
+		
+		$stars = KC_Util::numStarsAvailable($user);
+		
+// 		$freeStars = Module_KassiererCard::instance()->cfgFreeStarsPerDay();
 		$p = [
-			'kc_stars' => $freeStars,
+			'kc_stars' => $stars,
 		];
 		$this->callMethod(CreateCoupon::make(), $p);
 		

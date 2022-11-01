@@ -376,13 +376,16 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function hookRegisterForm(GDT_Form $form)
 	{
-		$code = GDT_CouponToken::make('kk_token')->label('lbl_kk_register_code')->tooltip('tt_kk_register_code');
-		$type = GDT_AccountType::make('kk_type')->notNull();
-		$form->addFieldAfterName($code, 'user_name');
-		$form->addFieldAfterName($type, 'kk_token');
-	    $vali = GDT_Validator::make('kk_valid_token')->validator($form, $code, [$this, 'validateToken']);
-	    $form->addFieldAfterName($vali, 'kk_token');
-	    $form->text('kk_info_register');
+		if (!Application::$INSTANCE->isUnitTests())
+		{
+			$code = GDT_CouponToken::make('kk_token')->label('lbl_kk_register_code')->tooltip('tt_kk_register_code');
+			$type = GDT_AccountType::make('kk_type')->notNull();
+			$form->addFieldAfterName($code, 'user_name');
+			$form->addFieldAfterName($type, 'kk_token');
+		    $vali = GDT_Validator::make('kk_valid_token')->validator($form, $code, [$this, 'validateToken']);
+		    $form->addFieldAfterName($vali, 'kk_token');
+		    $form->text('kk_info_register');
+		}
 	}
 	
 	public function validateToken(GDT_Form $form, GDT $field, $value)
@@ -426,9 +429,12 @@ final class Module_KassiererCard extends GDO_Module
 	
 	public function hookOnRegister(GDT_Form $form, GDO_UserActivation $activation)
 	{
-		$data = $activation->gdoValue('ua_data');
-		$data['kk_token'] = $form->getFormVar('kk_token');
-		$activation->setValue('ua_data', $data);
+		if (!Application::$INSTANCE->isUnitTests())
+		{
+			$data = $activation->gdoValue('ua_data');
+			$data['kk_token'] = $form->getFormVar('kk_token');
+			$activation->setValue('ua_data', $data);
+		}
 	}
 	
 	/**

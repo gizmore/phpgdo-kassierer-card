@@ -36,7 +36,7 @@ final class CreateCoupon extends MethodForm
 		$form->text('kk_info_create_coupon', [
 			KC_Util::numStarsAvailable($user),
 		]);
-		$stars = GDT_CouponStars::make('kc_stars')->min(1)->max(KC_Util::numStarsAvailable($user));
+		$stars = GDT_CouponStars::make('kc_stars')->initial('1')->min(1)->max(KC_Util::numStarsAvailable($user));
 		$form->addField($stars);
 // 		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateStars']));
 // 		$form->addField(GDT_Validator::make()->validator($form, $stars, [$this, 'validateSunday']));
