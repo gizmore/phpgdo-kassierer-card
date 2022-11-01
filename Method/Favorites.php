@@ -117,7 +117,7 @@ final class Favorites extends MethodQueryTable
 	
 	public function exexuteWithSection()
 	{
-		return $this->renderPage();
+		return parent::execute();
 	}
 
 }
