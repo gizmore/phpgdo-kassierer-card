@@ -237,4 +237,10 @@ Das %s-System',
 	'list_kassierercard_grantedcoupons' => '%s Eingegebene Coupons',
 	'md_kassierercard_grantedcoupons' => 'Übersicht ihrer erstellten Coupons, welche eingegben wurden.',
 	
+# ToDo
+	'mt_kassierercard_todo' => 'ToDo',
+	
+# Team
+	'mt_kassierercard_team' => 'Das Team',
+	
 ];

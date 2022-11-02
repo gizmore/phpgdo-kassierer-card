@@ -9,11 +9,15 @@ use GDO\Address\GDO_Address;
 use GDO\KassiererCard\KC_Offer;
 use GDO\User\GDO_User;
 use GDO\KassiererCard\Method\CreateCoupon;
-use GDO\KassiererCard\Module_KassiererCard;
 use function PHPUnit\Framework\assertGreaterThan;
 use GDO\KassiererCard\KC_Util;
 use function PHPUnit\Framework\assertStringContainsString;
 use GDO\KassiererCard\Method\Welcome;
+use GDO\KassiererCard\Method\Invite;
+use GDO\Mail\Mail;
+use GDO\KassiererCard\KC_StarTransfer;
+use function PHPUnit\Framework\assertEquals;
+use GDO\KassiererCard\KC_Coupon;
 
 final class KCTest extends TestCase
 {
@@ -56,7 +60,6 @@ final class KCTest extends TestCase
 		
 		$stars = KC_Util::numStarsAvailable($user);
 		
-// 		$freeStars = Module_KassiererCard::instance()->cfgFreeStarsPerDay();
 		$p = [
 			'kc_stars' => $stars,
 		];
@@ -64,6 +67,34 @@ final class KCTest extends TestCase
 		
 		# This shall error
 		$this->callMethod(CreateCoupon::make(), $p, false);
+		
+		assertEquals(0, KC_Util::numStarsAvailable($user), 'Check if Kunde1 used all stars.');
+	}
+	
+	/**
+	 * Test if a cashier can invite a new user, Kassierer1 invites Kunde9.
+	 * Test if all get their stars and diamonds.
+	 * Todo this, grant Kassierer1 a few stars beforehand.
+	 */
+	public function testCashierInvitation(): void
+	{
+		$user = $this->testuser('Kassierer1');
+		$sent = Mail::$SENT;
+		$starsAvail = KC_Util::numStarsAvailable($user);
+		KC_StarTransfer::freeStars($user, 10);
+		assertEquals($starsAvail+10, KC_Util::numStarsAvailable($user));
+		$starsAvail += 10;
+		$inputs = [
+			'stars' => $starsAvail - 1,
+			'email' => 'kunde2@kk.de',
+			'type' => 'kk_customer',
+		];
+		$this->callMethod(Invite::make(), $inputs);
+		assertEquals(0, KC_Util::numStarsAvailable($user), 'Assert that Kassierer1 gave all stars for an invitation.');
+		assertEquals($sent+1, Mail::$SENT, 'Test if invitation mail got sent.');
+		
+		$coupon = KC_Coupon::table()->select()->where("kc_creator={$user->getID()}")->order('kc_created DESC')->first()->exec()->fetchObject();
+		assertEquals($starsAvail - 1, $coupon->getStars(), "Test if the invitation coupon has correct amount of stars.");
 	}
 	
 }
