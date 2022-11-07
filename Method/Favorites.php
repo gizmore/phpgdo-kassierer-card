@@ -47,7 +47,7 @@ final class Favorites extends MethodQueryTable
 	public function getMethodDescription(): string
 	{
 		return t('md_kk_favorites', [
-			$this->table->countItems(),
+			$this->getTable()->countItems(),
 			$this->displaySection(),
 			sitename(),
 		]);

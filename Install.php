@@ -409,7 +409,7 @@ final class Install
 		$descr = 'Der beste Döner in Peine, knusprig und preiswert.<br/>Das Original - Nur bei Saray Ali!';
 		self::partner(1, $want, 'Ali', 6, 'Saray Imbiss Peine', 'Marktstraße 23', '31224', 'Peine', 'DE', 'TR', '+49 5171 / 37 40', $descr, 'https://saray.busch-peine.de/', $est);
 		$descr = 'Der Frisör bei dem einen der Hut hochgeht?<br/>Schauen Sie mal vorbei!';
-		self::partner(2, $yes, 'Walied', 7, 'Frisör Walid', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/', $est);
+		self::partner(2, $yes, 'Walied', 7, 'Frisör Walied', 'Woltorfer Str. 4', '31224', 'Peine', 'DE', 'DE', '+49 5171 / 711 71', $descr, 'https://frisoer.walid.busch-peine.de/', $est);
 		$descr = 'Peiner Rock/Pank Szenekneipe.<br/>Ab und an auch mal Live Musik.<br/>Angenehme Atmosphäre.';
 		self::partner(3, $want, 'Garage', 8, 'Garage Peine', 'Pulverturmwall 68', '31224', 'Peine', 'DE', 'DE', null, $descr, 'https://garage-peine.de', $est);
 		$descr = 'Endlich wieder ein Headshop in Peine<br/>CBD geht jetzt schon, echtes Weed soll es ja auch bald geben...<br/>Wer\'s glaubt!';

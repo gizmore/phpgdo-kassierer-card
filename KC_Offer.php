@@ -32,6 +32,11 @@ use GDO\Net\GDT_Url;
  */
 final class KC_Offer extends GDO
 {
+	public function isTestable(): bool
+	{
+		return false;
+	}
+	
 	public function gdoColumns(): array
 	{
 		return [

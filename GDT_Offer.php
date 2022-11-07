@@ -54,7 +54,7 @@ final class GDT_Offer extends GDT_ObjectSelect
 		if ($this->fromMe)
 		{
 			$query->joinObject('o_partner');
-			$query->where("o_partner_t.user_id={$this->getUser()->getID()}");
+			$query->where("o_partner_t.p_user={$this->getUser()->getID()}");
 		}
 		return $query->exec()->fetchAllArray2dObject();
 	}

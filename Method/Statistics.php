@@ -41,4 +41,9 @@ final class Statistics extends Method
 		return Module_KassiererCard::instance()->getConfigColumn($key);
 	}
 	
+	public function getMethodTitle(): string
+	{
+		return t('statistics');
+	}
+	
 }
