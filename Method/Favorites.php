@@ -12,6 +12,7 @@ use GDO\Core\GDT_String;
 use GDO\Country\Module_Country;
 use GDO\Core\GDT_UInt;
 use GDO\Core\GDT_Tuple;
+use GDO\User\GDT_ProfileLink;
 
 /**
  * Display the profile favorites of all users.
@@ -78,6 +79,7 @@ final class Favorites extends MethodQueryTable
 		$query->fetchTable(GDO_User::table());
 		GDO_UserSetting::table()->whereSettingVisible($query,
 			'KassiererCard', $this->getSection(), GDO_User::current(), 'uset_user_t.user_id');
+// 		$query->debug();
 		return $query;
 	}
 	
@@ -89,7 +91,7 @@ final class Favorites extends MethodQueryTable
 		return [
 			GDT_UInt::make('count'),
 			$mc->setting('country_of_living'),
-			$u->gdoColumn('user_name'),
+			GDT_ProfileLink::make('user_name')->nickname()->avatar(),
 			$u->gdoColumn('user_level'),
 			GDT_String::make($this->getSection())->labelRaw($this->displaySection()),
 		];

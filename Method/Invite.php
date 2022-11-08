@@ -17,6 +17,7 @@ use GDO\KassiererCard\GDT_CouponToken;
 use GDO\Mail\Mail;
 use GDO\UI\GDT_Link;
 use GDO\KassiererCard\KC_Offer;
+use GDO\User\GDT_ProfileLink;
 
 /**
  * Send invitations which might convert stars to diamonds.
@@ -98,7 +99,7 @@ final class Invite extends MethodForm
 		$starsPerEuro = Module_KassiererCard::instance()->cfgStarsPerEuro();
 		$mail->setSubject(tiso($lang, 'mailsubj_kk_invite', [sitename(), $coupon->renderType()]));
 		$mail->setBody(tiso($lang, 'mailbody_kk_invite', [
-			$user->getProfileLink(true, false)->render(),
+			GDT_ProfileLink::make()->user($user)->nickname()->render(),
 			$coupon->renderType(),
 			GDT_Link::anchor($coupon->urlEnter(), sitename()),
 			$starsPerEuro,

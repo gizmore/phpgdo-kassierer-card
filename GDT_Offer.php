@@ -4,7 +4,7 @@ namespace GDO\KassiererCard;
 use GDO\Core\GDT_ObjectSelect;
 use GDO\Date\Time;
 use GDO\User\GDO_User;
-use GDO\User\WithUser;
+use GDO\Core\WithGDO;
 
 /**
  * An offer selection.
@@ -14,7 +14,7 @@ use GDO\User\WithUser;
  */
 final class GDT_Offer extends GDT_ObjectSelect
 {
-	use WithUser;
+	use WithGDO;
 	
 	protected function __construct()
 	{
@@ -54,7 +54,7 @@ final class GDT_Offer extends GDT_ObjectSelect
 		if ($this->fromMe)
 		{
 			$query->joinObject('o_partner');
-			$query->where("o_partner_t.p_user={$this->getUser()->getID()}");
+			$query->where("o_partner_t.p_user={$this->getGDO()->getID()}");
 		}
 		return $query->exec()->fetchAllArray2dObject();
 	}
