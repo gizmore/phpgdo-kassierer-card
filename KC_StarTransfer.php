@@ -25,9 +25,11 @@ final class KC_StarTransfer extends GDO
 	{
 		return [
 			GDT_AutoInc::make('st_id'),
+			GDT_StarTransferType::make('st_type')->notNull(),
 			GDT_User::make('st_sender'),
 			GDT_User::make('st_target')->notNull(),
-			GDT_UInt::make('st_stars')->notNull()->min(1)->bytes(2),
+			GDT_UInt::make('st_stars')->notNull()->initial('0')->bytes(2),
+			GDT_UInt::make('st_diamonds')->notNull()->initial('0')->bytes(2),
 			GDT_CreatedAt::make('st_created'),
 			GDT_CreatedBy::make('st_creator'),
 		];
@@ -52,7 +54,7 @@ final class KC_StarTransfer extends GDO
 		}
 		$begin = KC_Util::getPeriodStartDate($time);
 		$end = KC_Util::getPeriodEndDate($time);
-		$has = !!self::table()->getWhere("st_target={$user->getID()} AND st_created BETWEEN '$begin' AND '$end'");
+		$has = !!self::table()->getWhere("st_target={$user->getID()} AND st_created BETWEEN '$begin' AND '$end' AND st_type='kk_free'");
 		$user->tempSet($key, $has);
 		return $has;
 	}
@@ -71,6 +73,15 @@ final class KC_StarTransfer extends GDO
 			'st_stars' => $stars,
 		])->insert();
 	}
+	
+	public static function pollDiamonds(GDO_User $user, int $diamonds): self
+	{
+		$kk = 'KassiererCard';
+		$user->increaseSetting($kk, 'diamonds_earned', $diamonds);
+		$user->increaseSetting($kk, 'diamonds_available', $diamonds);
+		
+	}
+	
 	
 	public static function transfer(GDO_User $user, GDO_User $to, int $stars)
 	{

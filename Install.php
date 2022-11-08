@@ -69,7 +69,7 @@ final class Install
 		else # Prod
 		{
 			Module_Perf::instance()->saveConfigVar('hook_sidebar', 'staff');
-			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '1');
+			Module_KassiererCard::instance()->saveConfigVar('pre_alpha', '0');
 			Module_Javascript::instance()->saveConfigVar('minify_js', 'concat');
 			Module_CSS::instance()->saveConfigVar('minify_css', '1');
 			Module_Core::instance()->saveConfigVar('module_assets', '0');

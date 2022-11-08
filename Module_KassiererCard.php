@@ -25,6 +25,8 @@ use GDO\Payment\GDT_Money;
 use GDO\Date\GDT_Duration;
 use GDO\Date\Time;
 use GDO\Core\Application;
+use GDO\Poll\GDO_Poll;
+use GDO\Poll\GDO_PollChoice;
 
 /**
  * KassiererCard.org - At least we try! 
@@ -111,7 +113,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_UInt::make('customer_coupon_modulus')->min(1)->max(100)->initial('1'),
 			GDT_UInt::make('cashier_stars_per_invitation')->max(10000)->initial('2'), # stars earned fur successful inivite
 			GDT_UInt::make('customer_stars_per_invitation')->max(10000)->initial('2'),
-			GDT_UInt::make('stars_per_poll')->max(100)->initial('1'),
+			GDT_UInt::make('diamonds_per_poll_vote')->max(100)->initial('1'),
 			GDT_UInt::make('stars_per_diamond')->min(1)->max(1000)->initial('1'),
 			GDT_UInt::make('token_request_amt')->min(1)->max(100)->initial('5'),
 			GDT_Duration::make('token_request_time')->max(Time::ONE_DAY)->initial('5m'),
@@ -138,7 +140,7 @@ final class Module_KassiererCard extends GDO_Module
 	public function cfgPreAlpha() : bool { return $this->getConfigValue('pre_alpha'); }
 	public function cfgStarsPerEuro() : int { return $this->getConfigValue('stars_per_euro'); }
 	public function cfgStarsPerInvite() : int { return $this->getConfigValue('star_cost_per_invite'); }
-	public function cfgStarsPerPoll() : int { return $this->getConfigValue('star_cost_per_invite'); }
+	public function cfgDiamondsPerPollVote() : int { return $this->getConfigValue('diamonds_per_poll_vote'); }
 	public function cfgStarsPerDiamond() : int { return $this->getConfigValue('stars_per_diamond'); }
 	public function cfgFreeStarsPerDay() : int { return $this->getConfigValue('free_stars_per_day'); }
 	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
@@ -480,6 +482,17 @@ final class Module_KassiererCard extends GDO_Module
 			KC_StarTransfer::freeStars($user, $numStars);
 			Website::message($this->getName(), 'msg_kk_free_customer_stars', [$numStars]);
 		}
+	}
+
+	/**
+	 * On the first vote on a poll, grant the user some stars.
+	 * @param GDO_PollChoice $answers
+	 */
+	public function hookPollVoteCreated(GDO_User $user, GDO_Poll $poll, array $answers): void
+	{
+		$diamonds = $this->cfgDiamondsPerPollVote();
+		KC_StarTransfer::pollDiamonds($user, $diamonds);
+		Website::message($this->gdoHumanName(), 'msg_kk_poll_vote_diamonds', [$diamonds]);
 	}
 	
 	################
