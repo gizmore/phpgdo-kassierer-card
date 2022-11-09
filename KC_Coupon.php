@@ -280,6 +280,12 @@ class KC_Coupon extends GDO
 		return GDT_SVGImage::make('front')->src($href);
 	}
 	
+	public function getFrontSideFlyer() : GDT_Image
+	{
+		$href = $this->hrefSVGFrontBack('FrontFlyer');
+		return GDT_SVGImage::make('front')->src($href);
+	}
+	
 	public function getBackSide() : GDT_Image
 	{
 		# Our invitation back
@@ -349,6 +355,12 @@ class KC_Coupon extends GDO
 	{
 		$type = $this->getType();
 		$token = $this->getToken();
+		
+		if ($FrontBack === 'FrontFlyer')
+		{
+			return href('KassiererCard', "Invitation{$FrontBack}Side", "&token={$token}");
+		}
+		
 		switch ($type)
 		{
 			case 'kk_coupon':

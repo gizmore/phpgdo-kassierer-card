@@ -602,51 +602,51 @@ EOT;
 		$want = 'kk_partner_wanted';
 		$yes = 'kk_partner_active';
 		$now = Time::getDate();
-		self::offer(1, $want, 1, 15,  4.00, 60.00,  2, $now, '2022-11-09',
+		self::offer(1, $want, 1, 15,  4.00, 60.00,  2, $now, '2022-12-31',
 			'ALIBABA!', 'Dönertaschtig',
 			'Ein leckerer Döner mit Schafskäse und Fleisch nach Wahl, von Ihrem Saray.');
 
-		self::offer(2, $want, 1, 20,  2.00, 40.00,  2, $now, '2022-11-09',
+		self::offer(2, $want, 1, 20,  2.00, 40.00,  2, $now, '2022-12-31',
 			'ALIBABA!', 'Erquickend',
 			'Ein Gutschein für eine Soft-Getränk. Besser als garnix.');
 		
-		self::offer(3, $yes, 2,  5,  5.00, 25.00,  1, $now, '2022-11-09',
+		self::offer(3, $yes, 2,  5,  5.00, 25.00,  1, $now, '2022-12-31',
 			'CUT!!!', 'Aerodynamisch',
 			'Ein 20% Gutschein für einen Haarschnitt bei Frisör Walied.<br/>Damit auch die Damen nicht zu kurz kommen!');
 		
-		self::offer(4, $want, 3, 30,  1.50, 45.00, 10, $now, '2022-11-09',
+		self::offer(4, $want, 3, 30,  1.50, 45.00, 10, $now, '2022-12-31',
 			'PROST!!!', 'Gesellig',
 			'Ein Gutschein über ein Härke-Bier, dem ehemaligen Getränk der Stadt?');
 		
-		self::offer(5, $want, 4,  2, 10.00, 20.00,  1, $now, '2022-11-09',
+		self::offer(5, $want, 4,  2, 10.00, 20.00,  1, $now, '2022-12-31',
 			'DOPE!!!', 'Auszeit',
 			'Ein Gramm gratis CBD-Gras zum ausprobieren im Gegenwert von €10.<br/>Na wenn das nix is!');
 		
-		self::offer(6, $yes, 5, 40,  1.50, 50.00,  5, $now, '2022-11-09',
+		self::offer(6, $yes, 5, 40,  1.50, 50.00,  5, $now, '2022-12-31',
 			'COFFEE!!!', 'Zuerst ein\' Kaffee',
 			'Ein Kaffee in der Vortagsbäckerei. Schauen Sie mal vorbei!');
 		
-		self::offer(7, $yes, 5, 20,  2.00, 20.00,  2, $now, '2022-11-09',
+		self::offer(7, $yes, 5, 20,  2.00, 20.00,  2, $now, '2022-12-31',
 			'COFFEE!!!', 'Danach ein\' Donut',
 			'Ein Donut in der Vortagsbäckerei. Schauen Sie mal vorbei!');
 		
-		self::offer(8, $want, 6, 10,  1.00, 10.00,  2, $now, '2022-11-09',
+		self::offer(8, $want, 6, 10,  1.00, 10.00,  2, $now, '2022-12-31',
 			'buchwurm', 'Belesen',
 			'Ein Gutschein für ein Buch im Bücherwurm Gebrauchtleseartikelgeschäft.');
 		
-		self::offer(9, $want, 7, 5,   5.00, 10.00,  2, $now, '2022-11-09',
+		self::offer(9, $want, 7, 5,   5.00, 10.00,  2, $now, '2022-12-31',
 			'seife', 'Endlosschleife',
 			'Ein Gutschein für ein paar Schleifen vom Alex und Tanja.');
 		
-		self::offer(10, $yes, 8, 10,   6.50, 60.00,  1, $now, '2022-11-09',
+		self::offer(10, $yes, 8, 10,   6.50, 60.00,  1, $now, '2022-12-31',
 			'50Lamm', 'Lammfromm',
 			'Ein leckerer Lammdöner vom Hatay Grill. Hier wird fast alles in Handarbeit gemacht. Sehr empfehlenswert.');
 		
-		self::offer(11, $yes, 9, 2,  25.00, 50.00,  1, $now, '2022-11-09',
+		self::offer(11, $yes, 9, 2,  25.00, 50.00,  1, $now, '2022-12-31',
 			'FreePrint', 'Stylish',
 			'Ein Gutschein für ein selbstgedrucktes T-Shirt.<br/>Falls Dir nix einfällt druck\' doch unser Logo! ;)');
 		
-		self::offer(12, $yes, 10, 5,  10.00, 50.00,  1, $now, '2022-11-09',
+		self::offer(12, $yes, 10, 5,  10.00, 50.00,  1, $now, '2022-12-31',
 			'Gamestop', 'Used Truth',
 			'Ein 10 Öcken-Gutschein für den An- und Verkauf im Schwarzen Weg, Peine.<br/>Dort gibt es technischen Schnick-Schnack für den Spieltrieb');
 		

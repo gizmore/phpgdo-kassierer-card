@@ -52,8 +52,11 @@ final class PrintCoupon extends MethodForm
 		{
 			$form->actions()->addField(GDT_Submit::make('btn_preview')->onclick([$this, 'preview']));
 		}
-		$form->actions()->addField(GDT_Submit::make('btn_print')->onclick([$this, 'print']));
-		$form->actions()->addField(GDT_Submit::make('btn_qrcode')->onclick([$this, 'qrcode']));
+		$form->actions()->addFields(
+			GDT_Submit::make('btn_qrcode')->onclick([$this, 'qrcode']),
+			GDT_Submit::make('btn_print')->onclick([$this, 'print']),
+			GDT_Submit::make('btn_print_flyer')->onclick([$this, 'printFlyer']),
+			);
 	}
 	
 	public function getCoupon() : KC_Coupon
@@ -93,8 +96,8 @@ final class PrintCoupon extends MethodForm
 		$coupon = $this->getCoupon();
 		$coupon->onPrinted();
 		$cont = GDT_Container::make('images')
-			->horizontal()
-			->addClass('kk-print-card-row');
+		->horizontal()
+		->addClass('kk-print-card-row');
 		$cont->addFields(
 			$this->printFront(),
 			$this->printBack());
@@ -105,10 +108,21 @@ final class PrintCoupon extends MethodForm
 	{
 		return $this->getCoupon()->getFrontSide();
 	}
-
+	
 	private function printBack() : GDT_Image
 	{
 		return $this->getCoupon()->getBackSide();
 	}
-
+	
+	public function printFlyer() : GDT
+	{
+		$coupon = $this->getCoupon();
+		$coupon->onPrinted();
+		$cont = GDT_Container::make('images')
+		->horizontal()
+		->addClass('kk-print-card-row');
+		$cont->addField($this->getCoupon()->getFrontSideFlyer());
+		return $coupon->getFrontSideFlyer();
+	}
+	
 }
