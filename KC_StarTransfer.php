@@ -69,6 +69,7 @@ final class KC_StarTransfer extends GDO
 		$user->tempSet(self::freeTempKey(Application::$TIME), true);
 		return self::blank([
 			'st_sender' => null,
+			'st_type' => GDT_StarTransferType::FREE,
 			'st_target' => $user->getID(),
 			'st_stars' => $stars,
 		])->insert();
@@ -79,7 +80,12 @@ final class KC_StarTransfer extends GDO
 		$kk = 'KassiererCard';
 		$user->increaseSetting($kk, 'diamonds_earned', $diamonds);
 		$user->increaseSetting($kk, 'diamonds_available', $diamonds);
-		
+		return self::blank([
+			'st_sender' => null,
+			'st_type' => GDT_StarTransferType::POLL_VOTE,
+			'st_target' => $user->getID(),
+			'st_diamonds' => $diamonds,
+		])->insert();
 	}
 	
 	
@@ -87,7 +93,5 @@ final class KC_StarTransfer extends GDO
 	{
 		
 	}
-
-
 	
 }

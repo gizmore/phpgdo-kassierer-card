@@ -519,10 +519,6 @@ KassiererCard.org has reached phase 1.
 
 In this phase, we test the service with only a few customers, empolyees, workers and partners.
 
-After this phase, the whole site will be reset and you have to register again.
-
-Phase two is scheduled for 11/9/2022.
-
 We currently have no real partner who is aiding us financially,
 
 but we are looking.
@@ -535,10 +531,6 @@ EOT;
 Voller Stolz presentiere ich die erste KassiererCard
 
 KassiererCard.org hat Phase 1 erreicht.
-
-Nach dieser Phase wird noch einmal Reset gedrückt, und Sie müssen sich neu registrieren.
-
-Phase 2 beginnt vorraussichtlich am 9.11.2022.
 
 In dieser Phase testen wir den Service mit nur wenigen Kunde, Angestellten, Arbeitern und Werbepartnern.
 

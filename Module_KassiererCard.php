@@ -317,6 +317,9 @@ final class Module_KassiererCard extends GDO_Module
 			'type' => 'image/svg+xml',
 			'sizes' => 'any',
 		]);
+		#<meta property="og:image" content="//cdn.example.com/uploads/images/webpage_300x200.png" />
+		
+		Website::addMeta(['og:image', $this->wwwPath('img/kassierercard_messanger_300_200.png'), 'property']);
 	}
 	
 	public function onIncludeScripts() : void
