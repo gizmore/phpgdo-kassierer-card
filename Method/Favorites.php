@@ -11,7 +11,6 @@ use GDO\KassiererCard\GDT_FavSection;
 use GDO\Core\GDT_String;
 use GDO\Country\Module_Country;
 use GDO\Core\GDT_UInt;
-use GDO\Core\GDT_Tuple;
 use GDO\User\GDT_ProfileLink;
 
 /**
@@ -21,6 +20,12 @@ use GDO\User\GDT_ProfileLink;
  */
 final class Favorites extends MethodQueryTable
 {
+
+	public function useFetchInto(): bool
+	{
+		return false;
+	}
+	
 	public function isOrdered(): bool
 	{
 		return false;
@@ -79,6 +84,7 @@ final class Favorites extends MethodQueryTable
 		$query->fetchTable(GDO_User::table());
 		GDO_UserSetting::table()->whereSettingVisible($query,
 			'KassiererCard', $this->getSection(), GDO_User::current(), 'uset_user_t.user_id');
+// 		$query->uncached();
 // 		$query->debug();
 		return $query;
 	}
