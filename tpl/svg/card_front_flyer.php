@@ -76,14 +76,13 @@ for ($i = 0; $i < 5; $i++)
 	$x += $dash;
 }
 $x = 40;
-$y = 700;
+$y = 710;
 $points = [
 	'Regional',
-	'Community',
 	'Fair',
-	'Kreativ',
-	'Transparent',
 	'Unabhängig',
+	'Transparent',
+	'Community',
 ];
 
 foreach ($points as $point)
@@ -91,7 +90,7 @@ foreach ($points as $point)
 	printf("<text x=\"%s\" y=\"%s\" fill=\"#ffffff\" stroke=\"#ffffff\" class=\"stars\">- %s</text>\n",
 		$x, $y, $point,
 	);
-	$y += 110;
+	$y += 130;
 }
 
 ?>
