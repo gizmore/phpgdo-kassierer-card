@@ -16,7 +16,7 @@ final class GDT_CouponToken extends GDT_Token
 		parent::__construct();
 		$this->length(self::LENGTH);
 		$this->ascii()->caseI();
-		$this->pattern('/['.self::CHARSET.']{'.self::LENGTH.'}/iD');
+		$this->pattern('/^['.self::CHARSET.']{'.self::LENGTH.'}$/iD');
 	}
 	
 	public function blankData() : array
