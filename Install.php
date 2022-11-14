@@ -254,6 +254,8 @@ final class Install
 			]);
 		}
 		self::installUserSetting('gizmore', 'Address', 'address', '2', GDT_ACLRelation::ALL);
+		self::installUserSetting('gizmore', 'Country', 'country_of_origin', 'DE', GDT_ACLRelation::ALL);
+		self::installUserSetting('gizmore', 'Country', 'country_of_living', 'DE', GDT_ACLRelation::ALL);
 	}
 	
 	private static function installKCUser(): void
