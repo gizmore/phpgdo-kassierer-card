@@ -280,7 +280,6 @@ final class Install
 				'user_id' => $id,
 				'user_type' => 'member',
 				'user_name' => $nickname,
-				'user_password' => BCrypt::create($password)->__toString(),
 			])->insert();
 		}
 		else
@@ -288,13 +287,13 @@ final class Install
 			$user->saveVars([
 				'user_type' => 'member',
 				'user_name' => $nickname,
-// 				'user_password' => BCrypt::create($password)->__toString(),
 			]);
 		}
 		
 		# Email
 		$user->saveSettingVar('Mail', 'email', $email);
-
+		$user->saveSettingVar('Login', 'password', BCrypt::create($password)->__toString());
+		
 		# Perms
 		foreach (explode(',', $perms) as $perm)
 		{
