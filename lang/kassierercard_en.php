@@ -45,7 +45,7 @@ return [
 	'cfg_offers_redeemed' => 'Offers Redeemed',
 	'cfg_offers_fullfilled' => 'Offers Fullfilled',
 	'cfg_euros_invested' => 'Euros Invested',
-	'cfg_euros_fullfilled' => 'Euros Generated',
+	'cfg_euros_generated' => 'Euros Generated',
 	'cfg_euros_earned' => 'Euros Gathered',
 	'cfg_euros_donated' => 'Euros Donated',
 	'cfg_euros_revenue' => 'Euros Revenue',
@@ -332,8 +332,7 @@ It cost %s/%s stars to send an invitation.<br/>
 Additionally, select the number of stars for your invitation,
 and when the invited person activates,
 you get diamonds as reward.
-Else your stars are lost and become dust in the wind!<br/>
-Currently diamonds are worthless, except for our competitions.',
+Else your stars are lost and become dust in the wind!',
 	'msg_kk_sent_invitation' => 'You have spent %s stars to send an invitation to %s. Additionally, %s stars are your gift to them, which will get converted to diamonds as soon as they sign up with us.',
 	'mailsubj_kk_invite' => '%s: Invitation as %s',
 	'mailbody_kk_invite' => 'Hello Dear future User,
@@ -454,6 +453,7 @@ The %s System',
 	'competition_table' => '%s; %s entries; Page %s/%s',
 
 	# Favorites
+	'section' => 'Section',
 	'mt_kk_favorites' => 'Favorite %s',
 	'tt_kk_favorites' => '%s favorite &quot;%s&quot; setings',
 	'md_kk_favorites' => 'The %s favorite %s on %s. Real user content, Real opinions on your favorite %2$s.',
@@ -465,6 +465,9 @@ The %s System',
 	# ToDo
 	'mt_kassierercard_todo' => 'ToDo',
 
-# Team
-'mt_kassierercard_team' => 'ToDo',
+	# Team
+	'mt_kassierercard_team' => 'Team',
+	
+	# Statistics
+	'kk_info_statistics' => 'stats',
 ];

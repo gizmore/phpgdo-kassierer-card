@@ -43,7 +43,7 @@ window.KC.enhanceCouponTokens = function() {
 //		let name = cont.find('input').hide().attr('name');
 		for (let i = 0; i < len;) {
 			for (let j = 0; j < 2; j++) {
-				let input = $('<input gdo-focus-required autocomplete="off" class="kk-split-token" value=\"'+(code[i].trim())+'\" />');
+				let input = $('<input gdo-focus-required autocomplete="off" class="kk-split-token form-control" value=\"'+(code[i].trim())+'\" />');
 				input.keypress(window.KC.tokenPress.bind(input));
 				cont.append(input);
 				i++;
@@ -52,6 +52,7 @@ window.KC.enhanceCouponTokens = function() {
 				cont.append('<span class="dash">-</span>');
 			}
 		}
+		cont.append('<div class="cb"></div>');
 		cont.closest('form').submit(function() {
 			var tok = '';
 			$('.kk-split-token').each(function(){

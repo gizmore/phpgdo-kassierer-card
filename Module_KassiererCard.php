@@ -56,7 +56,8 @@ final class Module_KassiererCard extends GDO_Module
 			'Account', 'AboutMe', 'ActivationAlert', 'Address',
 			'Admin', 'Ads', 'Avatar',
 			'Backup', 'Birthday',
-			'Captcha', 'Category', 'CKEditor', 'Contact', 'Classic',
+			'Bootstrap5', 'Bootstrap5Theme',
+			'Captcha', 'Category', 'CKEditor', 'Contact', # 'Classic',
 			'CountryCoordinates', 'CountryRestrictions',
 			'Cronjob', 'CSS', 'DoubleAccounts',
 			'FontAtkinson', 'FontAwesome', 'Forum',
@@ -66,7 +67,7 @@ final class Module_KassiererCard extends GDO_Module
 			'Maps', 'Mail', 'Maps', 'News',
 			'PaymentBank', 'PaymentCredits', 'PaymentPaypal',
 			'Perf', 'Poll', 'PM', 'QRCode',
-			'Recovery', 'Register',
+			'Recovery', 'Register', 'Sitemap',
 			'TorDetection', 'VPNDetect',
 			'YouTube',
 		];
@@ -105,6 +106,7 @@ final class Module_KassiererCard extends GDO_Module
 			# Alert!
 			GDT_Checkbox::make('pre_alpha')->initial('0'),
 			# Balance
+// 			GDT_RangeSlider::make('stars_per_coupon')->initialValue([1,50])->min(1)->max(1000),
 			GDT_UInt::make('stars_per_euro')->min(1)->max(10000)->initial('10'),
 			GDT_UInt::make('star_cost_per_invite')->min(0)->max(1000)->initial('1'), # stars required to create an invite
 			GDT_UInt::make('free_stars_per_day')->min(0)->max(100)->initial('1'),

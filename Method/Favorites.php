@@ -96,7 +96,7 @@ final class Favorites extends MethodQueryTable
 		$mc = Module_Country::instance();
 		return [
 			GDT_UInt::make('count'),
-			$mc->setting('country_of_living'),
+			$mc->setting('country_of_living')->withName(false),
 			GDT_ProfileLink::make('user_name')->nickname()->avatar(),
 			$u->gdoColumn('user_level'),
 			GDT_String::make($this->getSection())->labelRaw($this->displaySection()),

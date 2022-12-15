@@ -12,7 +12,7 @@ return [
 ##############
 	'cfg_free_stars_period' => 'Kostenlose Sterne pro Tag',	'cfg_token_request_amt' => 'Eingabe von Coupons: Versuche',	'cfg_token_request_time' => 'Gutscheineingabe: Timeout',	
 # Global Site Stats
-	'cfg_diamonds_created' => 'Erstellte Diamanten',	'cfg_diamonds_earned' => 'Verdiente Diamanten',	'cfg_coupons_created' => 'Gutscheine erstellt',	'cfg_coupons_entered' => 'Gutscheine eingegeben',	'cfg_coupons_printed' => 'Gutscheine gedruckt',	'cfg_coupons_redeemed' => 'Gutscheine eingelöst',	'cfg_stars_available' => 'Sterne verfügbar',	'cfg_stars_created' => 'Sterne erstellt',	'cfg_stars_earned' => 'Sterne verdient',	'cfg_stars_entered' => 'Sterne eingetragen',	'cfg_stars_invited' => 'Stars eingeladen',	'cfg_stars_purchased' => 'Sterne gekauft',	'cfg_stars_redeemed' => 'Sterne eingelöst',	'cfg_offers_created' => 'Angebote erstellt',	'cfg_offers_redeemed' => 'Eingelöste Angebote',	'cfg_offers_fullfilled' => 'Angebote erfüllt',	'cfg_euros_invested' => 'Investierte Euro',	'cfg_euros_fullfilled' => 'Erwirtschaftete Euro',	'cfg_euros_earned' => 'Euro gesammelt',	'cfg_euros_donated' => 'Euro gespendet',	'cfg_euros_revenue' => 'Einnahmen in Euro',	'cfg_users_invited' => 'Eingeladene Benutzer',	
+	'cfg_diamonds_created' => 'Erstellte Diamanten',	'cfg_diamonds_earned' => 'Verdiente Diamanten',	'cfg_coupons_created' => 'Gutscheine erstellt',	'cfg_coupons_entered' => 'Gutscheine eingegeben',	'cfg_coupons_printed' => 'Gutscheine gedruckt',	'cfg_coupons_redeemed' => 'Gutscheine eingelöst',	'cfg_stars_available' => 'Sterne verfügbar',	'cfg_stars_created' => 'Sterne erstellt',	'cfg_stars_earned' => 'Sterne verdient',	'cfg_stars_entered' => 'Sterne eingetragen',	'cfg_stars_invited' => 'Stars eingeladen',	'cfg_stars_purchased' => 'Sterne gekauft',	'cfg_stars_redeemed' => 'Sterne eingelöst',	'cfg_offers_created' => 'Angebote erstellt',	'cfg_offers_redeemed' => 'Eingelöste Angebote',	'cfg_offers_fullfilled' => 'Angebote erfüllt',	'cfg_euros_invested' => 'Investierte Euro',	'cfg_euros_generated' => 'Erwirtschaftete Euro',	'cfg_euros_earned' => 'Euro gesammelt',	'cfg_euros_donated' => 'Euro gespendet',	'cfg_euros_revenue' => 'Einnahmen in Euro',	'cfg_users_invited' => 'Eingeladene Benutzer',	
 # Tooltips Stats
 	'tt_cfg_diamonds_created' => 'Unternehmen schaffen Diamanten, indem sie Angebote erfüllen.',	'tt_cfg_diamonds_earned' => 'Kunden und Kassierer verdienen Diamanten durch Einladungen.',	'tt_cfg_coupons_created' => 'Kunden erstellen Coupons für die Kassierer.',	'tt_cfg_coupons_entered' => 'Kassierer geben Coupons ein, um Sterne zu verdienen. Kunden erhalten dafür Diamanten und Sterne.',
 	'tt_cfg_coupons_printed' => 'Kunden drucken Coupons für die Kassierer aus.',	'tt_cfg_coupons_redeemed' => 'Kunden und Kassierer lösen Coupons ein.',	'tt_cfg_stars_available' => 'Sterne können zum Einlösen von Angeboten verwendet werden.',	'tt_cfg_stars_created' => 'Kunden können Gutscheine mit Sternen erstellen.',	'tt_cfg_stars_purchased' => 'Kunden können Sterne mit echtem Geld kaufen.',	'tt_cfg_stars_redeemed' => 'Sterne eingelöst',	'tt_cfg_offers_created' => 'Angebote erstellt',	'tt_cfg_offers_redeemed' => 'Angebote eingelöst',	'tt_cfg_offers_fullfilled' => 'Angebote erfüllt',	'tt_cfg_euros_invested' => 'Insgesamt Euro investiert',	'tt_cfg_euros_fullfilled' => 'Erzeugtes Gesamtvermögen in Euro',	'tt_cfg_euros_donated' => 'Gesamtbetrag der gespendeten Euro von Mitgliedern an KC.org.',	'tt_cfg_euros_earned' => 'Gesamtwert der gesammelten Euros.',	'tt_cfg_euros_revenue' => 'Euro-Gesamtumsatz für die KassiererCard.org.',	
@@ -142,8 +142,7 @@ wenn Sie das Angebot in Anspruch nehmen!',
 Wählen Sie außerdem die Anzahl der Sterne für Ihre Einladung,
 und wenn die eingeladene Person aktiviert,
 Sie erhalten Diamanten als Belohnung.
-Sonst gehen deine Sterne verloren und werden zu Staub im Wind!<br/>
-Derzeit sind Diamanten wertlos, außer für unsere Wettbewerbe.',
+Sonst gehen deine Sterne verloren und werden zu Staub im Wind!',
 	'msg_kk_sent_invitation' => 'Sie haben %s Sterne ausgegeben, um eine Einladung an %s zu senden. Außerdem sind %s Sterne Ihr Geschenk an sie, die in Diamanten umgewandelt werden, sobald sie sich bei uns anmelden.',
 	'mailsubj_kk_invite' => '%s: Einladung als %s',	'mailbody_kk_invite' => 'Hallo lieber zukünftiger User,%s hat Sie als %s auf %s eingeladen.
 
@@ -231,6 +230,7 @@ Das %s-System',
 
 	
 # Favorites
+	'section' => 'Sektion',
 	'mt_kk_favorites' => 'Favorit %s',	'tt_kk_favorites' => '%s bevorzugte "%s"-Einstellungen',	'md_kk_favorites' => 'Der %s Favorit %s auf %s. Echte Benutzerinhalte, echte Meinungen zu Ihren Lieblings-%2$s.',
 
 # Granted Coupons
@@ -243,4 +243,6 @@ Das %s-System',
 # Team
 	'mt_kassierercard_team' => 'Das Team',
 	
+	# Statistics
+	'kk_info_statistics' => 'Transparenz wird hier groß geschrieben.',
 ];

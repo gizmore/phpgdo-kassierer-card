@@ -5,6 +5,7 @@ use GDO\Core\Method;
 use GDO\UI\GDT_Card;
 use GDO\KassiererCard\Module_KassiererCard;
 use GDO\Core\GDT;
+use GDO\UI\GDT_Paragraph;
 
 /**
  * Show The KassiererCard.org project statistics.
@@ -23,6 +24,7 @@ final class Statistics extends Method
 	{
 		$card = GDT_Card::make('kk_statistics');
 		$card->titleRaw(sitename() . t('statistics'));
+		$card->addField(GDT_Paragraph::make()->text('kk_info_statistics'));
 		$card->addField($this->statsField('coupons_created'));
 		$card->addField($this->statsField('coupons_printed'));
 		$card->addField($this->statsField('coupons_entered'));

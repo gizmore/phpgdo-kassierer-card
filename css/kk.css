@@ -7,14 +7,19 @@
 }
 
 .kc-coupon-token input {
-	width: 50px;
+	width: 40px;
 	min-width: initial;
 	text-align: center;
 }
 
 .kc-coupon-token input,
 .kc-coupon-token .dash {
+	float: left;
 	margin-right: 8px;
+}
+
+.kc-coupon-token .dash {
+	padding-top: 6px;
 }
 
 div.kk-not-active.gdt-list-item {
