@@ -8,7 +8,7 @@ namespace GDO\KassiererCard\Method;
  */
 final class InvitationBackSide extends InvitationFrontSide
 {
-	protected function getSVGTemplateName() : string { return 'svg/card_back_invitation.php'; }
+	protected function getSVGTemplateName() : string { return 'svg/card_back_invitation.php.svg'; }
 	
 	public function getMethodTitle(): string
 	{

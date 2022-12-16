@@ -9,7 +9,7 @@ namespace GDO\KassiererCard\Method;
 final class BackSide extends FrontSide
 {
 	
-	protected function getSVGTemplateName() : string { return 'svg/card_back.php'; }
+	protected function getSVGTemplateName() : string { return 'svg/card_back.php.svg'; }
 	
 	public function getMethodTitle(): string
 	{

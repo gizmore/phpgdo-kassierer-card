@@ -13,7 +13,7 @@ use GDO\KassiererCard\KC_Coupon;
  */
 class FrontSide extends Method
 {
-	protected function getSVGTemplateName() : string { return 'svg/card_front.php'; }
+	protected function getSVGTemplateName() : string { return 'svg/card_front.php.svg'; }
 	
 	public function isAjax() : bool { return true; }
 	

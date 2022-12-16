@@ -11,7 +11,7 @@ class InvitationFrontFlyerSide extends FrontSide
 {
 	protected function getSVGTemplateName(): string
 	{
-		return 'svg/card_front_flyer.php';
+		return 'svg/card_front_flyer.php.svg';
 	}
 	
 }
