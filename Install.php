@@ -253,6 +253,7 @@ final class Install
 				'address_creator' => '2',
 			]);
 		}
+		self::installUserSetting('gizmore', 'Mail', 'email', '2', GDT_ACLRelation::ALL);
 		self::installUserSetting('gizmore', 'Address', 'address', '2', GDT_ACLRelation::ALL);
 		self::installUserSetting('gizmore', 'Country', 'country_of_origin', 'DE', GDT_ACLRelation::ALL);
 		self::installUserSetting('gizmore', 'Country', 'country_of_living', 'DE', GDT_ACLRelation::ALL);
