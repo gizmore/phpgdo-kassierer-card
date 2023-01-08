@@ -6,8 +6,9 @@ use GDO\KassiererCard\KC_Offer;
 use GDO\Table\GDT_Table;
 use GDO\DB\Query;
 use GDO\Date\Time;
+use GDO\Table\MethodQueryCards;
 
-final class Offers extends MethodQueryList
+final class Offers extends MethodQueryCards
 {
 	public function gdoTable()
 	{
