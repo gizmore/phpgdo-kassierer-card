@@ -2,11 +2,11 @@
 namespace GDO\KassiererCard\Method;
 
 use GDO\Table\GDT_Table;
-use GDO\Table\MethodQueryList;
 use GDO\KassiererCard\KC_Partner;
 use GDO\DB\Query;
+use GDO\Table\MethodQueryCards;
 
-final class Partners extends MethodQueryList
+final class Partners extends MethodQueryCards
 {
 	public function gdoTable()
 	{

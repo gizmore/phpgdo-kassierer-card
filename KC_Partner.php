@@ -5,7 +5,6 @@ use GDO\Core\GDO;
 use GDO\Core\GDT_AutoInc;
 use GDO\Address\GDT_Address;
 use GDO\Category\GDT_Category;
-use GDO\Table\GDT_ListItem;
 use GDO\User\GDT_User;
 use GDO\Core\GDT_CreatedAt;
 use GDO\Core\GDT_CreatedBy;
@@ -98,12 +97,17 @@ final class KC_Partner extends GDO
 		return $this->getAddress()->renderName();
 	}
 	
-	public function renderList() : string
+	public function renderCard() : string
+	{
+		return $this->getCard()->render();
+	}
+	
+	public function getCard(): GDT_Card
 	{
 		$addr = $this->getAddress();
 		$country = $addr->getCountry();
-		$li = GDT_ListItem::make("partner_{$this->getID()}")->gdo($this);
-		$li->titleRaw(GDT_Link::anchor($this->hrefPartner(), $addr->getCompany()));
+		$card = GDT_Card::make("partner_{$this->getID()}")->gdo($this);
+		$card->titleRaw(GDT_Link::anchor($this->hrefPartner(), $addr->getCompany()));
 		$subt = $addr->getStreet() . ', ' . $addr->getZIP() . ' ';
 		$subt .= $addr->getCity();
 		$href = Module_Maps::instance()->getMapsURL($subt . ', ' . $country->getName());
@@ -113,8 +117,8 @@ final class KC_Partner extends GDO
 			$link = GDT_Link::make()->href($href)->labelNone()->icon('url')->tooltip('link_visit_partner');
 			$subt .= ', ' . $link->render();
 		}
-		$li->subtitleRaw($subt);
-		$li->content(GDT_HTML::make()->var($this->getDescriptionHTML()));
+		$card->subtitleRaw($subt);
+		$card->content(GDT_HTML::make()->var($this->getDescriptionHTML()));
 		$footer = GDT_HTML::make();
 		$html = '';
 		if ($user = $this->getUser())
@@ -127,24 +131,7 @@ final class KC_Partner extends GDO
 		$amt = $this->getOfferCount();
 		$amt2 = $this->getRedeemCount();
 		$html .= t('footer_partner_offers', [$href, $amt, $amt2]);
-		$li->footer($footer->var($html));
-		return $li->render();
-	}
-	
-	public function renderCard() : string
-	{
-		return $this->getCard()->render();
-// 		return $this->displayCard($this->getAddress()->getAddressLine());
-	}
-	
-	############
-	### Card ###
-	############
-	public function getCard(): GDT_Card
-	{
-		$card = GDT_Card::make("partner-{$this->getID()}")->gdo($this);
-		$card->creatorHeader();
-		$card->title('ct_partner');
+		$card->footer($footer->var($html));
 		return $card;
 	}
 	

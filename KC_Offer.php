@@ -21,6 +21,7 @@ use GDO\DB\Query;
 use GDO\Payment\GDT_Money;
 use GDO\UI\GDT_Card;
 use GDO\Net\GDT_Url;
+use GDO\UI\GDT_Paragraph;
 
 /**
  * An offer for a cashier.
@@ -266,8 +267,36 @@ final class KC_Offer extends GDO
 	
 	public function getCard(): GDT_Card
 	{
+		$user = GDO_User::current();
 		$card = GDT_Card::make("offer-{$this->getID()}")->gdo($this);
 		$card->creatorHeader();
+		$card->titleRaw($this->getTitle());
+		$card->addField($this->gdoColumnCopy('o_text')->labelNone()->iconNone());
+		$iscashier = $user->hasPermission('kk_cashier');
+		$iscompany = $user->hasPermission('kk_company');
+		$iscustomer = $user->hasPermission('kk_customer');
+		$canCreate = $iscompany || $iscustomer;
+		$canRedeem = $iscashier;
+		$card->actions()->addFields(
+			GDT_Button::make('create_coupon')
+			->tooltip('tt_create_offer')
+			->icon('bee')
+			->href(href('KassiererCard', 'CreateCoupon', "&kc_offer={$this->getID()}"))
+			->enabled($canCreate));
+		
+		$card->actions()->addFields(
+			GDT_Button::make('redeem_offer')
+			->tooltip('tt_redeem_offer')
+			->icon('star')
+			->href(href('KassiererCard', 'RedeemOffer', "&id={$this->getID()}"))
+			->enabled($canRedeem));
+		
+		$card->footer(GDT_OfferStatus::make()->offer($this));
+		
+		if (!$this->isActive())
+		{
+			$card->addClass('kk-not-active');
+		}
 		return $card;
 	}
 	
