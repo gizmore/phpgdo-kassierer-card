@@ -4,8 +4,10 @@ namespace GDO\KassiererCard\Method;
 use GDO\Core\Method;
 use GDO\UI\GDT_Card;
 use GDO\KassiererCard\Module_KassiererCard;
+use GDO\LoC\LoC;
 use GDO\Core\GDT;
 use GDO\UI\GDT_Paragraph;
+use GDO\Core\GDT_UInt;
 
 /**
  * Show The KassiererCard.org project statistics.
@@ -22,6 +24,8 @@ final class Statistics extends Method
 
 	public function getCard() : GDT_Card
 	{
+		LoC::init();
+		$loc = LoC::gdo();
 		$card = GDT_Card::make('kk_statistics');
 		$card->titleRaw(sitename() . t('statistics'));
 		$card->addField(GDT_Paragraph::make()->text('kk_info_statistics'));
@@ -35,6 +39,7 @@ final class Statistics extends Method
 		$card->addField($this->statsField('offers_redeemed'));
 		$card->addField($this->statsField('euros_invested'));
 		$card->addField($this->statsField('euros_earned'));
+		$card->addField(GDT_UInt::make('loc')->initial($loc['loc']));
 		return $card;
 	}
 	
