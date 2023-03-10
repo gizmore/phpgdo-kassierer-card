@@ -180,9 +180,9 @@ final class Install
 		self::cat(14, 'Print', 1);
 		self::cat(15, 'Retail', 1);
 		
-		self::cat(101, 'News', null);
-		self::cat(102, 'Peiner-News', 101);
-		self::cat(103, 'KassiererCard-News', 101);
+// 		self::cat(101, 'News', null);
+// 		self::cat(102, 'Peiner-News', 101);
+// 		self::cat(103, 'KassiererCard-News', 101);
 		
 		GDO_Category::table()->rebuildFullTree();
 		return true;
@@ -190,7 +190,7 @@ final class Install
 	
 	private static function cat(string $id, string $name, ?string $parent) : bool
 	{
-		if (!($cat = GDO_Category::getById($id)))
+		if (!($cat = GDO_Category::getBy('cat_name', $name)))
 		{
 			return !!GDO_Category::blank([
 				'cat_id' => $id,
@@ -421,7 +421,7 @@ final class Install
 		self::partner(5, $yes, 'Vortagsbaeckerei', 3, 'Vortagsbaeckerei', 'Bahnhofstraße 5', '31224', 'Peine', 'DE', 'DE', '+49 176 218 23 784', $descr, 'https://www.facebook.com/people/Backlife-Caf%C3%A9-Vortagsb%C3%A4ckerei-Peine/100057060595562/', $est);
 		$descr = 'Der FIPS-Peine betreut Psychisch-Behinderte.<br/>Diese arbeiten in einigen Geschäften in der Innenstadt, wie z.B. Gebrauchtwaren oder Kaffees.';
 		$est = null;
-		self::partner(6, $want, 'FIPS', 12, 'FIPS Peine', 'Hagenstr. 12', '31224', 'Peine', 'DE', 'DE', '+49 5171 50 89 25', $descr, 'https://www.fips-ev.de/treffen/beratungs-begegnungsst%C3%A4tte-peine/', $est);
+		self::partner(6, $want, 'Fips', 12, 'FIPS Peine', 'Hagenstr. 12', '31224', 'Peine', 'DE', 'DE', '+49 5171 50 89 25', $descr, 'https://www.fips-ev.de/treffen/beratungs-begegnungsst%C3%A4tte-peine/', $est);
 		$descr = 'Alex und Tanja sind als Cheerleader-Verein tätig. Ausserdem basteln Sie Schleifen und ähnliches.';
 		self::partner(7, $want, 'Alex', 13, 'Vereinsschleifen', 'Schäferstraße', '31224', 'Peine', 'DE', 'DE', '+49 123 456 789', $descr, 'https://gizmore.124.de', $est);
 		$descr = 'Hier wird noch alles selbst gemacht. Echtes Lammfleisch gibt es eigentlich nur im Hatay!';
