@@ -593,6 +593,7 @@ EOT;
 				'newstext_creator' => $uid,
 			])->insert();
 		}
+		$news->tempReset();
 		return true;
 	}
 

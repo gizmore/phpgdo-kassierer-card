@@ -70,7 +70,7 @@ final class KC_TokenRequest extends GDO
 			{
 				$query->orWhere("tr_ip = '$eip'");
 			}
-			list($count, $oldest) = $query->debug()->exec()->fetchRow();
+			list($count, $oldest) = $query->exec()->fetchRow();
 			if ($count >= $maxTries)
 			{
 				$wait = $maxTime - Time::getAge($oldest);

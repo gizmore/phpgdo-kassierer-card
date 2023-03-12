@@ -85,14 +85,12 @@ final class Favorites extends MethodQueryTable
 		GDO_UserSetting::table()->whereSettingVisible($query,
 			'KassiererCard', $this->getSection(), GDO_User::current(), 'uset_user_t.user_id');
 		$query->uncached();
-// 		$query->debug();
 		return $query;
 	}
 	
 	public function gdoHeaders(): array
 	{
 		$u = $this->gdoTable();
-// 		$s = GDO_UserSetting::table();
 		$mc = Module_Country::instance();
 		return [
 			GDT_UInt::make('count'),
