@@ -11,7 +11,12 @@ use GDO\User\GDT_User;
 final class PartnerRedeemOffer extends MethodForm
 {
 	public function getPermission() : ?string { return 'kk_company'; }
-	
+
+	public function isTrivial(): bool
+	{
+		return false;
+	}
+
 	public function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
