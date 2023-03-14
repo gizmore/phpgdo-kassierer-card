@@ -10,6 +10,12 @@ use GDO\Form\GDT_AntiCSRF;
 
 final class PrintCoupons extends MethodForm
 {
+
+	public function isTrivial(): bool
+	{
+		return false;
+	}
+
 	public function beforeExecute() : void
 	{
 		Module_KassiererCard::instance()->addCustomerBar();

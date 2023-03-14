@@ -7,6 +7,12 @@ use GDO\User\GDO_User;
 final class GDT_OfferStatus extends GDT_Label
 {
 	public KC_Offer $offer;
+
+	public function isTestable(): bool
+	{
+		return false;
+	}
+
 	public function offer(KC_Offer $offer) : self
 	{
 		$this->offer = $offer;

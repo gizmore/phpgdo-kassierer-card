@@ -27,7 +27,12 @@ use GDO\User\GDT_ProfileLink;
  */
 final class Invite extends MethodForm
 {
-	
+
+	public function isTrivial(): bool
+	{
+		return false;
+	}
+
 	public function getMethodTitle(): string
 	{
 		return t('invite_users');

@@ -20,7 +20,12 @@ use GDO\KassiererCard\KC_Coupon;
 final class AdminCreateSignupCode extends MethodForm
 {
 	use MethodKCAdmin;
-	
+
+	public function isTrivial(): bool
+	{
+		return false;
+	}
+
 	public function createForm(GDT_Form $form) : void
 	{
 		$table = KC_Coupon::table();

@@ -175,6 +175,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('diamonds_earned')->label('cfg_diamonds_earned')->tooltip('tt_cfg_diamonds_earned')->icon('diamond'),
 			GDT_Money::make('euros_earned')->initial('0.00')->label('cfg_euros_earned')->tooltip('tt_cfg_euros_earned'),
 			GDT_Money::make('euros_generated')->initial('0.00')->label('cfg_euros_generated')->tooltip('tt_cfg_euros_generated'),
+			GDT_Money::make('euros_fullfilled')->label('cfg_euros_fullfilled')->tooltip('tt_cfg_euros_fullfilled'), # company fullfilled euros
 			GDT_Money::make('euros_invested')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'), # offer for euro purchased
 		];
 	}

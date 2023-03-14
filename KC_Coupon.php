@@ -28,7 +28,7 @@ use GDO\Core\GDT_String;
  */
 class KC_Coupon extends GDO
 {
-	public static $INVITATION_TYPES = ['kk_cashier', 'kk_company', 'kk_customer'];
+	public static array $INVITATION_TYPES = ['kk_cashier', 'kk_company', 'kk_customer'];
 	
 	public function gdoColumns(): array
 	{
