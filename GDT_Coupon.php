@@ -23,7 +23,7 @@ final class GDT_Coupon extends GDT_Object
 	### Only Own ###
 	################
 	public bool $onlyOwnCreated = false;
-	public function onlyOwnCreated(bool $bool=true) : self
+	public function onlyOwnCreated(bool $bool=true): static
 	{
 		$this->onlyOwnCreated = $bool;
 		return $this;

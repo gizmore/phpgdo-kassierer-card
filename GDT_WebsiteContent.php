@@ -12,7 +12,7 @@ use GDO\UI\GDT_Message;
 final class GDT_WebsiteContent extends GDT_Message
 {
 	
-	public function defaultLabel(): self
+	public function defaultLabel(): static
 	{
 		return $this->label('website_content');
 	}

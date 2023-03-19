@@ -473,7 +473,7 @@ class KC_Coupon extends GDO
 	#################
 	### Demo Card ###
 	#################
-	public static function demoCoupon(): self
+	public static function demoCoupon(): static
 	{
 		return self::getBy('kc_token', 'KASSIERERS');
 	}

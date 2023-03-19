@@ -24,7 +24,7 @@ final class GDT_CouponToken extends GDT_Token
 		return [$this->getName() => self::generateRandomKey()];
 	}
 	
-	public function initialRandomKey() : self
+	public function initialRandomKey(): static
 	{
 		return $this->initial(self::generateRandomKey());
 	}
@@ -47,7 +47,7 @@ final class GDT_CouponToken extends GDT_Token
 	### Existing ###
 	################
 	public ?bool $existing = null;
-	public function existing(?bool $existing=true): self
+	public function existing(?bool $existing=true): static
 	{
 		$this->existing = $existing;
 		return $this;

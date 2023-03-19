@@ -28,7 +28,7 @@ final class KC_Slogan extends GDO
 	##############
 	### Static ###
 	##############
-	public static function randomSlogan() : self
+	public static function randomSlogan(): static
 	{
 		return self::table()->select()->order('rand()')->first()->exec()->fetchObject();
 	}

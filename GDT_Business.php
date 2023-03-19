@@ -10,7 +10,7 @@ use GDO\Core\GDT_ObjectSelect;
  */
 final class GDT_Business extends GDT_ObjectSelect
 {
-	public function defaultLabel() : self
+	public function defaultLabel(): static
 	{
 		return $this->label('business');
 	}

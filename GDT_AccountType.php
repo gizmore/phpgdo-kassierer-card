@@ -22,7 +22,7 @@ final class GDT_AccountType extends GDT_Enum
 	const MANAGER = 'kk_manager';
 	const DISTRIBUTOR = 'kk_distributor';
 
-	public function defaultLabel(): self
+	public function defaultLabel(): static
 	{
 		return $this->label('type');
 	}

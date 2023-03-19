@@ -23,21 +23,21 @@ final class GDT_Offer extends GDT_ObjectSelect
 	}
 	
 	public bool $expired = false;
-	public function expired(bool $expired=true) : self
+	public function expired(bool $expired=true): static
 	{
 		$this->expired = $expired;
 		return $this;
 	}
 	
 	public bool $affordable = false;
-	public function affordable(bool $affordable=true) : self
+	public function affordable(bool $affordable=true): static
 	{
 		$this->affordable = $affordable;
 		return $this;
 	}
 	
 	public bool $fromMe = false;
-	public function fromMe(bool $fromMe=true) : self
+	public function fromMe(bool $fromMe=true): static
 	{
 		$this->fromMe = $fromMe;
 		return $this;

@@ -60,7 +60,7 @@ final class KC_StarTransfer extends GDO
 	}
 	
 	
-	public static function freeStars(GDO_User $user, int $stars): self
+	public static function freeStars(GDO_User $user, int $stars): static
 	{
 		$kk = 'KassiererCard';
 		$user->increaseSetting($kk, 'stars_available', $stars);
@@ -75,7 +75,7 @@ final class KC_StarTransfer extends GDO
 		])->insert();
 	}
 	
-	public static function pollDiamonds(GDO_User $user, int $diamonds): self
+	public static function pollDiamonds(GDO_User $user, int $diamonds): static
 	{
 		$kk = 'KassiererCard';
 		$user->increaseSetting($kk, 'diamonds_earned', $diamonds);

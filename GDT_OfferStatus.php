@@ -13,7 +13,7 @@ final class GDT_OfferStatus extends GDT_Label
 		return false;
 	}
 
-	public function offer(KC_Offer $offer) : self
+	public function offer(KC_Offer $offer): static
 	{
 		$this->offer = $offer;
 		return $this;

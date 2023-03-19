@@ -13,7 +13,7 @@ use GDO\Util\Arrays;
  */
 final class GDT_CouponType extends GDT_Enum
 {
-	public function defaultLabel(): self
+	public function defaultLabel(): static
 	{
 		return $this->label('type');
 	}
@@ -32,7 +32,7 @@ final class GDT_CouponType extends GDT_Enum
 	#################
 	### No Coupon ###
 	#################
-	public function noCoupon(bool $noCoupon=true) : self
+	public function noCoupon(bool $noCoupon=true): static
 	{
 		$this->enumValues = Arrays::remove($this->enumValues, 'kk_coupon');
 		return $this;
@@ -42,7 +42,7 @@ final class GDT_CouponType extends GDT_Enum
 	### No Company ###
 	##################
 	public bool $noCompany = false;
-	public function noCompany(bool $noCompany=true): self
+	public function noCompany(bool $noCompany=true): static
 	{
 		$this->enumValues = Arrays::remove($this->enumValues, 'kk_company');
 		return $this;
