@@ -1,21 +1,22 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\Form\GDT_Form;
-use GDO\Form\MethodForm;
-use GDO\Form\GDT_Submit;
-use GDO\KassiererCard\GDT_CouponStars;
 use GDO\Core\GDT_Enum;
 use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
+use GDO\Form\MethodForm;
+use GDO\KassiererCard\GDT_CouponStars;
 
 /**
  * Convert KassiererCard.org stars into user_level or GDOv7-Credits.
- * 
+ *
  * @author gizmore
  *
  */
 final class LevelUp extends MethodForm
 {
+
 	public function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
@@ -25,9 +26,7 @@ final class LevelUp extends MethodForm
 		);
 		$form->actions()->addFields(GDT_Submit::make());
 	}
-	
-	public function formValidated(GDT_Form $form)
-	{
-	}
-	
+
+	public function formValidated(GDT_Form $form) {}
+
 }

@@ -1,12 +1,12 @@
 <?php
 namespace GDO\KassiererCard;
 
-use GDO\UI\GDT_Menu;
 use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Menu;
 
 /**
  * Partner/Company right panel menu.
- * 
+ *
  * @author gizmore
  */
 final class GDT_PartnerMenu extends GDT_Menu
@@ -25,5 +25,5 @@ final class GDT_PartnerMenu extends GDT_Menu
 			GDT_Link::make('link_kk_company_offers')->href(href('KassiererCard', 'PartnerOffers')),
 		);
 	}
-	
+
 }

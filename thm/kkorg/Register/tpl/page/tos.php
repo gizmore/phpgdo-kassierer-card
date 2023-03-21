@@ -1,6 +1,8 @@
 <?php
 namespace GDO\KassiererCard\thm\kkorg\Register\tpl\page;
+
 use GDO\Register\Module_Register;
+
 $hrefFaQ = Module_Register::instance()->href('TOS');
 ?>
 <h2>KassiererCard.org</h2>

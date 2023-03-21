@@ -1,39 +1,27 @@
 <?php
 namespace GDO\KassiererCard;
 
+use GDO\Core\Application;
 use GDO\Core\GDO;
+use GDO\Core\GDT_AutoInc;
+use GDO\Core\GDT_CreatedAt;
+use GDO\Date\Time;
+use GDO\Net\GDT_IP;
+use GDO\Net\GDT_PackedIP;
 use GDO\User\GDO_User;
 use GDO\User\GDT_User;
-use GDO\Core\GDT_CreatedAt;
-use GDO\Net\GDT_PackedIP;
-use GDO\Core\GDT_AutoInc;
-use GDO\Net\GDT_IP;
-use GDO\Core\Application;
-use GDO\Date\Time;
 
 /**
  * A rate limiter for every time you call getByToken().
  * Once per request/process.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
  * @since 7.0.1
+ * @author gizmore
  */
 final class KC_TokenRequest extends GDO
 {
-	public function gdoColumns(): array
-	{
-		return [
-			GDT_AutoInc::make('tr_id'),
-			GDT_PackedIP::make('tr_ip'),
-			GDT_User::make('tr_creator'),
-			GDT_CreatedAt::make('tr_created'),
-		];
-	}
-	
-	##############
-	### Static ###
-	##############
+
 	public static function afterFailedRequest(GDO_User $user): bool
 	{
 		return self::blank([
@@ -41,8 +29,12 @@ final class KC_TokenRequest extends GDO
 			'tr_creator' => $user->getID(),
 		])->insert();
 	}
-	
-	public static function isBlocked(GDO_User $user, string &$reason=null): bool
+
+	##############
+	### Static ###
+	##############
+
+	public static function isBlocked(GDO_User $user, string &$reason = null): bool
 	{
 		$kk = Module_KassiererCard::instance();
 		if ($maxTries = $kk->cfgTokenRequestAmt())
@@ -70,7 +62,7 @@ final class KC_TokenRequest extends GDO
 			{
 				$query->orWhere("tr_ip = '$eip'");
 			}
-			list($count, $oldest) = $query->exec()->fetchRow();
+			[$count, $oldest] = $query->exec()->fetchRow();
 			if ($count >= $maxTries)
 			{
 				$wait = $maxTime - Time::getAge($oldest);
@@ -80,9 +72,19 @@ final class KC_TokenRequest extends GDO
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-		
-		
+
+	public function gdoColumns(): array
+	{
+		return [
+			GDT_AutoInc::make('tr_id'),
+			GDT_PackedIP::make('tr_ip'),
+			GDT_User::make('tr_creator'),
+			GDT_CreatedAt::make('tr_created'),
+		];
+	}
+
+
 }

@@ -1,12 +1,12 @@
 <?php
 namespace GDO\KassiererCard;
 
-use GDO\UI\GDT_Menu;
 use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Menu;
 
 /**
  * Cashier right panel menu.
- * 
+ *
  * @author gizmore
  */
 final class GDT_CustomerMenu extends GDT_Menu
@@ -24,5 +24,5 @@ final class GDT_CustomerMenu extends GDT_Menu
 			GDT_Link::make('redeem_offer')->href($mod->href('RedeemOffer'))->icon('sun'),
 		);
 	}
-	
+
 }

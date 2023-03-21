@@ -1,12 +1,12 @@
 <?php
 namespace GDO\KassiererCard;
 
-use GDO\UI\GDT_Menu;
 use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Menu;
 
 /**
  * Cashier right panel menu.
- * 
+ *
  * @author gizmore
  */
 final class GDT_DistributorMenu extends GDT_Menu
@@ -23,5 +23,5 @@ final class GDT_DistributorMenu extends GDT_Menu
 			GDT_Link::make('create_business')->href($mod->href('BusinessCrud'))->icon('add'),
 		);
 	}
-	
+
 }

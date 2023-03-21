@@ -1,33 +1,34 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\Form\GDT_Form;
-use GDO\Form\MethodForm;
-use GDO\Form\GDT_Submit;
-use GDO\KassiererCard\MethodKCAdmin;
-use GDO\User\GDT_User;
-use GDO\KassiererCard\GDT_CouponStars;
-use GDO\Form\GDT_AntiCSRF;
-use GDO\User\GDO_User;
-use GDO\Mail\Mail;
 use GDO\Core\GDT_String;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
+use GDO\Form\MethodForm;
+use GDO\KassiererCard\GDT_CouponStars;
+use GDO\KassiererCard\MethodKCAdmin;
+use GDO\Mail\Mail;
+use GDO\User\GDO_User;
+use GDO\User\GDT_User;
 
 /**
  * A manager method to grant stars to anyone.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
  * @since 7.0.1
+ * @author gizmore
  */
 final class AdminGrantStars extends MethodForm
 {
+
 	use MethodKCAdmin;
-	
-	public function getMethodTitle() : string
+
+	public function getMethodTitle(): string
 	{
 		return t('grant_stars');
 	}
-	
+
 	public function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
@@ -38,12 +39,7 @@ final class AdminGrantStars extends MethodForm
 		);
 		$form->actions()->addFields(GDT_Submit::make());
 	}
-	
-	public function getUser() : GDO_User
-	{
-		return $this->gdoParameterValue('user');
-	}
-	
+
 	public function formValidated(GDT_Form $form)
 	{
 		$admn = GDO_User::current();
@@ -56,8 +52,13 @@ final class AdminGrantStars extends MethodForm
 		$this->sendMail($admn, $user, $stars, $reason);
 		return $this->message('msg_stars_granted', [$stars, $user->renderProfileLink()]);
 	}
-	
-	private function sendMail(GDO_User $admin, GDO_User $user, int $stars, string $reason=null) : void
+
+	public function getUser(): GDO_User
+	{
+		return $this->gdoParameterValue('user');
+	}
+
+	private function sendMail(GDO_User $admin, GDO_User $user, int $stars, string $reason = null): void
 	{
 		$mail = Mail::botMail();
 		$mail->setSubject(tusr($user, 'mail_subj_kk_grant_stars', [sitename(), $stars]));
@@ -71,5 +72,5 @@ final class AdminGrantStars extends MethodForm
 		$mail->setBody(tusr($user, 'mail_body_kk_grant_stars', $args));
 		$mail->sendToUser($user);
 	}
-	
+
 }

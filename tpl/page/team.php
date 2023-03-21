@@ -1,11 +1,13 @@
 <?php
 namespace GDO\KassiererCard\tpl\page;
+
+use GDO\Mail\Module_Mail;
 use GDO\User\GDO_User;
 use GDO\Util\Strings;
-use GDO\Mail\Module_Mail;
+
 global $listed;
 $listed = [];
-function teamMembersInfo(string $group, array $users) : string
+function teamMembersInfo(string $group, array $users): string
 {
 	global $listed;
 	$i = 0;
@@ -20,19 +22,21 @@ function teamMembersInfo(string $group, array $users) : string
 		}
 	}
 	$back = '';
-	$back .= "<h3>" . t("the_{$group}") . "</h3>\n";
-	$back .= "<p>" . t("the_{$group}_paragraph", [$i]) . "</p>\n";
+	$back .= '<h3>' . t("the_{$group}") . "</h3>\n";
+	$back .= '<p>' . t("the_{$group}_paragraph", [$i]) . "</p>\n";
 	$back .= $pre;
 	return $back;
 }
+
 function teamMemberInfo(GDO_User $user)
 {
 	return
-		"<pre>" .
+		'<pre>' .
 		Strings::shrinkHTML($user->renderProfileLink()) .
 		Module_Mail::displayMailLink($user) .
 		"</pre>\n";
 }
+
 ?>
 <h2><?=t('the_team')?></h2>
 <hr/>

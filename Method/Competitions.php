@@ -1,43 +1,40 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\User\GDO_User;
+use DateTime;
 use GDO\Core\GDT_Tuple;
-use GDO\DB\Query;
-use GDO\Date\GDT_Week;
-use GDO\KassiererCard\GDT_CompetitionSection;
-use GDO\Date\GDT_Year;
 use GDO\Date\GDT_Month;
-use GDO\Table\MethodQueryList;
-use GDO\KassiererCard\KC_Offer;
-use GDO\KassiererCard\KC_Business;
-use GDO\KassiererCard\KC_Partner;
+use GDO\Date\GDT_Week;
+use GDO\Date\GDT_Year;
+use GDO\DB\Query;
+use GDO\KassiererCard\GDT_CompetitionSection;
 use GDO\KassiererCard\KC_OfferRedeemed;
+use GDO\Table\MethodQueryList;
 
 /**
  * Show competition results.
- * 
+ *
  * @author gizmore
  *
  */
 final class Competitions extends MethodQueryList
 {
-	
+
 	public function isSearched(): bool
 	{
 		return false;
 	}
-	
+
 	public function isFiltered(): bool
 	{
 		return false;
 	}
-	
+
 	public function isOrdered(): bool
 	{
 		return false;
 	}
-	
+
 	public function gdoTable()
 	{
 // 		switch ($this->getSection())
@@ -59,8 +56,8 @@ final class Competitions extends MethodQueryList
 // 		}
 		return KC_OfferRedeemed::table();
 	}
-	
-	public function gdoParameters() : array
+
+	public function gdoParameters(): array
 	{
 		return [
 			GDT_CompetitionSection::make('section')->notNull()->initial(GDT_CompetitionSection::OFFER_OF_THE_WEEK),
@@ -69,7 +66,7 @@ final class Competitions extends MethodQueryList
 			GDT_Year::make('year')->minDate(GDO_SITECREATED)->initialNow(),
 		];
 	}
-	
+
 	public function getTableTitle()
 	{
 		$table = $this->getTable();
@@ -80,13 +77,28 @@ final class Competitions extends MethodQueryList
 			$this->table->pagemenu->getPageCount(),
 		]);
 	}
-	
-	public function getSection() : string
+
+	public function getQuery(): Query
+	{
+		$query = parent::getQuery();
+		GDT_CompetitionSection::filterCompetitionQuery($query, $this->getSection());
+		return $query;
+	}
+
+	public function getSection(): string
 	{
 		return $this->gdoParameterVar('section');
 	}
-	
-	public function getDateTimeStart() : \DateTime
+
+	public function execute()
+	{
+		return GDT_Tuple::makeWith(
+			$this->gdoParameter('section'),
+			$this->renderTable(),
+		);
+	}
+
+	public function getDateTimeStart(): DateTime
 	{
 		$section = $this->getSection();
 		$key = 'year';
@@ -100,20 +112,5 @@ final class Competitions extends MethodQueryList
 		}
 		return $this->gdoParameterValue($key);
 	}
-	
-	public function getQuery() : Query
-	{
-		$query = parent::getQuery();
-		GDT_CompetitionSection::filterCompetitionQuery($query, $this->getSection());
-		return $query;
-	}
-	
-	public function execute()
-	{
-		return GDT_Tuple::makeWith(
-			$this->gdoParameter('section'),
-			$this->renderTable(),
-		);
-	}
-	
+
 }

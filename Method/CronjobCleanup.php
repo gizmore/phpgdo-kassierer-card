@@ -5,10 +5,8 @@ use GDO\Cronjob\MethodCronjob;
 
 final class CronjobCleanup extends MethodCronjob
 {
-	public function run()
-	{
-	}
+
+	public function run() {}
 
 
-	
 }

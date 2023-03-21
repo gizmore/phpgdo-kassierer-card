@@ -1,46 +1,44 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\Form\GDT_Form;
-use GDO\Form\MethodForm;
 use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
+use GDO\Form\MethodForm;
 use GDO\KassiererCard\GDT_Offer;
 use GDO\KassiererCard\KC_Offer;
 use GDO\QRCode\GDT_QRCode;
-use GDO\User\GDO_User;
 use GDO\UI\GDT_Redirect;
+use GDO\User\GDO_User;
 
 final class RedeemOfferNow extends MethodForm
 {
+
 	public function isSidebarEnabled(): bool
 	{
-		if 	(($this->pressedButton === 'btn_qrcode') &&
-			($this->validated))
+		if (
+			($this->pressedButton === 'btn_qrcode') &&
+			($this->validated)
+		)
 		{
 			return false;
 		}
 		return true;
 	}
-	
-	public function getMethodTitle() : string
+
+	public function getMethodTitle(): string
 	{
 		return t('redeem_offer');
 	}
-	
-	public function gdoParameters() : array
+
+	public function gdoParameters(): array
 	{
 		return [
 			GDT_Offer::make('offer')->notNull()->affordable(),
 		];
 	}
-	
-	public function getOffer() : KC_Offer
-	{
-		return $this->gdoParameterValue('offer');
-	}
-	
-	public function createForm(GDT_Form $form) : void
+
+	public function createForm(GDT_Form $form): void
 	{
 		$offer = $this->getOffer();
 		$partner = $offer->getPartner();
@@ -56,7 +54,12 @@ final class RedeemOfferNow extends MethodForm
 			GDT_Submit::make('btn_abort')->onclick([$this, 'redeemAbort']),
 		);
 	}
-	
+
+	public function getOffer(): KC_Offer
+	{
+		return $this->gdoParameterValue('offer');
+	}
+
 	public function redeemQRCode(): GDT_QRCode
 	{
 		$user = GDO_User::current();
@@ -64,17 +67,17 @@ final class RedeemOfferNow extends MethodForm
 		return GDT_QRCode::make()
 			->var($offer->urlRedeem($user));
 	}
-	
+
 	public function redeemOKButton()
 	{
 		$offer = $this->getOffer();
 		return GDT_Redirect::to(href('KassiererCard', 'RedeemOfferOk', "&offer={$offer->getID()}"));
 	}
-	
+
 	public function redeemAbort()
 	{
 		return $this->redirectMessage('msg_redeem aborted')
 			->href(href('KassiererCard', 'Offers'));
 	}
-	
+
 }

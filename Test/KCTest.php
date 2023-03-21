@@ -1,37 +1,33 @@
 <?php
 namespace GDO\KassiererCard\Test;
 
-use GDO\Tests\TestCase;
-use GDO\KassiererCard\KC_Business;
-use function PHPUnit\Framework\assertGreaterThanOrEqual;
-use GDO\Category\GDO_Category;
 use GDO\Address\GDO_Address;
-use GDO\KassiererCard\KC_Offer;
-use GDO\User\GDO_User;
-use GDO\KassiererCard\Method\CreateCoupon;
-use function PHPUnit\Framework\assertGreaterThan;
-use GDO\KassiererCard\KC_Util;
-use function PHPUnit\Framework\assertStringContainsString;
-use GDO\KassiererCard\Method\Welcome;
-use GDO\KassiererCard\Method\Invite;
-use GDO\Mail\Mail;
-use GDO\KassiererCard\KC_StarTransfer;
-use function PHPUnit\Framework\assertEquals;
+use GDO\Category\GDO_Category;
+use GDO\KassiererCard\KC_Business;
 use GDO\KassiererCard\KC_Coupon;
+use GDO\KassiererCard\KC_Offer;
+use GDO\KassiererCard\KC_StarTransfer;
+use GDO\KassiererCard\KC_Util;
+use GDO\KassiererCard\Method\CreateCoupon;
+use GDO\KassiererCard\Method\Invite;
+use GDO\KassiererCard\Method\Welcome;
+use GDO\Mail\Mail;
+use GDO\Tests\TestCase;
+use GDO\User\GDO_User;
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertGreaterThan;
+use function PHPUnit\Framework\assertGreaterThanOrEqual;
+use function PHPUnit\Framework\assertStringContainsString;
 
 final class KCTest extends TestCase
 {
-	private function testuser(string $username) : GDO_User
-	{
-		return $this->user(GDO_User::findBy('user_name', $username));
-	}
-	
-	public function testInstallerCreation() : void
+
+	public function testInstallerCreation(): void
 	{
 		# These get installed on install.
 		$cats = GDO_Category::table()->countWhere();
 		assertGreaterThanOrEqual(5, $cats, 'Test if kk categories were created.');
-		
+
 		$bizs = KC_Business::table()->countWhere();
 		assertGreaterThanOrEqual(2, $bizs, 'Test if kk businesses were created.');
 
@@ -42,35 +38,40 @@ final class KCTest extends TestCase
 		$offr = KC_Offer::table()->countWhere();
 		assertGreaterThanOrEqual(6, $offr, 'Test if kk offers were created.');
 	}
-	
-	public function testCouponGifting() : void
+
+	public function testCouponGifting(): void
 	{
 		$user = GDO_User::current();
 		$result = $this->cli('kassierercard.admingrantstars --reason=You suck,gizmore,100');
 		assertStringContainsString('granted', $result);
-		$this->assertOK("Test if kassierercard.admingrantstars crashes.");
-		assertGreaterThan(99, KC_Util::numStarsAvailable($user), "Test if admingrantstars works in CLI.");
+		$this->assertOK('Test if kassierercard.admingrantstars crashes.');
+		assertGreaterThan(99, KC_Util::numStarsAvailable($user), 'Test if admingrantstars works in CLI.');
 	}
-	
-	public function testCouponCreation() : void
+
+	public function testCouponCreation(): void
 	{
 		$user = $this->testuser('Kunde1');
 
 		$this->callMethod(Welcome::make(), []);
-		
+
 		$stars = KC_Util::numStarsAvailable($user);
-		
+
 		$p = [
 			'kc_stars' => $stars,
 		];
 		$this->callMethod(CreateCoupon::make(), $p);
-		
+
 		# This shall error
 		$this->callMethod(CreateCoupon::make(), $p, false);
-		
+
 		assertEquals(0, KC_Util::numStarsAvailable($user), 'Check if Kunde1 used all stars.');
 	}
-	
+
+	private function testuser(string $username): GDO_User
+	{
+		return $this->user(GDO_User::findBy('user_name', $username));
+	}
+
 	/**
 	 * Test if a cashier can invite a new user, Kassierer1 invites Kunde9.
 	 * Test if all get their stars and diamonds.
@@ -82,7 +83,7 @@ final class KCTest extends TestCase
 		$sent = Mail::$SENT;
 		$starsAvail = KC_Util::numStarsAvailable($user);
 		KC_StarTransfer::freeStars($user, 10);
-		assertEquals($starsAvail+10, KC_Util::numStarsAvailable($user));
+		assertEquals($starsAvail + 10, KC_Util::numStarsAvailable($user));
 		$starsAvail += 10;
 		$inputs = [
 			'stars' => $starsAvail - 1,
@@ -91,10 +92,10 @@ final class KCTest extends TestCase
 		];
 		$this->callMethod(Invite::make(), $inputs);
 		assertEquals(0, KC_Util::numStarsAvailable($user), 'Assert that Kassierer1 gave all stars for an invitation.');
-		assertEquals($sent+1, Mail::$SENT, 'Test if invitation mail got sent.');
-		
+		assertEquals($sent + 1, Mail::$SENT, 'Test if invitation mail got sent.');
+
 		$coupon = KC_Coupon::table()->select()->where("kc_creator={$user->getID()}")->order('kc_created DESC')->first()->exec()->fetchObject();
-		assertEquals($starsAvail - 1, $coupon->getStars(), "Test if the invitation coupon has correct amount of stars.");
+		assertEquals($starsAvail - 1, $coupon->getStars(), 'Test if the invitation coupon has correct amount of stars.');
 	}
-	
+
 }

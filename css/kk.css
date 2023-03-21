@@ -1,28 +1,26 @@
-
 /** Print **/
 .kk-print-card-row img,
 .kk-print-card-row object {
-	width: 527px;
-	border: 2px dashed #333;
+    width: 527px;
+    border: 2px dashed #333;
 }
 
 .kc-coupon-token input {
-	width: 40px;
-	min-width: initial;
-	text-align: center;
+    width: 40px;
+    min-width: initial;
+    text-align: center;
 }
 
 .kc-coupon-token input,
 .kc-coupon-token .dash {
-	float: left;
-	margin-right: 8px;
+    float: left;
+    margin-right: 8px;
 }
 
 .kc-coupon-token .dash {
-	padding-top: 6px;
+    padding-top: 6px;
 }
 
 div.kk-not-active.gdt-list-item {
-	background-color: rgba(226,114,91,155);
+    background-color: rgba(226, 114, 91, 155);
 }
-

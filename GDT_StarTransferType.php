@@ -6,18 +6,19 @@ use GDO\Core\GDT_Enum;
 /**
  * Star creation / transfer types.
  * Creations are star transfers without sender.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
+ * @author gizmore
  */
 final class GDT_StarTransferType extends GDT_Enum
 {
-	const FREE = 'kk_free';
-	const WELCOME = 'kk_welcome';
-	const TRANSFER = 'kk_transfer';
-	const POLL_VOTE = 'kk_poll';
-	const CUSTOMER_COUPON = 'kk_coupon';
-	
+
+	public const FREE = 'kk_free';
+	public const WELCOME = 'kk_welcome';
+	public const TRANSFER = 'kk_transfer';
+	public const POLL_VOTE = 'kk_poll';
+	public const CUSTOMER_COUPON = 'kk_coupon';
+
 	protected function __construct()
 	{
 		parent::__construct();
@@ -29,5 +30,5 @@ final class GDT_StarTransferType extends GDT_Enum
 			self::CUSTOMER_COUPON,
 		);
 	}
-	
+
 }

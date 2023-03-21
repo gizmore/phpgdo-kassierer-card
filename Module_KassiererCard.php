@@ -1,56 +1,57 @@
 <?php
 namespace GDO\KassiererCard;
 
+use GDO\Core\Application;
 use GDO\Core\GDO_Module;
-use GDO\UI\GDT_Badge;
-use GDO\UI\GDT_Page;
-use GDO\UI\GDT_Link;
-use GDO\User\GDO_User;
-use GDO\UI\GDT_Card;
-use GDO\Form\GDT_Form;
-use GDO\Register\GDO_UserActivation;
-use GDO\UI\GDT_Bar;
-use GDO\Core\GDT_UInt;
-use GDO\Core\GDT_String;
-use GDO\Form\GDT_Validator;
 use GDO\Core\GDT;
-use GDO\Core\Website;
-use GDO\Net\GDT_Url;
-use GDO\UI\GDT_Length;
-use GDO\User\GDT_ACLRelation;
-use GDO\UI\GDT_Divider;
-use GDO\Core\Javascript;
 use GDO\Core\GDT_Checkbox;
-use GDO\Payment\GDT_Money;
+use GDO\Core\GDT_String;
+use GDO\Core\GDT_UInt;
+use GDO\Core\Javascript;
+use GDO\Core\Website;
 use GDO\Date\GDT_Duration;
 use GDO\Date\Time;
-use GDO\Core\Application;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Validator;
+use GDO\Net\GDT_Url;
+use GDO\Payment\GDT_Money;
 use GDO\Poll\GDO_Poll;
 use GDO\Poll\GDO_PollChoice;
+use GDO\Register\GDO_UserActivation;
+use GDO\UI\GDT_Badge;
+use GDO\UI\GDT_Bar;
+use GDO\UI\GDT_Card;
+use GDO\UI\GDT_Divider;
+use GDO\UI\GDT_Length;
+use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Page;
+use GDO\User\GDO_User;
+use GDO\User\GDT_ACLRelation;
 
 /**
- * KassiererCard.org - At least we try! 
- * 
- * @author gizmore
+ * KassiererCard.org - At least we try!
+ *
  * @since 7.0.1
+ * @author gizmore
  */
 final class Module_KassiererCard extends GDO_Module
 {
+
 	public int $priority = 125;
-	
-	public function getTheme() : ?string { return 'kkorg'; }
-	
+
+	public function getTheme(): ?string { return 'kkorg'; }
+
 	public function isSiteModule(): bool
 	{
 		return true;
 	}
-	
-	public function href_administrate_module() : ?string
+
+	public function href_administrate_module(): ?string
 	{
 		return $this->href('Admin');
 	}
-	
-	public function getDependencies() : array
+
+	public function getDependencies(): array
 	{
 		return [
 			'Account', 'AboutMe', 'ActivationAlert', 'Address',
@@ -72,8 +73,8 @@ final class Module_KassiererCard extends GDO_Module
 			'YouTube',
 		];
 	}
-	
-	public function getClasses() : array
+
+	public function getClasses(): array
 	{
 		return [
 			KC_Partner::class,
@@ -88,7 +89,7 @@ final class Module_KassiererCard extends GDO_Module
 			KC_StarTransfer::class,
 		];
 	}
-	
+
 	public function getPrivacyRelatedFields(): array
 	{
 		return [
@@ -96,11 +97,11 @@ final class Module_KassiererCard extends GDO_Module
 			$this->getConfigColumn('token_request_time'),
 		];
 	}
-	
+
 	##############
 	### Config ###
 	##############
-	public function getConfig() : array
+	public function getConfig(): array
 	{
 		return [
 			# Alert!
@@ -123,7 +124,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('users_invited')->initial('0')->label('cfg_users_invited')->tooltip('tt_cfg_users_invited'),
 			GDT_Badge::make('coupons_created')->initial('0')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created'), #
 			GDT_Badge::make('coupons_printed')->initial('0')->label('cfg_coupons_printed')->tooltip('tt_cfg_coupons_printed'), #
-			GDT_Badge::make('coupons_entered')->initial('0')->label('cfg_coupons_entered')->tooltip('tt_cfg_coupons_entered'), 
+			GDT_Badge::make('coupons_entered')->initial('0')->label('cfg_coupons_entered')->tooltip('tt_cfg_coupons_entered'),
 			GDT_Badge::make('stars_created')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'), #
 			GDT_Badge::make('stars_entered')->initial('0')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created'),
 			GDT_Badge::make('stars_invited')->initial('0')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited'),
@@ -139,24 +140,8 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Money::make('euros_revenue')->initial('0.00')->label('cfg_euros_revenue')->tooltip('tt_cfg_euros_revenue'),
 		];
 	}
-	public function cfgPreAlpha() : bool { return $this->getConfigValue('pre_alpha'); }
-	public function cfgStarsPerEuro() : int { return $this->getConfigValue('stars_per_euro'); }
-	public function cfgStarsPerInvite() : int { return $this->getConfigValue('star_cost_per_invite'); }
-	public function cfgDiamondsPerPollVote() : int { return $this->getConfigValue('diamonds_per_poll_vote'); }
-	public function cfgStarsPerDiamond() : int { return $this->getConfigValue('stars_per_diamond'); }
-	public function cfgFreeStarsPerDay() : int { return $this->getConfigValue('free_stars_per_day'); }
-	public function cfgLevelPerPrintedCoupon() : int { return $this->getConfigValue('level_per_coupon_print'); }
-	public function cfgLevelPerDiamond() : int { return $this->getConfigValue('level_gain_per_diamond'); }
-	public function cfgCustomerCouponModulus() : int { return $this->getConfigValue('customer_coupon_modulus'); }
-	public function cfgCashierInviteStars() : int { return $this->getConfigValue('cashier_stars_per_invitation'); }
-	public function cfgCustomerInviteStars() : int { return $this->getConfigValue('customer_stars_per_invitation'); }
-	public function cfgTokenRequestAmt() : int { return $this->getConfigValue('token_request_amt'); }
-	public function cfgTokenRequestTime() : float { return $this->getConfigValue('token_request_time'); }
-	
-	################
-	### Settings ###
-	################
-	public function getUserConfig() : array
+
+	public function getUserConfig(): array
 	{
 		return [
 			GDT_Badge::make('coupons_created')->label('cfg_coupons_created')->tooltip('tt_cfg_coupons_created')->icon('bee'),
@@ -165,7 +150,7 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Badge::make('stars_created')->label('cfg_stars_created')->tooltip('tt_cfg_stars_created')->icon('bee'),
 			GDT_Badge::make('stars_earned')->label('cfg_stars_earned')->tooltip('tt_cfg_stars_earned')->icon('sun'), # stars earned via all means
 			GDT_Badge::make('stars_entered')->label('cfg_stars_entered')->tooltip('tt_cfg_stars_entered')->icon('bee'), # stars entered on website and invite
-			GDT_Badge::make('stars_invited')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited')->icon('bee'), # stars spent on invite (-1?) 
+			GDT_Badge::make('stars_invited')->label('cfg_stars_invited')->tooltip('tt_cfg_stars_invited')->icon('bee'), # stars spent on invite (-1?)
 			GDT_Badge::make('stars_purchased')->label('cfg_stars_purchased')->tooltip('tt_cfg_stars_purchased')->icon('money'),
 			GDT_Badge::make('stars_redeemed')->label('cfg_stars_redeemed')->tooltip('tt_cfg_stars_redeemed')->icon('star'), # stars taken for offer redeem
 			GDT_Badge::make('offers_created')->label('cfg_offers_created')->tooltip('tt_cfg_offers_created')->icon('star'), # partner buys offer
@@ -179,8 +164,8 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Money::make('euros_invested')->label('cfg_euros_invested')->tooltip('tt_cfg_euros_invested'), # offer for euro purchased
 		];
 	}
-	
-	public function getACLDefaults() : array
+
+	public function getACLDefaults(): array
 	{
 		return [
 			# Profile
@@ -200,8 +185,8 @@ final class Module_KassiererCard extends GDO_Module
 			'qrcode_size' => [GDT_ACLRelation::HIDDEN, 0, null],
 		];
 	}
-	
-	public function getUserSettings() : array
+
+	public function getUserSettings(): array
 	{
 		return [
 			GDT_Divider::make('div_kk'),
@@ -221,77 +206,69 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Length::make('qrcode_size')->initial('320')->noacl(),
 		];
 	}
-	
-	public function cfgQRCodeSize() : int
+
+	public function onLoadLanguage(): void
 	{
-		return $this->userSettingVar(GDO_User::current(), 'qrcode_size');
+		$this->loadLanguage('lang/faq');
+		$this->loadLanguage('lang/kassierercard');
 	}
-	
-	############
-	### Init ###
-	############
-	public function onLoadLanguage() : void
-	{
-	    $this->loadLanguage('lang/faq');
-	    $this->loadLanguage('lang/kassierercard');
-	}
-	
-	public function onInstall() : void
+
+	public function onInstall(): void
 	{
 		Install::install($this);
 	}
-	
-	public function onInitSidebar() : void
+
+	public function onInitSidebar(): void
 	{
 		$page = GDT_Page::instance();
 		$user = GDO_User::current();
-		
+
 		$page->leftBar()->addFieldFirst(
 			GDT_Link::make('link_kk_home')->icon('cc')->href($this->href('Welcome')),
 		);
-		
+
 		$page->leftBar()->addFields(
 			GDT_LeftMenu::make(),
 		);
-		
+
 		if ($user->isUser())
 		{
 			$rb = $page->rightBar();
-			
+
 			$rb->getField('menu_profile')->addFields(
 				$user->gdoColumn('user_level'),
 				$this->setting('stars_available'),
 				$this->setting('diamonds_earned'),
 			);
-			
+
 			if ($this->isCashier($user))
 			{
 				$rb->addFields(
 					GDT_CashierMenu::make('kk_cashier_menu'),
 				);
 			}
-			
+
 			if ($this->isCompany($user))
 			{
 				$rb->addFields(
 					GDT_PartnerMenu::make('kk_company_menu'),
 				);
 			}
-			
+
 			if ($this->isCustomer($user))
 			{
 				$rb->addFields(
 					GDT_CustomerMenu::make('kk_customer_menu'),
 				);
 			}
-			
+
 			if ($this->isDistributor($user))
 			{
 				$rb->addFields(
 					GDT_DistributorMenu::make('kk_distributor_menu'),
 				);
 			}
-			
+
 			if ($user->isStaff())
 			{
 				$menu = $rb->getField('menu_admin');
@@ -301,18 +278,33 @@ final class Module_KassiererCard extends GDO_Module
 			}
 		}
 	}
-	
-	private function canCreateCoupons(GDO_User $user)
+
+	public function isCashier(GDO_User $user): bool
 	{
-		return $user->hasPermission('kk_customer','kk_company');
+		return $this->isType($user, GDT_AccountType::CASHIER);
 	}
-	
-	private function canRedeemOffers(GDO_User $user)
+
+	public function isType(GDO_User $user, string $type): bool
 	{
-		return $user->hasPermission('kk_customer,kk_cashier');
+		return $user->hasPermission($type);
 	}
-	
-	public function onModuleInit() : void
+
+	public function isCompany(GDO_User $user): bool
+	{
+		return $this->isType($user, GDT_AccountType::COMPANY);
+	}
+
+	public function isCustomer(GDO_User $user): bool
+	{
+		return $this->isType($user, GDT_AccountType::CUSTOMER);
+	}
+
+	public function isDistributor(GDO_User $user): bool
+	{
+		return $this->isType($user, GDT_AccountType::DISTRIBUTOR);
+	}
+
+	public function onModuleInit(): void
 	{
 		Website::addLink([
 			'rel' => 'icon',
@@ -321,11 +313,11 @@ final class Module_KassiererCard extends GDO_Module
 			'sizes' => 'any',
 		]);
 		#<meta property="og:image" content="//cdn.example.com/uploads/images/webpage_300x200.png" />
-		
+
 		Website::addMeta(['og:image', $this->wwwPath('img/kassierercard_messanger_300_200.png'), 'property']);
 	}
-	
-	public function onIncludeScripts() : void
+
+	public function onIncludeScripts(): void
 	{
 		$this->addJS('js/kk.js');
 		$this->addCSS('css/kk.css');
@@ -338,51 +330,59 @@ final class Module_KassiererCard extends GDO_Module
 			}
 		}
 	}
-	
+
+	################
+	### Settings ###
+	################
+
+	public function cfgPreAlpha(): bool { return $this->getConfigValue('pre_alpha'); }
+
+	public function cfgStarsPerEuro(): int { return $this->getConfigValue('stars_per_euro'); }
+
+	public function cfgStarsPerInvite(): int { return $this->getConfigValue('star_cost_per_invite'); }
+
+	public function cfgStarsPerDiamond(): int { return $this->getConfigValue('stars_per_diamond'); }
+
+	############
+	### Init ###
+	############
+
+	public function cfgLevelPerPrintedCoupon(): int { return $this->getConfigValue('level_per_coupon_print'); }
+
+	public function cfgLevelPerDiamond(): int { return $this->getConfigValue('level_gain_per_diamond'); }
+
+	public function cfgCustomerCouponModulus(): int { return $this->getConfigValue('customer_coupon_modulus'); }
+
+	public function cfgCashierInviteStars(): int { return $this->getConfigValue('cashier_stars_per_invitation'); }
+
+	public function cfgCustomerInviteStars(): int { return $this->getConfigValue('customer_stars_per_invitation'); }
+
+	public function cfgTokenRequestAmt(): int { return $this->getConfigValue('token_request_amt'); }
+
+	public function cfgTokenRequestTime(): float { return $this->getConfigValue('token_request_time'); }
+
 	#################
 	### User type ###
 	#################
-	public function isManager(GDO_User $user) : bool
+
+	public function cfgQRCodeSize(): int
+	{
+		return $this->userSettingVar(GDO_User::current(), 'qrcode_size');
+	}
+
+	public function isManager(GDO_User $user): bool
 	{
 		return $this->isType($user, GDT_AccountType::MANAGER);
 	}
-	
-	public function isDistributor(GDO_User $user) : bool
-	{
-		return $this->isType($user, GDT_AccountType::DISTRIBUTOR);
-	}
-	
-	public function isCashier(GDO_User $user) : bool
-	{
-		return $this->isType($user, GDT_AccountType::CASHIER);
-	}
-	
-	public function isCompany(GDO_User $user) : bool
-	{
-		return $this->isType($user, GDT_AccountType::COMPANY);
-	}
-	
-	public function isCustomer(GDO_User $user) : bool
-	{
-		return $this->isType($user, GDT_AccountType::CUSTOMER);
-	}
-	
-	public function isType(GDO_User $user, string $type) : bool
-	{
-		return $user->hasPermission($type);
-	}
-	
-	############
-	### Hook ###
-	############
+
 	public function hookCreateCardUserProfile(GDT_Card $card)
 	{
 		$user = $card->gdo->getUser();
 		$disabled = !$this->isCustomer($user);
-		$linkPM = GDT_Link::make()->href($this->href('SendCoupons', '&user='.$user->renderUserName()))->label('btn_send_coupons')->disabled($disabled);
+		$linkPM = GDT_Link::make()->href($this->href('SendCoupons', '&user=' . $user->renderUserName()))->label('btn_send_coupons')->disabled($disabled);
 		$card->actions()->addField($linkPM);
 	}
-	
+
 	public function hookRegisterForm(GDT_Form $form)
 	{
 		if (!Application::$INSTANCE->isUnitTests())
@@ -391,12 +391,12 @@ final class Module_KassiererCard extends GDO_Module
 			$type = GDT_AccountType::make('kk_type')->notNull();
 			$form->addFieldAfterName($code, 'user_name');
 			$form->addFieldAfterName($type, 'kk_token');
-		    $vali = GDT_Validator::make('kk_valid_token')->validator($form, $code, [$this, 'validateToken']);
-		    $form->addFieldAfterName($vali, 'kk_token');
-		    $form->text('kk_info_register');
+			$vali = GDT_Validator::make('kk_valid_token')->validator($form, $code, [$this, 'validateToken']);
+			$form->addFieldAfterName($vali, 'kk_token');
+			$form->text('kk_info_register');
 		}
 	}
-	
+
 	public function validateToken(GDT_Form $form, GDT $field, $value)
 	{
 		$codeType = 'kk_customer';
@@ -408,13 +408,13 @@ final class Module_KassiererCard extends GDO_Module
 			}
 			$codeType = $code->getType();
 		}
-		
+
 		$type = $form->getFormVar('kk_type');
 		if ($type !== $codeType)
 		{
 			return $field->error('err_kk_signup_code_type', [t($codeType)]);
 		}
-		
+
 		if ($type === 'kk_customer')
 		{
 // 			if ($code)
@@ -423,7 +423,7 @@ final class Module_KassiererCard extends GDO_Module
 // 			}
 			return true;
 		}
-		
+
 		if (!$code && $type)
 		{
 			return $field->error('err_kk_signup_code_required');
@@ -432,10 +432,10 @@ final class Module_KassiererCard extends GDO_Module
 		{
 			return true; # no code + no type
 		}
-		
+
 		return true;
 	}
-	
+
 	public function hookOnRegister(GDT_Form $form, GDO_UserActivation $activation)
 	{
 		if (!Application::$INSTANCE->isUnitTests())
@@ -445,11 +445,15 @@ final class Module_KassiererCard extends GDO_Module
 			$activation->setValue('ua_data', $data);
 		}
 	}
-	
+
+	############
+	### Hook ###
+	############
+
 	/**
 	 * Upon activation, grant usertype permission and delete the signup-code.
 	 */
-	public function hookUserActivated(GDO_User $user, GDO_UserActivation $activation = null) : void
+	public function hookUserActivated(GDO_User $user, GDO_UserActivation $activation = null): void
 	{
 		if ($activation)
 		{
@@ -459,7 +463,7 @@ final class Module_KassiererCard extends GDO_Module
 			}
 		}
 	}
-	
+
 	public function hookUserSettingChanged(GDO_User $user, string $key, ?string $old, ?string $new): void
 	{
 		if ($key === 'stars_earned')
@@ -471,7 +475,7 @@ final class Module_KassiererCard extends GDO_Module
 			KC_Competition::onEarned($user, 0, $new - $old);
 		}
 	}
-	
+
 	public function hookBeforeExecute(): void
 	{
 		$user = GDO_User::current();
@@ -480,7 +484,7 @@ final class Module_KassiererCard extends GDO_Module
 			$this->grantFreeStars($user, $this->cfgFreeStarsPerDay());
 		}
 	}
-	
+
 	private function grantFreeStars(GDO_User $user, int $numStars): void
 	{
 		if (!KC_StarTransfer::gotFreeStars($user, Application::$TIME))
@@ -490,8 +494,11 @@ final class Module_KassiererCard extends GDO_Module
 		}
 	}
 
+	public function cfgFreeStarsPerDay(): int { return $this->getConfigValue('free_stars_per_day'); }
+
 	/**
 	 * On the first vote on a poll, grant the user some stars.
+	 *
 	 * @param GDO_PollChoice $answers
 	 */
 	public function hookPollVoteCreated(GDO_User $user, GDO_Poll $poll, array $answers): void
@@ -500,22 +507,21 @@ final class Module_KassiererCard extends GDO_Module
 		KC_StarTransfer::pollDiamonds($user, $diamonds);
 		Website::message($this->gdoHumanName(), 'msg_kk_poll_vote_diamonds', [$diamonds]);
 	}
-	
-	################
-	### Top Bars ###
-	################
-	public function addAdminBar() : void
+
+	public function cfgDiamondsPerPollVote(): int { return $this->getConfigValue('diamonds_per_poll_vote'); }
+
+	public function addAdminBar(): void
 	{
 		$bar = GDT_Bar::make()->horizontal();
 		$bar->addFields(
 			GDT_Link::make('generate_signup_code')->href($this->href('AdminCreateSignupCode'))->icon('create'),
 			GDT_Link::make('signup_codes')->href($this->href('AdminSignupCodes'))->icon('list'),
 			GDT_Link::make('grant_stars')->href($this->href('AdminGrantStars'))->icon('star'),
-			);
+		);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
-	
-	public function addCustomerBar() : void
+
+	public function addCustomerBar(): void
 	{
 		$bar = GDT_Bar::make()->horizontal();
 		$bar->addFields(
@@ -525,8 +531,12 @@ final class Module_KassiererCard extends GDO_Module
 		);
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
-	
-	public function addCashierBar() : void
+
+	################
+	### Top Bars ###
+	################
+
+	public function addCashierBar(): void
 	{
 		$bar = GDT_Bar::make()->horizontal();
 		$bar->addFields(
@@ -536,7 +546,7 @@ final class Module_KassiererCard extends GDO_Module
 		GDT_Page::instance()->topResponse()->addField($bar);
 	}
 
-	public function addCompanyBar() : void
+	public function addCompanyBar(): void
 	{
 		$bar = GDT_Bar::make()->horizontal();
 		$bar->addFields(
@@ -544,6 +554,16 @@ final class Module_KassiererCard extends GDO_Module
 			GDT_Link::make('edit_business')->href($this->href('CompanyEditBusiness')),
 		);
 		GDT_Page::instance()->topResponse()->addField($bar);
+	}
+
+	private function canCreateCoupons(GDO_User $user)
+	{
+		return $user->hasPermission('kk_customer', 'kk_company');
+	}
+
+	private function canRedeemOffers(GDO_User $user)
+	{
+		return $user->hasPermission('kk_customer,kk_cashier');
 	}
 
 }

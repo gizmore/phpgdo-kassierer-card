@@ -1,39 +1,40 @@
 <?php
 namespace GDO\KassiererCard;
 
-use GDO\Category\GDO_Category;
 use GDO\Address\GDO_Address;
-use GDO\Country\GDO_Country;
-use GDO\User\GDO_Permission;
-use GDO\Language\Module_Language;
-use GDO\Core\Module_Core;
-use GDO\CountryRestrictions\Module_CountryRestrictions;
-use GDO\User\GDO_User;
-use GDO\User\GDO_UserPermission;
-use GDO\Crypto\BCrypt;
-use GDO\News\GDO_News;
+use GDO\Avatar\GDO_Avatar;
 use GDO\Avatar\GDO_UserAvatar;
 use GDO\Avatar\Module_Avatar;
-use GDO\Maps\Module_Maps;
-use GDO\Core\GDO_SEO_URL;
-use GDO\Date\Time;
+use GDO\Category\GDO_Category;
 use GDO\Core\Application;
-use GDO\Perf\Module_Perf;
-use GDO\LoC\Module_LoC;
-use GDO\User\GDT_ACLRelation;
-use GDO\File\GDO_File;
-use GDO\Avatar\GDO_Avatar;
-use GDO\Javascript\Module_Javascript;
+use GDO\Core\GDO_SEO_URL;
+use GDO\Core\Module_Core;
+use GDO\Country\GDO_Country;
+use GDO\CountryRestrictions\Module_CountryRestrictions;
+use GDO\Crypto\BCrypt;
 use GDO\CSS\Module_CSS;
+use GDO\Date\Time;
+use GDO\File\GDO_File;
+use GDO\Javascript\Module_Javascript;
+use GDO\Language\Module_Language;
+use GDO\LoC\Module_LoC;
+use GDO\Maps\Module_Maps;
+use GDO\News\GDO_News;
+use GDO\Perf\Module_Perf;
+use GDO\User\GDO_Permission;
+use GDO\User\GDO_User;
+use GDO\User\GDO_UserPermission;
+use GDO\User\GDT_ACLRelation;
 
 /**
  * Initial seed for rapid dev.
- * 
+ *
  * @author gizmore
  */
 final class Install
 {
-	public static function install(Module_KassiererCard $module) : bool
+
+	public static function install(Module_KassiererCard $module): bool
 	{
 		return
 			self::installRoutes() &&
@@ -49,7 +50,7 @@ final class Install
 			self::installCards();
 	}
 
-	private static function installRoutes() : bool
+	private static function installRoutes(): bool
 	{
 		$m = Module_KassiererCard::instance();
 		GDO_SEO_URL::addRoute('favicon.ico', $m->wwwPath('img/kassierercard_logo.svg'));
@@ -59,7 +60,7 @@ final class Install
 	##############
 	### Config ###
 	##############
-	private static function installConfig() : bool
+	private static function installConfig(): bool
 	{
 		if (Application::isDev())
 		{
@@ -84,11 +85,11 @@ final class Install
 		Module_Maps::instance()->saveConfigVar('maps_record', '0');
 		return true;
 	}
-	
+
 	###############
 	### Slogans ###
 	###############
-	private static function installSlogans() : bool
+	private static function installSlogans(): bool
 	{
 		$data = [
 			'Transparent und ehrlich',
@@ -124,7 +125,7 @@ final class Install
 			'Für Spaß, Gegen Gewalt',
 			'Einfach loslegen',
 		];
-		
+
 		$i = 0;
 		foreach ($data as $slogan)
 		{
@@ -132,8 +133,8 @@ final class Install
 		}
 		return true;
 	}
-	
-	private static function installSlogan(int $id, string $text) : void
+
+	private static function installSlogan(int $id, string $text): void
 	{
 		if (!($slogan = KC_Slogan::getById($id)))
 		{
@@ -144,11 +145,11 @@ final class Install
 		]);
 		$slogan->save();
 	}
-	
+
 	#############
 	### Perms ###
 	#############
-	private static function installPermissions() : bool
+	private static function installPermissions(): bool
 	{
 		# Perms
 		GDO_Permission::create('kk_manager', 750);
@@ -158,37 +159,37 @@ final class Install
 		GDO_Permission::create('kk_customer', 100);
 		return true;
 	}
-	
+
 	##################
 	### Categories ###
 	##################
-	private static function installCategories() : bool
+	private static function installCategories(): bool
 	{
-		self::cat(1,  'Businesses', null);
-		self::cat(2,  'Supermarket', 1);
-		self::cat(3,  'Bakery', 1);
-		self::cat(4,  'Slaughter', 1);
-		self::cat(5,  'Office', 1);
-		self::cat(6,  'Restaurant', 1);
-		self::cat(7,  'Hairstyler', 1);
-		self::cat(8,  'Pub', 1);
-		self::cat(9,  'Headshop', 1);
+		self::cat(1, 'Businesses', null);
+		self::cat(2, 'Supermarket', 1);
+		self::cat(3, 'Bakery', 1);
+		self::cat(4, 'Slaughter', 1);
+		self::cat(5, 'Office', 1);
+		self::cat(6, 'Restaurant', 1);
+		self::cat(7, 'Hairstyler', 1);
+		self::cat(8, 'Pub', 1);
+		self::cat(9, 'Headshop', 1);
 		self::cat(10, 'Charity', 1);
 		self::cat(11, 'NGO', 1);
 		self::cat(12, 'Social', 1);
 		self::cat(13, 'Fashion', 1);
 		self::cat(14, 'Print', 1);
 		self::cat(15, 'Retail', 1);
-		
+
 // 		self::cat(101, 'News', null);
 // 		self::cat(102, 'Peiner-News', 101);
 // 		self::cat(103, 'KassiererCard-News', 101);
-		
+
 		GDO_Category::table()->rebuildFullTree();
 		return true;
 	}
-	
-	private static function cat(string $id, string $name, ?string $parent) : bool
+
+	private static function cat(string $id, string $name, ?string $parent): bool
 	{
 		if (!($cat = GDO_Category::getBy('cat_name', $name)))
 		{
@@ -203,11 +204,11 @@ final class Install
 			'cat_parent' => $parent,
 		]);
 	}
-	
+
 	#############
 	### Users ###
 	#############
-	private static function installUsers() : bool
+	private static function installUsers(): bool
 	{
 		$accounts = require 'account_seeds.php';
 		foreach ($accounts as $data)
@@ -215,17 +216,70 @@ final class Install
 			echo "Installing user {$data[2]}\n";
 			self::installUser(...$data);
 		}
-		
+
 		self::installGizmore();
 		self::installKCUser();
-		
+
 		self::installUserSetting('gizmore', 'KassiererCard', 'profession', 'Programmierer', GDT_ACLRelation::ALL);
-		
+
 		self::installUserSetting('Horus', 'KassiererCard', 'favorite_religion', 'Horus Götterkult', GDT_ACLRelation::ALL);
-		
+
 		return true;
 	}
-	
+
+	private static function installUser(string $id, string $status, string $nickname, ?string $email, string $password, string $perms, string $avatarFile = null): bool
+	{
+		if (!($user = GDO_User::getById($id)))
+		{
+			$user = GDO_User::blank([
+				'user_id' => $id,
+				'user_type' => 'member',
+				'user_name' => $nickname,
+			])->insert();
+		}
+		else
+		{
+			$user->saveVars([
+				'user_type' => 'member',
+				'user_name' => $nickname,
+			]);
+		}
+
+		# Email
+		$user->saveSettingVar('Mail', 'email', $email);
+		$user->saveSettingVar('Login', 'password', BCrypt::create($password)->__toString());
+
+		# Perms
+		foreach (explode(',', $perms) as $perm)
+		{
+			GDO_UserPermission::grant($user, $perm);
+		}
+		$user->changedPermissions();
+
+		if ($avatarFile)
+		{
+			self::installUserAvatar($user, $avatarFile);
+		}
+
+		return true;
+	}
+
+	private static function installUserAvatar(GDO_User $user, string $filename): void
+	{
+		if (!GDO_Avatar::forUser($user)->isPersisted())
+		{
+			$module = Module_KassiererCard::instance();
+			$path = $module->filePath("install_data/{$filename}");
+			$file = GDO_File::fromPath($filename, $path)->insert();
+			$avatar = GDO_Avatar::blank([
+				'avatar_file_id' => $file->getID(),
+				'avatar_created_by' => $user->getID(),
+			])->insert();
+			GDO_UserAvatar::updateAvatar($user, $avatar->getID());
+			$user->recache();
+		}
+	}
+
 	private static function installGizmore(): void
 	{
 		if (!($addr = GDO_Address::getById('2')))
@@ -258,13 +312,7 @@ final class Install
 		self::installUserSetting('gizmore', 'Country', 'country_of_origin', 'DE', GDT_ACLRelation::ALL);
 		self::installUserSetting('gizmore', 'Country', 'country_of_living', 'DE', GDT_ACLRelation::ALL);
 	}
-	
-	private static function installKCUser(): void
-	{
-		$kc = GDO_User::getByName('kassierercard');
-		$kc->saveVar('user_type', 'system');
-	}
-	
+
 	private static function installUserSetting(string $username, string $moduleName, string $settingName, string $settingVar, string $aclRelation): bool
 	{
 		$user = GDO_User::getByName($username);
@@ -272,78 +320,32 @@ final class Install
 		$user->saveACLSettings($moduleName, $settingName, $aclRelation);
 		return true;
 	}
-	
-	private static function installUser(string $id, string $status, string $nickname, ?string $email, string $password, string $perms, string $avatarFile=null) : bool
+
+	private static function installKCUser(): void
 	{
-		if (!($user = GDO_User::getById($id)))
-		{
-			$user = GDO_User::blank([
-				'user_id' => $id,
-				'user_type' => 'member',
-				'user_name' => $nickname,
-			])->insert();
-		}
-		else
-		{
-			$user->saveVars([
-				'user_type' => 'member',
-				'user_name' => $nickname,
-			]);
-		}
-		
-		# Email
-		$user->saveSettingVar('Mail', 'email', $email);
-		$user->saveSettingVar('Login', 'password', BCrypt::create($password)->__toString());
-		
-		# Perms
-		foreach (explode(',', $perms) as $perm)
-		{
-			GDO_UserPermission::grant($user, $perm);
-		}
-		$user->changedPermissions();
-		
-		if ($avatarFile)
-		{
-			self::installUserAvatar($user, $avatarFile);
-		}
-		
-		return true;
+		$kc = GDO_User::getByName('kassierercard');
+		$kc->saveVar('user_type', 'system');
 	}
-	
-	private static function installUserAvatar(GDO_User $user, string $filename): void
-	{
-		if (!GDO_Avatar::forUser($user)->isPersisted())
-		{
-			$module = Module_KassiererCard::instance();
-			$path = $module->filePath("install_data/{$filename}");
-			$file = GDO_File::fromPath($filename, $path)->insert();
-			$avatar = GDO_Avatar::blank([
-				'avatar_file_id' => $file->getID(),
-				'avatar_created_by' => $user->getID(),
-			])->insert();
-			GDO_UserAvatar::updateAvatar($user, $avatar->getID());
-			$user->recache();
-		}
-	}
-	
+
 	###########
 	### Biz ###
 	###########
-	private static function installBusinesses() : bool
+
+	private static function installBusinesses(): bool
 	{
-		self::biz(1, 'REWE Markt Peine',   2, 'Schäferstraße 12',         '31224', 'Peine', 52.32101586390254, 10.24893384967010,  '+49 5171 58 315 87');
-		self::biz(2, 'REWE Markt Peine',   2, 'Celler Straße 51-55',      '31224', 'Peine', 52.32999367361805, 10.23279618918122,  '+49 5171 712 82');
-		self::biz(3, 'EDEKA Center Peine', 2, 'Friedrich-Ebert-Platz 25', '31226', 'Peine', 52.31740702775802, 10.22991038947184,  '+49 5171 95 50');
-		self::biz(4, 'Penny Markt Peine',  2, 'Duttenstedter Str. 136',   '31224', 'Peine', 52.32887785039469, 10.25016182443094,  '+49 221 2019 9959');
-		self::biz(5, 'NP-Markt Peine',     2, 'Sedanstraße 41',           '31224', 'Peine', 52.32509004097773, 10.23358606569167,  '+49 5171 14 145');
-		self::biz(6, 'Jawoll Peine',       2, 'Woltorfer Str. 102',       '31224', 'Peine', 52.31962953955457, 10.24794936924906,  '+49 05191 980 30');
-		self::biz(7, 'Café Mitte Peine',  12, 'Breite Straße 48',         '31224', 'Peine', 52.32208090312398, 10.226910900342983, '+49 05171 58 777 55');
+		self::biz(1, 'REWE Markt Peine', 2, 'Schäferstraße 12', '31224', 'Peine', 52.32101586390254, 10.24893384967010, '+49 5171 58 315 87');
+		self::biz(2, 'REWE Markt Peine', 2, 'Celler Straße 51-55', '31224', 'Peine', 52.32999367361805, 10.23279618918122, '+49 5171 712 82');
+		self::biz(3, 'EDEKA Center Peine', 2, 'Friedrich-Ebert-Platz 25', '31226', 'Peine', 52.31740702775802, 10.22991038947184, '+49 5171 95 50');
+		self::biz(4, 'Penny Markt Peine', 2, 'Duttenstedter Str. 136', '31224', 'Peine', 52.32887785039469, 10.25016182443094, '+49 221 2019 9959');
+		self::biz(5, 'NP-Markt Peine', 2, 'Sedanstraße 41', '31224', 'Peine', 52.32509004097773, 10.23358606569167, '+49 5171 14 145');
+		self::biz(6, 'Jawoll Peine', 2, 'Woltorfer Str. 102', '31224', 'Peine', 52.31962953955457, 10.24794936924906, '+49 05191 980 30');
+		self::biz(7, 'Café Mitte Peine', 12, 'Breite Straße 48', '31224', 'Peine', 52.32208090312398, 10.226910900342983, '+49 05171 58 777 55');
 		return true;
 	}
-	
-	private static function biz(string $id, string $name, string $category, ?string $street, ?string $zip, ?string $city, float $lat=null, float $lng=null, string $phone=null, string $country='DE') : bool
+
+	private static function biz(string $id, string $name, string $category, ?string $street, ?string $zip, ?string $city, float $lat = null, float $lng = null, string $phone = null, string $country = 'DE'): bool
 	{
-		if (!($addr = GDO_Address::getById($id+100000)))
+		if (!($addr = GDO_Address::getById($id + 100000)))
 		{
 			$addr = GDO_Address::blank([
 				'address_id' => $id + 100000,
@@ -376,7 +378,7 @@ final class Install
 				'address_email' => null,
 			]);
 		}
-		
+
 		if (!($biz = KC_Business::getById($id)))
 		{
 			$biz = KC_Business::blank([
@@ -396,14 +398,14 @@ final class Install
 				'biz_category' => $category,
 			]);
 		}
-		
+
 		return !!$biz;
 	}
 
 	###############
 	### Partner ###
 	###############
-	private static function installPartners() : bool
+	private static function installPartners(): bool
 	{
 		$est = null;
 		$yes = 'kk_partner_active';
@@ -432,14 +434,14 @@ final class Install
 		self::partner(10, $yes, 'PrimaSparen', 15, 'PrimaSparen Peine', 'Schwarzer Weg 36', '31224', 'Peine', 'DE', 'DE', '+49 5171 29 54 26', $descr, 'https://www.Prima-Sparen.de/', $est);
 		return true;
 	}
-	
-	private static function partner(int $id, string $status, string $userName, int $cat, string $name, string $street, string $zip, string $city, string $country, string $origin, ?string $phone, string $descr, string $url, ?string $est) : void
+
+	private static function partner(int $id, string $status, string $userName, int $cat, string $name, string $street, string $zip, string $city, string $country, string $origin, ?string $phone, string $descr, string $url, ?string $est): void
 	{
 		$userId = GDO_User::getByName($userName)->getID();
 		$countryId = GDO_Country::findById($country)->getID();
 		$originId = GDO_Country::findById($origin)->getID();
-		
-		if (!($addr = GDO_Address::getById($id+200000)))
+
+		if (!($addr = GDO_Address::getById($id + 200000)))
 		{
 			$addr = GDO_Address::blank([
 				'address_id' => $id + 200000,
@@ -478,7 +480,7 @@ final class Install
 				'address_creator' => $userId,
 			]);
 		}
-		
+
 		if (!($p = KC_Partner::getById($id)))
 		{
 			$p = KC_Partner::blank([
@@ -500,17 +502,17 @@ final class Install
 				'p_description' => $descr,
 			]);
 		}
-		
+
 		$user = GDO_User::findById($userId);
 		$user->saveSettingVar('Address', 'address', $addr->getID());
 		$user->saveSettingVar('Country', 'country_of_living', $countryId);
 		$user->saveSettingVar('Country', 'country_of_origin', $originId);
 	}
-	
+
 	############
 	### News ###
 	############
-	private static function installNews() : bool
+	private static function installNews(): bool
 	{
 		$titleEn = 'First Card printed!';
 		$titleDe = 'Erste Karte gedruckt!';
@@ -547,11 +549,11 @@ EOT;
 		$date = Time::getDate();
 		self::installNewsEntry(1, 102, $date, 'en', $titleEn, $messageEn);
 		self::installNewsEntry(1, 102, $date, 'de', $titleDe, $messageDe);
-		
+
 		return true;
 	}
-	
-	private static function installNewsEntry(string $id, string $cat, string $date, string $iso, string $title, string $message, string $uid='2')
+
+	private static function installNewsEntry(string $id, string $cat, string $date, string $iso, string $title, string $message, string $uid = '2')
 	{
 		if ($news = GDO_News::table()->getById(1))
 		{
@@ -562,7 +564,8 @@ EOT;
 				'news_creator' => $uid,
 			]);
 		}
-		else {
+		else
+		{
 			$news = GDO_News::blank([
 				'news_id' => $id,
 				'news_category' => $cat,
@@ -573,8 +576,8 @@ EOT;
 		}
 		return self::installNewsText($news, $iso, $title, $message, $uid);
 	}
-	
-	private static function installNewsText(GDO_News $news, string $iso, string $title, string $message, string $uid='2')
+
+	private static function installNewsText(GDO_News $news, string $iso, string $title, string $message, string $uid = '2')
 	{
 		$text = $news->getText($iso, false);
 		if ($text->isPersisted())
@@ -600,62 +603,62 @@ EOT;
 	##############
 	### Offers ###
 	##############
-	private static function installOffers() : bool
+	private static function installOffers(): bool
 	{
 		$want = 'kk_partner_wanted';
 		$yes = 'kk_partner_active';
 		$now = Time::getDate();
-		self::offer(1, $want, 1, 15,  4.00, 60.00,  2, $now, '2023-12-31',
+		self::offer(1, $want, 1, 15, 4.00, 60.00, 2, $now, '2023-12-31',
 			'ALIBABA!', 'Dönertaschtig',
 			'Ein leckerer Döner mit Schafskäse und Fleisch nach Wahl, von Ihrem Saray.');
 
-		self::offer(2, $want, 1, 20,  2.00, 40.00,  2, $now, '2023-12-31',
+		self::offer(2, $want, 1, 20, 2.00, 40.00, 2, $now, '2023-12-31',
 			'ALIBABA!', 'Erquickend',
 			'Ein Gutschein für eine Soft-Getränk. Besser als garnix.');
-		
-		self::offer(3, $yes, 2,  5,  5.00, 25.00,  1, $now, '2023-12-31',
+
+		self::offer(3, $yes, 2, 5, 5.00, 25.00, 1, $now, '2023-12-31',
 			'CUT!!!', 'Aerodynamisch',
 			'Ein 20% Gutschein für einen Haarschnitt bei Frisör Walied.<br/>Damit auch die Damen nicht zu kurz kommen!');
-		
-		self::offer(4, $want, 3, 30,  1.50, 45.00, 10, $now, '2023-12-31',
+
+		self::offer(4, $want, 3, 30, 1.50, 45.00, 10, $now, '2023-12-31',
 			'PROST!!!', 'Gesellig',
 			'Ein Gutschein über ein Härke-Bier, dem ehemaligen Getränk der Stadt?');
-		
-		self::offer(5, $want, 4,  2, 10.00, 20.00,  1, $now, '2023-12-31',
+
+		self::offer(5, $want, 4, 2, 10.00, 20.00, 1, $now, '2023-12-31',
 			'DOPE!!!', 'Auszeit',
 			'Ein Gramm gratis CBD-Gras zum ausprobieren im Gegenwert von €10.<br/>Na wenn das nix is!');
-		
-		self::offer(6, $yes, 5, 40,  1.50, 50.00,  5, $now, '2023-12-31',
+
+		self::offer(6, $yes, 5, 40, 1.50, 50.00, 5, $now, '2023-12-31',
 			'COFFEE!!!', 'Zuerst ein\' Kaffee',
 			'Ein Kaffee in der Vortagsbäckerei. Schauen Sie mal vorbei!');
-		
-		self::offer(7, $yes, 5, 20,  2.00, 20.00,  2, $now, '2023-12-31',
+
+		self::offer(7, $yes, 5, 20, 2.00, 20.00, 2, $now, '2023-12-31',
 			'COFFEE!!!', 'Danach ein\' Donut',
 			'Ein Donut in der Vortagsbäckerei. Schauen Sie mal vorbei!');
-		
-		self::offer(8, $want, 6, 10,  1.00, 10.00,  2, $now, '2023-12-31',
+
+		self::offer(8, $want, 6, 10, 1.00, 10.00, 2, $now, '2023-12-31',
 			'buchwurm', 'Belesen',
 			'Ein Gutschein für ein Buch im Bücherwurm Gebrauchtleseartikelgeschäft.');
-		
-		self::offer(9, $want, 7, 5,   5.00, 10.00,  2, $now, '2023-12-31',
+
+		self::offer(9, $want, 7, 5, 5.00, 10.00, 2, $now, '2023-12-31',
 			'seife', 'Endlosschleife',
 			'Ein Gutschein für ein paar Schleifen vom Alex und Tanja.');
-		
-		self::offer(10, $yes, 8, 10,   6.50, 60.00,  1, $now, '2023-12-31',
+
+		self::offer(10, $yes, 8, 10, 6.50, 60.00, 1, $now, '2023-12-31',
 			'50Lamm', 'Lammfromm',
 			'Ein leckerer Lammdöner vom Hatay Grill. Hier wird fast alles in Handarbeit gemacht. Sehr empfehlenswert.');
-		
-		self::offer(11, $yes, 9, 2,  25.00, 50.00,  1, $now, '2023-12-31',
+
+		self::offer(11, $yes, 9, 2, 25.00, 50.00, 1, $now, '2023-12-31',
 			'FreePrint', 'Stylish',
 			'Ein Gutschein für ein selbstgedrucktes T-Shirt.<br/>Falls Dir nix einfällt druck\' doch unser Logo! ;)');
-		
-		self::offer(12, $yes, 10, 5,  10.00, 50.00,  1, $now, '2023-12-31',
+
+		self::offer(12, $yes, 10, 5, 10.00, 50.00, 1, $now, '2023-12-31',
 			'Gamestop', 'Used Truth',
 			'Ein 10 Öcken-Gutschein für den An- und Verkauf im Schwarzen Weg, Peine.<br/>Dort gibt es technischen Schnick-Schnack für den Spieltrieb');
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Create an offer
 	 */
@@ -663,7 +666,7 @@ EOT;
 		int $totalOffers, float $worth, float $invested,
 		int $cashierAmt,
 		string $created, string $expire,
-		string $passphrase, string $title, string $text) : void
+		string $passphrase, string $title, string $text): void
 	{
 		$partner = KC_Partner::getById($partnerId);
 		$paruser = $partner->getUser();
@@ -706,17 +709,17 @@ EOT;
 			])->insert();
 		}
 	}
-	
+
 	#############
 	### Cards ###
 	#############
-	private static function installCards() : bool
+	private static function installCards(): bool
 	{
 		$cc = GDT_AccountType::COUPON;
-		self::coupon(2, 'KASSIERERS', $cc, null, 99, 'Test-Demo-Card',  false);
+		self::coupon(2, 'KASSIERERS', $cc, null, 99, 'Test-Demo-Card', false);
 		$cc = GDT_AccountType::CASHIER;
-		self::coupon(2, 'WANNA2TEAM', $cc, null, 35, 'Test-Cashier-1',  false);
-		self::coupon(2, 'WANNA4TEAM', $cc,    1, 25, 'Test-Cashier-2',  false);
+		self::coupon(2, 'WANNA2TEAM', $cc, null, 35, 'Test-Cashier-1', false);
+		self::coupon(2, 'WANNA4TEAM', $cc, 1, 25, 'Test-Cashier-2', false);
 		$cc = GDT_AccountType::CUSTOMER;
 		self::coupon(2, 'TEST123401', $cc, null, 15, 'Test-Customer-1', false);
 		$cc = GDT_AccountType::CASHIER;
@@ -730,11 +733,11 @@ EOT;
 		self::coupon(2, 'BAUHOF15UR', $cc, null, 10, 'Test-Customer-Bauhof15-UR', false);
 		self::coupon(2, 'BAUHOF15ML', $cc, null, 10, 'Test-Customer-Bauhof15-ML', false);
 		self::coupon(2, 'BAUHOF15OR', $cc, null, 10, 'Test-Costomer-Bauhof15-OR', false);
-		
+
 		return true;
 	}
-	
-	private static function coupon(int $creatorId, string $token, string $accountType, ?int $offerId, int $stars, string $info, bool $isInvitation=false): KC_Coupon
+
+	private static function coupon(int $creatorId, string $token, string $accountType, ?int $offerId, int $stars, string $info, bool $isInvitation = false): KC_Coupon
 	{
 		$now = Time::getDate();
 		if (!($coupon = KC_Coupon::getBy('kc_token', $token)))
@@ -766,5 +769,5 @@ EOT;
 		}
 		return $coupon;
 	}
-	
+
 }

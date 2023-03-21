@@ -2,17 +2,19 @@
 namespace GDO\KassiererCard\Method;
 
 use GDO\Form\GDT_Form;
-use GDO\Form\MethodForm;
 use GDO\Form\GDT_Submit;
-use GDO\UI\GDT_Title;
+use GDO\Form\MethodForm;
 use GDO\UI\GDT_Message;
+use GDO\UI\GDT_Title;
 
 /**
  * Send a mail to all partners.
+ *
  * @author gizmore
  */
 final class AdminPartnerMail extends MethodForm
 {
+
 	public function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
@@ -23,5 +25,4 @@ final class AdminPartnerMail extends MethodForm
 	}
 
 
-	
 }

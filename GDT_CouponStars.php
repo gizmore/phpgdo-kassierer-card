@@ -5,18 +5,19 @@ use GDO\Core\GDT_UInt;
 
 /**
  * Amount of coupon stars.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
+ * @author gizmore
  */
 final class GDT_CouponStars extends GDT_UInt
 {
+
 	###########
 	### Int ###
 	###########
 // 	public ?float $min = 1;
 // 	public ?float $max = 5;
-	
+
 	protected function __construct()
 	{
 		parent::__construct();
@@ -24,15 +25,15 @@ final class GDT_CouponStars extends GDT_UInt
 		$this->bytes(2);
 // 		$this->initial('1');
 	}
-	
+
 	###########
 	### GDT ###
 	###########
-	public function defaultLabel(): static
+	public function defaultLabel(): self
 	{
 		return $this->label('kk_stars');
 	}
-	
+
 	##############
 	### Render ###
 	##############
@@ -40,5 +41,5 @@ final class GDT_CouponStars extends GDT_UInt
 // 	{
 // 		return 'TEST';
 // 	}
-	
+
 }

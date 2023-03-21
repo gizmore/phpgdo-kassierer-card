@@ -7,6 +7,31 @@ use GDO\Core\GDT_String;
 
 final class KC_Slogan extends GDO
 {
+
+	public static function randomSloganText(): string
+	{
+		return self::randomSlogan()->renderSlogan();
+	}
+
+	public function renderSlogan(): string
+	{
+		return html($this->getText());
+	}
+
+	public function getText(): string
+	{
+		return $this->gdoVar('s_text');
+	}
+
+	##############
+	### Static ###
+	##############
+
+	public static function randomSlogan(): self
+	{
+		return self::table()->select()->order('rand()')->first()->exec()->fetchObject();
+	}
+
 	public function gdoColumns(): array
 	{
 		return [
@@ -14,27 +39,5 @@ final class KC_Slogan extends GDO
 			GDT_String::make('s_text')->unique()->notNull(),
 		];
 	}
-	
-	public function getText() : string
-	{
-		return $this->gdoVar('s_text');
-	}
-	
-	public function renderSlogan()  : string
-	{
-		return html($this->getText());
-	}
-	
-	##############
-	### Static ###
-	##############
-	public static function randomSlogan(): static
-	{
-		return self::table()->select()->order('rand()')->first()->exec()->fetchObject();
-	}
-	
-	public static function randomSloganText() : string
-	{
-		return self::randomSlogan()->renderSlogan();
-	}
+
 }

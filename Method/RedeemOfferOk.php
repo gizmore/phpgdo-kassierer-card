@@ -1,35 +1,30 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\Form\GDT_Form;
-use GDO\Form\MethodForm;
 use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
+use GDO\Form\MethodForm;
 use GDO\KassiererCard\GDT_Offer;
 use GDO\KassiererCard\KC_Offer;
 use GDO\User\GDO_User;
 
 final class RedeemOfferOk extends MethodForm
 {
-	
-	public function getMethodTitle() : string
+
+	public function getMethodTitle(): string
 	{
 		return t('redeem_offer');
 	}
-	
-	public function gdoParameters() : array
+
+	public function gdoParameters(): array
 	{
 		return [
 			GDT_Offer::make('offer')->notNull()->affordable(),
 		];
 	}
-	
-	public function getOffer() : KC_Offer
-	{
-		return $this->gdoParameterValue('offer');
-	}
-	
-	public function createForm(GDT_Form $form) : void
+
+	public function createForm(GDT_Form $form): void
 	{
 		$offer = $this->getOffer();
 		$partner = $offer->getPartner();
@@ -43,6 +38,11 @@ final class RedeemOfferOk extends MethodForm
 		);
 	}
 
+	public function getOffer(): KC_Offer
+	{
+		return $this->gdoParameterValue('offer');
+	}
+
 	public function formValidated(GDT_Form $form)
 	{
 		$offer = $this->getOffer();
@@ -53,5 +53,5 @@ final class RedeemOfferOk extends MethodForm
 		$href = hrefDefault();
 		return $this->redirectMessage('msg_offer_redeemed_ok', $args, $href);
 	}
-	
+
 }

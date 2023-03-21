@@ -25,7 +25,7 @@ final class GDT_FavSection extends GDT_Enum
 	{
 		$this->enumValues(...$this->getEnumFields());
 	}
-	
+
 	private function getEnumFields(): array
 	{
 		return [
@@ -44,9 +44,9 @@ final class GDT_FavSection extends GDT_Enum
 		];
 	}
 
-	public function displayVar(string $var=null) : string
+	public function displayVar(string $var = null): string
 	{
-		return $var === null ? self::none(): t($var);
+		return $var === null ? self::none() : t($var);
 	}
 
 }

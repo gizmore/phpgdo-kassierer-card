@@ -1,23 +1,23 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\UI\MethodPage;
 use GDO\KassiererCard\MethodKCAdmin;
+use GDO\UI\MethodPage;
 
 /**
  * Admin dashboard.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
+ * @author gizmore
  */
 final class Admin extends MethodPage
 {
-	
+
 	use MethodKCAdmin;
-	
+
 	public function getMethodTitle(): string
 	{
 		return 'Staff - Area';
 	}
-	
+
 }

@@ -6,16 +6,14 @@ use GDO\Form\MethodForm;
 
 /**
  * Accept invitations.
- * 
+ *
  * @author gizmore
  *
  */
 final class InvitationAccepted extends MethodForm
 {
-	public function createForm(GDT_Form $form): void
-	{
-	}
+
+	public function createForm(GDT_Form $form): void {}
 
 
-	
 }

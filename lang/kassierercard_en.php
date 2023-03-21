@@ -1,5 +1,6 @@
 <?php
 namespace GDO\KassiererCard\lang;
+
 return [
 	'module_kassierercard' => 'Cashier-Card',
 	### Nav
@@ -20,7 +21,7 @@ return [
 	'link_kk_company_scans' => 'Scan Offer Code',
 	'link_kk_company_offers' => 'Your Offers',
 	'kk_admin' => 'KC-Staff',
-	
+
 	##############
 	### Config ###
 	##############
@@ -73,7 +74,7 @@ return [
 	'tt_cfg_euros_revenue' => 'Total Euro revenue for the KassiererCard.org.',
 	# Tooltips Config
 	'tt_cfg_token_request_time' => 'Duration: how much time for blocking coupon tokens?',
-	
+
 	### AdminGrantStars
 	'grant_stars' => 'Grant Stars',
 	'msg_stars_granted' => 'You granted %s stars to %s. An email has been sent to them.',
@@ -87,12 +88,12 @@ Reason: %s.
 
 Kind Regards,
 The %4$s Team',
-	
+
 	### Buttons
 // 	'btn_send_coupons' => 'Send Coupons',
 	'btn_stopped_there' => 'I quit there!',
 	'btn_working_there' => 'I am working there!',
-	
+
 	### Admin Signup Codes
 	'generate_signup_code' => 'Create Signup-Code',
 	'signup_codes' => 'Signup-Codes',
@@ -105,14 +106,14 @@ The %4$s Team',
 	'msg_signup_stars' => 'Welcome on %s. You have earned %s stars with your invitation and now have %s.',
 	'kc_info' => 'Invitation Note',
 	'kc_entered' => 'Entered at',
-	
+
 	# Signup
 	'msg_signup_customer_no_token' => 'You did not enter a Signup-Code and thus are registered as customer.<br/>If you are a worker or company, please contact us.<br/>If you signup again you might get banned.',
 	'err_kk_signup_code_required' => 'You need a Signup-Code unless you are a customer.',
-	
+
 	# Free
 	'msg_kk_free_customer_stars' => 'You received %s Stars for today.',
-	
+
 	### Types
 	'kk_type' => 'Account Type',
 	'kk_stars' => 'KC Stars',
@@ -126,9 +127,9 @@ The %4$s Team',
 	'perm_kk_customer' => 'Customer',
 	'perm_kk_distributor' => 'Distributor',
 	'perm_kk_manager' => 'Manager',
-	
+
 	'lbl_choose_account_type' => 'Please choose your account type.',
-	
+
 	'business' => 'Business',
 	'partner' => 'Partner',
 	'slogan' => 'Slogan',
@@ -145,7 +146,7 @@ The %4$s Team',
 	'profession' => 'Profession',
 	'personal_website' => 'Own Website',
 	'tt_offers_available' => 'The amount of offers available for you.',
-	
+
 	### Signup
 	'kk_info_register' => 'We very welcome you on KassiererCard.org. Please tell us if you a customer, a cashier, or a company. Companies are our merchandize partners. Cashiers are the workers, Customers are... customers and can print coupons.',
 	'lbl_choose_account_type' => 'Choos account type',
@@ -157,7 +158,7 @@ The %4$s Team',
 	'err_kk_signup_code' => 'As a cashier, or company, you need a valid signup code.',
 	'err_kk_signup_code_unknown' => 'The signup-code you entered is unknown.',
 	'err_kk_signup_code_type' => 'Wrong Account Type!. Your Signup-Code is only for a %s.',
-	
+
 	### Settings
 	'salary_gross' => 'Gross Salary',
 	'salary_hourly' => 'Hourly Rate',
@@ -166,19 +167,19 @@ The %4$s Team',
 	'your_dream' => 'Your Dream',
 	'favorite_religion' => 'Favorite Religion',
 // 	'qrcode_size' => 'QR-Code Size',
-	
+
 	### Methods
 	'mt_kassierercard_welcome' => 'Welcome',
 	'md_kassierercard_welcome' => 'KassiererCard is a bonus program for employees instead of customers.',
-	
+
 	'mt_kassierercard_partners' => 'Our Partners',
 	'md_kassierercard_partners' => 'Partners of KassiererCard.org, the bonus system for employees.',
-	
+
 	'md_kassierercard_businesses' => 'This list is an overview of participating businesses ordered by distance to you.',
 	'list_kassierercard_businesses' => '%s Businesses',
-	
+
 	'md_kassierercard_rateemployee' => 'Send Coupons to an employee of your choice. You can send up to %s coupons per day.',
-	
+
 	'mt_kassierercard_workingthere' => 'Working There?',
 	'md_kassierercard_workingthere' => 'Setup your store or workplace to be ranked under KassiererCard.org',
 	'msg_kk_started_work' => 'You started to work at %s on %s.',
@@ -191,7 +192,7 @@ The %4$s Team',
 	'kk_info_partners_table' => 'Merchandize partners offer their goods in exchange for coupons.',
 	'footer_partner' => 'You can contact this partner via %s.',
 	'footer_partner_offers' => 'This partner has <a href="%s">%s offers</a>.',
-	
+
 	# Partner Page
 	'info_kk_company_admin' => 'Here you can learn about being a Partner of %s<br/>
 You can setup your own little web-page, like on myspace.<br/>
@@ -200,32 +201,32 @@ You do so by either scanning QR-Codes, press a button on the worker\'s mobile ph
 <br/>
 We thank you very much for joining this little project!<br/>
  - gizmore',
-	
+
 	# Partner Edit
 	'mt_kassierercard_partneredit' => 'Edit Your Presence Here',
 	'kk_info_partner_edit' => 'Here you can edit your partner details on %s.<br/>
 You can also <a href="%s">edit your profile</a>.
 To do so, press &quot;Account&quot; in the right menu.<br/>
 If you have questions or concerns, please <a href="%s">contact us</a>.',
-	
+
 	# Partner Offers
 	'list_kassierercard_partneroffers' => '%s Offers',
 
 	# PartnerScansOffer
 	'err_kk_customer_cannot_afford_offer' => 'The customer %s cannot redeem your offer: %s',
 	'err_kk_redeem_hashcode' => 'The hashcode is invalid.<br/>Read the GDOv7 Documentation for how to crack hashcodes.',
-	
+
 	# Enter
 	'enter_coupon' => 'Enter Coupon',
 	'err_kk_coupon_unknown' => 'This coupon is unknown or has been entered already.',
 	'msg_entered_stars' => 'Your entered code is valid and you earned %s stars.',
 	'err_kk_coupon_used' => 'The code you entered was already entered.',
 	'err_kc_token_tries' => 'You enter too much codes too quickly. Please wait %s.',
-	
+
 	# Entered
 	'entered_coupons' => 'Entered Coupons',
 	'list_kassierercard_enteredcoupons' => '%s Entered Coupons',
-	
+
 	# Offer
 	'kk_info_offers' => 'Here you can find the available offers in your area.<br/>Offers are created by our partners, customers print the coupons and employees redeem them.<br/>For every 5 redeemed coupons, the customer gets a coupon as well.',
 	'create_offer' => 'Create Offer',
@@ -236,7 +237,7 @@ If you have questions or concerns, please <a href="%s">contact us</a>.',
 	'err_kk_offer_afford' => 'You cannot afford to redeem this. The offer needs %s stars and you have only %s available.',
 	'err_kk_offer_no_more_for_you' => 'You have redeemed %s/%s of %s/%s items for this offer. No more available for you.',
 	'kk_offer_status' => 'In total, %s of %s items have been redeemed. You may redeem this offer %s time(s) until %s. This offer cost %s coupon stars.',
-	
+
 	# Create Coupon
 	'create_coupon' => 'Create Coupon',
 	'generate_coupons' => 'Generate Coupons',
@@ -245,7 +246,7 @@ If you have questions or concerns, please <a href="%s">contact us</a>.',
 	'tt_create_offer' => 'Create a Coupon for this Offer to share with your local workers.',
 	'msg_coupon_created' => 'Your cashiercard coupon has been created.',
 	'err_kk_create_stars' => 'You want to create %s stars, but you could only add %s more stars this period. You already created %s stars this period.',
-	
+
 	# Print
 	'back_side' => 'Back-Side',
 	'front_side' => 'Front-Side',
@@ -261,13 +262,13 @@ Please login and try again.',
 You can try again tommorow.',
 	'your_ad_here' => 'Backside 100% for Partners',
 	'link_preview_enter_coupon' => 'Coupon URL',
-	
+
 	# Printed
 	'printed_coupons' => 'Printed Coupons',
 	'li_kk_coupon_fresh' => 'This coupon is fresh and can be printed.',
 	'li_kk_coupon_printed' => 'This coupon was printed on %s.',
 	'list_kassierercard_printedcoupons' => '%s Coupons ready',
-	
+
 	# Redeem
 	'redeem_offer' => 'Redeem Offer',
 	'all_offers' => 'all offers',
@@ -276,7 +277,7 @@ You can find %s on the left menu.<br/>
 Please note, that you cannot abort the redeem process,
 after you press the button here!',
 	'err_kk_offer_totaled' => 'This offer is completed as it got redeemed %s/%s times.',
-	
+
 	# Redeem Now
 	'msg_redeem_started' => 'You are claiming the offer now!',
 	'kk_info_redeem_offer_now' => 'You <b>either</b>
@@ -285,15 +286,15 @@ or you press the QR-Code button and let the worker scan it.<br/>
 Either way, there is no way back,
 when you are claiming the offer!',
 	'msg_redeem aborted' => 'You have aborted the process.',
-	
+
 	# Partner Redeem
 	'mt_kassierercard_partnerredeemqrcode' => 'Scan Redeem Code',
 	'kk_info_redeem_qr' => 'As a partner, scan a customers QR-Code here.',
-	
+
 	# Redeem O.K.
 	'kk_info_redeem_offer_ok' => 'Let the worker at %s press the button now!',
 	'msg_offer_redeemed_ok' => 'You have officially redeemed this offer: %s.<br/>If this is an error: bad luck!',
-	
+
 	# Granted
 	'granted_coupons' => 'Redeemed Coupons',
 
@@ -309,7 +310,7 @@ when you are claiming the offer!',
 	'biz_participating' => 'Official Employer since',
 	'biz_declining' => 'Declined us at',
 	'btn_biz_emplyoees' => '%s Employees',
-	
+
 	# Coupons
 	'li_kk_coupon_entered' => 'Entered on %s by %s.',
 
@@ -352,7 +353,7 @@ Check us out at: %s
 
 Kind Regards,
 The %3$s System',
-	
+
 	'mail_subj_kk_invited_diamonds' => '%s: %s joined us!',
 	'mail_body_kk_invited_diamonds' => 'Dear %s,
 
@@ -364,7 +365,7 @@ Your userlevel increased by %s points to %s.
 
 Kind Regards,
 The %4$s Team',
-	
+
 	# Impressum
 	'responsible_is' => 'Responsible for this is:',
 
@@ -385,7 +386,7 @@ Please help us to give more meaning to the people and nature,
 instead of money.<br/>
 <br/>
  - gizmore!',
-	
+
 	# Redeem Mails
 	'mailsubj_redeemed_staff' => '%s: Offer redeemed',
 	'mailbody_redeemed_staff' => 'Hello %s,
@@ -422,7 +423,7 @@ This offer has been redeemed %s/%s times now.
 	
 Sincerly,
 The %s System',
-	
+
 	# Entered stars
 	'mail_subj_customer_stars' => '%s: %s stars earned',
 	'mail_body_customer_stars' => 'Hello %s,
@@ -432,7 +433,7 @@ This earned you %s stars as well.
 
 Well Done!
 The %s System',
-	
+
 	# Competitions
 	'enum_cashier_of_the_week' => 'Cashier of the Week',
 	'enum_cashier_of_the_month' => 'Cashier of the Month',
@@ -449,7 +450,7 @@ The %s System',
 	'enum_offer_of_the_week' => 'Offer of the Week',
 	'enum_offer_of_the_month' => 'Offer of the Month',
 	'enum_offer_of_the_year' => 'Offer of the Year',
-	
+
 	'competition_table' => '%s; %s entries; Page %s/%s',
 
 	# Favorites
@@ -457,17 +458,17 @@ The %s System',
 	'mt_kk_favorites' => 'Favorite %s',
 	'tt_kk_favorites' => '%s favorite &quot;%s&quot; setings',
 	'md_kk_favorites' => 'The %s favorite %s on %s. Real user content, Real opinions on your favorite %2$s.',
-	
+
 	# Granted Coupons
 	'list_kassierercard_grantedcoupons' => '%s Eingegebene Coupons',
 	'md_kassierercard_grantedcoupons' => 'Übersicht ihrer erstellten Coupons, welche eingegben wurden.',
-	
+
 	# ToDo
 	'mt_kassierercard_todo' => 'ToDo',
 
 	# Team
 	'mt_kassierercard_team' => 'Team',
-	
+
 	# Statistics
 	'kk_info_statistics' => 'stats',
 ];

@@ -1,26 +1,27 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\Form\GDT_Form;
-use GDO\Form\MethodForm;
-use GDO\Form\GDT_Submit;
-use GDO\User\GDT_User;
-use GDO\KassiererCard\GDT_Offer;
-use GDO\KassiererCard\KC_Offer;
 use GDO\Core\GDT;
 use GDO\Core\GDT_Token;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
 use GDO\Form\GDT_Validator;
-use GDO\User\GDO_User;
+use GDO\Form\MethodForm;
+use GDO\KassiererCard\GDT_Offer;
+use GDO\KassiererCard\KC_Offer;
 use GDO\KassiererCard\KC_Util;
+use GDO\User\GDO_User;
+use GDO\User\GDT_User;
 
 /**
  * Partners can scan offer QRCode.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
+ * @author gizmore
  */
 final class PartnerScanOffer extends MethodForm
 {
+
 	public function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
@@ -31,17 +32,23 @@ final class PartnerScanOffer extends MethodForm
 		$form->addField(GDT_Validator::make('validator')->validatorFor($form, 'token', [$this, 'validateToken']));
 		$form->actions()->addFields(GDT_Submit::make());
 	}
-	
-	public function getOffer() : KC_Offer
+
+	public function formValidated(GDT_Form $form)
 	{
-		return $this->gdoParameterValue('offer');
+		$user = $this->getUser();
+		$offer = $this->getOffer();
 	}
-	
-	public function getUser() : GDO_User
+
+	public function getUser(): GDO_User
 	{
 		return $this->gdoParameterValue('user');
 	}
-	
+
+	public function getOffer(): KC_Offer
+	{
+		return $this->gdoParameterValue('offer');
+	}
+
 	public function validateToken(GDT_Form $form, GDT $field, $value)
 	{
 		$user = $this->getUser();
@@ -59,12 +66,5 @@ final class PartnerScanOffer extends MethodForm
 		}
 		return true;
 	}
-	
-	public function formValidated(GDT_Form $form)
-	{
-		$user = $this->getUser();
-		$offer = $this->getOffer();
-		
-	}
-	
+
 }

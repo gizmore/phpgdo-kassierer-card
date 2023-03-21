@@ -6,7 +6,6 @@ This website is not free software and implemented as
 [GDOv7](https://github.com/gizmore/phpgdo)
 website.
 
-
 ## phpgdo-kassierer-card: About
 
 [KassiererCard.org](https://kassierercard.org)

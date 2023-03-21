@@ -2,47 +2,49 @@
 namespace GDO\KassiererCard;
 
 use GDO\Core\GDT_ObjectSelect;
+use GDO\Core\WithGDO;
 use GDO\Date\Time;
 use GDO\User\GDO_User;
-use GDO\Core\WithGDO;
 
 /**
  * An offer selection.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
+ * @author gizmore
  */
 final class GDT_Offer extends GDT_ObjectSelect
 {
+
 	use WithGDO;
-	
+
+	public bool $expired = false;
+	public bool $affordable = false;
+	public bool $fromMe = false;
+
 	protected function __construct()
 	{
 		parent::__construct();
 		$this->table(KC_Offer::table());
 	}
-	
-	public bool $expired = false;
-	public function expired(bool $expired=true): static
+
+	public function expired(bool $expired = true): self
 	{
 		$this->expired = $expired;
 		return $this;
 	}
-	
-	public bool $affordable = false;
-	public function affordable(bool $affordable=true): static
+
+	public function affordable(bool $affordable = true): self
 	{
 		$this->affordable = $affordable;
 		return $this;
 	}
-	
-	public bool $fromMe = false;
-	public function fromMe(bool $fromMe=true): static
+
+	public function fromMe(bool $fromMe = true): self
 	{
 		$this->fromMe = $fromMe;
 		return $this;
 	}
-	
+
 	public function getChoices(): array
 	{
 		$query = KC_Offer::table()->select();
@@ -58,8 +60,8 @@ final class GDT_Offer extends GDT_ObjectSelect
 		}
 		return $query->exec()->fetchAllArray2dObject();
 	}
-	
-	public function validate($value) : bool
+
+	public function validate($value): bool
 	{
 		if (!parent::validate($value))
 		{
@@ -67,7 +69,7 @@ final class GDT_Offer extends GDT_ObjectSelect
 		}
 		if ($value)
 		{
-			/** @var $value KC_Offer **/
+			/** @var $value KC_Offer * */
 			if (!$this->expired)
 			{
 				if (!$value->isOfferValid())
@@ -96,7 +98,7 @@ final class GDT_Offer extends GDT_ObjectSelect
 					return $this->error('err_kk_offer_totaled', [
 						$stars, $avail]);
 				}
-				
+
 				$numAvail = $value->queryNumAvailable($user);
 				$numRedeem = $value->queryNumRedeemedUser($user);
 				if ($numAvail <= 0)
@@ -109,5 +111,5 @@ final class GDT_Offer extends GDT_ObjectSelect
 		}
 		return true;
 	}
-	
+
 }

@@ -1,16 +1,17 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\Form\GDT_Form;
-use GDO\Form\MethodForm;
-use GDO\Form\GDT_Submit;
 use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
+use GDO\Form\MethodForm;
 use GDO\KassiererCard\GDT_Offer;
 use GDO\User\GDT_User;
 
 final class PartnerRedeemOffer extends MethodForm
 {
-	public function getPermission() : ?string { return 'kk_company'; }
+
+	public function getPermission(): ?string { return 'kk_company'; }
 
 	public function isTrivial(): bool
 	{

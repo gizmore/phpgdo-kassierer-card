@@ -1,6 +1,8 @@
 <?php
 namespace GDO\KassiererCard\thm\kkorg\Core\tpl\page;
+
 use GDO\User\GDO_User;
+
 ?>
 <h2><?=Sitename()?></h2>
 <p><?=t('verantwortlich_ist')?></p>

@@ -1,16 +1,18 @@
 <?php
 namespace GDO\KassiererCard\tpl\page;
-use GDO\UI\GDT_Accordeon;
-use GDO\UI\GDT_Paragraph;
-use GDO\UI\GDT_Link;
-use GDO\KassiererCard\Module_KassiererCard;
+
 use GDO\KassiererCard\KC_Util;
+use GDO\KassiererCard\Module_KassiererCard;
 use GDO\Payment\GDT_Money;
+use GDO\UI\GDT_Accordeon;
+use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Paragraph;
+
 ?>
-<h2><?=sitename()?> - Frequently asked NaNsense</h2>
-<h3><?=t('mt_faq')?></h3>
-<p><?=t('md_faq')?></p>
-<?php
+    <h2><?=sitename()?> - Frequently asked NaNsense</h2>
+    <h3><?=t('mt_faq')?></h3>
+    <p><?=t('md_faq')?></p>
+	<?php
 $kk = Module_KassiererCard::instance();
 
 $acc = GDT_Accordeon::make();

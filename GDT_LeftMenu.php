@@ -7,13 +7,13 @@ use GDO\User\GDO_UserPermission;
 
 /**
  * The Public left Menu Submenu.
- * 
- * @author gizmore
+ *
  * @version 7.0.1
+ * @author gizmore
  */
 final class GDT_LeftMenu extends GDT_Menu
 {
-	
+
 	protected function __construct()
 	{
 		parent::__construct();
@@ -32,12 +32,12 @@ final class GDT_LeftMenu extends GDT_Menu
 			GDT_Link::make('link_kk_help')->href($mod->href('Help'))->icon('help'),
 		);
 	}
-	
+
 	private function getNumTeamMembers(): int
 	{
 		return $this->queryNumTeamMembers();
 	}
-	
+
 	private function queryNumTeamMembers(): int
 	{
 		$perms = ['admin', 'staff', 'kk_manager', 'kk_distributor'];
@@ -49,5 +49,5 @@ final class GDT_LeftMenu extends GDT_Menu
 			->where("perm_name IN ('$perms')");
 		return $query->exec()->fetchValue();
 	}
-	
+
 }

@@ -6,6 +6,7 @@ use GDO\User\GDO_User;
 
 final class GDT_OfferStatus extends GDT_Label
 {
+
 	public KC_Offer $offer;
 
 	public function isTestable(): bool
@@ -13,15 +14,6 @@ final class GDT_OfferStatus extends GDT_Label
 		return false;
 	}
 
-	public function offer(KC_Offer $offer): static
-	{
-		$this->offer = $offer;
-		return $this;
-	}
-	
-	##############
-	### Render ###
-	##############
 	/**
 	 * Render offer status.
 	 * 3 states:
@@ -29,7 +21,7 @@ final class GDT_OfferStatus extends GDT_Label
 	 * 2) You have all redeems for this offer
 	 * 3) You can make use of this coupon.
 	 */
-	public function renderHTML() : string
+	public function renderHTML(): string
 	{
 		# Expired
 		$offer = $this->offer;
@@ -51,11 +43,21 @@ final class GDT_OfferStatus extends GDT_Label
 				$numRedeem, $maxPerUser, $numTotalRedeemed, $numTotal,
 			]);
 		}
-		
+
 		# Available
 		$cost = $offer->getRequiredStars();
 		$numRedeem = $offer->queryNumRedeemedTotal();
 		return t('kk_offer_status', [$numRedeem, $numTotal, $numAvail, $offer->renderValidDate(), $cost]);
 	}
-	
+
+	##############
+	### Render ###
+	##############
+
+	public function offer(KC_Offer $offer): self
+	{
+		$this->offer = $offer;
+		return $this;
+	}
+
 }

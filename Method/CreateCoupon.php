@@ -1,39 +1,41 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\Form\GDT_Form;
-use GDO\Form\MethodForm;
-use GDO\KassiererCard\KC_Coupon;
-use GDO\KassiererCard\Module_KassiererCard;
-use GDO\Form\GDT_Submit;
-use GDO\Form\GDT_AntiCSRF;
-use GDO\KassiererCard\GDT_CouponStars;
-use GDO\KassiererCard\KC_Util;
-use GDO\User\GDO_User;
 use GDO\Date\Time;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
+use GDO\Form\MethodForm;
+use GDO\KassiererCard\GDT_CouponStars;
+use GDO\KassiererCard\KC_Coupon;
+use GDO\KassiererCard\KC_Util;
+use GDO\KassiererCard\Module_KassiererCard;
+use GDO\User\GDO_User;
 
 /**
  * Let Customers create Cashier Coupons.
- * @author gizmore
+ *
  * @version 7.0.1
+ * @author gizmore
  */
 final class CreateCoupon extends MethodForm
 {
-	public function getPermission() : ?string
+
+	public function getPermission(): ?string
 	{
 		return 'kk_customer,kk_manager,kk_company';
 	}
-	
-	public function getMethodTitle() : string
+
+	public function getMethodTitle(): string
 	{
 		return t('create_coupon');
 	}
-	
-	public function beforeExecute() : void
+
+	public function beforeExecute(): void
 	{
 		Module_KassiererCard::instance()->addCustomerBar();
 	}
-	
+
 	public function createForm(GDT_Form $form): void
 	{
 		$user = GDO_User::current();
@@ -47,12 +49,7 @@ final class CreateCoupon extends MethodForm
 		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addField(GDT_Submit::make());
 	}
-	
-	private function isSunday() : bool
-	{
-		return Time::getDate(0, 'N') === '7';
-	}
-	
+
 	public function formValidated(GDT_Form $form)
 	{
 		$vars = $form->getFormVars();
@@ -60,9 +57,14 @@ final class CreateCoupon extends MethodForm
 		KC_Coupon::blank($vars)->insert();
 		$user = GDO_User::current();
 		$stars = $form->getFormVar('kc_stars');
-		$user->increaseSetting('KassiererCard', 'stars_available', - $stars);
+		$user->increaseSetting('KassiererCard', 'stars_available', -$stars);
 		return $this->redirectMessage('msg_coupon_created', null,
 			href('KassiererCard', 'PrintedCoupons'));
 	}
-	
+
+	private function isSunday(): bool
+	{
+		return Time::getDate(0, 'N') === '7';
+	}
+
 }

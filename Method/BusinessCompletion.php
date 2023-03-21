@@ -1,8 +1,8 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
-use GDO\Core\MethodCompletion;
 use GDO\Core\GDO;
+use GDO\Core\MethodCompletion;
 use GDO\DB\Query;
 use GDO\KassiererCard\KC_Business;
 
@@ -13,12 +13,13 @@ use GDO\KassiererCard\KC_Business;
  */
 final class BusinessCompletion extends MethodCompletion
 {
+
 	protected function gdoTable(): GDO
 	{
 		return KC_Business::table();
 	}
-	
-	protected function buildQuery() : Query
+
+	protected function buildQuery(): Query
 	{
 		$term = $this->getSearchTerm();
 		$eterm = GDO::escapeSearchS($term);
@@ -32,15 +33,15 @@ final class BusinessCompletion extends MethodCompletion
 			->orWhere("address_city LIKE '%{$eterm}%'")
 			->limit($this->getMaxSuggestions());
 	}
-	
-	public function getMethodTitle() : string
+
+	public function getMethodTitle(): string
 	{
-		return "Autocompletion for kassierercard stores.";
+		return 'Autocompletion for kassierercard stores.';
 	}
-	
-	public function getMethodDescription() : string
+
+	public function getMethodDescription(): string
 	{
-		return "Autocompletion for KassiererCard.org stores and businesses.";
+		return 'Autocompletion for KassiererCard.org stores and businesses.';
 	}
-	
+
 }

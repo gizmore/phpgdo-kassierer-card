@@ -1,34 +1,35 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT_UInt;
+use GDO\Date\GDT_Date;
+use GDO\Date\Time;
+use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\KassiererCard\GDT_Business;
-use GDO\Form\GDT_AntiCSRF;
-use GDO\Form\GDT_Submit;
 use GDO\KassiererCard\KC_Business;
 use GDO\KassiererCard\KC_Working;
 use GDO\User\GDO_User;
-use GDO\Date\GDT_Date;
-use GDO\Date\Time;
-use GDO\Core\GDT_UInt;
 
 /**
  * Set yourself to be working at a business.
- * 
+ *
  * @author gizmore
  */
 final class WorkingThere extends MethodForm
 {
-	public function getPermission() : ?string { return 'kk_cashier'; }
-	
-	public function gdoParameters() : array
+
+	public function getPermission(): ?string { return 'kk_cashier'; }
+
+	public function gdoParameters(): array
 	{
 		return [
 			GDT_Business::make('biz')->notNull(),
 		];
 	}
-	
+
 	public function createForm(GDT_Form $form): void
 	{
 		$user = GDO_User::current();
@@ -44,8 +45,8 @@ final class WorkingThere extends MethodForm
 			GDT_Submit::make('btn_stopped_there')->enabled($working)->icon('error')->onclick([$this, 'onStoppedWork']),
 		);
 	}
-	
-	private function getBusiness() : KC_Business
+
+	private function getBusiness(): KC_Business
 	{
 		return $this->gdoParameterValue('biz');
 	}
@@ -61,7 +62,7 @@ final class WorkingThere extends MethodForm
 		$args = [html($biz->renderName()), Time::displayDate($dateFrom, 'day')];
 		$this->message('msg_kk_started_work', $args);
 	}
-	
+
 	public function onStoppedWork(): void
 	{
 		$biz = $this->getBusiness();
@@ -70,5 +71,5 @@ final class WorkingThere extends MethodForm
 		$args = [html($biz->renderName())];
 		$this->message('msg_kk_stopped_work', $args);
 	}
-	
+
 }
