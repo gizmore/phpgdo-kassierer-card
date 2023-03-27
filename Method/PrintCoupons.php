@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -30,7 +31,7 @@ final class PrintCoupons extends MethodForm
 		$form->actions()->addField(GDT_Submit::make());
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		$vars = $form->getFormVars();
 		KC_Coupon::blank($vars)->insert();

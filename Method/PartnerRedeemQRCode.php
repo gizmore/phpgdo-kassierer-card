@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Core\GDT_Token;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -43,7 +44,7 @@ final class PartnerRedeemQRCode extends MethodForm
 		$form->actions()->addFields(GDT_Submit::make());
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		$user = $this->getUser();
 		$offer = $this->getOffer();

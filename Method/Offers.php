@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
 use GDO\Date\Time;
 use GDO\DB\Query;
 use GDO\KassiererCard\KC_Offer;
@@ -10,7 +11,7 @@ use GDO\Table\MethodQueryCards;
 final class Offers extends MethodQueryCards
 {
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return KC_Offer::table();
 	}

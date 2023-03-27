@@ -2,6 +2,8 @@
 namespace GDO\KassiererCard\Method;
 
 use DateTime;
+use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Tuple;
 use GDO\Date\GDT_Month;
 use GDO\Date\GDT_Week;
@@ -35,7 +37,7 @@ final class Competitions extends MethodQueryList
 		return false;
 	}
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 // 		switch ($this->getSection())
 // 		{
@@ -67,7 +69,7 @@ final class Competitions extends MethodQueryList
 		];
 	}
 
-	public function getTableTitle()
+	public function getTableTitle(): string
 	{
 		$table = $this->getTable();
 		return t('competition_table', [
@@ -90,7 +92,7 @@ final class Competitions extends MethodQueryList
 		return $this->gdoParameterVar('section');
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		return GDT_Tuple::makeWith(
 			$this->gdoParameter('section'),

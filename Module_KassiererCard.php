@@ -169,20 +169,20 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return [
 			# Profile
-			'profession' => [GDT_ACLRelation::MEMBERS, 0, null],
-			'salary_gross' => [GDT_ACLRelation::FRIENDS, 0, null],
-			'salary_hourly' => [GDT_ACLRelation::FRIENDS, 0, null],
-			'your_dream' => [GDT_ACLRelation::FRIENDS, 0, null],
-			'personal_website' => [GDT_ACLRelation::MEMBERS, 0, null],
-			'favorite_artist' => [GDT_ACLRelation::ALL, 0, null],
-			'favorite_book' => [GDT_ACLRelation::ALL, 0, null],
-			'favorite_meal' => [GDT_ACLRelation::FRIENDS, 0, null],
-			'favorite_movie' => [GDT_ACLRelation::ALL, 0, null],
-			'favorite_religion' => [GDT_ACLRelation::FRIENDS, 0, null],
-			'favorite_song' => [GDT_ACLRelation::ALL, 0, null],
-			'favorite_website' => [GDT_ACLRelation::ALL, 0, null],
+			'profession' => [GDT_ACLRelation::MEMBERS, '0', null],
+			'salary_gross' => [GDT_ACLRelation::FRIENDS, '0', null],
+			'salary_hourly' => [GDT_ACLRelation::FRIENDS, '0', null],
+			'your_dream' => [GDT_ACLRelation::FRIENDS, '0', null],
+			'personal_website' => [GDT_ACLRelation::MEMBERS, '0', null],
+			'favorite_artist' => [GDT_ACLRelation::ALL, '0', null],
+			'favorite_book' => [GDT_ACLRelation::ALL, '0', null],
+			'favorite_meal' => [GDT_ACLRelation::FRIENDS, '0', null],
+			'favorite_movie' => [GDT_ACLRelation::ALL, '0', null],
+			'favorite_religion' => [GDT_ACLRelation::FRIENDS, '0', null],
+			'favorite_song' => [GDT_ACLRelation::ALL, '0', null],
+			'favorite_website' => [GDT_ACLRelation::ALL, '0', null],
 			# UI
-			'qrcode_size' => [GDT_ACLRelation::HIDDEN, 0, null],
+			'qrcode_size' => [GDT_ACLRelation::HIDDEN, '0', null],
 		];
 	}
 

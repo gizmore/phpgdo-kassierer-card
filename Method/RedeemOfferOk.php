@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -43,7 +44,7 @@ final class RedeemOfferOk extends MethodForm
 		return $this->gdoParameterValue('offer');
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		$offer = $this->getOffer();
 		$offer->onRedeem(GDO_User::current());

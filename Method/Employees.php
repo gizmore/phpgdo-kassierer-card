@@ -1,6 +1,8 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Tuple;
 use GDO\DB\Query;
 use GDO\KassiererCard\GDT_Business;
@@ -11,7 +13,7 @@ use GDO\Table\MethodQueryList;
 final class Employees extends MethodQueryList
 {
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return KC_Working::table();
 	}
@@ -38,7 +40,7 @@ final class Employees extends MethodQueryList
 		return $this->gdoParameterValue('business');
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		if ($business = $this->getBusiness())
 		{

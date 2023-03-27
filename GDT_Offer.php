@@ -61,7 +61,7 @@ final class GDT_Offer extends GDT_ObjectSelect
 		return $query->exec()->fetchAllArray2dObject();
 	}
 
-	public function validate($value): bool
+	public function validate(int|float|string|array|null|object|bool $value): bool
 	{
 		if (!parent::validate($value))
 		{

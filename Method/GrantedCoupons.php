@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
 use GDO\DB\Query;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\KassiererCard\Module_KassiererCard;
@@ -16,7 +17,7 @@ use GDO\User\GDO_User;
 final class GrantedCoupons extends MethodQueryList
 {
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return KC_Coupon::table();
 	}

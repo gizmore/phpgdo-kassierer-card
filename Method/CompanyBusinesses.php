@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
 use GDO\DB\Query;
 use GDO\KassiererCard\KC_Business;
 use GDO\KassiererCard\WithCompanyAccount;
@@ -12,7 +13,7 @@ final class CompanyBusinesses extends MethodQueryList
 
 	use WithCompanyAccount;
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return KC_Business::table();
 	}

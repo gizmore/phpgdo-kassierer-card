@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
 use GDO\DB\Query;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\KassiererCard\Module_KassiererCard;
@@ -29,7 +30,7 @@ final class PrintedCoupons extends MethodQueryList
 		return 'kc_created DESC';
 	}
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return KC_Coupon::table();
 	}

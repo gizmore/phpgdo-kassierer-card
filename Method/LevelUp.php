@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Core\GDT_Enum;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
@@ -27,6 +28,6 @@ final class LevelUp extends MethodForm
 		$form->actions()->addFields(GDT_Submit::make());
 	}
 
-	public function formValidated(GDT_Form $form) {}
+	public function formValidated(GDT_Form $form): GDT {}
 
 }

@@ -33,7 +33,7 @@ final class PartnerScanOffer extends MethodForm
 		$form->actions()->addFields(GDT_Submit::make());
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		$user = $this->getUser();
 		$offer = $this->getOffer();

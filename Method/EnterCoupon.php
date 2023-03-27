@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
 use GDO\Form\GDT_Validator;
@@ -46,7 +47,7 @@ final class EnterCoupon extends MethodForm
 		$form->actions()->addField(GDT_Submit::make());
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		$user = GDO_User::current();
 		$coupon = $this->getCoupon();

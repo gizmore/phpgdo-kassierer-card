@@ -49,7 +49,7 @@ final class GDT_CouponToken extends GDT_Token
 		return !!KC_Coupon::getByToken($key);
 	}
 
-	public function validate($value): bool
+	public function validate(int|float|string|array|null|object|bool $value): bool
 	{
 		if (!parent::validate($value))
 		{
@@ -60,7 +60,7 @@ final class GDT_CouponToken extends GDT_Token
 		{
 			if (!self::keyExists($value))
 			{
-				$this->reset(true);
+				$this->reset();
 				return $this->error('err_kk_coupon_unknown');
 			}
 		}
@@ -69,7 +69,7 @@ final class GDT_CouponToken extends GDT_Token
 		{
 			if (self::keyExists($value))
 			{
-				$this->reset(true);
+				$this->reset();
 				return $this->error('err_kk_coupon_used');
 			}
 		}

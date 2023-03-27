@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\KassiererCard\MethodKCAdmin;
 use GDO\Table\MethodQueryTable;
@@ -19,7 +20,7 @@ final class AdminSignupCodes extends MethodQueryTable
 
 	use MethodKCAdmin;
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return KC_Coupon::table();
 	}

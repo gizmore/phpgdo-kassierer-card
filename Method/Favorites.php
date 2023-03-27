@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
 use GDO\Core\GDT_String;
 use GDO\Core\GDT_UInt;
 use GDO\Country\Module_Country;
@@ -52,7 +53,7 @@ final class Favorites extends MethodQueryTable
 		return $this->gdoParameterVar('section');
 	}
 
-	public function getTableTitle()
+	public function getTableTitle(): string
 	{
 		return t('tt_kk_favorites', [
 			$this->getTable()->countItems(),
@@ -65,7 +66,7 @@ final class Favorites extends MethodQueryTable
 		return parent::execute();
 	}
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return GDO_User::table();
 	}

@@ -16,12 +16,12 @@ use GDO\KassiererCard\Module_KassiererCard;
 final class CronjobTokenRequest extends MethodCronjob
 {
 
-	public function runAt()
+	public function runAt(): string
 	{
 		return $this->runHourly();
 	}
 
-	public function run()
+	public function run(): void
 	{
 		if ($deleted = $this->deleteOldRequests())
 		{

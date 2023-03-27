@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
 use GDO\DB\Query;
 use GDO\Table\MethodQueryTable;
 use GDO\User\GDO_User;
@@ -8,7 +9,7 @@ use GDO\User\GDO_User;
 final class Customers extends MethodQueryTable
 {
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return GDO_User::table();
 	}

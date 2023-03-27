@@ -18,7 +18,7 @@ use GDO\UI\GDT_Paragraph;
 final class Statistics extends Method
 {
 
-	public function execute()
+	public function execute(): GDT
 	{
 		return $this->getCard();
 	}

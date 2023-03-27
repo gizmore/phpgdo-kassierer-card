@@ -31,7 +31,7 @@ final class GDT_Coupon extends GDT_Object
 		return $this;
 	}
 
-	public function validate($value): bool
+	public function validate(int|float|string|array|null|object|bool $value): bool
 	{
 		if (!parent::validate($value))
 		{

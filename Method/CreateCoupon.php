@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Date\Time;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
@@ -50,7 +51,7 @@ final class CreateCoupon extends MethodForm
 		$form->actions()->addField(GDT_Submit::make());
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		$vars = $form->getFormVars();
 		$vars['kc_type'] = 'kk_coupon';

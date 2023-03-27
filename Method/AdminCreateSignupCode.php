@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -40,7 +41,7 @@ final class AdminCreateSignupCode extends MethodForm
 		$form->actions()->addField(GDT_Submit::make());
 	}
 
-	public function formValidated(GDT_Form $form)
+	public function formValidated(GDT_Form $form): GDT
 	{
 		$coupon = KC_Coupon::blank($form->getFormVars())->insert();
 		return $this->redirectMessage('msg_signup_code_created', [

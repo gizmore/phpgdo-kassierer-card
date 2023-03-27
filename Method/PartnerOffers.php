@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO;
 use GDO\DB\Query;
 use GDO\KassiererCard\KC_Offer;
 use GDO\Table\MethodQueryList;
@@ -20,7 +21,7 @@ final class PartnerOffers extends MethodQueryList
 		return t('link_kk_company_offers');
 	}
 
-	public function gdoTable()
+	public function gdoTable(): GDO
 	{
 		return KC_Offer::table();
 	}

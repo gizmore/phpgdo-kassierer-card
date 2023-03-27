@@ -1,6 +1,7 @@
 <?php
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Core\GDT_Template;
 use GDO\Core\Method;
 use GDO\KassiererCard\GDT_Coupon;
@@ -28,7 +29,7 @@ class FrontSide extends Method
 		];
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		hdr('Content-Type: image/svg+xml');
 		$tpl = $this->getSVGTemplateName();
