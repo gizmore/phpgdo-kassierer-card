@@ -5,6 +5,7 @@ use GDO\Core\Application;
 use GDO\Core\GDO;
 use GDO\Core\GDT_AutoInc;
 use GDO\Core\GDT_CreatedAt;
+use GDO\Core\GDT_CreatedBy;
 use GDO\Date\Time;
 use GDO\Net\GDT_IP;
 use GDO\Net\GDT_PackedIP;
@@ -24,10 +25,7 @@ final class KC_TokenRequest extends GDO
 
 	public static function afterFailedRequest(GDO_User $user): bool
 	{
-		return self::blank([
-			'tr_ip' => GDT_PackedIP::current(),
-			'tr_creator' => $user->getID(),
-		])->insert();
+		return self::blank()->insert();
 	}
 
 	##############
@@ -80,8 +78,8 @@ final class KC_TokenRequest extends GDO
 	{
 		return [
 			GDT_AutoInc::make('tr_id'),
-			GDT_PackedIP::make('tr_ip'),
-			GDT_User::make('tr_creator'),
+			GDT_PackedIP::make('tr_ip')->useCurrent(),
+			GDT_CreatedBy::make('tr_creator'),
 			GDT_CreatedAt::make('tr_created'),
 		];
 	}

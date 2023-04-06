@@ -498,7 +498,7 @@ final class Install
 				'p_partnership' => $status,
 				'p_user' => $userId,
 				'p_address' => $addr->getID(),
-				'p_category' => $cat,
+				'p_category' => (string) $cat,
 				'p_description' => $descr,
 			]);
 		}
@@ -670,21 +670,21 @@ EOT;
 	{
 		$partner = KC_Partner::getById($partnerId);
 		$paruser = $partner->getUser();
-		$stars = KC_Util::euroToStars($worth);
+		$stars = (string) KC_Util::euroToStars($worth);
 		if ($offer = KC_Offer::getById($id))
 		{
 			$offer->saveVars([
-				'o_partner' => $partnerId,
+				'o_partner' => (string) $partnerId,
 				'o_passphrase' => $passphrase,
 				'o_partnership' => $status,
 				'o_title' => $title,
 				'o_text' => $text,
 				'o_required_stars' => $stars,
-				'o_cashier_amt' => $cashierAmt,
-				'o_total_amt' => $totalOffers,
+				'o_cashier_amt' => (string) $cashierAmt,
+				'o_total_amt' => (string) $totalOffers,
 				'o_expires' => $expire,
-				'o_invested' => $invested,
-				'o_worth' => $worth,
+				'o_invested' => (string) $invested,
+				'o_worth' => (string) $worth,
 				'o_created' => $created,
 				'o_creator' => $paruser->getID(),
 			]);
@@ -759,10 +759,10 @@ EOT;
 			$coupon->saveVars([
 				'kc_type' => $accountType,
 				'kc_invitation' => $isInvitation ? '1' : '0',
-				'kc_stars' => $stars,
+				'kc_stars' => (string) $stars,
 				'kc_info' => $info,
-				'kc_offer' => $offerId,
-				'kc_creator' => $creatorId,
+				'kc_offer' => (string) $offerId,
+				'kc_creator' => (string) $creatorId,
 				'kc_created' => $now,
 				'kc_printed' => $now,
 			]);
