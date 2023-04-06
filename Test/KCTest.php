@@ -57,7 +57,7 @@ final class KCTest extends TestCase
 		$stars = KC_Util::numStarsAvailable($user);
 
 		$p = [
-			'kc_stars' => $stars,
+			'kc_stars' => (string)($stars),
 		];
 		$this->callMethod(CreateCoupon::make(), $p);
 
@@ -86,7 +86,7 @@ final class KCTest extends TestCase
 		assertEquals($starsAvail + 10, KC_Util::numStarsAvailable($user));
 		$starsAvail += 10;
 		$inputs = [
-			'stars' => $starsAvail - 1,
+			'stars' => (string) ($starsAvail - 1),
 			'email' => 'kunde2@kk.de',
 			'type' => 'kk_customer',
 		];

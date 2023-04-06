@@ -21,7 +21,7 @@ final class Partners extends MethodQueryCards
 			->where("p_partnership='kk_partner_active'");
 	}
 
-	protected function setupCollection(GDT_Table $table)
+	protected function setupCollection(GDT_Table $table): void
 	{
 		parent::setupCollection($table);
 		$table->text('kk_info_partners_table');

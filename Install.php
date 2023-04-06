@@ -129,12 +129,12 @@ final class Install
 		$i = 0;
 		foreach ($data as $slogan)
 		{
-			self::installSlogan(++$i, $slogan);
+			self::installSlogan((string)(++$i), $slogan);
 		}
 		return true;
 	}
 
-	private static function installSlogan(int $id, string $text): void
+	private static function installSlogan(string $id, string $text): void
 	{
 		if (!($slogan = KC_Slogan::getById($id)))
 		{
@@ -348,7 +348,7 @@ final class Install
 		if (!($addr = GDO_Address::getById($id + 100000)))
 		{
 			$addr = GDO_Address::blank([
-				'address_id' => $id + 100000,
+				'address_id' => (string)($id + 100000),
 				'address_company' => $name,
 				'address_vat' => null,
 				'address_name' => null,
@@ -384,8 +384,8 @@ final class Install
 			$biz = KC_Business::blank([
 				'biz_id' => $id,
 				'biz_address' => $addr->getID(),
-				'biz_coord_lat' => $lat,
-				'biz_coord_lng' => $lng,
+				'biz_coord_lat' => (string) $lat,
+				'biz_coord_lng' => (string) $lng,
 				'biz_category' => $category,
 			])->insert();
 		}
@@ -393,8 +393,8 @@ final class Install
 		{
 			$biz->saveVars([
 				'biz_address' => $addr->getID(),
-				'biz_coord_lat' => $lat,
-				'biz_coord_lng' => $lng,
+				'biz_coord_lat' => (string) $lat,
+				'biz_coord_lng' => (string) $lng,
 				'biz_category' => $category,
 			]);
 		}

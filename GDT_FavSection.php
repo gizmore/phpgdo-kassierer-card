@@ -16,6 +16,7 @@ final class GDT_FavSection extends GDT_Enum
 		parent::__construct();
 		$this->icon('heart');
 		$this->setupEnumValues();
+		$this->notNull();
 	}
 
 	/**

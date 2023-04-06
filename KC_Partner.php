@@ -22,15 +22,15 @@ use GDO\User\GDT_User;
 /**
  * Merchandize Partner / Company.
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @author gizmore
  */
 final class KC_Partner extends GDO
 {
 
-	public static function getForUser(GDO_User $user): ?self
+	public static function getForUser(GDO_User $user): ?static
 	{
-		return self::table()->getBy('p_user', $user->getID());
+		return self::getBy('p_user', $user->getID());
 	}
 
 	public static function numTotal(): int
@@ -152,7 +152,7 @@ final class KC_Partner extends GDO
 	public function linkPartner(): GDT_Link
 	{
 		$href = $this->hrefPartner();
-		$label = $this->getAddress()->render();
+		$label = $this->getAddress()->renderCLI();
 		return GDT_Link::make()->href($href)->label('partner')->textRaw($label);
 	}
 

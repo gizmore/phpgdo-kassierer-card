@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDT;
 use GDO\Core\GDT_UInt;
 use GDO\Date\GDT_Date;
 use GDO\Date\Time;
@@ -51,7 +53,7 @@ final class WorkingThere extends MethodForm
 		return $this->gdoParameterValue('biz');
 	}
 
-	public function onStartedWork(): void
+	public function onStartedWork(): GDT
 	{
 		$biz = $this->getBusiness();
 		$user = GDO_User::current();
@@ -60,16 +62,16 @@ final class WorkingThere extends MethodForm
 		KC_Working::stoppedWorking($user);
 		KC_Working::startedWorking($user, $biz, $dateFrom, $hours);
 		$args = [html($biz->renderName()), Time::displayDate($dateFrom, 'day')];
-		$this->message('msg_kk_started_work', $args);
+		return $this->message('msg_kk_started_work', $args);
 	}
 
-	public function onStoppedWork(): void
+	public function onStoppedWork(): GDT
 	{
 		$biz = $this->getBusiness();
 		$user = GDO_User::current();
 		KC_Working::stoppedWorking($user);
 		$args = [html($biz->renderName())];
-		$this->message('msg_kk_stopped_work', $args);
+		return $this->message('msg_kk_stopped_work', $args);
 	}
 
 }

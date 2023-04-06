@@ -2,6 +2,7 @@
 namespace GDO\KassiererCard\Method;
 
 use GDO\Core\GDT;
+use GDO\Core\GDT_Response;
 use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -44,6 +45,9 @@ final class SendCoupons extends MethodForm
 			GDT_Submit::make()->label('btn_send_coupons'));
 	}
 
-	public function formValidated(GDT_Form $form): GDT {}
+	public function formValidated(GDT_Form $form): GDT
+	{
+		return GDT_Response::make();
+	}
 
 }

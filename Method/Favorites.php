@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard\Method;
 
 use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_String;
 use GDO\Core\GDT_UInt;
 use GDO\Country\Module_Country;
@@ -18,6 +20,7 @@ use GDO\User\GDT_ProfileLink;
  * Display the profile favorites of all users.
  *
  * @author gizmore
+ * @version 7.0.3
  */
 final class Favorites extends MethodQueryTable
 {
@@ -61,7 +64,7 @@ final class Favorites extends MethodQueryTable
 		]);
 	}
 
-	public function exexuteWithSection()
+	public function executeWithSection(): GDT
 	{
 		return parent::execute();
 	}
@@ -89,7 +92,7 @@ final class Favorites extends MethodQueryTable
 		$query->joinObject('uset_user');
 		Module_Country::instance()->joinSetting($query, 'country_of_living', 'uset_user_t.user_id');
 		$query->fetchTable(GDO_User::table());
-		GDO_UserSetting::table()->whereSettingVisible($query,
+		GDO_UserSetting::whereSettingVisible($query,
 			'KassiererCard', $this->getSection(), GDO_User::current(), 'uset_user_t.user_id');
 		$query->uncached();
 		return $query;
@@ -100,22 +103,14 @@ final class Favorites extends MethodQueryTable
 		$u = $this->gdoTable();
 		$mc = Module_Country::instance();
 		return [
-			GDT_UInt::make('count'),
+			GDT_UInt::make('count')->searchable(false),
 			$mc->setting('country_of_living')->withName(false),
 			GDT_ProfileLink::make('user_name')->nickname()->avatar(),
 			$u->gdoColumn('user_level'),
-			GDT_String::make($this->getSection())->labelRaw($this->displaySection()),
+			GDT_String::make($this->getSection())->labelRaw($this->displaySection())->searchable(false),
 		];
 	}
 
-// 	public function execute()
-// 	{
-// 		$response = parent::execute();
-// 		return GDT_Tuple::makeWith(
-// // 			$this->gdoParameter('section'),
-// 			$response,
-// 		);
-// 	}
 	public function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
