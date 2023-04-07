@@ -52,7 +52,7 @@ final class KCTest extends TestCase
 	{
 		$user = $this->testuser('Kunde1');
 
-		$this->callMethod(Welcome::make(), []);
+		$this->callMethod(Welcome::make());
 
 		$stars = KC_Util::numStarsAvailable($user);
 
