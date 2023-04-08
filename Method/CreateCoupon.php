@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard\Method;
 
 use GDO\Core\GDT;
@@ -16,11 +17,17 @@ use GDO\User\GDO_User;
 /**
  * Let Customers create Cashier Coupons.
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @author gizmore
  */
 final class CreateCoupon extends MethodForm
 {
+
+	public function xisDebugging(): bool
+	{
+		return true;
+	}
+
 
 	public function getPermission(): ?string
 	{
@@ -61,11 +68,6 @@ final class CreateCoupon extends MethodForm
 		$user->increaseSetting('KassiererCard', 'stars_available', -$stars);
 		return $this->redirectMessage('msg_coupon_created', null,
 			href('KassiererCard', 'PrintedCoupons'));
-	}
-
-	private function isSunday(): bool
-	{
-		return Time::getDate(0, 'N') === '7';
 	}
 
 }

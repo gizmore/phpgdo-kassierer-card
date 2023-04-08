@@ -77,7 +77,7 @@ final class Install
 		}
 		Module_LoC::instance()->saveConfigVar('hook_sidebar', '0');
 		Module_Avatar::instance()->saveConfigVar('hook_sidebar', '0');
-		Module_Core::instance()->saveConfigVar('allow_guests', '0');
+//		Module_Core::instance()->saveConfigVar('allow_guests', '0');
 		Module_CountryRestrictions::instance()->saveConfigVar('country_whitelist', '["DE"]');
 		Module_Language::instance()->saveConfigVar('languages', '["en","de","it","fr","es","tr","ru"]');
 		Module_Language::instance()->saveConfigVar('use_in_javascript', '0');
@@ -284,7 +284,7 @@ final class Install
 	{
 		if (!($addr = GDO_Address::getById('2')))
 		{
-			$addr = GDO_Address::blank([
+			GDO_Address::blank([
 				'address_id' => '2',
 				'address_company' => 'IT-Multiservice-Busch',
 				'address_est' => '2018-06-01',
@@ -343,7 +343,7 @@ final class Install
 		return true;
 	}
 
-	private static function biz(string $id, string $name, string $category, ?string $street, ?string $zip, ?string $city, float $lat = null, float $lng = null, string $phone = null, string $country = 'DE'): bool
+	private static function biz(int $id, string $name, string $category, ?string $street, ?string $zip, ?string $city, float $lat = null, float $lng = null, string $phone = null, string $country = 'DE'): bool
 	{
 		if (!($addr = GDO_Address::getById($id + 100000)))
 		{
@@ -382,7 +382,7 @@ final class Install
 		if (!($biz = KC_Business::getById($id)))
 		{
 			$biz = KC_Business::blank([
-				'biz_id' => $id,
+				'biz_id' => (string) $id,
 				'biz_address' => $addr->getID(),
 				'biz_coord_lat' => (string) $lat,
 				'biz_coord_lng' => (string) $lng,
@@ -483,7 +483,7 @@ final class Install
 
 		if (!($p = KC_Partner::getById($id)))
 		{
-			$p = KC_Partner::blank([
+			KC_Partner::blank([
 				'p_id' => $id,
 				'p_partnership' => $status,
 				'p_user' => $userId,
@@ -553,9 +553,10 @@ EOT;
 		return true;
 	}
 
-	private static function installNewsEntry(string $id, string $cat, string $date, string $iso, string $title, string $message, string $uid = '2')
+	private static function installNewsEntry(string $id, string $cat, string $date,
+		string $iso, string $title, string $message, string $uid = '2')
 	{
-		if ($news = GDO_News::table()->getById(1))
+		if ($news = GDO_News::getById(1))
 		{
 			$news->saveVars([
 				'news_category' => $cat,
@@ -577,7 +578,7 @@ EOT;
 		return self::installNewsText($news, $iso, $title, $message, $uid);
 	}
 
-	private static function installNewsText(GDO_News $news, string $iso, string $title, string $message, string $uid = '2')
+	private static function installNewsText(GDO_News $news, string $iso, string $title, string $message, string $uid = '2'): true
 	{
 		$text = $news->getText($iso, false);
 		if ($text->isPersisted())
@@ -719,7 +720,7 @@ EOT;
 		self::coupon(2, 'KASSIERERS', $cc, null, 99, 'Test-Demo-Card', false);
 		$cc = GDT_AccountType::CASHIER;
 		self::coupon(2, 'WANNA2TEAM', $cc, null, 35, 'Test-Cashier-1', false);
-		self::coupon(2, 'WANNA4TEAM', $cc, 1, 25, 'Test-Cashier-2', false);
+		self::coupon(2, 'WANNA4TEAM', $cc, '1', 25, 'Test-Cashier-2', false);
 		$cc = GDT_AccountType::CUSTOMER;
 		self::coupon(2, 'TEST123401', $cc, null, 15, 'Test-Customer-1', false);
 		$cc = GDT_AccountType::CASHIER;
@@ -737,7 +738,8 @@ EOT;
 		return true;
 	}
 
-	private static function coupon(int $creatorId, string $token, string $accountType, ?int $offerId, int $stars, string $info, bool $isInvitation = false): KC_Coupon
+	private static function coupon(int $creatorId, string $token, string $accountType,
+		?string $offerId, int $stars, string $info, bool $isInvitation = false): KC_Coupon
 	{
 		$now = Time::getDate();
 		if (!($coupon = KC_Coupon::getBy('kc_token', $token)))
@@ -761,7 +763,7 @@ EOT;
 				'kc_invitation' => $isInvitation ? '1' : '0',
 				'kc_stars' => (string) $stars,
 				'kc_info' => $info,
-				'kc_offer' => (string) $offerId,
+				'kc_offer' => $offerId,
 				'kc_creator' => (string) $creatorId,
 				'kc_created' => $now,
 				'kc_printed' => $now,

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard\Method;
 
 use GDO\Core\GDT;
@@ -16,7 +17,7 @@ use GDO\User\GDT_User;
 /**
  * A manager method to grant stars to anyone.
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @since 7.0.1
  * @author gizmore
  */

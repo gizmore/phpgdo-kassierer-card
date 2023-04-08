@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard\Test;
 
 use GDO\Address\GDO_Address;
 use GDO\Category\GDO_Category;
+use GDO\Core\GDO_Error;
 use GDO\KassiererCard\KC_Business;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\KassiererCard\KC_Offer;
@@ -19,6 +21,9 @@ use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertGreaterThanOrEqual;
 use function PHPUnit\Framework\assertStringContainsString;
 
+/**
+ * Kassierercard.org testsuite.
+ */
 final class KCTest extends TestCase
 {
 
@@ -48,6 +53,9 @@ final class KCTest extends TestCase
 		assertGreaterThan(99, KC_Util::numStarsAvailable($user), 'Test if admingrantstars works in CLI.');
 	}
 
+	/**
+	 * @throws GDO_Error
+	 */
 	public function testCouponCreation(): void
 	{
 		$user = $this->testuser('Kunde1');
@@ -62,11 +70,14 @@ final class KCTest extends TestCase
 		$this->callMethod(CreateCoupon::make(), $p);
 
 		# This shall error
-		$this->callMethod(CreateCoupon::make(), $p, false);
+		$this->callMethod(CreateCoupon::make(), $p, 'submit');
 
 		assertEquals(0, KC_Util::numStarsAvailable($user), 'Check if Kunde1 used all stars.');
 	}
 
+	/**
+	 * @throws GDO_Error
+	 */
 	private function testuser(string $username): GDO_User
 	{
 		return $this->user(GDO_User::findBy('user_name', $username));
@@ -75,7 +86,9 @@ final class KCTest extends TestCase
 	/**
 	 * Test if a cashier can invite a new user, Kassierer1 invites Kunde9.
 	 * Test if all get their stars and diamonds.
-	 * Todo this, grant Kassierer1 a few stars beforehand.
+	 * To do this, grant Kassierer1 a few stars beforehand.
+	 *
+	 * @throws GDO_Error
 	 */
 	public function testCashierInvitation(): void
 	{
@@ -94,8 +107,11 @@ final class KCTest extends TestCase
 		assertEquals(0, KC_Util::numStarsAvailable($user), 'Assert that Kassierer1 gave all stars for an invitation.');
 		assertEquals($sent + 1, Mail::$SENT, 'Test if invitation mail got sent.');
 
+		/** @var KC_Coupon $coupon **/
 		$coupon = KC_Coupon::table()->select()->where("kc_creator={$user->getID()}")->order('kc_created DESC')->first()->exec()->fetchObject();
-		assertEquals($starsAvail - 1, $coupon->getStars(), 'Test if the invitation coupon has correct amount of stars.');
+		assertEquals($starsAvail - 1,
+			$coupon->getStars(),
+			'Test if the invitation coupon has correct amount of stars.');
 	}
 
 }

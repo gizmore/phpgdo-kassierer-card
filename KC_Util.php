@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard;
 
 use GDO\Core\GDO;
@@ -69,7 +70,7 @@ final class KC_Util
 
 	public static function numStarsAvailable(GDO_User $user): int
 	{
-		return $user->settingVar('KassiererCard', 'stars_available');
+		return $user->settingValue('KassiererCard', 'stars_available');
 	}
 
 	public static function numStarsCreatedInPeriod(GDO_User $user, int $time): int
@@ -79,12 +80,12 @@ final class KC_Util
 
 	public static function numStarsCreated(GDO_User $user): int
 	{
-		return KC_Coupon::table()->numCouponsCreated($user);
+		return KC_Coupon::numCouponsCreated($user);
 	}
 
 	public static function numCouponsCreated(GDO_User $user): int
 	{
-		return KC_Coupon::table()->numCouponsCreated($user);
+		return KC_Coupon::numCouponsCreated($user);
 	}
 
 	public static function getStars(GDO_User $user): int
@@ -121,12 +122,12 @@ final class KC_Util
 	public static function numCustomerCouponsForStars(int $stars): int
 	{
 		$coupMod = Module_KassiererCard::instance()->cfgCustomerCouponModulus();
-		return floor($stars / $coupMod);
+		return (int) floor(floatval($stars) / floatval($coupMod));
 	}
 
-	public static function canAfford(GDO_User $user, KC_Offer $offer, ?string &$reason = null)
+	public static function canAfford(GDO_User $user, KC_Offer $offer, ?string &$reason = null): bool
 	{
-		$gdt = GDT_Offer::make()->affordable()->user($user)->value($offer);
+		$gdt = GDT_Offer::make()->affordable()->gdo($user)->value($offer);
 		if (!$gdt->validate($offer))
 		{
 			$reason = $gdt->renderError();
@@ -151,7 +152,7 @@ final class KC_Util
 	public static function euroToStars(float $euro): int
 	{
 		$starsPerEuro = Module_KassiererCard::instance()->cfgStarsPerEuro();
-		return ceil($euro * $starsPerEuro);
+		return (int) ceil($euro * $starsPerEuro);
 	}
 
 	public static function starsToEuro(float $stars): float
@@ -165,7 +166,7 @@ final class KC_Util
 	################
 	public static function numDiamondsTotal(GDO_User $user): int
 	{
-		return $user->settingVar('KassiererCard', 'diamonds_earned');
+		return $user->settingValue('KassiererCard', 'diamonds_earned');
 	}
 
 }

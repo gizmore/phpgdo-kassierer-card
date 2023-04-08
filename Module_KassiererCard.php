@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard;
 
 use GDO\Core\Application;
@@ -31,6 +32,7 @@ use GDO\User\GDT_ACLRelation;
 /**
  * KassiererCard.org - At least we try!
  *
+ * @version 7.0.3
  * @since 7.0.1
  * @author gizmore
  */
@@ -165,7 +167,7 @@ final class Module_KassiererCard extends GDO_Module
 		];
 	}
 
-	public function getACLDefaults(): array
+	protected function getACLDefaults(): array
 	{
 		return [
 			# Profile
@@ -367,7 +369,7 @@ final class Module_KassiererCard extends GDO_Module
 
 	public function cfgQRCodeSize(): int
 	{
-		return $this->userSettingVar(GDO_User::current(), 'qrcode_size');
+		return $this->userSettingValue(GDO_User::current(), 'qrcode_size');
 	}
 
 	public function isManager(GDO_User $user): bool
@@ -375,7 +377,7 @@ final class Module_KassiererCard extends GDO_Module
 		return $this->isType($user, GDT_AccountType::MANAGER);
 	}
 
-	public function hookCreateCardUserProfile(GDT_Card $card)
+	public function hookCreateCardUserProfile(GDT_Card $card): void
 	{
 		$user = $card->gdo->getUser();
 		$disabled = !$this->isCustomer($user);
@@ -383,7 +385,7 @@ final class Module_KassiererCard extends GDO_Module
 		$card->actions()->addField($linkPM);
 	}
 
-	public function hookRegisterForm(GDT_Form $form)
+	public function hookRegisterForm(GDT_Form $form): void
 	{
 		if (!Application::$INSTANCE->isUnitTests())
 		{
@@ -397,7 +399,7 @@ final class Module_KassiererCard extends GDO_Module
 		}
 	}
 
-	public function validateToken(GDT_Form $form, GDT $field, $value)
+	public function validateToken(GDT_Form $form, GDT $field, $value): bool
 	{
 		$codeType = 'kk_customer';
 		if ($code = $form->getFormVar('kk_token'))
@@ -436,7 +438,7 @@ final class Module_KassiererCard extends GDO_Module
 		return true;
 	}
 
-	public function hookOnRegister(GDT_Form $form, GDO_UserActivation $activation)
+	public function hookOnRegister(GDT_Form $form, GDO_UserActivation $activation): void
 	{
 		if (!Application::$INSTANCE->isUnitTests())
 		{
@@ -466,13 +468,14 @@ final class Module_KassiererCard extends GDO_Module
 
 	public function hookUserSettingChanged(GDO_User $user, string $key, ?string $old, ?string $new): void
 	{
+		$earned = intval($new) - intval($old);
 		if ($key === 'stars_earned')
 		{
-			KC_Competition::onEarned($user, $new - $old);
+			KC_Competition::onEarned($user, $earned);
 		}
 		elseif ($key === 'diamonds_earned')
 		{
-			KC_Competition::onEarned($user, 0, $new - $old);
+			KC_Competition::onEarned($user, 0, $earned);
 		}
 	}
 
@@ -499,7 +502,7 @@ final class Module_KassiererCard extends GDO_Module
 	/**
 	 * On the first vote on a poll, grant the user some stars.
 	 *
-	 * @param GDO_PollChoice $answers
+	 * @param GDO_PollChoice[] $answers
 	 */
 	public function hookPollVoteCreated(GDO_User $user, GDO_Poll $poll, array $answers): void
 	{
@@ -558,7 +561,7 @@ final class Module_KassiererCard extends GDO_Module
 
 	private function canCreateCoupons(GDO_User $user)
 	{
-		return $user->hasPermission('kk_customer', 'kk_company');
+		return $user->hasPermission('kk_customer,kk_company');
 	}
 
 	private function canRedeemOffers(GDO_User $user)
