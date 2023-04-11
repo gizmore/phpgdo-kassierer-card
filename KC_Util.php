@@ -97,17 +97,17 @@ final class KC_Util
 
 	public static function numStarsEntered(GDO_User $user): int
 	{
-		return $user->settingVar('KassiererCard', 'stars_entered');
+		return $user->settingValue('KassiererCard', 'stars_entered');
 	}
 
 	public static function numOffersRedeemed(GDO_User $user): int
 	{
-		return $user->settingVar('KassiererCard', 'offers_redeemed');
+		return $user->settingValue('KassiererCard', 'offers_redeemed');
 	}
 
 	public static function numCouponsEntered(GDO_User $user): int
 	{
-		return $user->settingVar('KassiererCard', 'coupons_entered');
+		return $user->settingValue('KassiererCard', 'coupons_entered');
 	}
 
 	/**
