@@ -38,7 +38,7 @@ final class KC_Offer extends GDO
 	{
 		return self::getAvailableOffersQuery($user)
 			->selectOnly('COUNT(*)')
-			->exec()->fetchValue();
+			->exec()->fetchVar();
 	}
 
 	public static function getAvailableOffersQuery(GDO_User $user = null): Query

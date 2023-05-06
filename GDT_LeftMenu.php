@@ -47,7 +47,7 @@ final class GDT_LeftMenu extends GDT_Menu
 			->joinObject('perm_user_id')
 			->joinObject('perm_perm_id')
 			->where("perm_name IN ('$perms')");
-		return $query->exec()->fetchValue();
+		return $query->exec()->fetchVar();
 	}
 
 }

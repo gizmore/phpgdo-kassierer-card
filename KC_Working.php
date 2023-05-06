@@ -55,13 +55,13 @@ final class KC_Working extends GDO
 			where("work_user={$user->getID()} AND work_business={$business->getID()}")->
 			where("work_from < '$today'")->
 			where("(work_until > '$today' OR work_until IS NULL)")->
-			exec()->fetchValue() === '1';
+			exec()->fetchVar() === '1';
 	}
 
 	public static function numEmployeesTotal(): int
 	{
 		$query = self::getNumEmployeesQuery();
-		return $query->exec()->fetchValue();
+		return $query->exec()->fetchVar();
 	}
 
 	##############
@@ -84,7 +84,7 @@ final class KC_Working extends GDO
 	{
 		$query = self::getNumEmployeesQuery()->
 		where("work_business={$business->getID()}");
-		return $query->exec()->fetchValue();
+		return $query->exec()->fetchVar();
 	}
 
 	public function gdoCached(): bool { return false; }

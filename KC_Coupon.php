@@ -208,7 +208,7 @@ class KC_Coupon extends GDO
 		$query = self::table()->select('SUM(kc_stars)')
 			->where("kc_created >= '$periodStart' AND kc_created < '$periodEnd'")
 			->where("kc_creator={$user->getID()}");
-		return (int)$query->exec()->fetchValue();
+		return (int)$query->exec()->fetchVar();
 	}
 
 	public static function demoCoupon(): self
