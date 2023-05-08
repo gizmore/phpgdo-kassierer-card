@@ -1,6 +1,8 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard\Method;
 
+use GDO\Core\GDO_ArgError;
 use GDO\Core\GDT;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
@@ -14,7 +16,7 @@ use GDO\User\GDO_User;
 /**
  * Method for cashiers to enter coupons.
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @author gizmore
  */
 final class EnterCoupon extends MethodForm
@@ -30,11 +32,6 @@ final class EnterCoupon extends MethodForm
 	public function beforeExecute(): void
 	{
 		Module_KassiererCard::instance()->addCashierBar();
-
-		if (!GDO_User::current()->isAuthenticated())
-		{
-			$this->redirectError('msg_kk_enter_auth', null, $_SESSION['REQUEST_URI']);
-		}
 	}
 
 	protected function createForm(GDT_Form $form): void
@@ -47,6 +44,9 @@ final class EnterCoupon extends MethodForm
 		$form->actions()->addField(GDT_Submit::make());
 	}
 
+	/**
+	 * @throws GDO_ArgError
+	 */
 	public function formValidated(GDT_Form $form): GDT
 	{
 		$user = GDO_User::current();
@@ -55,21 +55,30 @@ final class EnterCoupon extends MethodForm
 		return $this->redirectMessage('msg_entered_stars', [$coupon->getStars()], $this->href());
 	}
 
+	/**
+	 * @throws GDO_ArgError
+	 */
 	public function getCoupon(): ?KC_Coupon
 	{
 		$token = $this->getToken();
 		return KC_Coupon::getByToken($token);
 	}
 
+	/**
+	 * @throws GDO_ArgError
+	 */
 	public function getToken(): string
 	{
 		return $this->gdoParameterVar('token');
 	}
 
-	public function validateToken(GDT_Form $form, GDT_CouponToken $field, $value)
+	/**
+	 * @throws GDO_ArgError
+	 */
+	public function validateToken(GDT_Form $form, GDT_CouponToken $field, $value): bool
 	{
-		$token = trim(strtoupper($value));
-		$token = preg_replace('/[^A-Z0-9]/iD', '', $token);
+//		$token = trim(strtoupper($value));
+//		$token = preg_replace('/[^A-Z0-9]/iD', '', $token);
 		if (!($coupon = $this->getCoupon()))
 		{
 			return $field->error('err_kk_coupon_unknown');
@@ -78,6 +87,8 @@ final class EnterCoupon extends MethodForm
 		{
 			return $field->error('err_kk_coupon_used');
 		}
+//		if ()
+//		$coupon->getToken()
 		return true;
 	}
 

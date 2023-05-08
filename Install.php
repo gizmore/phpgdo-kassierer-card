@@ -181,9 +181,9 @@ final class Install
 		self::cat(14, 'Print', 1);
 		self::cat(15, 'Retail', 1);
 
-// 		self::cat(101, 'News', null);
-// 		self::cat(102, 'Peiner-News', 101);
-// 		self::cat(103, 'KassiererCard-News', 101);
+ 		self::cat(101, 'News', null);
+ 		self::cat(102, 'Peiner-News', 101);
+ 		self::cat(103, 'KassiererCard-News', 101);
 
 		GDO_Category::table()->rebuildFullTree();
 		return true;
@@ -276,7 +276,6 @@ final class Install
 				'avatar_created_by' => $user->getID(),
 			])->insert();
 			GDO_UserAvatar::updateAvatar($user, $avatar->getID());
-			$user->recache();
 		}
 	}
 
@@ -556,7 +555,7 @@ EOT;
 	private static function installNewsEntry(string $id, string $cat, string $date,
 		string $iso, string $title, string $message, string $uid = '2')
 	{
-		if ($news = GDO_News::getById(1))
+		if ($news = GDO_News::getById('1'))
 		{
 			$news->saveVars([
 				'news_category' => $cat,

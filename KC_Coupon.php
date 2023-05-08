@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\KassiererCard;
 
 use GDO\Core\GDO;
@@ -23,7 +24,7 @@ use GDO\User\GDT_User;
 /**
  * A printed coupon to give to an employee.
  *
- * @version 7.0.1
+ * @version 7.0.3
  * @author gizmore
  */
 class KC_Coupon extends GDO
@@ -67,7 +68,7 @@ class KC_Coupon extends GDO
 			$reason = '';
 			if (KC_TokenRequest::isBlocked(GDO_User::current(), $reason))
 			{
-				Website::error(sitername(), '%s', [$reason]);
+				Website::error(sitename(), '%s', [$reason]);
 				return null;
 			}
 			if ($coupon = self::getBy('kc_token', $token))
@@ -138,7 +139,7 @@ class KC_Coupon extends GDO
 
 	public function getStars(): int
 	{
-		return $this->gdoVar('kc_stars');
+		return $this->gdoValue('kc_stars');
 	}
 
 	public function getCreator(): GDO_User
@@ -244,7 +245,7 @@ class KC_Coupon extends GDO
 
 	public function gdoAfterCreate(GDO $gdo): void
 	{
-		/** @var $gdo KC_Coupon * */
+		/** @var KC_Coupon $gdo * */
 
 		$mod = Module_KassiererCard::instance();
 		$mod->increaseConfigVar('coupons_created');
