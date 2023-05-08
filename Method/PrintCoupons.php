@@ -22,7 +22,7 @@ final class PrintCoupons extends MethodForm
 		Module_KassiererCard::instance()->addCustomerBar();
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$table = KC_Coupon::table();
 		$form->addField($table->gdoColumn('kc_stars'));

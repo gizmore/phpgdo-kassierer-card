@@ -40,7 +40,7 @@ final class PrintCoupon extends MethodForm
 			($this->pressedButton !== 'btn_print');
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->text('kk_info_print_coupon');
 		$coupon = GDT_Coupon::make('token')->label('code')->notNull()->onlyOwnCreated()->writeable(true);

@@ -31,7 +31,7 @@ final class AdminGrantStars extends MethodForm
 		return t('grant_stars');
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
 			GDT_String::make('reason'),

@@ -28,7 +28,7 @@ final class PartnerEdit extends MethodForm
 		return 'kk_company';
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$table = KC_Partner::table();
 		$hrefAccount = href('Account', 'AllSettings');

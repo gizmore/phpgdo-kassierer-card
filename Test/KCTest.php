@@ -4,7 +4,7 @@ namespace GDO\KassiererCard\Test;
 
 use GDO\Address\GDO_Address;
 use GDO\Category\GDO_Category;
-use GDO\Core\GDO_Error;
+use GDO\Core\GDO_Exception;
 use GDO\KassiererCard\KC_Business;
 use GDO\KassiererCard\KC_Coupon;
 use GDO\KassiererCard\KC_Offer;
@@ -54,7 +54,7 @@ final class KCTest extends TestCase
 	}
 
 	/**
-	 * @throws GDO_Error
+	 * @throws GDO_Exception
 	 */
 	public function testCouponCreation(): void
 	{
@@ -76,7 +76,7 @@ final class KCTest extends TestCase
 	}
 
 	/**
-	 * @throws GDO_Error
+	 * @throws GDO_Exception
 	 */
 	private function testuser(string $username): GDO_User
 	{
@@ -88,7 +88,7 @@ final class KCTest extends TestCase
 	 * Test if all get their stars and diamonds.
 	 * To do this, grant Kassierer1 a few stars beforehand.
 	 *
-	 * @throws GDO_Error
+	 * @throws GDO_Exception
 	 */
 	public function testCashierInvitation(): void
 	{

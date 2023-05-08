@@ -45,7 +45,7 @@ final class GDT_Offer extends GDT_ObjectSelect
 		return $this;
 	}
 
-	public function getChoices(): array
+	protected function getChoices(): array
 	{
 		$query = KC_Offer::table()->select();
 		if (!$this->expired)

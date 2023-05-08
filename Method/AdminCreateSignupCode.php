@@ -28,7 +28,7 @@ final class AdminCreateSignupCode extends MethodForm
 		return false;
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$table = KC_Coupon::table();
 		$form->addFields(

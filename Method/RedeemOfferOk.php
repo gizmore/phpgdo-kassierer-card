@@ -25,7 +25,7 @@ final class RedeemOfferOk extends MethodForm
 		];
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$offer = $this->getOffer();
 		$partner = $offer->getPartner();

@@ -44,7 +44,7 @@ final class CreateCoupon extends MethodForm
 		Module_KassiererCard::instance()->addCustomerBar();
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$user = GDO_User::current();
 		$table = KC_Coupon::table();

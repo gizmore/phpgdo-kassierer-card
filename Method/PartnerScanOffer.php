@@ -22,7 +22,7 @@ use GDO\User\GDT_User;
 final class PartnerScanOffer extends MethodForm
 {
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
 			GDT_User::make('user')->withPermission('kk_customer,kk_cashier')->notNull(),

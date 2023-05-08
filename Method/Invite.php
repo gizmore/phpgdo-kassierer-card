@@ -39,7 +39,7 @@ final class Invite extends MethodForm
 		return t('invite_users');
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$user = GDO_User::current();
 		$module = Module_KassiererCard::instance();

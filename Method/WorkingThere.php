@@ -32,7 +32,7 @@ final class WorkingThere extends MethodForm
 		];
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$user = GDO_User::current();
 		$working = $this->getBusiness()->isWorkingHere($user);

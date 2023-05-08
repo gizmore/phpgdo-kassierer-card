@@ -20,7 +20,7 @@ final class BusinessCrud extends MethodCrud
 		return KC_Business::table();
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$href = href('Address', 'Add');
 		$link = GDT_Link::make('create_an_address')->href($href)->render();

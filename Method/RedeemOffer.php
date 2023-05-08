@@ -18,7 +18,7 @@ final class RedeemOffer extends MethodForm
 		return t('redeem_offer');
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$this->setupInfoText($form);
 		$form->addFields(

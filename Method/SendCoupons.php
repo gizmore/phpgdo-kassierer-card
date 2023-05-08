@@ -35,7 +35,7 @@ final class SendCoupons extends MethodForm
 		];
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
 			GDT_User::make('user')->notNull(),

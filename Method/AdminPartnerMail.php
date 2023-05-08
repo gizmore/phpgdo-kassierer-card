@@ -15,7 +15,7 @@ use GDO\UI\GDT_Title;
 final class AdminPartnerMail extends MethodForm
 {
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
 			GDT_Title::make('subject'),

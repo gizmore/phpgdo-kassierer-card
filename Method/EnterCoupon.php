@@ -37,7 +37,7 @@ final class EnterCoupon extends MethodForm
 		}
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$token = GDT_CouponToken::make('token');
 		$form->addFields(

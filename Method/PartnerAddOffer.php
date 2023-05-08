@@ -13,7 +13,7 @@ use GDO\KassiererCard\KC_Offer;
 final class PartnerAddOffer extends MethodForm
 {
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$o = KC_Offer::table();
 		$form->addFields(

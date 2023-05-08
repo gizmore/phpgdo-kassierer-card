@@ -13,7 +13,7 @@ use GDO\Form\MethodForm;
 final class InvitationAccepted extends MethodForm
 {
 
-	public function createForm(GDT_Form $form): void {}
+	protected function createForm(GDT_Form $form): void {}
 
 
 }

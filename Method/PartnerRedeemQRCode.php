@@ -34,7 +34,7 @@ final class PartnerRedeemQRCode extends MethodForm
 		];
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->text('kk_info_redeem_qr');
 		$form->addFields(

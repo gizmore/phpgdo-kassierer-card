@@ -22,7 +22,7 @@ final class CreateOffer extends MethodForm
 		return t('create_offer');
 	}
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$table = KC_Offer::table();
 		$form->text('info_create_offer');

@@ -18,7 +18,7 @@ use GDO\KassiererCard\GDT_CouponStars;
 final class LevelUp extends MethodForm
 {
 
-	public function createForm(GDT_Form $form): void
+	protected function createForm(GDT_Form $form): void
 	{
 		$form->addFields(
 			GDT_CouponStars::make('stars')->notNull()->min(1),
