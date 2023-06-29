@@ -22,9 +22,9 @@ final class GDT_CouponType extends GDT_Enum
 		$this->enumValues('kk_coupon', 'kk_cashier', 'kk_company', 'kk_customer');
 	}
 
-	public function defaultLabel(): self
+	public function gdtDefaultLabel(): ?string
 	{
-		return $this->label('type');
+		return 'type';
 	}
 
 	#################

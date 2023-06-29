@@ -31,9 +31,9 @@ final class GDT_AccountType extends GDT_Enum
 		$this->emptyLabel('lbl_choose_account_type');
 	}
 
-	public function defaultLabel(): self
+	public function gdtDefaultLabel(): ?string
 	{
-		return $this->label('type');
+		return 'type';
 	}
 
 	public function displayVar(string $var = null): string

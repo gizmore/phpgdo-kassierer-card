@@ -29,9 +29,9 @@ final class GDT_CouponStars extends GDT_UInt
 	###########
 	### GDT ###
 	###########
-	public function defaultLabel(): self
+	public function gdtDefaultLabel(): ?string
 	{
-		return $this->label('kk_stars');
+		return 'kk_stars';
 	}
 
 	##############

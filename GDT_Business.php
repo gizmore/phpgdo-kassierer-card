@@ -18,9 +18,9 @@ final class GDT_Business extends GDT_ObjectSelect
 		$this->completionHref(href('KassiererCard', 'BusinessCompletion'));
 	}
 
-	public function defaultLabel(): self
+	public function gdtDefaultLabel(): ?string
 	{
-		return $this->label('business');
+		return 'business';
 	}
 
 }
