@@ -454,7 +454,6 @@ The %s System',
 	'competition_table' => '%s; %s entries; Page %s/%s',
 
 	# Favorites
-	'section' => 'Section',
 	'mt_kk_favorites' => 'Favorite %s',
 	'tt_kk_favorites' => '%s favorite &quot;%s&quot; setings',
 	'md_kk_favorites' => 'The %s favorite %s on %s. Real user content, Real opinions on your favorite %2$s.',
