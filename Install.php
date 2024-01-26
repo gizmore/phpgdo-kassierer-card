@@ -80,7 +80,7 @@ final class Install
 //		Module_Core::instance()->saveConfigVar('allow_guests', '0');
 		Module_CountryRestrictions::instance()->saveConfigVar('country_whitelist', '["DE"]');
 		Module_Language::instance()->saveConfigVar('languages', '["en","de","it","fr","es","tr","ru"]');
-		Module_Language::instance()->saveConfigVar('use_in_javascript', '0');
+		Module_Language::instance()->saveConfigVar('use_in_javascript', '1');
 		Module_Maps::instance()->saveConfigVar('maps_api_google', '0');
 		Module_Maps::instance()->saveConfigVar('maps_record', '0');
 		return true;
