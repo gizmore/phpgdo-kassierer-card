@@ -83,7 +83,7 @@ final class KC_Partner extends GDO
 		$addr = $this->getAddress();
 		$country = $addr->getCountry();
 		$card = GDT_Card::make("partner_{$this->getID()}")->gdo($this);
-		$card->titleRaw(GDT_Link::anchor($this->hrefPartner(), $addr->getCompany()));
+		$card->titleRaw(GDT_Link::anchor($this->hrefPartner(), $addr->getCompany()), false);
 		$subt = $addr->getStreet() . ', ' . $addr->getZIP() . ' ';
 		$subt .= $addr->getCity();
 		$href = Module_Maps::instance()->getMapsURL($subt . ', ' . $country->getName());

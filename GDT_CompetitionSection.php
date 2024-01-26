@@ -15,25 +15,25 @@ use GDO\UI\GDT_Link;
 final class GDT_CompetitionSection extends GDT_Enum
 {
 
-	public const CASHIER_OF_THE_WEEK = 'cashier_of_the_week';
-	public const CASHIER_OF_THE_MONTH = 'cashier_of_the_month';
-	public const CASHIER_OF_THE_YEAR = 'cashier_of_the_year';
+	public const CASHIER_OF_THE_WEEK = 'cashier-of-the-week';
+	public const CASHIER_OF_THE_MONTH = 'cashier-of-the-month';
+	public const CASHIER_OF_THE_YEAR = 'cashier-of-the-year';
 
-	public const CUSTOMER_OF_THE_WEEK = 'customer_of_the_week';
-	public const CUSTOMER_OF_THE_MONTH = 'customer_of_the_month';
-	public const CUSTOMER_OF_THE_YEAR = 'customer_of_the_year';
+	public const CUSTOMER_OF_THE_WEEK = 'customer-of-the-week';
+	public const CUSTOMER_OF_THE_MONTH = 'customer-of-the-month';
+	public const CUSTOMER_OF_THE_YEAR = 'customer-of-the-year';
 
-	public const COMPANY_OF_THE_WEEK = 'company_of_the_week';
-	public const COMPANY_OF_THE_MONTH = 'company_of_the_month';
-	public const COMPANY_OF_THE_YEAR = 'company_of_the_year';
+	public const COMPANY_OF_THE_WEEK = 'company-of-the-week';
+	public const COMPANY_OF_THE_MONTH = 'company-of-the-month';
+	public const COMPANY_OF_THE_YEAR = 'company-of-the-year';
 
-	public const BUSINESS_OF_THE_WEEK = 'business_of_the_week';
-	public const BUSINESS_OF_THE_MONTH = 'business_of_the_month';
-	public const BUSINESS_OF_THE_YEAR = 'business_of_the_year';
+	public const BUSINESS_OF_THE_WEEK = 'business-of-the-week';
+	public const BUSINESS_OF_THE_MONTH = 'business-of-the-month';
+	public const BUSINESS_OF_THE_YEAR = 'business-of-the-year';
 
-	public const OFFER_OF_THE_WEEK = 'offer_of_the_week';
-	public const OFFER_OF_THE_MONTH = 'offer_of_the_month';
-	public const OFFER_OF_THE_YEAR = 'offer_of_the_year';
+	public const OFFER_OF_THE_WEEK = 'offer-of-the-week';
+	public const OFFER_OF_THE_MONTH = 'offer-of-the-month';
+	public const OFFER_OF_THE_YEAR = 'offer-of-the-year';
 
 	protected function __construct()
 	{
