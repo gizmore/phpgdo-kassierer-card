@@ -9,11 +9,13 @@ use GDO\Core\GDT_Checkbox;
 use GDO\Core\GDT_String;
 use GDO\Core\GDT_UInt;
 use GDO\Core\Javascript;
+use GDO\Core\Method;
 use GDO\Core\Website;
 use GDO\Date\GDT_Duration;
 use GDO\Date\Time;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Validator;
+use GDO\KassiererCard\Method\Welcome;
 use GDO\Net\GDT_Url;
 use GDO\Payment\GDT_Money;
 use GDO\Poll\GDO_Poll;
@@ -52,6 +54,11 @@ final class Module_KassiererCard extends GDO_Module
 	{
 		return $this->href('Admin');
 	}
+
+    public function defaultMethod(): Method
+    {
+        return Welcome::make();
+    }
 
 	public function getDependencies(): array
 	{
