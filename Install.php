@@ -545,17 +545,49 @@ Die ersten Angebote gehen auf unsere Kappe!
 
  - gizmore
 EOT;
-		$date = Time::getDate();
+		$date = Time::getDate(time()-Time::ONE_YEAR);
 		self::installNewsEntry(1, 102, $date, 'en', $titleEn, $messageEn);
 		self::installNewsEntry(1, 102, $date, 'de', $titleDe, $messageDe);
 
-		return true;
+        ### TWO ###
+        $titleEn = 'Phase 2';
+        $titleDe = 'Phase 2 eingeleitet';
+        $messageEn = <<<EOT
+Hi am Happy to announce!
+
+KassiererCard.org has reached phase 2.
+
+In this phase, employees can sign-up without invitation.
+Please NOTE THAT WE DO NOT HAVE OFFICIAL PARTNERS OR REAL REWARDS!
+This is all a demo and kinda fake!
+Things did not go well for this project :|
+
+ - gizmore
+EOT;
+        $messageDe = <<<EOT
+Wir gehen in Phase 2
+
+In dieser Phase können Angestellte sich ohne Einladung registriren.
+ALLERDINGS HABEN WIR KEINE PARTNER ODER PRODUKTE!
+ALLES eine DEMO / FAKE!
+Es lief nicht besonders gut für dieses Projekt :|
+
+ - gizmore
+EOT;
+        $date = Time::getDate();
+        self::installNewsEntry(2, 102, $date, 'en', $titleEn, $messageEn);
+        self::installNewsEntry(2, 102, $date, 'de', $titleDe, $messageDe);
+
+
+
+
+        return true;
 	}
 
 	private static function installNewsEntry(string $id, string $cat, string $date,
 		string $iso, string $title, string $message, string $uid = '2')
 	{
-		if ($news = GDO_News::getById('1'))
+		if ($news = GDO_News::getById($id))
 		{
 			$news->saveVars([
 				'news_category' => $cat,

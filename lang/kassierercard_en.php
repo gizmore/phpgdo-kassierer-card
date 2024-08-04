@@ -94,6 +94,7 @@ The %4$s Team',
 	'btn_stopped_there' => 'I quit there!',
 	'btn_working_there' => 'I am working there!',
 
+
 	### Admin Signup Codes
 	'generate_signup_code' => 'Create Signup-Code',
 	'signup_codes' => 'Signup-Codes',

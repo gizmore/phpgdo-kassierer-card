@@ -376,7 +376,7 @@ final class Module_KassiererCard extends GDO_Module
 
 	public function cfgQRCodeSize(): int
 	{
-		return $this->userSettingValue(GDO_User::current(), 'qrcode_size');
+		return (int) $this->userSettingValue(GDO_User::current(), 'qrcode_size');
 	}
 
 	public function isManager(GDO_User $user): bool
@@ -433,14 +433,14 @@ final class Module_KassiererCard extends GDO_Module
 			return true;
 		}
 
-		if (!$code && $type)
-		{
-			return $field->error('err_kk_signup_code_required');
-		}
-		elseif (!$code)
-		{
-			return true; # no code + no type
-		}
+//		if (!$code && $type)
+//		{
+//			return $field->error('err_kk_signup_code_required');
+//		}
+//		elseif (!$code)
+//		{
+//			return true; # no code + no type
+//		}
 
 		return true;
 	}

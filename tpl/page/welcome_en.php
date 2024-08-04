@@ -1,10 +1,22 @@
 <?php
 namespace GDO\KassiererCard\tpl\page;
 
+use GDO\KassiererCard\KC_Coupon;
+use GDO\UI\GDT_Container;
 use GDO\UI\GDT_Link;
 
 ?>
 <h2>Welcome to <?=sitename()?></h2>
+
+<?php
+$coupon = KC_Coupon::demoCoupon();
+$cont = GDT_Container::make();
+$cont->addFields(
+    $coupon->getFrontSide()->css('max-width', '320px'),
+    $coupon->getBackSide()->css('max-width', '320px'),
+);
+echo $cont->render();
+?>
 
 <p>You know <a href="https://www.payback.de/" rel="nofollow">Payback Card</a>.</p>
 <p>You know <a href="https://www.deutschlandcard.de/" rel="nofollow">Deutschland Card</a>.</p>
