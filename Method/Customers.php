@@ -14,7 +14,7 @@ final class Customers extends MethodQueryTable
 		return GDO_User::table();
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$query = GDO_User::withPermissionQuery('kk_customer');
 		$query->selectOnly('user_id,user_name,tcc.uset_var');

@@ -80,9 +80,9 @@ final class Competitions extends MethodQueryList
 		]);
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
-		$query = parent::getQuery();
+		$query = parent::gdoQuery();
 		GDT_CompetitionSection::filterCompetitionQuery($query, $this->getSection());
 		return $query;
 	}

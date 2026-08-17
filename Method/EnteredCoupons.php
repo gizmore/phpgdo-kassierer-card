@@ -26,10 +26,10 @@ final class EnteredCoupons extends MethodQueryList
 		return 'kc_entered DESC';
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$user = GDO_User::current();
-		return parent::getQuery()->where("kc_enterer={$user->getID()}");
+		return parent::gdoQuery()->where("kc_enterer={$user->getID()}");
 	}
 
 	public function gdoHeaders(): array

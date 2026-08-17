@@ -16,10 +16,10 @@ final class Offers extends MethodQueryCards
 		return KC_Offer::table();
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$now = Time::getDateWithoutTime();
-		return parent::getQuery()
+		return parent::gdoQuery()
 			->where("o_partnership = 'kk_partner_active'")
 			->where("o_expires >= '$now'");
 	}

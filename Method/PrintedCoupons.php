@@ -40,10 +40,10 @@ final class PrintedCoupons extends MethodQueryList
 		Module_KassiererCard::instance()->addCustomerBar();
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$uid = GDO_User::current()->getID();
-		return parent::getQuery()->where('kc_creator=' . $uid);
+		return parent::gdoQuery()->where('kc_creator=' . $uid);
 	}
 
 }

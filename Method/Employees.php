@@ -25,9 +25,9 @@ final class Employees extends MethodQueryList
 		];
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
-		$query = parent::getQuery();
+		$query = parent::gdoQuery();
 		if ($b = $this->getBusiness())
 		{
 			$query->where("work_business={$b->getID()}");

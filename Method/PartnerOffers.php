@@ -26,10 +26,10 @@ final class PartnerOffers extends MethodQueryList
 		return KC_Offer::table();
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$user = GDO_User::current();
-		return parent::getQuery()
+		return parent::gdoQuery()
 			->joinObject('o_partner')
 			->where("o_partner_t.p_user={$user->getID()}");
 	}

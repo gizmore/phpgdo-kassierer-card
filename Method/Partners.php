@@ -15,9 +15,9 @@ final class Partners extends MethodQueryCards
 		return KC_Partner::table();
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
-		return parent::getQuery()
+		return parent::gdoQuery()
 			->where("p_partnership='kk_partner_active'");
 	}
 

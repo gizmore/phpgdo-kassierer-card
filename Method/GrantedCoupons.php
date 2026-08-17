@@ -27,10 +27,10 @@ final class GrantedCoupons extends MethodQueryList
 		Module_KassiererCard::instance()->addCustomerBar();
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$uid = GDO_User::current()->getID();
-		$query = parent::getQuery();
+		$query = parent::gdoQuery();
 		$query->where("kc_creator={$uid}");
 		$query->where('kc_entered IS NOT NULL');
 		return $query;

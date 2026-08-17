@@ -18,10 +18,10 @@ final class CompanyBusinesses extends MethodQueryList
 		return KC_Business::table();
 	}
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$user = GDO_User::current();
-		return parent::getQuery()->where("biz_owner={$user->getID()}");
+		return parent::gdoQuery()->where("biz_owner={$user->getID()}");
 	}
 
 }

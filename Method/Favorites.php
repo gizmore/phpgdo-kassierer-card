@@ -84,7 +84,7 @@ final class Favorites extends MethodQueryTable
 	}
 
 
-	public function getQuery(): Query
+	public function gdoQuery(): Query
 	{
 		$query = GDO_UserSetting::table()->select('uset_user_t.*, COUNT(uset_var) AS count, uset_var as ' . $this->getSection());
 		$query->group('uset_var');
