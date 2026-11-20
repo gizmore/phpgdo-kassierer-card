@@ -76,7 +76,7 @@ final class Install
 			Module_Core::instance()->saveConfigVar('module_assets', '0');
 		}
 		Module_LoC::instance()->saveConfigVar('hook_sidebar', '0');
-		Module_Avatar::instance()->saveConfigVar('hook_sidebar', '0');
+		Module_Avatar::instance()->saveConfigVar('avatar_gallery_position', 'none');
 //		Module_Core::instance()->saveConfigVar('allow_guests', '0');
 		Module_CountryRestrictions::instance()->saveConfigVar('country_whitelist', '["DE"]');
 		Module_Language::instance()->saveConfigVar('languages', '["en","de","it","fr","es","tr","ru"]');
